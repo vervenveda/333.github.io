@@ -6,11 +6,11 @@
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="Bazaar Art Live — a local-first creative community feed for art, ideas, events, groups, short videos, and trusted 333 Network participation.">
 <meta name="theme-color" content="#11152a">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src https: http://localhost:*; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
 <title>Bazaar Art Live — Creative Community Feed</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
 <style>
 :root{
   --bg:#090b16;--bg-2:#11152a;--panel:#14192f;--panel-2:#1a2140;--panel-3:#20284a;
@@ -103,9 +103,9 @@ body[data-density="compact"]{--space:10px}.app-shell[data-rail="compact"]{grid-t
    Verve N Veda refinement layer
    ============================================================ */
 :root{
-  --font-display:"Gaspacho","Cormorant Garamond",Georgia,serif;
-  --font-brand:"Cinzel","Aboreto",Georgia,serif;
-  --font-ui:"Brandon Grotesque","Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --font-brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
+  --font-ui:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
   --bg:#0d1020;
   --bg-2:#12172a;
   --panel:#171c32;
@@ -731,6 +731,252 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
   background:linear-gradient(145deg,var(--panel-2),var(--panel));
   text-align:center;
 }
+
+/* ============================================================
+   Bazaar Art Live — refined first-entry experience
+   ============================================================ */
+.entry-modal{
+  width:min(100%,470px);
+  max-height:min(90vh,720px);
+  overflow:auto;
+  border:1px solid color-mix(in srgb,var(--accent) 58%,var(--line));
+  border-radius:21px;
+  background:
+    radial-gradient(circle at 50% 0,color-mix(in srgb,var(--violet) 14%,transparent),transparent 20rem),
+    linear-gradient(155deg,#181d38,#101427 72%);
+  box-shadow:
+    0 33px 88px rgba(0,0,0,.48),
+    inset 0 0 0 1px rgba(255,255,255,.035);
+}
+
+.entry-modal,
+.entry-modal *{
+  font-weight:333;
+}
+
+.entry-modal .entry-modal-head{
+  position:relative;
+  display:grid;
+  justify-items:center;
+  gap:11px;
+  padding:18px 55px 4px;
+  border-bottom:0;
+  background:transparent;
+  text-align:center;
+}
+
+.entry-modal .entry-modal-head h2{
+  margin:0;
+  color:var(--text);
+  font-family:var(--font-display);
+  font-size:clamp(1.75rem,5vw,2.05rem);
+  font-weight:333;
+  line-height:1.05;
+  letter-spacing:.01em;
+}
+
+.entry-modal .modal-close{
+  position:absolute;
+  top:13px;
+  right:13px;
+  width:36px;
+  height:36px;
+  border-color:color-mix(in srgb,var(--accent) 28%,var(--line));
+  color:var(--text);
+  background:rgba(255,255,255,.025);
+  font-size:1.15rem;
+}
+
+.entry-modal .modal-close:hover{
+  border-color:var(--accent);
+  background:rgba(255,255,255,.055);
+}
+
+.entry-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:27px;
+  padding:5px 13px;
+  border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));
+  border-radius:999px;
+  color:var(--accent);
+  background:rgba(255,255,255,.025);
+  font-family:var(--font-brand);
+  font-size:.56rem;
+  font-weight:333;
+  letter-spacing:.17em;
+  line-height:1;
+  text-transform:uppercase;
+}
+
+.entry-modal .modal-body{
+  padding:7px 22px 18px;
+  text-align:center;
+}
+
+.entry-intro-icon{
+  margin-top:2px;
+  font-size:1.75rem;
+  line-height:1;
+}
+
+.entry-description{
+  max-width:340px;
+  margin:12px auto 17px;
+  color:#d3d7e4;
+  font-size:.76rem;
+  font-weight:333;
+  line-height:1.65;
+}
+
+.entry-status-card{
+  padding:16px;
+  border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));
+  border-radius:21px;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+  text-align:left;
+}
+
+.entry-status-kicker{
+  display:block;
+  padding-bottom:11px;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 18%,var(--line));
+  color:var(--accent);
+  font-family:var(--font-brand);
+  font-size:.57rem;
+  font-weight:333;
+  letter-spacing:.14em;
+  text-align:center;
+  text-transform:uppercase;
+}
+
+.entry-status-row{
+  display:grid;
+  grid-template-columns:45px minmax(0,1fr);
+  gap:12px;
+  align-items:center;
+  margin-top:13px;
+}
+
+.entry-status-icon{
+  width:45px;
+  height:45px;
+  display:grid;
+  place-items:center;
+  border:1px solid color-mix(in srgb,var(--accent) 34%,var(--line));
+  border-radius:50%;
+  color:var(--accent);
+  background:rgba(255,255,255,.025);
+  font-size:1.2rem;
+}
+
+.entry-status-title{
+  margin:0;
+  color:var(--text);
+  font-size:.78rem;
+  font-weight:333;
+  line-height:1.35;
+}
+
+.entry-status-copy{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:.68rem;
+  font-weight:333;
+  line-height:1.55;
+}
+
+.entry-status-meta{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:.64rem;
+  font-weight:333;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+
+.entry-status-link,
+.entry-secondary-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:36px;
+  margin-top:12px;
+  padding:7px 10px;
+  border:1px solid color-mix(in srgb,var(--accent) 28%,var(--line));
+  border-radius:7px;
+  color:var(--accent);
+  background:rgba(255,255,255,.025);
+  font-size:.65rem;
+  font-weight:333;
+}
+
+.entry-status-link:hover,
+.entry-secondary-link:hover{
+  border-color:var(--accent);
+  background:rgba(255,255,255,.055);
+}
+
+.entry-secondary-link{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+.entry-modal .modal-foot{
+  position:static;
+  display:grid;
+  grid-template-columns:1fr 1.24fr;
+  gap:11px;
+  padding:0 22px 22px;
+  border-top:0;
+  background:transparent;
+}
+
+.entry-modal .modal-foot .soft-btn,
+.entry-modal .modal-foot .primary-btn{
+  min-height:44px;
+  width:100%;
+  border-radius:7px;
+  font-size:.67rem;
+  font-weight:333;
+  letter-spacing:.01em;
+}
+
+.entry-modal .modal-foot .soft-btn{
+  color:var(--text);
+  background:rgba(255,255,255,.025);
+}
+
+.entry-modal .modal-foot .primary-btn{
+  color:#111426;
+  background:linear-gradient(135deg,#e0c474,#cba44e);
+}
+
+@media(max-width:520px){
+  .entry-modal .entry-modal-head{
+    padding-inline:48px;
+  }
+
+  .entry-modal .modal-body{
+    padding-inline:15px;
+  }
+
+  .entry-modal .modal-foot{
+    grid-template-columns:1fr;
+    padding-inline:15px;
+  }
+
+  .entry-status-row{
+    grid-template-columns:1fr;
+    justify-items:center;
+    text-align:center;
+  }
+}
 .welcome-emoji,.share-hero{font-size:2.6rem}
 .share-grid{
   display:grid;
@@ -806,11 +1052,11 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
 <body>
 <div class="app-shell" id="appShell">
   <aside class="left-rail" aria-label="Primary navigation">
-    <a class="brand" href="https://vervenveda.github.io/333.github.io/" aria-label="Open the 333 Network gateway">
+    <a class="brand" href="../index.html" aria-label="Open the 333 Network gateway">
       <span class="brand-mark">🎨</span><span class="brand-copy"><strong>Bazaar Art Live</strong><span>Creative Community Feed</span></span>
     </a>
     <div class="network-context" aria-label="Location">
-      <a href="https://vervenveda.github.io/333.github.io/">333 Network</a>
+      <a href="../index.html">333 Network</a>
     </div>
     <nav class="nav-list" id="desktopNav" aria-label="Bazaar Art Live sections">
       <div class="nav-heading">Feed</div>
@@ -827,9 +1073,12 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
     </nav>
     <button type="button" class="create-main" id="desktopCreateBtn">✨ Create Post</button>
     <div class="network-links">
-      <a class="network-link" href="https://vervenveda.github.io/proresource_hub.github.io/Protools/HOLLO%E2%84%A2%20333%20Direct%20Connect_index.html">HOLLO · Direct Connect</a>
-      <a class="network-link" href="https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html">KANSEE · Meetings</a>
-      <a class="network-link" href="https://vervenveda.github.io/333.github.io/">333 Network Gateway</a>
+      <a class="network-link" href="../index.html">333 Network Gateway</a>
+      <a class="network-link" href="./HOLLO_333_direct_connect_index.html">HOLLO · Enrollment & Direct Connect</a>
+      <a class="network-link" href="./KANSEE_333_meeting_rooms_index.html">KANSEE · Meeting Rooms</a>
+      <a class="network-link" href="./EVen_mail_index.html">E=Ven Mail · Email Applications</a>
+      <a class="network-link" href="./SIte_builder_index.html">SIte · Website Builder</a>
+      <a class="network-link" href="./Bunya_digital_infrastructure_index.html">Bunya · Infrastructure</a>
     </div>
     <button type="button" class="profile-chip" id="profileChipBtn">
       <span class="avatar small-avatar" id="profileChipAvatar">JP</span>
@@ -875,8 +1124,10 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
 <script>
 (()=>{
 'use strict';
-const APP_VERSION='1.1.0';
+const APP_VERSION='1.2.0';
 const STATE_KEY='bazaar_live_frontend_v1';
+const HOLLO_STORAGE_KEY='hollo_333_direct_connect_v1';
+const IDENTITY_HANDOFF_KEY='333_identity_handoff_v1';
 const LEGACY={USERS:'bazaar_users_v2',CURRENT:'bazaar_current_user_v2',POSTS:'bazaar_posts_v2',EVENTS:'bazaar_events_v2',TICKER:'bazaar_ticker_v2'};
 const VIEWS={home:'Community Feed',discover:'Explore',reels:'Reels',groups:'Groups',events:'Events',notifications:'Notifications',saved:'Saved',profile:'Profile'};
 const $=(s,r=document)=>r.querySelector(s); const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
@@ -884,7 +1135,8 @@ const now=()=>Date.now(); const uid=(p='id')=>p+'_'+Date.now().toString(36)+'_'+
 const safeText=v=>String(v??'');
 const esc=s=>safeText(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const normalizeHandle=v=>safeText(v).trim().replace(/^@/,'').replace(/[^a-zA-Z0-9_.]/g,'').slice(0,30).toLowerCase();
-const normalize333=v=>{const d=safeText(v).replace(/\D/g,'').slice(0,10);return d.length===10?`${d.slice(0,3)}-${d.slice(3,6)}-${d.slice(6)}`:safeText(v).trim()};
+const normalizeMemberNumber=v=>{const raw=safeText(v).trim();const plus=raw.startsWith('+');const d=raw.replace(/\D/g,'').slice(0,15);if(!d)return'';if(d.length===10)return `${d.slice(0,3)}-${d.slice(3,6)}-${d.slice(6)}`;return plus?'+'+d:d};
+const normalize333=normalizeMemberNumber;
 const initials=name=>safeText(name).split(/\s+/).filter(Boolean).map(x=>x[0]).join('').slice(0,2).toUpperCase()||'BA';
 const formatTime=ts=>{const d=Math.max(0,now()-Number(ts||0)),s=Math.floor(d/1000);if(s<45)return'Just now';const m=Math.floor(s/60);if(m<60)return`${m}m`;const h=Math.floor(m/60);if(h<24)return`${h}h`;const day=Math.floor(h/24);if(day<7)return`${day}d`;return new Date(ts).toLocaleDateString(undefined,{month:'short',day:'numeric'})};
 const formatDate=ts=>new Date(ts).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
@@ -940,12 +1192,44 @@ function seedState(){
   return {version:APP_VERSION,currentUserId:null,users,posts,stories,groups,events,notifications:[],reports:[],blockedUserIds:[],mutedUserIds:[],ticker:['Bazaar Art Live · Creative Community Feed','Participation is always optional','Your work remains yours'],settings:{theme:'dark',density:'comfortable',fontScale:1,feedWidth:680,rail:'full',backendUrl:'',backendStatus:'disconnected',contentFilter:true,autoplay:false},activeView:'home',feedFilter:'all',profileTab:'posts'};
 }
 
-let state=storage.get(STATE_KEY,null); if(!state||!Array.isArray(state.users))state=seedState();
+function normalizeState(raw){
+  const base=seedState();
+  if(!raw||typeof raw!=='object'||!Array.isArray(raw.users))return base;
+  const normalized={
+    ...base,
+    ...raw,
+    version:APP_VERSION,
+    users:Array.isArray(raw.users)?raw.users:base.users,
+    posts:Array.isArray(raw.posts)?raw.posts:base.posts,
+    stories:Array.isArray(raw.stories)?raw.stories:base.stories,
+    groups:Array.isArray(raw.groups)?raw.groups:base.groups,
+    events:Array.isArray(raw.events)?raw.events:base.events,
+    notifications:Array.isArray(raw.notifications)?raw.notifications:[],
+    reports:Array.isArray(raw.reports)?raw.reports:[],
+    blockedUserIds:Array.isArray(raw.blockedUserIds)?raw.blockedUserIds:[],
+    mutedUserIds:Array.isArray(raw.mutedUserIds)?raw.mutedUserIds:[],
+    ticker:Array.isArray(raw.ticker)?raw.ticker:base.ticker,
+    settings:{...base.settings,...(raw.settings||{})}
+  };
+  normalized.users=normalized.users.map(user=>({
+    followers:[],following:[],participation:true,privateProfile:false,verified:false,
+    identitySource:'local',numberKind:'none',...user
+  }));
+  return normalized;
+}
+
+const GUEST_PROFILE=Object.freeze({
+  id:'u_guest_viewer',name:'Bazaar Guest',handle:'guest',number333:'',bio:'',location:'',
+  website:'',verified:false,participation:false,privateProfile:true,avatarMediaId:null,
+  followers:[],following:[],createdAt:0,identitySource:'guest',numberKind:'none'
+});
+
+let state=normalizeState(storage.get(STATE_KEY,null));
 function persist(){state.version=APP_VERSION;storage.set(STATE_KEY,state)}
-function me(){return state.users.find(u=>u.id===state.currentUserId)||null}
+function hasMember(){return Boolean(state.currentUserId&&state.users.some(u=>u.id===state.currentUserId))}
+function me(){return state.users.find(u=>u.id===state.currentUserId)||GUEST_PROFILE}
 function requireMe(){
-  const current=me();
-  if(current)return current;
+  if(hasMember())return me();
   openFirstRunProfile();
   return null;
 }
@@ -954,7 +1238,7 @@ function postById(id){return state.posts.find(p=>p.id===id)}
 function isBlocked(id){return state.blockedUserIds.includes(id)}
 function isMuted(id){return state.mutedUserIds.includes(id)}
 function visiblePosts(){
-  const current=me();
+  const current=hasMember()?me():null;
   if(!current)return state.posts.filter(p=>p.audience==='public').sort((a,b)=>b.createdAt-a.createdAt);
   return state.posts.filter(p=>!p.hiddenBy?.includes(current.id)&&!isBlocked(p.authorId)&&!isMuted(p.authorId)).filter(p=>{
     if(p.authorId===current.id)return true;
@@ -988,49 +1272,269 @@ function setView(view){
   renderView();renderRightRail();window.scrollTo({top:0,behavior:'smooth'});
 }
 function updateBadges(){const count=state.notifications.filter(n=>n.userId===state.currentUserId&&!n.read).length;const b=$('#desktopNotificationBadge');b.textContent=count;b.hidden=!count;$('#topNotificationBtn').textContent=count?`♢ ${count}`:'♢'}
-function updateProfileChip(){const u=me();if(!u){$('#profileChipName').textContent='Create your profile';$('#profileChipHandle').textContent='Join Bazaar Art Live';$('#profileChipAvatar').textContent='✨';return;}$('#profileChipName').textContent=u.name;$('#profileChipHandle').textContent='@'+u.handle;$('#profileChipAvatar').textContent=initials(u.name)}
+function updateProfileChip(){
+  if(!hasMember()){
+    $('#profileChipName').textContent='Create or import profile';
+    $('#profileChipHandle').textContent='HOLLO enrollment connects here';
+    $('#profileChipAvatar').textContent='✨';
+    return;
+  }
+  const u=me();
+  $('#profileChipName').textContent=u.name;
+  $('#profileChipHandle').textContent='@'+u.handle;
+  $('#profileChipAvatar').textContent=initials(u.name);
+}
+
+
+function readHolloIdentity(){
+  let handoff=null;
+  let hollo=null;
+  try{handoff=storage.get(IDENTITY_HANDOFF_KEY,null)}catch{}
+  if(handoff&&handoff.schema==='333-identity-handoff'&&handoff.enrollment?.complete&&handoff.profile?.name){
+    return {
+      name:safeText(handoff.profile.name).slice(0,80),
+      handle:normalizeHandle(handoff.profile.handle||handoff.profile.name),
+      number:normalizeMemberNumber(handoff.profile.number),
+      numberKind:safeText(handoff.profile.numberKind||handoff.enrollment.numberChoice||'none'),
+      completedAt:handoff.enrollment.completedAt||handoff.handedOffAt||null,
+      source:'HOLLO enrollment handoff'
+    };
+  }
+  try{hollo=storage.get(HOLLO_STORAGE_KEY,null)}catch{}
+  if(hollo?.enrollment?.complete&&hollo.profile?.name){
+    return {
+      name:safeText(hollo.profile.name).slice(0,80),
+      handle:normalizeHandle(hollo.profile.handle||hollo.profile.name),
+      number:normalizeMemberNumber(hollo.profile.number),
+      numberKind:safeText(hollo.profile.numberKind||hollo.enrollment.numberChoice||'none'),
+      completedAt:hollo.enrollment.completedAt||null,
+      source:'HOLLO local enrollment'
+    };
+  }
+  return null;
+}
+
+function uniqueLocalHandle(preferred,excludeId=''){
+  const base=normalizeHandle(preferred)||'member';
+  let candidate=base;
+  let n=2;
+  while(state.users.some(user=>user.id!==excludeId&&user.handle===candidate)){
+    candidate=(base.slice(0,Math.max(1,27-String(n).length))+String(n)).slice(0,30);
+    n+=1;
+  }
+  return candidate;
+}
+
+function importHolloProfile({silent=false}={}){
+  const identity=readHolloIdentity();
+  if(!identity){
+    if(!silent){
+      toast('Complete HOLLO enrollment before importing a shared Bazaar profile.','error');
+      window.location.href='./HOLLO_333_direct_connect_index.html#enroll';
+    }
+    return false;
+  }
+
+  const identityKey=(identity.number||identity.handle||identity.name).toLowerCase();
+  let user=state.users.find(item=>item.identitySource==='hollo'&&item.identityKey===identityKey);
+
+  if(!user){
+    user={
+      id:uid('u'),name:identity.name,
+      handle:uniqueLocalHandle(identity.handle||identity.name),
+      number333:identity.number,
+      numberKind:identity.numberKind,
+      identitySource:'hollo',identityKey,
+      identityUpdatedAt:identity.completedAt||now(),
+      bio:'333 Network member participating through HOLLO enrollment.',
+      location:'',website:'',verified:false,participation:true,privateProfile:false,
+      avatarMediaId:null,followers:[],following:[],createdAt:now()
+    };
+    state.users.push(user);
+    state.notifications.unshift({
+      id:uid('n'),userId:user.id,type:'welcome',
+      text:'Your HOLLO enrollment profile is now connected to Bazaar Art Live. 🎨',
+      createdAt:now(),read:false
+    });
+  }else{
+    user.name=identity.name;
+    user.number333=identity.number;
+    user.numberKind=identity.numberKind;
+    user.identityUpdatedAt=identity.completedAt||now();
+    if(!user.handle)user.handle=uniqueLocalHandle(identity.handle||identity.name,user.id);
+  }
+
+  state.currentUserId=user.id;
+  persist();
+  updateProfileChip();
+  updateBadges();
+
+  document.dispatchEvent(new CustomEvent('333-bazaar-profile-imported',{detail:{
+    userId:user.id,name:user.name,handle:user.handle,number:user.number333,source:'hollo'
+  }}));
+
+  if(!silent){
+    closeModal();
+    setView('home');
+    toast('HOLLO enrollment profile connected to Bazaar Art Live.','success');
+  }
+  return true;
+}
+
+function adoptHolloIdentityOnLoad(){
+  const identity=readHolloIdentity();
+  if(!identity)return false;
+  const current=hasMember()?me():null;
+  if(!current||current.identitySource==='hollo')return importHolloProfile({silent:true});
+  return false;
+}
 
 
 function openFirstRunProfile(){
-  modal('Create your Bazaar Art Live profile',`
-    <div class="welcome-panel">
-      <div class="welcome-emoji">🎨✨</div>
-      <p>Create your own local profile before posting, reacting, following, joining groups, or sharing stories. Jennifer Kay Pearl remains a discoverable founder profile, not the automatic account.</p>
-    </div>
-    <div class="form-grid">
-      <div class="field"><label for="firstName">Display name</label><input id="firstName" maxlength="80" placeholder="Your name or studio name"></div>
-      <div class="form-grid two">
-        <div class="field"><label for="firstHandle">Handle</label><input id="firstHandle" maxlength="30" placeholder="yourhandle"></div>
-        <div class="field"><label for="first333">333 number</label><input id="first333" maxlength="14" placeholder="333-000-0000"></div>
-      </div>
-      <div class="field"><label for="firstBio">Short bio</label><textarea id="firstBio" maxlength="320" placeholder="Artist, neighbor, student, organizer, musician…"></textarea></div>
-      <div class="field"><label for="firstLocation">Location</label><input id="firstLocation" maxlength="100"></div>
-    </div>`,
-    `<button class="primary-btn" id="createLocalProfileBtn">Create My Profile</button>`
+  const identity=readHolloIdentity();
+
+  const statusCard=identity
+    ? `<section class="entry-status-card" aria-label="Shared HOLLO enrollment">
+        <span class="entry-status-kicker">Shared Enrollment</span>
+        <div class="entry-status-row">
+          <span class="entry-status-icon" aria-hidden="true">✓</span>
+          <div>
+            <p class="entry-status-title">HOLLO profile ready</p>
+            <p class="entry-status-copy">Continue with the same member identity across the 333 Network.</p>
+            <div class="entry-status-meta">${esc(identity.name)} · @${esc(identity.handle||'member')} · ${esc(identity.number||'No number selected')}</div>
+          </div>
+        </div>
+        <button class="entry-secondary-link" id="createSeparateProfileLink" type="button">Create a separate art profile instead</button>
+      </section>`
+    : `<section class="entry-status-card" aria-label="Shared HOLLO enrollment">
+        <span class="entry-status-kicker">Shared Enrollment</span>
+        <div class="entry-status-row">
+          <span class="entry-status-icon" aria-hidden="true">♧</span>
+          <div>
+            <p class="entry-status-title">No HOLLO profile found</p>
+            <p class="entry-status-copy">Complete HOLLO enrollment once to use the same identity across all 333 applications.</p>
+          </div>
+        </div>
+        <a class="entry-status-link" href="./HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a>
+      </section>`;
+
+  const primaryAction=identity
+    ? '<button class="primary-btn" id="importHolloProfileBtn" type="button">Use My HOLLO Profile</button>'
+    : '<button class="primary-btn" id="createSeparateProfileBtn" type="button">Create Separate Art Profile</button>';
+
+  modal(
+    'Join Bazaar Art Live',
+    `<div class="entry-intro-icon" aria-hidden="true">🎨✨</div>
+     <p class="entry-description">Your member identity connects HOLLO with the creative community.</p>
+     ${statusCard}`,
+    `<button class="soft-btn" id="browseOnlyBtn" type="button">Browse Public Feed</button>${primaryAction}`,
+    false,
+    'entry'
   );
-  const close=$('.modal-close');
-  if(close) close.hidden=true;
+
+  $('#importHolloProfileBtn')?.addEventListener('click',()=>importHolloProfile());
+  $('#createSeparateProfileBtn')?.addEventListener('click',openSeparateArtProfile);
+  $('#createSeparateProfileLink')?.addEventListener('click',openSeparateArtProfile);
+  $('#browseOnlyBtn').addEventListener('click',()=>{
+    closeModal();
+    setView('home');
+    toast('Browsing public Bazaar Art posts. Create or import a profile to participate.');
+  });
+}
+
+function openSeparateArtProfile(){
+  modal(
+    'Create Your Art Profile',
+    `<div class="form-grid">
+      <div class="field">
+        <label for="firstName">Display name</label>
+        <input id="firstName" maxlength="80" placeholder="Your name or studio name">
+      </div>
+      <div class="form-grid two">
+        <div class="field">
+          <label for="firstHandle">Handle</label>
+          <input id="firstHandle" maxlength="30" placeholder="yourhandle">
+        </div>
+        <div class="field">
+          <label for="first333">Member or 333 number</label>
+          <input id="first333" maxlength="20" placeholder="Existing number or 333-000-0000">
+        </div>
+      </div>
+      <div class="field">
+        <label for="firstBio">Short bio</label>
+        <textarea id="firstBio" maxlength="320" placeholder="Artist, neighbor, student, organizer, musician…"></textarea>
+      </div>
+      <div class="field">
+        <label for="firstLocation">Location</label>
+        <input id="firstLocation" maxlength="100">
+      </div>
+    </div>`,
+    `<button class="soft-btn" id="backToEntryBtn" type="button">Back</button>
+     <button class="primary-btn" id="createLocalProfileBtn" type="button">Create My Art Profile</button>`
+  );
+
+  $('#backToEntryBtn').addEventListener('click',openFirstRunProfile);
   $('#createLocalProfileBtn').addEventListener('click',()=>{
     const name=$('#firstName').value.trim();
     const handle=normalizeHandle($('#firstHandle').value);
-    if(!name||!handle)return toast('Add a display name and handle.','error');
-    if(state.users.some(u=>u.handle===handle))return toast('That handle is already in use locally.','error');
+
+    if(!name||!handle){
+      toast('Add a display name and handle.','error');
+      return;
+    }
+
+    if(state.users.some(user=>user.handle===handle)){
+      toast('That handle is already in use locally.','error');
+      return;
+    }
+
+    const number=normalizeMemberNumber($('#first333').value);
     const user={
-      id:uid('u'),name,handle,
-      number333:normalize333($('#first333').value)||'333-000-0000',
+      id:uid('u'),
+      name,
+      handle,
+      number333:number,
+      numberKind:number.startsWith('333')?'network':number?'existing':'none',
+      identitySource:'bazaar-local',
+      identityKey:'',
       bio:$('#firstBio').value.trim(),
       location:$('#firstLocation').value.trim(),
-      website:'',verified:false,participation:true,privateProfile:false,avatarMediaId:null,
-      followers:[],following:[],createdAt:now()
+      website:'',
+      verified:false,
+      participation:true,
+      privateProfile:false,
+      avatarMediaId:null,
+      followers:[],
+      following:[],
+      createdAt:now()
     };
+
     state.users.push(user);
     state.currentUserId=user.id;
-    state.notifications.unshift({id:uid('n'),userId:user.id,type:'welcome',text:'Welcome to Bazaar Art Live. Your studio is ready. 🎨',createdAt:now(),read:false});
+    state.notifications.unshift({
+      id:uid('n'),
+      userId:user.id,
+      type:'welcome',
+      text:'Welcome to Bazaar Art Live. Your studio is ready. 🎨',
+      createdAt:now(),
+      read:false
+    });
+
     persist();
     closeModal();
     updateProfileChip();
     updateBadges();
     setView('home');
+
+    document.dispatchEvent(new CustomEvent('333-bazaar-profile-created',{
+      detail:{
+        userId:user.id,
+        name:user.name,
+        handle:user.handle,
+        source:'bazaar-local'
+      }
+    }));
+
     toast('Welcome to Bazaar Art Live!','success');
   });
 }
@@ -1066,7 +1570,7 @@ function renderMediaGrid(media){const m=media.slice(0,3);return `<div class="med
 
 function renderDiscover(){
   const q=safeText($('#globalSearch')?.value).trim().toLowerCase();
-  const posts=visiblePosts().filter(p=>!q||p.text.toLowerCase().includes(q)||p.tags?.some(t=>t.toLowerCase().includes(q))||userById(p.authorId).name.toLowerCase().includes(q));
+  const posts=visiblePosts().filter(p=>!q||safeText(p.text).toLowerCase().includes(q)||p.tags?.some(t=>safeText(t).toLowerCase().includes(q))||userById(p.authorId).name.toLowerCase().includes(q));
   const people=state.users.filter(u=>u.id!==me().id&&!isBlocked(u.id)).filter(u=>!q||`${u.name} ${u.handle} ${u.bio}`.toLowerCase().includes(q));
   return `<div class="section-head"><div><span class="section-kicker">Creative discovery</span><h2>Explore Bazaar Art</h2></div><button class="soft-btn" data-action="search-focus">Search</button></div>
     ${people.length?`<section class="section-card" style="margin-bottom:14px"><h3 style="margin-top:0">Artists</h3><div class="grid-2">${people.slice(0,6).map(renderPersonCard).join('')}</div></section>`:''}
@@ -1083,7 +1587,7 @@ function renderDiscoverTile(p){const media=p.media?.[0];return `<article class="
       </div>
     </div></article>`}
 
-function renderReels(){const reels=visiblePosts().filter(p=>p.type==='reel'||p.media?.some(m=>m.type.startsWith('video/')));return `<div class="section-head"><h2>Reels</h2><button class="primary-btn" data-action="create-post" data-kind="reel">Create reel</button></div><div class="reels-list">${reels.length?reels.map(renderReel).join(''):`<div class="empty">No reels yet. Upload a short video or publish a visual motion study.</div>`}</div>`}
+function renderReels(){const reels=visiblePosts().filter(p=>p.type==='reel'||p.media?.some(m=>safeText(m.type).startsWith('video/')));return `<div class="section-head"><h2>Reels</h2><button class="primary-btn" data-action="create-post" data-kind="reel">Create reel</button></div><div class="reels-list">${reels.length?reels.map(renderReel).join(''):`<div class="empty">No reels yet. Upload a short video or publish a visual motion study.</div>`}</div>`}
 function renderReel(p){const a=userById(p.authorId),media=(p.media||[]).find(m=>m.type.startsWith('video/')||m.type==='image/gif')||p.media?.[0];return `<article class="reel-card" data-post-id="${esc(p.id)}"><div class="reel-media">${media?`<div data-inline-media="${esc(media.id)}" style="height:100%"><span class="media-loading">Loading reel…</span></div>`:`<div class="reel-fallback">${esc(p.text||'Bazaar Art Reel')}</div>`}</div><div class="reel-gradient"></div><div class="reel-info"><strong>${esc(a.name)}</strong><p>${textWithTags(p.text)}</p><span class="small">${esc(p.location||'333 Network')}</span></div><div class="reel-actions"><button class="reel-action" data-action="quick-like" data-id="${esc(p.id)}">♡<small>${reactionTotal(p)}</small></button><button class="reel-action" data-action="comments" data-id="${esc(p.id)}">◌<small>${commentTotal(p)}</small></button><button class="reel-action" data-action="share" data-id="${esc(p.id)}">↗</button><button class="reel-action" data-action="save-post" data-id="${esc(p.id)}">◇</button></div></article>`}
 
 function renderGroups(){return `<div class="section-head"><h2>Groups</h2><button class="primary-btn" data-action="create-group">Create group</button></div><div class="grid-2">${state.groups.map(g=>{const joined=g.memberIds.includes(me().id),owner=g.ownerId===me().id;return `<article class="group-card"><div class="group-cover"></div>${avatarHTML(userById(g.ownerId),'large')}<h3>${esc(g.name)}</h3><div class="small muted">${esc(g.privacy)} · ${g.memberIds.length} members</div><p>${esc(g.description)}</p><div class="card-actions"><button class="${joined?'soft-btn':'primary-btn'}" data-action="group-membership" data-id="${esc(g.id)}">${owner?'Manage':joined?'Leave group':'Join group'}</button><button class="soft-btn" data-action="group-feed" data-id="${esc(g.id)}">View posts</button></div></article>`}).join('')}</div>`}
@@ -1097,14 +1601,15 @@ function renderSaved(){
   return `<div class="section-head"><h2>Saved posts</h2></div>${posts.length?posts.map(renderPostCard).join(''):`<div class="empty">Save posts to build your private inspiration collection.</div>`}`;
 }
 function renderProfile(){
-  const u=me();if(!u)return `<div class="empty"><div style="font-size:2.5rem">🎨</div><h2>Create your Bazaar Art Live profile</h2><p>Your local profile lets you publish, follow artists, join groups, and build stories.</p><button class="primary-btn" onclick="openFirstRunProfile()">Create Profile</button></div>`;
+  if(!hasMember())return `<div class="empty"><div style="font-size:2.5rem">🎨</div><h2>Create or import your Bazaar Art Live profile</h2><p>Use HOLLO enrollment for a shared identity, or create a separate local art profile.</p><button class="primary-btn" data-action="create-profile">Create or Import Profile</button></div>`;
+  const u=me();
   let posts=visiblePosts().filter(p=>p.authorId===u.id);
   if(state.profileTab==='reels')posts=posts.filter(p=>p.type==='reel');
   if(state.profileTab==='saved')posts=visiblePosts().filter(p=>p.savedBy?.includes(u.id));
   return `<div class="profile-cover"></div><section class="profile-header"><div class="profile-top">${avatarHTML(u,'large')}<div class="profile-actions"><button class="soft-btn" data-action="edit-profile">Edit profile</button><button class="soft-btn" data-action="profile-menu">Settings</button></div></div><h2>${esc(u.name)} ${u.verified?'<span class="verified">◆</span>':''}</h2><div class="profile-handle">@${esc(u.handle)} · ${esc(u.number333)}</div><div class="profile-bio">${esc(u.bio)}</div><div class="small muted">${esc(u.location||'')} ${u.website?`· <a href="${esc(validHttpUrl(u.website))}" target="_blank" rel="noopener">${esc(u.website)}</a>`:''}</div><div class="profile-stats"><button><strong>${state.posts.filter(p=>p.authorId===u.id).length}</strong> posts</button><button><strong>${u.followers.length}</strong> followers</button><button><strong>${u.following.length}</strong> following</button><span class="badge">${u.participation?'Feed participation on':'Browse-only mode'}</span></div></section><div class="profile-tabs">${[['posts','Posts'],['reels','Reels'],['saved','Saved']].map(([k,l])=>`<button class="profile-tab ${state.profileTab===k?'active':''}" data-action="profile-tab" data-tab="${k}">${l}</button>`).join('')}</div>${posts.length?posts.map(renderPostCard).join(''):`<div class="empty">Nothing in this section yet.</div>`}`;
 }
 
-function renderRightRail(){const rail=$('#rightRail'),tags={};visiblePosts().forEach(p=>(p.tags||[]).forEach(t=>tags[t]=(tags[t]||0)+1));const trends=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,5);const suggestions=state.users.filter(u=>u.id!==me().id&&!me().following.includes(u.id)&&!isBlocked(u.id)).slice(0,4);const soon=state.events.filter(e=>e.startAt>now()).sort((a,b)=>a.startAt-b.startAt).slice(0,3);rail.innerHTML=`<section class="rail-card network-card"><span class="section-kicker">Connected tools</span><h3>333 Network</h3><div class="rail-sub">Bazaar Art Live is the community feed. HOLLO supports direct contact, while KANSEE supports meeting rooms.</div><div class="status-pill"><span class="status-dot ${state.settings.backendStatus==='online'?'online':''}"></span>${state.settings.backendStatus==='online'?'Connected service':'Local-first studio'}</div><div class="card-actions"><a class="soft-btn" href="https://vervenveda.github.io/proresource_hub.github.io/Protools/HOLLO%E2%84%A2%20333%20Direct%20Connect_index.html">Open HOLLO</a><a class="soft-btn" href="https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html">Open KANSEE</a></div></section><section class="rail-card"><h3>Trending</h3>${trends.length?trends.map(([t,n])=>`<button class="trend-row" data-action="search-tag" data-tag="${esc(t)}" style="width:100%;border:0;background:transparent;color:inherit;text-align:left"><div class="grow"><strong>#${esc(t)}</strong><div class="small muted">${n} posts</div></div><span>›</span></button>`).join(''):'<div class="small muted">Trends will grow with the feed.</div>'}</section><section class="rail-card"><h3>Artists to discover</h3>${suggestions.map(renderPersonCard).join('')}</section><section class="rail-card"><h3>Coming up</h3>${soon.map(e=>`<div class="event-mini"><div class="grow"><strong>${esc(e.title)}</strong><div class="small muted">${formatDate(e.startAt)}</div></div></div>`).join('')}</section>`;hydrateAvatars(rail)}
+function renderRightRail(){const rail=$('#rightRail'),tags={};visiblePosts().forEach(p=>(p.tags||[]).forEach(t=>tags[t]=(tags[t]||0)+1));const trends=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,5);const suggestions=state.users.filter(u=>u.id!==me().id&&!me().following.includes(u.id)&&!isBlocked(u.id)).slice(0,4);const soon=state.events.filter(e=>e.startAt>now()).sort((a,b)=>a.startAt-b.startAt).slice(0,3);rail.innerHTML=`<section class="rail-card network-card"><span class="section-kicker">Connected tools</span><h3>333 Network</h3><div class="rail-sub">Bazaar Art Live is the community feed. HOLLO supports direct contact, while KANSEE supports meeting rooms.</div><div class="status-pill"><span class="status-dot ${state.settings.backendStatus==='online'?'online':''}"></span>${state.settings.backendStatus==='online'?'Connected service':'Local-first studio'}</div><div class="card-actions"><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Open HOLLO</a><a class="soft-btn" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><a class="soft-btn" href="./EVen_mail_index.html">E=Ven Mail</a></div></section><section class="rail-card"><h3>Trending</h3>${trends.length?trends.map(([t,n])=>`<button class="trend-row" data-action="search-tag" data-tag="${esc(t)}" style="width:100%;border:0;background:transparent;color:inherit;text-align:left"><div class="grow"><strong>#${esc(t)}</strong><div class="small muted">${n} posts</div></div><span>›</span></button>`).join(''):'<div class="small muted">Trends will grow with the feed.</div>'}</section><section class="rail-card"><h3>Artists to discover</h3>${suggestions.map(renderPersonCard).join('')}</section><section class="rail-card"><h3>Coming up</h3>${soon.map(e=>`<div class="event-mini"><div class="grow"><strong>${esc(e.title)}</strong><div class="small muted">${formatDate(e.startAt)}</div></div></div>`).join('')}</section>`;hydrateAvatars(rail)}
 
 
 async function hydrateMedia(root=document){
@@ -1141,7 +1646,18 @@ async function hydrateMedia(root=document){
 async function hydrateAvatars(root=document){const nodes=$$('[data-avatar-user]',root);await Promise.all(nodes.map(async n=>{const u=userById(n.dataset.avatarUser);if(!u.avatarMediaId)return;const item=await MediaDB.get(u.avatarMediaId);if(item?.dataUrl){const img=document.createElement('img');img.src=item.dataUrl;img.alt='';n.replaceChildren(img)}}))}
 
 let modalReturnFocus=null;
-function modal(title,body,footer='',wide=false){modalReturnFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;const host=$('#modalHost');host.innerHTML=`<div class="modal-layer" id="activeModalLayer"><section class="modal ${wide?'wide':''}" role="dialog" aria-modal="true" aria-labelledby="activeModalTitle"><header class="modal-head"><h2 id="activeModalTitle">${esc(title)}</h2><button type="button" class="icon-btn modal-close" data-action="close-modal" aria-label="Close">×</button></header><div class="modal-body">${body}</div>${footer?`<footer class="modal-foot">${footer}</footer>`:''}</section></div>`;const layer=$('#activeModalLayer');layer.addEventListener('click',event=>{if(event.target===layer)closeModal()});setTimeout(()=>layer.querySelector('input,textarea,select,button,a[href]')?.focus(),0)}
+function modal(title,body,footer='',wide=false,variant=''){
+  modalReturnFocus=document.activeElement instanceof HTMLElement?document.activeElement:null;
+  const host=$('#modalHost');
+  const isEntry=variant==='entry';
+  const modalClass=[wide?'wide':'',isEntry?'entry-modal':''].filter(Boolean).join(' ');
+  const headClass=isEntry?'modal-head entry-modal-head':'modal-head';
+  const eyebrow=isEntry?'<span class="entry-eyebrow">Welcome to Bazaar Art Live</span>':'';
+  host.innerHTML=`<div class="modal-layer" id="activeModalLayer"><section class="modal ${modalClass}" role="dialog" aria-modal="true" aria-labelledby="activeModalTitle"><header class="${headClass}">${eyebrow}<h2 id="activeModalTitle">${esc(title)}</h2><button type="button" class="icon-btn modal-close" data-action="close-modal" aria-label="Close">×</button></header><div class="modal-body">${body}</div>${footer?`<footer class="modal-foot">${footer}</footer>`:''}</section></div>`;
+  const layer=$('#activeModalLayer');
+  layer.addEventListener('click',event=>{if(event.target===layer)closeModal()});
+  setTimeout(()=>layer.querySelector('input,textarea,select,button,a[href]')?.focus(),0);
+}
 function closeModal(){const host=$('#modalHost');host.innerHTML='';modalReturnFocus?.focus?.();modalReturnFocus=null}
 
 let pendingMedia=[];
@@ -1168,7 +1684,8 @@ function addComment(id){const input=$('#commentInput'),text=input.value.trim();i
 function openStory(id){
   const story=state.stories.find(x=>x.id===id);if(!story)return;
   const u=userById(story.userId);
-  if(!story.viewedBy.includes(me()?.id))story.viewedBy.push(me()?.id);
+  story.viewedBy=Array.isArray(story.viewedBy)?story.viewedBy:[];
+  if(hasMember()&&!story.viewedBy.includes(me().id))story.viewedBy.push(me().id);
   persist();
   const items=(story.items&&story.items.length)?story.items:[{id:uid('legacyStory'),title:story.title,mediaId:story.mediaId,createdAt:story.createdAt}];
   let index=0;
@@ -1233,19 +1750,267 @@ function hidePost(id){const p=postById(id);p.hiddenBy=p.hiddenBy||[];p.hiddenBy.
 function muteUser(id){if(!state.mutedUserIds.includes(id))state.mutedUserIds.push(id);persist();closeModal();renderView();renderRightRail();toast(`${userById(id).name} muted. You can restore them from a future moderation dashboard.`,'success')}
 function reportPost(id){const p=postById(id);if(!p)return;state.reports.push({id:uid('r'),postId:id,reporterId:me().id,reason:'User report',createdAt:now()});p.reportedBy=p.reportedBy||[];p.reportedBy.push(me().id);persist();closeModal();toast('Report saved for moderator review.','success')}
 
+
+function copyText(text,message='Copied'){
+  return (async()=>{
+    try{await navigator.clipboard.writeText(text)}
+    catch{
+      const area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.opacity='0';document.body.appendChild(area);area.select();document.execCommand('copy');area.remove();
+    }
+    toast(message,'success');
+  })();
+}
+
+async function shareData(data,fallbackText){
+  if(navigator.share){
+    try{await navigator.share(data);return true}catch(error){if(error?.name==='AbortError')return false}
+  }
+  await copyText(fallbackText||[data.title,data.text,data.url].filter(Boolean).join('\n'),'Share text copied');
+  return true;
+}
+
+function openMedia(id){
+  MediaDB.get(id).then(item=>{
+    if(!item)return toast('This media item is not available on this device.','error');
+    const media=item.type.startsWith('video/')
+      ?`<video controls autoplay playsinline style="width:100%;max-height:72vh;background:#05060b" src="${esc(item.dataUrl)}"></video>`
+      :`<img style="width:100%;max-height:72vh;object-fit:contain;background:#05060b" src="${esc(item.dataUrl)}" alt="${esc(item.alt||item.name||'Bazaar Art media')}">`;
+    modal(item.name||'Bazaar Art Media',media,'',true);
+  });
+}
+
+function openPublicProfile(userId){
+  const user=userById(userId);
+  const current=hasMember()?me():null;
+  const following=Boolean(current?.following?.includes(user.id));
+  const posts=visiblePosts().filter(post=>post.authorId===user.id);
+  modal(user.name,`
+    <section class="profile-header" style="margin:0">
+      <div class="profile-top">${avatarHTML(user,'large')}<div class="grow"><h2>${esc(user.name)} ${user.verified?'<span class="verified">◆</span>':''}</h2><div class="profile-handle">@${esc(user.handle)} · ${esc(user.number333||'No public member number')}</div></div></div>
+      <div class="profile-bio">${esc(user.bio||'No biography yet.')}</div>
+      <div class="small muted">${esc(user.location||'')}</div>
+      <div class="profile-stats"><span><strong>${posts.length}</strong> posts</span><span><strong>${user.followers?.length||0}</strong> followers</span><span><strong>${user.following?.length||0}</strong> following</span></div>
+      ${user.id!==current?.id?`<div class="card-actions"><button class="${following?'soft-btn':'primary-btn'}" data-action="follow" data-user-id="${esc(user.id)}">${following?'Following':'Follow'}</button><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Continue in HOLLO</a></div>`:''}
+    </section>
+    <div style="margin-top:14px">${posts.length?posts.slice(0,4).map(renderPostCard).join(''):'<div class="empty">No visible posts yet.</div>'}</div>
+  `,'',true);
+  hydrateAvatars($('#activeModalLayer'));hydrateMedia($('#activeModalLayer'));
+}
+
+function toggleFollow(userId){
+  const current=requireMe();if(!current)return;
+  if(userId===current.id)return;
+  const target=userById(userId);
+  current.following=current.following||[];target.followers=target.followers||[];
+  const following=current.following.includes(userId);
+  current.following=following?current.following.filter(id=>id!==userId):[...current.following,userId];
+  target.followers=following?target.followers.filter(id=>id!==current.id):[...target.followers,current.id];
+  persist();
+  if(!following)addNotification(`${current.name} followed your Bazaar Art profile.`,'follow',target.id);
+  closeModal();renderView();renderRightRail();toast(following?'Artist unfollowed.':'Artist followed.','success');
+}
+
+function sharePost(id){
+  const post=postById(id);if(!post)return;
+  const author=userById(post.authorId);
+  const text=`${author.name} on Bazaar Art Live\n${post.text||'Creative media post'}\nPost reference: ${post.id}`;
+  shareData({title:'Bazaar Art Live',text},text).then(shared=>{
+    if(shared){post.shareCount=(Number(post.shareCount)||0)+1;persist();renderView()}
+  });
+}
+
+function openPostMenu(id){
+  const current=requireMe();if(!current)return;
+  const post=postById(id);if(!post)return;
+  const own=post.authorId===current.id;
+  modal('Post options',`<div class="form-grid">
+    ${own?`<button class="danger-btn" data-action="delete-post" data-id="${esc(id)}">Delete My Post</button>`:`<button class="soft-btn" data-action="hide-post" data-id="${esc(id)}">Hide This Post</button><button class="soft-btn" data-action="mute-user" data-user-id="${esc(post.authorId)}">Mute ${esc(userById(post.authorId).name)}</button><button class="danger-btn" data-action="report-post" data-id="${esc(id)}">Report for Review</button>`}
+    <button class="soft-btn" data-action="share" data-id="${esc(id)}">Share Post</button>
+  </div>`);
+}
+
+function deletePost(id){
+  const current=requireMe();if(!current)return;
+  const post=postById(id);if(!post||post.authorId!==current.id)return;
+  if(!confirm('Delete this local post and its comments?'))return;
+  Promise.all((post.media||[]).map(media=>MediaDB.delete(media.id))).finally(()=>{
+    state.posts=state.posts.filter(item=>item.id!==id);persist();closeModal();renderView();renderRightRail();toast('Post deleted.','success');
+  });
+}
+
+function deleteComment(postId,commentId){
+  const current=requireMe();if(!current)return;
+  const post=postById(postId);if(!post)return;
+  post.comments=(post.comments||[]).filter(comment=>!(comment.id===commentId&&comment.authorId===current.id));
+  persist();openComments(postId);renderView();
+}
+
+function openCreateGroup(){
+  if(!requireMe())return;
+  modal('Create Bazaar Art Group',`<div class="form-grid"><div class="field"><label for="groupName">Group name</label><input id="groupName" maxlength="100"></div><div class="field"><label for="groupDescription">Description</label><textarea id="groupDescription" maxlength="700"></textarea></div><div class="field"><label for="groupPrivacy">Privacy</label><select id="groupPrivacy"><option value="public">Public</option><option value="private">Private</option></select></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveGroupBtn" type="button">Create Group</button>`);
+  $('#saveGroupBtn').onclick=()=>{
+    const name=$('#groupName').value.trim();if(!name)return toast('Add a group name.','error');
+    state.groups.unshift({id:uid('g'),name,description:$('#groupDescription').value.trim(),privacy:$('#groupPrivacy').value,ownerId:me().id,memberIds:[me().id],createdAt:now()});persist();closeModal();setView('groups');toast('Group created locally.','success');
+  };
+}
+
+function toggleGroupMembership(id){
+  const current=requireMe();if(!current)return;
+  const group=state.groups.find(item=>item.id===id);if(!group)return;
+  if(group.ownerId===current.id)return openGroup(id);
+  const joined=group.memberIds.includes(current.id);
+  group.memberIds=joined?group.memberIds.filter(userId=>userId!==current.id):[...group.memberIds,current.id];
+  persist();renderView();toast(joined?'You left the group.':'You joined the group.','success');
+}
+
+function openGroup(id){
+  const group=state.groups.find(item=>item.id===id);if(!group)return;
+  const posts=visiblePosts().filter(post=>post.groupId===id);
+  modal(group.name,`<div class="section-card"><div class="small muted">${esc(group.privacy)} · ${group.memberIds.length} members</div><p>${esc(group.description)}</p><div class="group-member-list">${group.memberIds.map(userId=>{const user=userById(userId);return `<div class="person-row">${avatarHTML(user,'small-avatar')}<div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div></div>`}).join('')}</div></div><div style="margin-top:14px">${posts.length?posts.map(renderPostCard).join(''):'<div class="empty">No visible group posts yet.</div>'}</div>`,'',true);
+  hydrateAvatars($('#activeModalLayer'));hydrateMedia($('#activeModalLayer'));
+}
+
+function openCreateEvent(){
+  if(!requireMe())return;
+  const start=new Date(now()+86400000).toISOString().slice(0,16);
+  modal('Create Bazaar Art Event',`<div class="form-grid"><div class="field"><label for="eventTitle">Event title</label><input id="eventTitle" maxlength="120"></div><div class="field"><label for="eventDescription">Description</label><textarea id="eventDescription" maxlength="1200"></textarea></div><div class="form-grid two"><div class="field"><label for="eventStart">Starts</label><input id="eventStart" type="datetime-local" value="${start}"></div><div class="field"><label for="eventCapacity">Capacity</label><input id="eventCapacity" type="number" min="1" max="10000" value="50"></div></div><div class="field"><label for="eventLocation">Location or KANSEE room</label><input id="eventLocation" maxlength="160"></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveEventBtn" type="button">Create Event</button>`);
+  $('#saveEventBtn').onclick=()=>{
+    const title=$('#eventTitle').value.trim();const startAt=new Date($('#eventStart').value).getTime();
+    if(!title||!Number.isFinite(startAt))return toast('Add an event title and start time.','error');
+    state.events.unshift({id:uid('e'),title,description:$('#eventDescription').value.trim(),startAt,location:$('#eventLocation').value.trim(),capacity:Math.max(1,Number($('#eventCapacity').value)||50),hostId:me().id,goingIds:[me().id],interestedIds:[],groupId:null,visibility:'public'});persist();closeModal();setView('events');toast('Event created locally.','success');
+  };
+}
+
+function toggleRsvp(id,status){
+  const current=requireMe();if(!current)return;
+  const event=state.events.find(item=>item.id===id);if(!event)return;
+  const primary=status==='going'?'goingIds':'interestedIds';const other=status==='going'?'interestedIds':'goingIds';
+  event[primary]=event[primary]||[];event[other]=event[other]||[];
+  const active=event[primary].includes(current.id);
+  event[primary]=active?event[primary].filter(userId=>userId!==current.id):[...event[primary],current.id];
+  if(!active)event[other]=event[other].filter(userId=>userId!==current.id);
+  persist();renderView();renderRightRail();
+}
+
+function shareEvent(id){
+  const event=state.events.find(item=>item.id===id);if(!event)return;
+  const text=`${event.title}\n${formatDate(event.startAt)} · ${event.location||'Location to be announced'}\nBazaar Art Live event reference: ${event.id}`;
+  shareData({title:event.title,text},text);
+}
+
+function editProfile(){
+  const current=requireMe();if(!current)return;
+  modal('Edit Bazaar Art Profile',`<div class="form-grid"><div class="form-grid two"><div class="field"><label for="editName">Display name</label><input id="editName" maxlength="80" value="${esc(current.name)}"></div><div class="field"><label for="editHandle">Handle</label><input id="editHandle" maxlength="30" value="${esc(current.handle)}"></div></div><div class="field"><label for="editNumber">Member or 333 number</label><input id="editNumber" maxlength="20" value="${esc(current.number333||'')}"></div><div class="field"><label for="editBio">Bio</label><textarea id="editBio" maxlength="320">${esc(current.bio||'')}</textarea></div><div class="form-grid two"><div class="field"><label for="editLocation">Location</label><input id="editLocation" maxlength="100" value="${esc(current.location||'')}"></div><div class="field"><label for="editWebsite">Website</label><input id="editWebsite" maxlength="240" value="${esc(current.website||'')}"></div></div><label class="form-check"><input id="editParticipation" type="checkbox" ${current.participation?'checked':''}><span>Allow posting and community participation from this local profile.</span></label></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveProfileBtn" type="button">Save Profile</button>`);
+  $('#saveProfileBtn').onclick=()=>{
+    const name=$('#editName').value.trim();const handle=normalizeHandle($('#editHandle').value);
+    if(!name||!handle)return toast('Add a display name and handle.','error');
+    if(state.users.some(user=>user.id!==current.id&&user.handle===handle))return toast('That handle is already used locally.','error');
+    current.name=name;current.handle=handle;current.number333=normalizeMemberNumber($('#editNumber').value);current.numberKind=current.number333.startsWith('333')?'network':current.number333?'existing':'none';current.bio=$('#editBio').value.trim();current.location=$('#editLocation').value.trim();current.website=validHttpUrl($('#editWebsite').value.trim());current.participation=$('#editParticipation').checked;current.identitySource=current.identitySource==='hollo'?'hollo':'bazaar-local';persist();closeModal();updateProfileChip();setView('profile');toast('Profile saved locally.','success');
+  };
+}
+
+function layoutQuick(){
+  state.settings.rail=state.settings.rail==='compact'?'full':'compact';persist();applySettings();toast(state.settings.rail==='compact'?'Navigation rail compacted.':'Navigation rail expanded.');
+}
+
+function openSettings(){
+  const current=hasMember()?me():null;
+  modal('Bazaar Art Live Settings & Backup',`<div class="form-grid"><div class="form-grid two"><div class="field"><label for="settingTheme">Theme</label><select id="settingTheme"><option value="dark">Dark</option><option value="light">Light</option></select></div><div class="field"><label for="settingDensity">Density</label><select id="settingDensity"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></div></div><div class="form-grid two"><div class="field"><label for="settingFont">Font scale</label><input id="settingFont" type="number" min="0.85" max="1.25" step="0.05" value="${Number(state.settings.fontScale)||1}"></div><div class="field"><label for="settingWidth">Feed width</label><input id="settingWidth" type="number" min="520" max="900" step="20" value="${Number(state.settings.feedWidth)||680}"></div></div><label class="form-check"><input id="settingAutoplay" type="checkbox" ${state.settings.autoplay?'checked':''}><span>Autoplay local reels when supported.</span></label><div class="section-card"><span class="section-kicker">Shared Identity</span><p class="small muted">${current?`${esc(current.name)} · ${esc(current.identitySource||'local profile')} · ${esc(current.number333||'no number')}`:'No participating profile selected.'}</p><div class="card-actions"><button class="soft-btn" id="settingsImportHolloBtn" type="button">Refresh from HOLLO</button><a class="soft-btn" href="./EVen_mail_index.html#apply">Apply for E=Ven Email</a></div></div><div class="section-card"><span class="section-kicker">Portable Workspace</span><div class="card-actions"><button class="soft-btn" id="exportWorkspaceNowBtn" type="button">Export JSON + Media</button><button class="soft-btn" id="importWorkspaceNowBtn" type="button">Import Workspace</button><button class="danger-btn" id="resetWorkspaceBtn" type="button">Reset Local Bazaar</button></div></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveSettingsBtn" type="button">Save Settings</button>`,true);
+  $('#settingTheme').value=state.settings.theme||'dark';$('#settingDensity').value=state.settings.density||'comfortable';
+  $('#settingsImportHolloBtn').onclick=()=>importHolloProfile();
+  $('#exportWorkspaceNowBtn').onclick=exportWorkspaceFile;
+  $('#importWorkspaceNowBtn').onclick=()=>$('#workspaceImportInput').click();
+  $('#resetWorkspaceBtn').onclick=resetWorkspace;
+  $('#saveSettingsBtn').onclick=()=>{state.settings.theme=$('#settingTheme').value;state.settings.density=$('#settingDensity').value;state.settings.fontScale=clamp(Number($('#settingFont').value)||1,.85,1.25);state.settings.feedWidth=clamp(Number($('#settingWidth').value)||680,520,900);state.settings.autoplay=$('#settingAutoplay').checked;persist();applySettings();closeModal();renderView();renderRightRail();toast('Settings saved.','success')};
+}
+
+async function exportWorkspaceFile(){
+  const media=await MediaDB.all();
+  const payload={schema:'bazaar-art-live-workspace',version:APP_VERSION,exportedAt:new Date().toISOString(),state,media};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=`Bazaar_Art_Live_${new Date().toISOString().slice(0,10)}.json`;document.body.appendChild(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),700);toast('Bazaar workspace exported.','success');
+}
+
+async function importWorkspaceFile(file){
+  try{
+    const parsed=JSON.parse(await file.text());
+    const raw=parsed?.schema==='bazaar-art-live-workspace'?parsed.state:parsed;
+    if(!raw||!Array.isArray(raw.users)||!Array.isArray(raw.posts))throw new Error('Invalid Bazaar workspace');
+    if(!confirm('Replace this device’s current Bazaar Art workspace with the imported file?'))return;
+    state=normalizeState(raw);await MediaDB.clear();for(const item of parsed.media||[])await MediaDB.put(item);persist();applySettings();updateProfileChip();updateBadges();closeModal();setView(state.activeView||'home');toast('Bazaar workspace imported.','success');
+  }catch(error){console.warn(error);toast('This is not a valid Bazaar Art Live workspace file.','error')}
+}
+
+function resetWorkspace(){
+  if(!confirm('Reset all local Bazaar Art posts, profiles, events, groups, notifications, settings, and media on this device?'))return;
+  state=seedState();storage.remove(STATE_KEY);MediaDB.clear().finally(()=>{persist();applySettings();updateProfileChip();updateBadges();closeModal();setView('home');openFirstRunProfile();toast('Local Bazaar Art workspace reset.','success')});
+}
+
+function markAllRead(){
+  const current=requireMe();if(!current)return;state.notifications.forEach(item=>{if(item.userId===current.id)item.read=true});persist();updateBadges();renderView();
+}
+
+function deleteNotification(id){state.notifications=state.notifications.filter(item=>item.id!==id);persist();updateBadges();renderView()}
+
+function handleAction(action,el){
+  const id=el.dataset.id;
+  const actions={
+    'close-modal':()=>closeModal(),
+    'create-profile':()=>openFirstRunProfile(),
+    'create-post':()=>openComposer(el.dataset.kind||'post'),
+    'create-story':()=>openCreateStory(),
+    'open-story':()=>openStory(id),
+    'feed-filter':()=>{state.feedFilter=el.dataset.filter||'all';persist();renderView()},
+    'quick-like':()=>{const post=postById(id);const active=(post?.reactions?.like||[]).includes(me().id);react(id,active?'':'like')},
+    'reaction':()=>react(id,el.dataset.reaction),
+    'comments':()=>{if(requireMe())openComments(id)},
+    'share':()=>sharePost(id),
+    'save-post':()=>toggleSave(id),
+    'open-media':()=>openMedia(el.dataset.mediaId),
+    'open-profile':()=>openPublicProfile(el.dataset.userId),
+    'follow':()=>toggleFollow(el.dataset.userId),
+    'post-menu':()=>openPostMenu(id),
+    'hide-post':()=>hidePost(id),
+    'mute-user':()=>muteUser(el.dataset.userId),
+    'report-post':()=>reportPost(id),
+    'delete-post':()=>deletePost(id),
+    'delete-comment':()=>deleteComment(el.dataset.postId,id),
+    'search-focus':()=>$('#globalSearch').focus(),
+    'search-tag':()=>{$('#globalSearch').value='#'+el.dataset.tag;setView('discover')},
+    'create-group':()=>openCreateGroup(),
+    'group-membership':()=>toggleGroupMembership(id),
+    'group-feed':()=>openGroup(id),
+    'create-event':()=>openCreateEvent(),
+    'rsvp':()=>toggleRsvp(id,el.dataset.status),
+    'share-event':()=>shareEvent(id),
+    'mark-all-read':()=>markAllRead(),
+    'delete-notification':()=>deleteNotification(id),
+    'edit-profile':()=>editProfile(),
+    'profile-menu':()=>openSettings(),
+    'profile-tab':()=>{state.profileTab=el.dataset.tab||'posts';persist();renderView()}
+  };
+  actions[action]?.();
+}
+
 function bind(){
   document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(el)handleAction(el.dataset.action,el)});
   $$('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
   [$('#desktopNav'),$('#mobileNav')].forEach(nav=>{if(!nav)return;const buttons=$$('[data-view]',nav);buttons.forEach((button,index)=>button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();let next=index;if(['ArrowRight','ArrowDown'].includes(event.key))next=(index+1)%buttons.length;if(['ArrowLeft','ArrowUp'].includes(event.key))next=(index-1+buttons.length)%buttons.length;if(event.key==='Home')next=0;if(event.key==='End')next=buttons.length-1;buttons[next].focus();setView(buttons[next].dataset.view)}))});
   $('#desktopCreateBtn').addEventListener('click',()=>openComposer('post'));$('#mobileCreateBtn').addEventListener('click',()=>openComposer('post'));
-  $('#settingsBtn').addEventListener('click',openSettings);$('#layoutBtn').addEventListener('click',layoutQuick);$('#profileChipBtn').addEventListener('click',()=>{if(me())setView('profile');else openFirstRunProfile()});$('#topNotificationBtn').addEventListener('click',()=>setView('notifications'));
+  $('#settingsBtn').addEventListener('click',openSettings);$('#layoutBtn').addEventListener('click',layoutQuick);$('#profileChipBtn').addEventListener('click',()=>{if(hasMember())setView('profile');else openFirstRunProfile()});$('#topNotificationBtn').addEventListener('click',()=>setView('notifications'));
   $('#globalSearch').addEventListener('input',()=>{if(state.activeView!=='discover')setView('discover');else renderView()});
   $('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Escape'){e.target.value='';renderView()}});
   document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#globalSearch').focus()}const layer=$('#activeModalLayer');if(e.key==='Escape'&&layer){closeModal();return}if(e.key==='Tab'&&layer){const focusable=$$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',layer).filter(node=>!node.hidden&&node.offsetParent!==null);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
   $('#workspaceImportInput').addEventListener('change',e=>{const f=e.target.files[0];if(f)importWorkspaceFile(f);e.target.value=''})
 }
 
-applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||'home');if(!me())setTimeout(openFirstRunProfile,120);
+window.addEventListener('storage',event=>{
+  if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){
+    if(importHolloProfile({silent:true})){updateProfileChip();updateBadges();renderView();renderRightRail();toast('Bazaar Art refreshed the shared HOLLO profile.','success')}
+  }
+});
+document.addEventListener('333-hollo-profile-created',()=>{if(importHolloProfile({silent:true})){updateProfileChip();renderView();renderRightRail()}});
+adoptHolloIdentityOnLoad();
+applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||'home');if(!hasMember())setTimeout(openFirstRunProfile,120);
 })();
 </script>
 </body>
