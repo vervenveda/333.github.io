@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Bunya — digital infrastructure for domains, websites, E=Ven Mail, 333 Identity, DNS, security, publishing, monitoring, and future Verve N Veda member services.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Bunya — a local-first digital infrastructure workspace for domains, DNS, websites, E=Ven Mail, 333 Identity, security, publishing, monitoring, backups, and future Verve N Veda member services.">
   <meta name="theme-color" content="#0b1628">
   <meta name="color-scheme" content="light dark">
-  <title>Bunya | Digital Infrastructure</title>
+  <meta name="referrer" content="same-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
+  <title>Bunya | Digital Infrastructure Workspace</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
 
   <style>
     :root{
@@ -31,20 +33,32 @@
       --teal:#5d9f99;
       --violet:#8378b6;
       --rose:#b66f88;
+      --green:#5f8e70;
+      --amber:#b57a49;
+      --danger:#a95353;
       --line:rgba(17,33,52,.14);
       --line-light:rgba(255,255,255,.14);
       --shadow:0 22px 55px rgba(7,18,34,.11);
       --shadow-soft:0 11px 33px rgba(7,18,34,.08);
       --r-small:7px;
       --r-card:21px;
-      --max:1221px;
-      --serif:"Cormorant Garamond",Georgia,serif;
-      --brand:"Cinzel","Times New Roman",serif;
-      --sans:"Montserrat","Avenir Next","Segoe UI",Arial,sans-serif;
+      --max:1240px;
+      --weight-text:333;
+      --weight-emphasis:444;
+      --serif:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
+      --sans:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
+      --mono:"Courier New",ui-monospace,SFMono-Regular,Menlo,monospace;
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    html{
+      scroll-behavior:smooth;
+      scroll-padding-top:88px;
+      font-synthesis:none;
+      text-rendering:geometricPrecision;
+      -webkit-font-smoothing:antialiased;
+    }
     body{
       margin:0;
       min-width:300px;
@@ -57,18 +71,27 @@
       font-family:var(--sans);
       font-size:16px;
       line-height:1.68;
-      font-weight:400;
+      font-weight:var(--weight-text);
       text-align:center;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
     }
-
     a{color:inherit;text-decoration:none}
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
+    button:disabled{cursor:not-allowed;opacity:.55}
+    strong,b{font-weight:var(--weight-emphasis)}
     [hidden]{display:none!important}
     :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    ::selection{color:var(--night);background:var(--gold-soft)}
     .shell{width:min(calc(100% - 33px),var(--max));margin:auto}
+    .sr-only{
+      position:absolute!important;
+      width:1px;height:1px;
+      padding:0;margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
 
     .skip{
       position:fixed;
@@ -77,7 +100,7 @@
       z-index:5000;
       transform:translateY(-170%);
       padding:10px 14px;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:#111;
     }
@@ -94,7 +117,7 @@
       align-items:center;
       justify-content:space-between;
       gap:1rem;
-      font-size:.7rem;
+      font-size:.72rem;
     }
     .utility-links{
       display:flex;
@@ -102,6 +125,7 @@
       flex-wrap:wrap;
       justify-content:center;
     }
+    .utility-links a:hover{color:var(--gold-soft)}
 
     .header{
       position:sticky;
@@ -119,7 +143,6 @@
       justify-content:space-between;
       gap:1rem;
     }
-
     .brand{
       display:flex;
       align-items:center;
@@ -131,16 +154,21 @@
       height:42px;
       display:grid;
       place-items:center;
+      flex:0 0 48px;
       border:1px solid rgba(232,215,175,.42);
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:var(--gold-soft);
       background:rgba(255,255,255,.04);
-      font:500 .6rem var(--brand);
+      font-family:var(--brand);
+      font-size:.64rem;
+      font-weight:var(--weight-emphasis);
       letter-spacing:.08em;
     }
     .brand strong{
       display:block;
-      font:500 1rem var(--brand);
+      font-family:var(--brand);
+      font-size:1rem;
+      font-weight:var(--weight-emphasis);
       letter-spacing:.1em;
       text-transform:uppercase;
     }
@@ -148,8 +176,8 @@
       display:block;
       margin-top:2px;
       color:rgba(255,255,255,.58);
-      font-size:.54rem;
-      letter-spacing:.11em;
+      font-size:.56rem;
+      letter-spacing:.1em;
       text-transform:uppercase;
     }
 
@@ -159,21 +187,20 @@
       display:flex;
       align-items:center;
       padding:8px 11px;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#eef2f6;
-      font-size:.68rem;
-      font-weight:500;
-      letter-spacing:.06em;
+      font-size:.7rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
       text-transform:uppercase;
     }
     .nav-links a:hover{background:rgba(255,255,255,.07)}
-
     .menu-button{
       display:none;
       width:44px;
       height:44px;
       border:1px solid rgba(255,255,255,.23);
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:transparent;
     }
@@ -189,57 +216,47 @@
       box-shadow:var(--shadow);
     }
     .mobile-menu.open{display:grid;gap:5px}
-    .mobile-menu a{padding:10px;border-radius:7px}
+    .mobile-menu a{padding:10px;border-radius:var(--r-small)}
+    .mobile-menu a:hover{background:rgba(255,255,255,.07)}
 
     .hero{
       position:relative;
-      min-height:720px;
+      min-height:690px;
       display:grid;
       align-items:center;
       overflow:hidden;
-      padding:99px 0 88px;
+      padding:90px 0 80px;
       color:#fff;
       background:
         radial-gradient(circle at 50% 0,rgba(232,215,175,.13),transparent 32rem),
+        radial-gradient(circle at 12% 90%,rgba(93,159,153,.08),transparent 24rem),
         linear-gradient(145deg,#1a3559 0%,#0b1628 62%,#060b13);
       border-bottom:1px solid var(--line-light);
     }
-    .hero::before,
-    .hero::after{
+    .hero::before,.hero::after{
       content:"";
       position:absolute;
       border:1px solid rgba(255,255,255,.06);
       border-radius:50%;
       pointer-events:none;
     }
-    .hero::before{
-      width:555px;height:555px;
-      top:-250px;left:-140px;
-    }
-    .hero::after{
-      width:333px;height:333px;
-      right:-80px;bottom:-160px;
-    }
-    .hero-copy{
-      position:relative;
-      z-index:1;
-      max-width:1020px;
-      margin:auto;
-    }
+    .hero::before{width:555px;height:555px;top:-250px;left:-140px}
+    .hero::after{width:333px;height:333px;right:-80px;bottom:-160px}
+    .hero-copy{position:relative;z-index:1;max-width:1040px;margin:auto}
 
     .eyebrow,.kicker{
       margin:0;
       color:var(--gold-soft);
       font-family:var(--brand);
-      font-size:.7rem;
-      font-weight:500;
-      letter-spacing:.22em;
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.2em;
       text-transform:uppercase;
     }
     h1,h2,h3{
       margin:0;
       font-family:var(--serif);
-      font-weight:500;
+      font-weight:var(--weight-text);
       letter-spacing:.01em;
       text-wrap:balance;
     }
@@ -254,22 +271,23 @@
       color:var(--gold-soft);
       font-family:var(--brand);
       font-size:clamp(.9rem,1.8vw,1.25rem);
-      letter-spacing:.16em;
+      letter-spacing:.15em;
       text-transform:uppercase;
     }
     .hero-lead{
-      max-width:800px;
+      max-width:830px;
       margin:24px auto 0;
       color:#d7e0e8;
-      font:400 clamp(1.15rem,2.2vw,1.58rem)/1.5 var(--serif);
+      font-family:var(--serif);
+      font-size:clamp(1.17rem,2.2vw,1.6rem);
+      line-height:1.5;
     }
     .hero-note{
-      max-width:720px;
+      max-width:760px;
       margin:14px auto 0;
       color:#aeb9c6;
-      font-size:.86rem;
+      font-size:.88rem;
     }
-
     .actions{
       display:flex;
       justify-content:center;
@@ -283,17 +301,20 @@
       align-items:center;
       justify-content:center;
       padding:10px 15px;
-      border:1px solid transparent;
-      border-radius:7px;
-      font-size:.7rem;
-      font-weight:500;
-      letter-spacing:.08em;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:var(--ink);
+      background:#fffdf8;
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.06em;
       text-transform:uppercase;
       transition:.18s;
     }
-    .button:hover{transform:translateY(-2px)}
+    .button:hover{transform:translateY(-2px);border-color:var(--gold)}
     .button.primary{
       color:#111824;
+      border-color:transparent;
       background:linear-gradient(145deg,var(--gold-soft),var(--gold));
       box-shadow:var(--shadow-soft);
     }
@@ -303,20 +324,48 @@
       background:transparent;
     }
     .button.secondary:hover{background:rgba(255,255,255,.06)}
+    .button.danger{color:#fff;border-color:var(--danger);background:var(--danger)}
+    .button.quiet{background:transparent}
+
+    .platform-strip{
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:7px;
+    }
+    .platform-stat{
+      padding:11px;
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:var(--r-small);
+      background:rgba(255,255,255,.035);
+    }
+    .platform-stat strong{
+      display:block;
+      color:var(--gold-soft);
+      font-family:var(--mono);
+      font-size:1rem;
+    }
+    .platform-stat span{
+      display:block;
+      margin-top:3px;
+      color:#aebac7;
+      font-size:.67rem;
+      text-transform:uppercase;
+    }
 
     .section{padding:88px 18px}
     .section-alt{background:rgba(255,253,248,.92);border-block:1px solid var(--line)}
     .section-dark{color:#fff;background:var(--night)}
     .section-inner{width:min(100%,var(--max));margin:auto}
-    .section-heading{max-width:860px;margin:0 auto 44px}
+    .section-heading{max-width:880px;margin:0 auto 44px}
     .section-heading .kicker{color:var(--gold)}
     .section h2{
       margin-top:11px;
-      font-size:clamp(2.8rem,5.5vw,5.2rem);
+      font-size:clamp(2.8rem,5.5vw,5.1rem);
       line-height:.98;
     }
     .section-heading p{
-      max-width:720px;
+      max-width:740px;
       margin:18px auto 0;
       color:var(--muted);
     }
@@ -328,14 +377,14 @@
       gap:11px;
     }
     .service-card{
-      min-height:285px;
+      min-height:300px;
       display:flex;
       flex-direction:column;
       align-items:center;
       padding:22px;
       border:1px solid var(--line);
       border-top:3px solid var(--accent);
-      border-radius:21px;
+      border-radius:var(--r-card);
       background:#fff;
       box-shadow:var(--shadow-soft);
       transition:.18s;
@@ -350,45 +399,45 @@
       height:46px;
       display:grid;
       place-items:center;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:var(--accent);
-      font-size:1.3rem;
+      font-size:1.28rem;
     }
     .service-card h3{
       margin-top:16px;
       color:var(--night);
-      font-size:1.6rem;
+      font-size:1.62rem;
       line-height:1.05;
     }
-    .service-card p{
-      color:var(--muted);
-      font-size:.8rem;
-    }
-    .service-card button{
+    .service-card p{color:var(--muted);font-size:.82rem}
+    .service-card button,.service-card a{
       width:100%;
       min-height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       margin-top:auto;
       border:0;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:var(--accent);
-      font-size:.67rem;
-      font-weight:500;
-      letter-spacing:.06em;
+      font-size:.69rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
       text-transform:uppercase;
     }
 
-    .dashboard{
+    .workspace-shell{
       display:grid;
-      grid-template-columns:.85fr 1.15fr;
+      grid-template-columns:290px minmax(0,1fr);
       gap:11px;
       align-items:start;
     }
     .panel{
       padding:22px;
       border:1px solid var(--line);
-      border-radius:21px;
+      border-radius:var(--r-card);
       background:#fff;
       box-shadow:var(--shadow);
       text-align:left;
@@ -401,56 +450,318 @@
     .panel p{color:var(--muted)}
     .panel.dark p{color:#b7c2cd}
 
-    .field{display:grid;gap:6px;margin-top:12px}
-    .field label{
-      color:var(--muted);
-      font-size:.64rem;
-      font-weight:600;
-      letter-spacing:.07em;
+    .workspace-sidebar{
+      position:sticky;
+      top:88px;
+      display:grid;
+      gap:11px;
+    }
+    .workspace-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:14px;
+    }
+    .workspace-stat{
+      padding:11px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:var(--r-small);
+      background:rgba(255,255,255,.05);
+      text-align:center;
+    }
+    .workspace-stat strong{
+      display:block;
+      color:var(--gold-soft);
+      font-family:var(--mono);
+      font-size:1rem;
+    }
+    .workspace-stat span{
+      color:#c0cad4;
+      font-size:.63rem;
       text-transform:uppercase;
     }
-    .panel.dark .field label{color:#c0cad4}
+    .sidebar-actions{display:grid;gap:7px;margin-top:14px}
+    .sidebar-actions .button{width:100%}
+
+    .search-field{position:relative;margin-top:14px}
+    .search-field input{padding-left:34px}
+    .search-field::before{
+      content:"⌕";
+      position:absolute;
+      left:11px;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      pointer-events:none;
+    }
+    .plan-list{
+      display:grid;
+      gap:7px;
+      max-height:460px;
+      margin-top:11px;
+      overflow:auto;
+      padding-right:2px;
+    }
+    .plan-item{
+      width:100%;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:7px;
+      align-items:center;
+      padding:11px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:var(--ink);
+      background:#faf7f0;
+      text-align:left;
+    }
+    .plan-item:hover{border-color:var(--gold)}
+    .plan-item.active{
+      border-color:var(--gold);
+      background:#f2ead9;
+      box-shadow:inset 3px 0 0 var(--gold);
+    }
+    .plan-item strong{
+      display:block;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-size:.78rem;
+    }
+    .plan-item small{
+      display:block;
+      margin-top:2px;
+      color:var(--muted);
+      font-size:.65rem;
+    }
+    .plan-status-dot{
+      width:9px;height:9px;border-radius:50%;
+      background:var(--silver-dark);
+    }
+    .plan-status-dot.planning{background:var(--gold)}
+    .plan-status-dot.development{background:var(--blue)}
+    .plan-status-dot.staging{background:var(--violet)}
+    .plan-status-dot.production{background:var(--green)}
+
+    .workspace-main{display:grid;gap:11px}
+    .workspace-tabs{
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+      padding:7px;
+      border:1px solid var(--line);
+      border-radius:var(--r-card);
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+    }
+    .workspace-tab{
+      min-height:40px;
+      flex:1 1 150px;
+      border:1px solid transparent;
+      border-radius:var(--r-small);
+      color:var(--muted);
+      background:transparent;
+      font-size:.7rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+    .workspace-tab.active{
+      color:#fff;
+      border-color:var(--night);
+      background:var(--night);
+    }
+    .workspace-view{display:none}
+    .workspace-view.active{display:block}
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:11px;
+    }
+    .field{display:grid;gap:6px}
+    .field.full{grid-column:1/-1}
+    .field label{
+      color:var(--muted);
+      font-size:.66rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
     .field input,.field select,.field textarea{
       width:100%;
       border:1px solid var(--line);
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:var(--ink);
       background:#fff;
     }
     .field input,.field select{min-height:44px;padding:0 11px}
-    .field textarea{min-height:110px;padding:11px;resize:vertical}
-    .panel.dark .field input,
-    .panel.dark .field select{
-      color:#fff;
-      background:rgba(255,255,255,.06);
-      border-color:rgba(255,255,255,.17);
+    .field textarea{min-height:120px;padding:11px;resize:vertical}
+    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+    .form-actions{
+      display:flex;
+      justify-content:flex-start;
+      gap:7px;
+      flex-wrap:wrap;
+      margin-top:14px;
     }
+    .form-message{
+      min-height:24px;
+      margin-top:11px;
+      color:var(--muted);
+      font-size:.76rem;
+    }
+
+    .record-builder{
+      display:grid;
+      grid-template-columns:110px 1fr 1.6fr 100px 100px auto;
+      gap:7px;
+      align-items:end;
+      margin-top:16px;
+    }
+    .record-builder .field label{font-size:.6rem}
+    .record-builder .button{min-height:44px}
+    .table-wrap{
+      margin-top:18px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+    }
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+      background:#fff;
+    }
+    th,td{
+      padding:11px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+      font-size:.74rem;
+    }
+    th{
+      color:var(--night);
+      background:#f2eee5;
+      font-size:.65rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    td code{
+      display:inline-block;
+      max-width:320px;
+      overflow-wrap:anywhere;
+      color:var(--ink);
+      font-family:var(--mono);
+      font-size:.7rem;
+    }
+    .table-action{
+      min-height:32px;
+      padding:4px 8px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:var(--danger);
+      background:#fff;
+      font-size:.65rem;
+    }
+    .empty-table{
+      padding:24px;
+      color:var(--muted);
+      text-align:center;
+    }
+
+    .checklist-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px;
+      margin-top:16px;
+    }
+    .check-item{
+      display:flex;
+      align-items:flex-start;
+      gap:9px;
+      padding:11px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      background:#faf7f0;
+    }
+    .check-item input{
+      width:18px;
+      height:18px;
+      margin:2px 0 0;
+      accent-color:var(--green);
+      flex:0 0 auto;
+    }
+    .check-item strong{display:block;font-size:.76rem}
+    .check-item small{display:block;color:var(--muted);font-size:.66rem}
 
     .status-list{display:grid;gap:7px;margin-top:14px}
     .status-row{
       display:grid;
-      grid-template-columns:140px 1fr auto;
+      grid-template-columns:150px 1fr auto;
       gap:10px;
       align-items:center;
       padding:12px;
       border:1px solid var(--line);
-      border-radius:7px;
+      border-radius:var(--r-small);
       background:#faf7f0;
     }
-    .status-row strong{font-size:.73rem}
-    .status-row span{color:var(--muted);font-size:.71rem}
+    .status-row strong{font-size:.75rem}
+    .status-row span{color:var(--muted);font-size:.72rem}
     .status-badge{
       padding:5px 8px;
-      border-radius:7px;
+      border-radius:var(--r-small);
       background:#eaf4ec;
       color:#356345;
-      font-size:.6rem;
-      font-weight:600;
+      font-size:.61rem;
+      font-weight:var(--weight-emphasis);
       text-transform:uppercase;
     }
     .status-badge.planned{background:#f3ecdc;color:#7c653b}
 
-    .record-grid{
+    .network-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:11px;
+    }
+    .network-card{
+      --accent:var(--blue);
+      min-height:190px;
+      display:flex;
+      flex-direction:column;
+      padding:18px;
+      border:1px solid var(--line);
+      border-top:3px solid var(--accent);
+      border-radius:var(--r-card);
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+      text-align:left;
+    }
+    .network-card .network-category{
+      color:var(--accent);
+      font-family:var(--mono);
+      font-size:.62rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .network-card h3{margin-top:7px;font-size:1.5rem}
+    .network-card p{color:var(--muted);font-size:.78rem}
+    .network-card a{
+      min-height:38px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin-top:auto;
+      border-radius:var(--r-small);
+      color:#fff;
+      background:var(--accent);
+      font-size:.68rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    .record-guide{
       display:grid;
       grid-template-columns:repeat(4,minmax(0,1fr));
       gap:11px;
@@ -459,7 +770,7 @@
       min-height:205px;
       padding:18px;
       border:1px solid var(--line);
-      border-radius:21px;
+      border-radius:var(--r-card);
       background:#fff;
       box-shadow:var(--shadow-soft);
     }
@@ -468,13 +779,13 @@
       place-items:center;
       min-width:52px;
       height:38px;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:var(--night-2);
-      font-weight:700;
+      font-weight:var(--weight-emphasis);
     }
     .record h3{margin-top:14px;font-size:1.3rem}
-    .record p{color:var(--muted);font-size:.77rem}
+    .record p{color:var(--muted);font-size:.78rem}
 
     .principle-grid{
       display:grid;
@@ -485,21 +796,21 @@
       min-height:220px;
       padding:20px;
       border:1px solid var(--line-light);
-      border-radius:21px;
+      border-radius:var(--r-card);
       background:rgba(255,255,255,.04);
     }
-    .principle h3{font-size:1.45rem}
-    .principle p{color:#b8c3ce;font-size:.8rem}
+    .principle h3{font-size:1.47rem}
+    .principle p{color:#b8c3ce;font-size:.82rem}
 
     .notice{
-      max-width:980px;
+      max-width:1000px;
       margin:auto;
       padding:18px;
       border:1px solid var(--line);
-      border-radius:21px;
+      border-radius:var(--r-card);
       background:#eee6d6;
       color:#5f5547;
-      font-size:.8rem;
+      font-size:.82rem;
     }
 
     footer{
@@ -530,11 +841,11 @@
     }
     .modal-layer.active{display:flex}
     .modal{
-      width:min(100%,720px);
+      width:min(100%,760px);
       max-height:90vh;
       overflow:auto;
       border:1px solid var(--line-light);
-      border-radius:21px;
+      border-radius:var(--r-card);
       color:var(--ink);
       background:var(--paper-2);
       box-shadow:0 30px 90px rgba(0,0,0,.4);
@@ -553,10 +864,11 @@
       width:40px;
       height:40px;
       border:1px solid var(--line);
-      border-radius:7px;
+      border-radius:var(--r-small);
       background:#fff;
     }
     .modal-body{padding:18px}
+    .modal-body ul{padding-left:20px}
     .modal-foot{
       display:flex;
       justify-content:flex-end;
@@ -572,7 +884,7 @@
       z-index:4000;
       transform:translate(-50%,120px);
       padding:11px 15px;
-      border-radius:7px;
+      border-radius:var(--r-small);
       color:#fff;
       background:#111d2e;
       box-shadow:var(--shadow);
@@ -580,24 +892,40 @@
     }
     .toast.show{transform:translate(-50%,0)}
 
-    @media(max-width:1050px){
-      .service-grid{grid-template-columns:repeat(2,1fr)}
-      .dashboard{grid-template-columns:1fr}
-      .record-grid{grid-template-columns:repeat(2,1fr)}
+    @media(max-width:1100px){
+      .service-grid{grid-template-columns:repeat(3,1fr)}
+      .record-guide{grid-template-columns:repeat(2,1fr)}
       .nav-links{display:none}
       .menu-button{display:grid;place-items:center}
+      .record-builder{grid-template-columns:1fr 1fr}
+      .record-builder .field:nth-child(3){grid-column:1/-1}
     }
-    @media(max-width:700px){
+    @media(max-width:900px){
+      .workspace-shell{grid-template-columns:1fr}
+      .workspace-sidebar{position:static}
+      .plan-list{max-height:300px}
+      .network-grid{grid-template-columns:repeat(2,1fr)}
+      .platform-strip{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:760px){
+      .service-grid{grid-template-columns:repeat(2,1fr)}
       .principle-grid{grid-template-columns:1fr}
+      .form-grid{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .checklist-grid{grid-template-columns:1fr}
+      .status-row{grid-template-columns:1fr}
     }
     @media(max-width:560px){
       .utility .shell{flex-direction:column;padding:6px 0}
-      .service-grid,.record-grid{grid-template-columns:1fr}
-      .actions{display:grid}
+      .service-grid,.record-guide,.network-grid{grid-template-columns:1fr}
+      .actions,.form-actions{display:grid}
       .button{width:100%}
       .brand small{display:none}
       .footer-inner{justify-content:center}
-      .status-row{grid-template-columns:1fr}
+      .record-builder{grid-template-columns:1fr}
+      .record-builder .field:nth-child(3){grid-column:auto}
+      .platform-strip{grid-template-columns:1fr}
+      .panel{padding:16px}
     }
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{
@@ -610,45 +938,49 @@
 </head>
 
 <body id="top">
-  <a class="skip" href="#services">Skip to Bunya services</a>
+  <a class="skip" href="#workspace">Skip to Bunya workspace</a>
 
   <div class="utility">
     <div class="shell">
       <span>Bunya · Digital Infrastructure for Verve N Veda</span>
       <nav class="utility-links" aria-label="Utility navigation">
-        <a href="https://vervenveda.github.io/">Verve N Veda</a>
-        <a href="https://vervenveda.github.io/333.github.io/">333 Network</a>
-        <a href="#dashboard">Infrastructure Console</a>
+        <a href="../../">Verve N Veda</a>
+        <a href="../index.html">333 Network</a>
+        <a href="./EVen_mail_index.html">E=Ven Mail</a>
+        <a href="./SIte_builder_index.html">SIte Builder</a>
       </nav>
     </div>
   </div>
 
   <header class="header">
     <div class="shell nav">
-      <a class="brand" href="#top" aria-label="Bunya home">
+      <a class="brand" href="../index.html" aria-label="Return to the 333 Network gateway">
         <span class="brand-mark">BYA</span>
         <span>
           <strong>Bunya</strong>
-          <small>Domains · Mail · Identity · Publishing · Security</small>
+          <small>Domains · Identity · Publishing · Security</small>
         </span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#services">Services</a>
-        <a href="#dashboard">Console</a>
-        <a href="#records">DNS</a>
+        <a href="#services">Twelve Halls</a>
+        <a href="#workspace">Workspace</a>
+        <a href="#network">333 Suite</a>
+        <a href="#records">DNS Guide</a>
         <a href="#principles">Principles</a>
       </nav>
 
-      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
     </div>
   </header>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a href="#services">Services</a>
-    <a href="#dashboard">Console</a>
-    <a href="#records">DNS</a>
+    <a href="#services">Twelve Halls</a>
+    <a href="#workspace">Workspace</a>
+    <a href="#network">333 Suite</a>
+    <a href="#records">DNS Guide</a>
     <a href="#principles">Principles</a>
+    <a href="../index.html">333 Network Gateway</a>
   </nav>
 
   <main>
@@ -656,24 +988,30 @@
       <div class="shell hero-copy">
         <p class="eyebrow">Digital Infrastructure for the Verve N Veda Network</p>
         <h1>Bunya</h1>
-        <span class="hero-sub">Domains · Websites · E=Ven Mail · 333 Identity</span>
+        <span class="hero-sub">Domains · DNS · Websites · E=Ven Mail · 333 Identity</span>
 
         <p class="hero-lead">
-          A calm, professional infrastructure platform for connecting domains,
-          publishing websites, preparing DNS, provisioning future email identities,
-          monitoring security, and supporting member-owned digital spaces.
+          A calm, professional infrastructure workspace for mapping domains, preparing DNS,
+          organizing publishing, planning future mail identities, documenting security,
+          and preserving portable records for member-owned digital spaces.
         </p>
 
         <p class="hero-note">
-          This first version is a public development gateway and local planning console.
-          Live registration, nameservers, DNS changes, mail delivery, billing, and account
-          provisioning require authenticated backend services and external infrastructure.
+          This local-first version creates infrastructure plans and DNS record drafts on the current device.
+          It does not register domains, alter nameservers, deliver mail, deploy servers, or store provider credentials.
         </p>
 
         <div class="actions">
-          <a class="button primary" href="#dashboard">Open Bunya Console</a>
-          <a class="button secondary" href="#services">Explore Infrastructure</a>
-          <a class="button secondary" href="https://vervenveda.github.io/333.github.io/">Return to 333 Network</a>
+          <a class="button primary" href="#workspace">Open Bunya Workspace</a>
+          <a class="button secondary" href="#services">Explore Twelve Halls</a>
+          <a class="button secondary" href="../index.html">Return to 333 Network</a>
+        </div>
+
+        <div class="platform-strip" aria-label="Bunya platform summary">
+          <div class="platform-stat"><strong>12</strong><span>Infrastructure Halls</span></div>
+          <div class="platform-stat"><strong id="heroPlanCount">00</strong><span>Local Plans</span></div>
+          <div class="platform-stat"><strong id="heroRecordCount">00</strong><span>DNS Drafts</span></div>
+          <div class="platform-stat"><strong id="heroConnection">Local</strong><span>Operating Mode</span></div>
         </div>
       </div>
     </section>
@@ -684,201 +1022,392 @@
           <p class="kicker">Twelve Infrastructure Halls</p>
           <h2>One organized home for the systems beneath the network.</h2>
           <p>
-            Each hall begins as a clear planning interface and can later connect
-            to secure production services without changing Bunya’s public identity.
+            Each hall begins as an honest planning interface and is prepared for later
+            connection to authenticated production services without changing Bunya’s public identity.
           </p>
         </div>
 
         <div class="service-grid">
           <article class="service-card" style="--accent:var(--blue)">
-            <span class="service-icon">🌐</span>
+            <span class="service-icon" aria-hidden="true">◎</span>
             <h3>Domains</h3>
-            <p>Connect existing domains, plan subdomains, and prepare future registration and transfer workflows.</p>
+            <p>Connect existing domains, document ownership, plan subdomains, renewals, transfers, and recovery contacts.</p>
             <button type="button" data-service="Domains">Open Domains</button>
           </article>
 
           <article class="service-card" style="--accent:var(--teal)">
-            <span class="service-icon">🧭</span>
+            <span class="service-icon" aria-hidden="true">⌘</span>
             <h3>DNS</h3>
-            <p>Organize A, AAAA, CNAME, MX, TXT, SPF, DKIM, DMARC, and verification records.</p>
+            <p>Draft A, AAAA, CNAME, MX, TXT, SPF, DKIM, DMARC, SRV, and CAA records before provider entry.</p>
             <button type="button" data-service="DNS">Open DNS Planner</button>
           </article>
 
           <article class="service-card" style="--accent:var(--violet)">
-            <span class="service-icon">✉️</span>
+            <span class="service-icon" aria-hidden="true">✉</span>
             <h3>E=Ven Mail</h3>
-            <p>Prepare future member and organization addresses using approved Verve N Veda domains.</p>
-            <button type="button" data-service="E=Ven Mail">Open Mail Provisioning</button>
+            <p>Prepare member addresses, aliases, groups, quotas, recovery methods, and future mail policies.</p>
+            <a href="./EVen_mail_index.html">Open E=Ven Mail</a>
           </article>
 
           <article class="service-card" style="--accent:var(--rose)">
-            <span class="service-icon">🪪</span>
+            <span class="service-icon" aria-hidden="true">◇</span>
             <h3>333 Identity</h3>
-            <p>Link people, organizations, domains, mailboxes, roles, devices, and recovery methods.</p>
+            <p>Link people, organizations, domains, mailboxes, roles, devices, permissions, and recovery methods.</p>
             <button type="button" data-service="333 Identity">Open Identity Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#6e7f95">
-            <span class="service-icon">🖥️</span>
+            <span class="service-icon" aria-hidden="true">▤</span>
             <h3>Websites</h3>
-            <p>Connect landing pages, portals, portfolios, businesses, and public-service destinations.</p>
-            <button type="button" data-service="Websites">Open Website Planner</button>
+            <p>Connect landing pages, portals, portfolios, organizations, and public-service destinations.</p>
+            <a href="./SIte_builder_index.html">Open SIte Builder</a>
           </article>
 
           <article class="service-card" style="--accent:#7f6e55">
-            <span class="service-icon">☁️</span>
+            <span class="service-icon" aria-hidden="true">☁</span>
             <h3>Cloud & Storage</h3>
-            <p>Prepare private files, member storage, media, backups, and future synchronized workspaces.</p>
+            <p>Plan private files, object storage, media, quotas, signed access, retention, and synchronized workspaces.</p>
             <button type="button" data-service="Cloud & Storage">Open Storage Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#4e7694">
-            <span class="service-icon">🚀</span>
+            <span class="service-icon" aria-hidden="true">↑</span>
             <h3>Deployments</h3>
-            <p>Plan repository connections, build pipelines, releases, rollbacks, and application publishing.</p>
+            <p>Plan repository connections, build pipelines, releases, environments, rollbacks, and application publishing.</p>
             <button type="button" data-service="Deployments">Open Deployment Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#587b67">
-            <span class="service-icon">🌍</span>
+            <span class="service-icon" aria-hidden="true">⌁</span>
             <h3>CDN & Edge</h3>
-            <p>Prepare faster global delivery, caching, asset distribution, and regional service routing.</p>
+            <p>Prepare caching, global asset delivery, regional routing, invalidation, and performance policies.</p>
             <button type="button" data-service="CDN & Edge">Open Edge Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#7b5c86">
-            <span class="service-icon">📱</span>
+            <span class="service-icon" aria-hidden="true">▣</span>
             <h3>Progressive Apps</h3>
-            <p>Manage installable applications, service workers, manifests, icons, and offline readiness.</p>
+            <p>Document manifests, service workers, icons, installability, offline behavior, and application updates.</p>
             <button type="button" data-service="Progressive Apps">Open PWA Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#8a654e">
-            <span class="service-icon">📊</span>
+            <span class="service-icon" aria-hidden="true">⌁</span>
             <h3>Monitoring</h3>
             <p>Track uptime, DNS health, certificates, storage, deployments, incidents, and service status.</p>
             <button type="button" data-service="Monitoring">Open Monitoring Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#6c7187">
-            <span class="service-icon">💾</span>
+            <span class="service-icon" aria-hidden="true">▥</span>
             <h3>Backups</h3>
-            <p>Plan encrypted backups, restore points, retention schedules, and recovery testing.</p>
+            <p>Plan encrypted backups, restore points, retention schedules, recovery testing, and export archives.</p>
             <button type="button" data-service="Backups">Open Backup Planner</button>
           </article>
 
           <article class="service-card" style="--accent:#405f7d">
-            <span class="service-icon">🛡️</span>
+            <span class="service-icon" aria-hidden="true">⬡</span>
             <h3>Security</h3>
-            <p>Track HTTPS, credentials, access roles, logs, alerts, renewals, and administrative safeguards.</p>
+            <p>Track HTTPS, access roles, logs, alerts, credentials, renewals, and administrative safeguards.</p>
             <button type="button" data-service="Security">Open Security Planner</button>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="dashboard">
+    <section class="section" id="workspace">
       <div class="section-inner">
         <div class="section-heading">
-          <p class="kicker">Bunya Infrastructure Console</p>
-          <h2>Plan a digital service before connecting production systems.</h2>
+          <p class="kicker">Bunya Infrastructure Workspace</p>
+          <h2>Plan, document, export, and restore your infrastructure.</h2>
           <p>
-            The console below saves a local infrastructure brief and can export it as JSON.
-            It does not alter DNS, register domains, create mailboxes, or deploy websites.
+            Create multiple local plans, attach DNS record drafts and readiness checklists,
+            then export an individual plan or the complete Bunya workspace as portable JSON.
           </p>
         </div>
 
-        <div class="dashboard">
-          <article class="panel dark">
-            <h3>Create an Infrastructure Plan</h3>
-            <p>Describe the domain, owner, service type, and connected resources you want Bunya to support.</p>
+        <div class="workspace-shell">
+          <aside class="workspace-sidebar">
+            <article class="panel dark">
+              <h3>Workspace Summary</h3>
+              <p id="connectionSummary">Local planning mode. No remote provider is connected.</p>
 
-            <div class="field">
-              <label for="resourceName">Domain, subdomain, or service name</label>
-              <input id="resourceName" placeholder="example.vervenveda.com">
-            </div>
+              <div class="workspace-stats">
+                <div class="workspace-stat"><strong id="planCount">0</strong><span>Plans</span></div>
+                <div class="workspace-stat"><strong id="recordCount">0</strong><span>Records</span></div>
+                <div class="workspace-stat"><strong id="productionCount">0</strong><span>Production</span></div>
+                <div class="workspace-stat"><strong id="checkCount">0</strong><span>Checks Done</span></div>
+              </div>
 
-            <div class="field">
-              <label for="serviceType">Primary service</label>
-              <select id="serviceType">
-                <option value="domain">Domain connection</option>
-                <option value="website">Website publishing</option>
-                <option value="mail">E=Ven Mail identity</option>
-                <option value="identity">333 Identity</option>
-                <option value="storage">Cloud and storage</option>
-                <option value="deployment">Application deployment</option>
-                <option value="monitoring">Monitoring and security</option>
-              </select>
-            </div>
+              <div class="sidebar-actions">
+                <button class="button primary" id="newPlanButton" type="button">New Plan</button>
+                <button class="button secondary" id="exportWorkspaceButton" type="button">Export Workspace</button>
+                <button class="button secondary" id="importWorkspaceButton" type="button">Import Workspace</button>
+                <input class="sr-only" id="importWorkspaceInput" type="file" accept=".json,application/json">
+              </div>
+            </article>
 
-            <div class="field">
-              <label for="resourceOwner">Owner or organization</label>
-              <input id="resourceOwner" placeholder="Member, family, organization, or project">
-            </div>
+            <article class="panel">
+              <h3>Plan Library</h3>
+              <p>Open a saved plan to edit its details, DNS drafts, and readiness checklist.</p>
 
-            <div class="field">
-              <label for="resourceEnvironment">Environment</label>
-              <select id="resourceEnvironment">
-                <option value="planning">Planning</option>
-                <option value="development">Development</option>
-                <option value="staging">Staging</option>
-                <option value="production">Production</option>
-              </select>
-            </div>
+              <div class="search-field">
+                <label class="sr-only" for="planSearch">Search plans</label>
+                <input id="planSearch" type="search" placeholder="Search plans">
+              </div>
 
-            <div class="field">
-              <label for="resourceNotes">Notes</label>
-              <textarea id="resourceNotes" placeholder="Describe email addresses, DNS records, redirects, storage, publishing, monitoring, or security needs."></textarea>
-            </div>
+              <div class="plan-list" id="planList"></div>
+            </article>
+          </aside>
 
-            <button class="button primary" id="savePlanButton" type="button" style="width:100%;margin-top:14px">Save Local Bunya Plan</button>
+          <div class="workspace-main">
+            <nav class="workspace-tabs" aria-label="Bunya workspace sections">
+              <button class="workspace-tab active" type="button" data-view="plan">Infrastructure Plan</button>
+              <button class="workspace-tab" type="button" data-view="dns">DNS Drafts</button>
+              <button class="workspace-tab" type="button" data-view="readiness">Readiness</button>
+              <button class="workspace-tab" type="button" data-view="platform">Platform Status</button>
+            </nav>
+
+            <section class="workspace-view active" id="view-plan" data-workspace-view="plan">
+              <article class="panel">
+                <h3 id="planEditorTitle">Create an Infrastructure Plan</h3>
+                <p>Do not place passwords, API tokens, private keys, recovery codes, or provider secrets in this browser workspace.</p>
+
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="resourceName">Domain, subdomain, or service name</label>
+                    <input id="resourceName" autocomplete="off" placeholder="example.vervenveda.com">
+                  </div>
+
+                  <div class="field">
+                    <label for="serviceType">Primary service</label>
+                    <select id="serviceType">
+                      <option value="domain">Domain connection</option>
+                      <option value="dns">DNS planning</option>
+                      <option value="website">Website publishing</option>
+                      <option value="mail">E=Ven Mail identity</option>
+                      <option value="identity">333 Identity</option>
+                      <option value="storage">Cloud and storage</option>
+                      <option value="deployment">Application deployment</option>
+                      <option value="monitoring">Monitoring and security</option>
+                      <option value="backup">Backups and recovery</option>
+                      <option value="pwa">Progressive application</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceOwner">Owner or organization</label>
+                    <input id="resourceOwner" autocomplete="off" placeholder="Member, family, organization, or project">
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceEnvironment">Environment</label>
+                    <select id="resourceEnvironment">
+                      <option value="planning">Planning</option>
+                      <option value="development">Development</option>
+                      <option value="staging">Staging</option>
+                      <option value="production">Production</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceProvider">Provider or platform</label>
+                    <input id="resourceProvider" autocomplete="off" placeholder="GitHub Pages, DNS provider, registrar, mail host">
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceRenewal">Renewal or review date</label>
+                    <input id="resourceRenewal" type="date">
+                  </div>
+
+                  <div class="field full">
+                    <label for="resourceNotes">Infrastructure notes</label>
+                    <textarea id="resourceNotes" placeholder="Describe DNS, redirects, mail identities, deployment, storage, monitoring, security, ownership, or recovery needs."></textarea>
+                  </div>
+                </div>
+
+                <div class="form-actions">
+                  <button class="button primary" id="savePlanButton" type="button">Save Plan</button>
+                  <button class="button" id="duplicatePlanButton" type="button" disabled>Duplicate</button>
+                  <button class="button" id="exportPlanButton" type="button" disabled>Export Plan</button>
+                  <button class="button danger" id="deletePlanButton" type="button" disabled>Delete</button>
+                </div>
+
+                <div class="form-message" id="planMessage" role="status" aria-live="polite"></div>
+              </article>
+            </section>
+
+            <section class="workspace-view" id="view-dns" data-workspace-view="dns">
+              <article class="panel">
+                <h3>DNS Record Drafts</h3>
+                <p>
+                  Draft records for the selected plan. Values are explanatory workspace data only;
+                  provider-generated values must be copied from the actual hosting, DNS, mail, or verification service.
+                </p>
+
+                <div class="record-builder">
+                  <div class="field">
+                    <label for="recordType">Type</label>
+                    <select id="recordType">
+                      <option>A</option>
+                      <option>AAAA</option>
+                      <option>CNAME</option>
+                      <option>MX</option>
+                      <option>TXT</option>
+                      <option>SPF</option>
+                      <option>DKIM</option>
+                      <option>DMARC</option>
+                      <option>SRV</option>
+                      <option>CAA</option>
+                    </select>
+                  </div>
+                  <div class="field">
+                    <label for="recordName">Name / Host</label>
+                    <input id="recordName" autocomplete="off" placeholder="@ or subdomain">
+                  </div>
+                  <div class="field">
+                    <label for="recordValue">Value / Target</label>
+                    <input id="recordValue" autocomplete="off" placeholder="Provider supplied value">
+                  </div>
+                  <div class="field">
+                    <label for="recordPriority">Priority</label>
+                    <input id="recordPriority" type="number" min="0" step="1" placeholder="10">
+                  </div>
+                  <div class="field">
+                    <label for="recordTtl">TTL</label>
+                    <input id="recordTtl" type="number" min="60" step="60" value="3600">
+                  </div>
+                  <button class="button primary" id="addRecordButton" type="button">Add</button>
+                </div>
+
+                <div class="form-message" id="recordMessage" role="status" aria-live="polite"></div>
+
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Priority</th>
+                        <th>TTL</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="recordTableBody"></tbody>
+                  </table>
+                </div>
+              </article>
+            </section>
+
+            <section class="workspace-view" id="view-readiness" data-workspace-view="readiness">
+              <article class="panel">
+                <h3>Infrastructure Readiness Checklist</h3>
+                <p>Track the selected plan’s preparation without implying that any provider action has been completed automatically.</p>
+                <div class="checklist-grid" id="readinessChecklist"></div>
+              </article>
+            </section>
+
+            <section class="workspace-view" id="view-platform" data-workspace-view="platform">
+              <article class="panel">
+                <h3>Platform Readiness</h3>
+                <p>Bunya’s public interface and local planning workspace are active. Production infrastructure remains staged by service.</p>
+
+                <div class="status-list">
+                  <div class="status-row"><strong>Public Gateway</strong><span>Responsive infrastructure landing page and 333 Network navigation</span><span class="status-badge">Active</span></div>
+                  <div class="status-row"><strong>Local Workspace</strong><span>Multiple plans, DNS drafts, checklists, JSON import and export</span><span class="status-badge">Active</span></div>
+                  <div class="status-row"><strong>PWA Foundation</strong><span>Shared 333 Network manifest, service worker, icons, and offline shell</span><span class="status-badge">Active</span></div>
+                  <div class="status-row"><strong>333 Authentication</strong><span>Shared identity, roles, devices, permissions, and recovery</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>DNS Provider API</strong><span>Nameservers, zones, validation, audit history, and rollback</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>Domain Registrar</strong><span>Registration, transfer, renewal, ownership, and billing</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>E=Ven Mail Delivery</strong><span>Mailbox provisioning, SMTP, IMAP or JMAP, storage, and abuse controls</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>Deployment Service</strong><span>Builds, releases, rollback, logs, secrets, and monitoring</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>Member Billing</strong><span>Plans, invoices, renewals, service limits, and ownership records</span><span class="status-badge planned">Planned</span></div>
+                </div>
+              </article>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="network">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="kicker">333 Network Suite</p>
+          <h2>Infrastructure connected to the applications it supports.</h2>
+          <p>
+            Bunya remains the planning and infrastructure layer while each application retains
+            its own purpose, permissions, local data, and honest production boundary.
+          </p>
+        </div>
+
+        <div class="network-grid">
+          <article class="network-card" style="--accent:var(--violet)">
+            <span class="network-category">Communication</span>
+            <h3>HOLLO</h3>
+            <p>Trusted contacts, private message threads, and consent-based call invitations.</p>
+            <a href="./HOLLO_333_direct_connect_index.html">Open HOLLO</a>
           </article>
 
-          <article class="panel">
-            <h3>Platform Readiness</h3>
-            <p>Bunya’s public interface is ready for development. Production infrastructure is staged by service.</p>
+          <article class="network-card" style="--accent:var(--teal)">
+            <span class="network-category">Communication</span>
+            <h3>KANSEE</h3>
+            <p>Private meeting rooms, invitations, room chat, notes, and media previews.</p>
+            <a href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a>
+          </article>
 
-            <div class="status-list">
-              <div class="status-row"><strong>Public Gateway</strong><span>Responsive infrastructure landing page</span><span class="status-badge">Active</span></div>
-              <div class="status-row"><strong>Local Planning</strong><span>Browser persistence and JSON export</span><span class="status-badge">Active</span></div>
-              <div class="status-row"><strong>PWA Foundation</strong><span>Installable application pattern</span><span class="status-badge">Active</span></div>
-              <div class="status-row"><strong>333 Authentication</strong><span>Shared identity, roles, devices, recovery</span><span class="status-badge planned">Planned</span></div>
-              <div class="status-row"><strong>DNS Provider API</strong><span>Nameservers, zones, validation, rollback</span><span class="status-badge planned">Planned</span></div>
-              <div class="status-row"><strong>Domain Registrar</strong><span>Registration, transfer, renewal, ownership</span><span class="status-badge planned">Planned</span></div>
-              <div class="status-row"><strong>E=Ven Mail</strong><span>Provisioning, SMTP, IMAP/JMAP, storage</span><span class="status-badge planned">Planned</span></div>
-              <div class="status-row"><strong>Deployment Service</strong><span>Builds, releases, rollback, monitoring</span><span class="status-badge planned">Planned</span></div>
-              <div class="status-row"><strong>Member Billing</strong><span>Plans, invoices, renewals, service limits</span><span class="status-badge planned">Planned</span></div>
-            </div>
+          <article class="network-card" style="--accent:var(--blue)">
+            <span class="network-category">Communication</span>
+            <h3>E=Ven Mail</h3>
+            <p>Local correspondence workspace prepared for future authenticated delivery.</p>
+            <a href="./EVen_mail_index.html">Open E=Ven Mail</a>
+          </article>
 
-            <div class="actions" style="justify-content:flex-start">
-              <button class="button" id="exportPlanButton" type="button">Export Plan</button>
-              <button class="button" id="clearPlanButton" type="button">Clear Local Plan</button>
-            </div>
+          <article class="network-card" style="--accent:var(--rose)">
+            <span class="network-category">Community</span>
+            <h3>Bazaar Art Live</h3>
+            <p>Creative posts, artists, groups, events, comments, reels, and shared inspiration.</p>
+            <a href="./Bazaar_Art_Live_index.html">Open Bazaar</a>
+          </article>
+
+          <article class="network-card" style="--accent:var(--green)">
+            <span class="network-category">Creation</span>
+            <h3>SIte</h3>
+            <p>Browser-based website and application building with local project portability.</p>
+            <a href="./SIte_builder_index.html">Open SIte</a>
+          </article>
+
+          <article class="network-card" style="--accent:var(--amber)">
+            <span class="network-category">Gateway</span>
+            <h3>333 Network</h3>
+            <p>The shared gateway, application directory, established route finder, and installable PWA shell.</p>
+            <a href="../index.html">Open Gateway</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="records">
+    <section class="section" id="records">
       <div class="section-inner">
         <div class="section-heading">
           <p class="kicker">DNS & Mail Identity Guide</p>
           <h2>The records that connect Bunya services to the public internet.</h2>
           <p>
-            These are explanatory cards only. Real values must come from the actual
+            These cards explain common record purposes. Real values must come from the actual
             hosting, DNS, mail, verification, security, or registrar service.
           </p>
         </div>
 
-        <div class="record-grid">
-          <article class="record"><code>A</code><h3>IPv4 Website Address</h3><p>Points a hostname to an IPv4 destination supplied by the hosting service.</p></article>
-          <article class="record"><code>AAAA</code><h3>IPv6 Website Address</h3><p>Points a hostname to an IPv6 destination where supported.</p></article>
+        <div class="record-guide">
+          <article class="record"><code>A</code><h3>IPv4 Address</h3><p>Points a hostname to an IPv4 destination supplied by the hosting service.</p></article>
+          <article class="record"><code>AAAA</code><h3>IPv6 Address</h3><p>Points a hostname to an IPv6 destination where the connected service supports it.</p></article>
           <article class="record"><code>CNAME</code><h3>Alias</h3><p>Connects a subdomain to another hostname, often for hosted websites or applications.</p></article>
-          <article class="record"><code>MX</code><h3>Mail Delivery</h3><p>Directs incoming email toward the authorized E=Ven Mail or external mail servers.</p></article>
-          <article class="record"><code>TXT</code><h3>Verification</h3><p>Stores ownership checks, service verification, SPF policies, and other text values.</p></article>
+          <article class="record"><code>MX</code><h3>Mail Delivery</h3><p>Directs incoming email toward authorized E=Ven Mail or external mail servers.</p></article>
+          <article class="record"><code>TXT</code><h3>Verification</h3><p>Stores ownership checks, service verification, policies, and other text values.</p></article>
           <article class="record"><code>SPF</code><h3>Authorized Senders</h3><p>Declares which systems may send email on behalf of a domain.</p></article>
-          <article class="record"><code>DKIM</code><h3>Signed Mail</h3><p>Publishes a public key used to validate cryptographic signatures on outgoing mail.</p></article>
-          <article class="record"><code>DMARC</code><h3>Mail Policy</h3><p>Defines how receiving systems handle failed identity checks and where reports are sent.</p></article>
+          <article class="record"><code>DKIM</code><h3>Signed Mail</h3><p>Publishes a public key used to validate signatures on outgoing mail.</p></article>
+          <article class="record"><code>DMARC</code><h3>Mail Policy</h3><p>Defines handling for failed identity checks and where aggregate reports are sent.</p></article>
         </div>
       </div>
     </section>
@@ -895,30 +1424,25 @@
             <h3>Members Keep Ownership</h3>
             <p>Domain ownership, renewal responsibility, transfer rights, billing, and administrative authority must be documented clearly.</p>
           </article>
-
           <article class="principle">
             <h3>No Hidden Credentials</h3>
-            <p>Registrar tokens, DNS keys, DKIM private keys, mailbox credentials, and administrator secrets never belong in public HTML.</p>
+            <p>Registrar tokens, DNS keys, DKIM private keys, mailbox credentials, and administrator secrets never belong in public HTML or local notes.</p>
           </article>
-
           <article class="principle">
             <h3>Honest Service Boundaries</h3>
-            <p>A planning interface is not represented as a registrar, nameserver, email host, cloud provider, or deployment service until those systems exist.</p>
+            <p>A planning interface is not represented as a registrar, nameserver, mail host, cloud provider, or deployment service until those systems exist.</p>
           </article>
-
           <article class="principle">
             <h3>Portability by Design</h3>
             <p>Members should be able to export plans, move domains, recover data, and change providers without losing access to their identity.</p>
           </article>
-
           <article class="principle">
             <h3>Security Before Scale</h3>
             <p>Authentication, permissions, logging, backups, recovery, monitoring, and incident response come before public provisioning.</p>
           </article>
-
           <article class="principle">
             <h3>One Network, Clear Roles</h3>
-            <p>Bunya, E=Ven Mail, 333 Identity, HOLLO, KANSEE, and public websites should share identity while preserving separate permissions.</p>
+            <p>Bunya, E=Ven Mail, 333 Identity, HOLLO, KANSEE, Bazaar, SIte, and public websites share a network while preserving separate permissions.</p>
           </article>
         </div>
       </div>
@@ -928,7 +1452,7 @@
       <div class="section-inner">
         <article class="notice">
           <strong>Development notice:</strong> Bunya is currently a public gateway and local
-          infrastructure-planning interface. It does not yet operate authoritative DNS nameservers,
+          infrastructure-planning workspace. It does not operate authoritative DNS nameservers,
           register domain names, provision real mailboxes, host private files, process payments,
           or deploy server-side applications. Those functions require authenticated backend services,
           provider APIs, databases, monitoring, backups, billing controls, and legal ownership records.
@@ -940,10 +1464,11 @@
   <footer>
     <div class="shell footer-inner">
       <span><strong>Bunya</strong> · Digital Infrastructure for Verve N Veda</span>
-      <nav class="footer-links">
-        <a href="#services">Services</a>
-        <a href="#dashboard">Console</a>
-        <a href="#records">DNS</a>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#services">Twelve Halls</a>
+        <a href="#workspace">Workspace</a>
+        <a href="#network">333 Suite</a>
+        <a href="../index.html">333 Gateway</a>
         <a href="#top">Back to Top</a>
       </nav>
     </div>
@@ -953,7 +1478,7 @@
     <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <header class="modal-head">
         <h2 id="modalTitle">Bunya Service</h2>
-        <button class="modal-close" id="modalClose" type="button" aria-label="Close">×</button>
+        <button class="modal-close" id="modalClose" type="button" aria-label="Close dialog">×</button>
       </header>
       <div class="modal-body" id="modalBody"></div>
       <footer class="modal-foot">
@@ -968,168 +1493,738 @@
     (() => {
       "use strict";
 
-      const STORAGE_KEY="bunya_infrastructure_plan_v1";
-      const $=selector=>document.querySelector(selector);
-      const $$=selector=>Array.from(document.querySelectorAll(selector));
+      const STORAGE_KEY = "bunya_infrastructure_workspace_v2";
+      const WORKSPACE_SCHEMA = "bunya-workspace";
+      const WORKSPACE_VERSION = 2;
 
-      const BUNYA_BACKEND=Object.freeze({
-        mode:"local",
-        apiBase:"",
-        authProvider:"",
-        dnsProvider:"",
-        registrarProvider:"",
-        mailProvider:"",
-        deploymentProvider:"",
-        syncEnabled:false
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+      const BUNYA_BACKEND = Object.freeze({
+        mode: "local",
+        apiBase: "",
+        authProvider: "",
+        dnsProvider: "",
+        registrarProvider: "",
+        mailProvider: "",
+        deploymentProvider: "",
+        syncEnabled: false
       });
 
-      const BunyaService=Object.freeze({
-        async authenticate(){
-          if(BUNYA_BACKEND.mode!=="remote")return null;
-          throw new Error("Bunya authentication is not configured.");
+      const readinessTemplate = Object.freeze([
+        { id: "ownership", title: "Ownership documented", detail: "Registrant, organization, administrator, and renewal responsibility are recorded." },
+        { id: "recovery", title: "Recovery contacts recorded", detail: "Recovery methods and authorized contacts are documented outside public code." },
+        { id: "dns", title: "DNS values verified", detail: "Records are copied from the actual provider and reviewed before entry." },
+        { id: "https", title: "HTTPS planned", detail: "Certificate provisioning, renewal, redirects, and secure transport are accounted for." },
+        { id: "mail", title: "Mail identity reviewed", detail: "MX, SPF, DKIM, DMARC, aliases, and abuse controls are documented when needed." },
+        { id: "backup", title: "Backup and export tested", detail: "Important plans, content, configuration, and recovery material have portable copies." },
+        { id: "monitoring", title: "Monitoring assigned", detail: "Uptime, DNS, certificate, deployment, storage, and incident ownership are clear." },
+        { id: "secrets", title: "Secrets excluded", detail: "No passwords, API tokens, private keys, or recovery codes are stored in this plan." }
+      ]);
+
+      const serviceCopy = Object.freeze({
+        "Domains": {
+          text: "Document ownership, administrative authority, renewal dates, transfer readiness, privacy settings, and recovery contacts.",
+          steps: ["Verify legal ownership", "Record registrar and renewal date", "Document recovery contacts", "Plan transfer and exit rights"]
         },
-        async createDnsZone(_plan){
-          if(BUNYA_BACKEND.mode!=="remote")return {ok:false,reason:"local-mode"};
-          throw new Error("DNS provider integration is not configured.");
+        "DNS": {
+          text: "Prepare zones and records before authenticated provider entry, with review, validation, change history, and rollback planning.",
+          steps: ["Identify authoritative provider", "Draft required records", "Verify exact provider values", "Plan rollback before changes"]
         },
-        async provisionMailbox(_plan){
-          if(BUNYA_BACKEND.mode!=="remote")return {ok:false,reason:"local-mode"};
-          throw new Error("E=Ven Mail provisioning is not configured.");
+        "E=Ven Mail": {
+          text: "Plan approved addresses, aliases, groups, quotas, recovery methods, delivery policies, and abuse protections.",
+          steps: ["Confirm domain authority", "Define address policy", "Prepare MX, SPF, DKIM, and DMARC", "Plan storage and recovery"]
         },
-        async deploySite(_plan){
-          if(BUNYA_BACKEND.mode!=="remote")return {ok:false,reason:"local-mode"};
-          throw new Error("Deployment integration is not configured.");
+        "333 Identity": {
+          text: "Connect verified people and organizations to roles, domains, mailboxes, applications, devices, permissions, and recovery methods.",
+          steps: ["Define identity authority", "Assign least-privilege roles", "Verify recovery methods", "Document revocation and audit procedures"]
+        },
+        "Websites": {
+          text: "Connect repositories, templates, uploads, or build pipelines to approved domains and subdomains.",
+          steps: ["Choose source repository", "Define build and publish path", "Connect domain and HTTPS", "Document rollback and ownership"]
+        },
+        "Cloud & Storage": {
+          text: "Plan private object storage, quotas, signed access, retention, encrypted backups, and member-controlled export.",
+          steps: ["Classify stored data", "Set access and retention rules", "Plan encryption and backups", "Test export and recovery"]
+        },
+        "Deployments": {
+          text: "Document builds, environments, releases, secrets, approvals, rollbacks, logs, and health checks.",
+          steps: ["Separate environments", "Protect deployment credentials", "Define approval and rollback", "Monitor release health"]
+        },
+        "CDN & Edge": {
+          text: "Plan caching, global delivery, invalidation, regional routing, performance, and origin protection.",
+          steps: ["Identify cacheable assets", "Define invalidation policy", "Protect the origin", "Measure performance and errors"]
+        },
+        "Progressive Apps": {
+          text: "Organize manifests, service workers, install icons, application scope, update behavior, and offline fallbacks.",
+          steps: ["Validate manifest scope", "Namespace application caches", "Test offline routes", "Provide safe update controls"]
+        },
+        "Monitoring": {
+          text: "Track uptime, DNS, certificates, deployments, storage, mail health, incidents, ownership, and alerts.",
+          steps: ["Choose service checks", "Assign alert owners", "Document escalation", "Review recurring incidents"]
+        },
+        "Backups": {
+          text: "Plan encrypted backups, retention schedules, restore points, recovery tests, and portable export archives.",
+          steps: ["Identify critical data", "Set retention and encryption", "Separate backup location", "Perform restoration tests"]
+        },
+        "Security": {
+          text: "Organize roles, credentials, logs, certificates, renewals, alerts, incident response, and administrative safeguards.",
+          steps: ["Use least privilege", "Separate secrets from public code", "Log sensitive changes", "Prepare incident and recovery procedures"]
         }
       });
 
-      function showToast(message){
-        const toast=$("#toast");
-        toast.textContent=message;
-        toast.classList.add("show");
-        clearTimeout(showToast.timer);
-        showToast.timer=setTimeout(()=>toast.classList.remove("show"),1700);
-      }
-
-      function openModal(title,body){
-        $("#modalTitle").textContent=title;
-        $("#modalBody").innerHTML=body;
-        $("#modalLayer").classList.add("active");
-        $("#modalLayer").setAttribute("aria-hidden","false");
-      }
-
-      function closeModal(){
-        $("#modalLayer").classList.remove("active");
-        $("#modalLayer").setAttribute("aria-hidden","true");
-      }
-
-      const serviceCopy={
-        "Domains":"This future hall will verify ownership, connect existing domains, prepare transfers, track renewals, and associate each domain with an authorized 333 Identity.",
-        "DNS":"This future hall will manage zones through an authenticated DNS provider API with validation, audit history, rollback, and role-based permissions.",
-        "E=Ven Mail":"This future hall will approve and provision addresses, aliases, groups, quotas, recovery methods, and mail policies for approved domains.",
-        "333 Identity":"This future hall will connect verified people and organizations to domains, mailboxes, websites, devices, roles, permissions, and recovery methods.",
-        "Websites":"This future hall will connect repositories, templates, uploads, or build pipelines to approved domains and subdomains.",
-        "Cloud & Storage":"This future hall will provide private object storage, quotas, signed access, retention rules, backups, and member-controlled exports.",
-        "Deployments":"This future hall will manage builds, environments, releases, rollbacks, deployment logs, and service health.",
-        "CDN & Edge":"This future hall will manage caching, global asset delivery, regional routing, invalidation, and performance policies.",
-        "Progressive Apps":"This future hall will organize manifests, service workers, icons, installability, offline behavior, and application updates.",
-        "Monitoring":"This future hall will track uptime, DNS, certificates, deployments, storage, mail health, incidents, and alerts.",
-        "Backups":"This future hall will manage encrypted backups, retention schedules, restore points, recovery testing, and export archives.",
-        "Security":"This future hall will organize credentials, roles, logs, certificates, renewals, alerts, incident response, and administrative safeguards."
-      };
-
-      $$("[data-service]").forEach(button=>{
-        button.addEventListener("click",()=>{
-          const name=button.dataset.service;
-          openModal(name,`<p>${serviceCopy[name]}</p><p><strong>Current status:</strong> planning interface only. No production provider credentials or backend APIs are connected.</p>`);
-        });
+      const emptyWorkspace = () => ({
+        schema: WORKSPACE_SCHEMA,
+        version: WORKSPACE_VERSION,
+        selectedPlanId: null,
+        plans: [],
+        updatedAt: new Date().toISOString()
       });
 
-      function getPlan(){
+      let workspace = loadWorkspace();
+      let activeView = "plan";
+      let lastModalTrigger = null;
+
+      function createId(prefix = "item") {
+        if (crypto?.randomUUID) return `${prefix}-${crypto.randomUUID()}`;
+        return `${prefix}-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      }
+
+      function safeText(value) {
+        return String(value ?? "").trim();
+      }
+
+      function normalizeRecord(record = {}) {
         return {
-          resource:$("#resourceName").value.trim(),
-          service:$("#serviceType").value,
-          owner:$("#resourceOwner").value.trim(),
-          environment:$("#resourceEnvironment").value,
-          notes:$("#resourceNotes").value.trim(),
-          backendMode:BUNYA_BACKEND.mode,
-          updatedAt:new Date().toISOString()
+          id: safeText(record.id) || createId("record"),
+          type: safeText(record.type).toUpperCase() || "A",
+          name: safeText(record.name),
+          value: safeText(record.value),
+          priority: safeText(record.priority),
+          ttl: Math.max(60, Number(record.ttl) || 3600),
+          createdAt: safeText(record.createdAt) || new Date().toISOString()
         };
       }
 
-      function applyPlan(plan){
-        if(!plan)return;
-        $("#resourceName").value=plan.resource||"";
-        $("#serviceType").value=plan.service||"domain";
-        $("#resourceOwner").value=plan.owner||"";
-        $("#resourceEnvironment").value=plan.environment||"planning";
-        $("#resourceNotes").value=plan.notes||"";
+      function normalizePlan(plan = {}) {
+        const readiness = {};
+        readinessTemplate.forEach(item => {
+          readiness[item.id] = Boolean(plan.readiness?.[item.id]);
+        });
+
+        return {
+          id: safeText(plan.id) || createId("plan"),
+          resource: safeText(plan.resource),
+          service: safeText(plan.service) || "domain",
+          owner: safeText(plan.owner),
+          environment: ["planning", "development", "staging", "production"].includes(plan.environment)
+            ? plan.environment
+            : "planning",
+          provider: safeText(plan.provider),
+          renewal: safeText(plan.renewal),
+          notes: safeText(plan.notes),
+          records: Array.isArray(plan.records) ? plan.records.map(normalizeRecord) : [],
+          readiness,
+          createdAt: safeText(plan.createdAt) || new Date().toISOString(),
+          updatedAt: safeText(plan.updatedAt) || new Date().toISOString()
+        };
       }
 
-      $("#savePlanButton").addEventListener("click",()=>{
-        const plan=getPlan();
-        if(!plan.resource)return showToast("Add a domain, subdomain, or service name first.");
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(plan));
-        showToast("Bunya plan saved locally.");
-      });
+      function normalizeWorkspace(value) {
+        if (!value || typeof value !== "object") return emptyWorkspace();
 
-      $("#exportPlanButton").addEventListener("click",()=>{
-        const plan=getPlan();
-        if(!plan.resource)return showToast("Add a domain, subdomain, or service name first.");
-        const blob=new Blob([JSON.stringify(plan,null,2)],{type:"application/json"});
-        const url=URL.createObjectURL(blob);
-        const link=document.createElement("a");
-        link.href=url;
-        link.download=(plan.resource.replace(/[^a-z0-9.-]+/gi,"-")||"bunya-plan")+".json";
+        const plans = Array.isArray(value.plans)
+          ? value.plans.map(normalizePlan)
+          : [];
+
+        const selectedExists = plans.some(plan => plan.id === value.selectedPlanId);
+
+        return {
+          schema: WORKSPACE_SCHEMA,
+          version: WORKSPACE_VERSION,
+          selectedPlanId: selectedExists ? value.selectedPlanId : plans[0]?.id || null,
+          plans,
+          updatedAt: safeText(value.updatedAt) || new Date().toISOString()
+        };
+      }
+
+      function loadWorkspace() {
+        try {
+          return normalizeWorkspace(JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"));
+        } catch (error) {
+          console.warn("Bunya workspace could not be loaded:", error);
+          return emptyWorkspace();
+        }
+      }
+
+      function persistWorkspace() {
+        workspace.updatedAt = new Date().toISOString();
+
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(workspace));
+        } catch (error) {
+          console.warn("Bunya workspace could not be saved:", error);
+          showToast("Local storage is unavailable. Export your work now.");
+        }
+
+        renderAll();
+      }
+
+      function selectedPlan() {
+        return workspace.plans.find(plan => plan.id === workspace.selectedPlanId) || null;
+      }
+
+      function showToast(message) {
+        const toast = $("#toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 1900);
+      }
+
+      function setMessage(target, message, tone = "neutral") {
+        target.textContent = message;
+        target.style.color = tone === "error"
+          ? "var(--danger)"
+          : tone === "success"
+            ? "var(--green)"
+            : "var(--muted)";
+      }
+
+      function downloadJson(filename, data) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
         document.body.appendChild(link);
         link.click();
         link.remove();
-        setTimeout(()=>URL.revokeObjectURL(url),500);
-        showToast("Bunya plan exported.");
-      });
+        setTimeout(() => URL.revokeObjectURL(url), 700);
+      }
 
-      $("#clearPlanButton").addEventListener("click",()=>{
-        if(!confirm("Clear the local Bunya plan?"))return;
-        localStorage.removeItem(STORAGE_KEY);
-        applyPlan({});
-        showToast("Local Bunya plan cleared.");
-      });
+      function fileNameFrom(value, fallback) {
+        return (safeText(value).replace(/[^a-z0-9.-]+/gi, "-").replace(/^-+|-+$/g, "") || fallback);
+      }
 
-      try{
-        const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");
-        if(saved)applyPlan(saved);
-      }catch{}
+      function formatDate(value) {
+        if (!value) return "No date";
+        const date = new Date(value);
+        return Number.isNaN(date.getTime())
+          ? "No date"
+          : date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+      }
 
-      $("#modalClose").addEventListener("click",closeModal);
-      $("#modalDismiss").addEventListener("click",closeModal);
-      $("#modalLayer").addEventListener("click",event=>{
-        if(event.target===$("#modalLayer"))closeModal();
-      });
+      function createPlan() {
+        const plan = normalizePlan({
+          id: createId("plan"),
+          resource: "",
+          service: "domain",
+          owner: "",
+          environment: "planning",
+          provider: "",
+          renewal: "",
+          notes: "",
+          records: [],
+          readiness: {}
+        });
 
-      const menuButton=$("#menuButton");
-      const mobileMenu=$("#mobileMenu");
+        workspace.plans.unshift(plan);
+        workspace.selectedPlanId = plan.id;
+        persistWorkspace();
+        switchView("plan");
+        $("#resourceName").focus();
+        showToast("New Bunya plan created.");
+      }
 
-      menuButton.addEventListener("click",()=>{
-        const open=mobileMenu.classList.toggle("open");
-        menuButton.setAttribute("aria-expanded",String(open));
-        menuButton.textContent=open?"×":"☰";
-      });
+      function saveCurrentPlan() {
+        const plan = selectedPlan();
 
-      mobileMenu.querySelectorAll("a").forEach(link=>{
-        link.addEventListener("click",()=>{
-          mobileMenu.classList.remove("open");
-          menuButton.setAttribute("aria-expanded","false");
-          menuButton.textContent="☰";
+        if (!plan) {
+          createPlan();
+          return;
+        }
+
+        const resource = safeText($("#resourceName").value);
+        if (!resource) {
+          setMessage($("#planMessage"), "Add a domain, subdomain, or service name before saving.", "error");
+          $("#resourceName").focus();
+          return;
+        }
+
+        plan.resource = resource;
+        plan.service = $("#serviceType").value;
+        plan.owner = safeText($("#resourceOwner").value);
+        plan.environment = $("#resourceEnvironment").value;
+        plan.provider = safeText($("#resourceProvider").value);
+        plan.renewal = $("#resourceRenewal").value;
+        plan.notes = safeText($("#resourceNotes").value);
+        plan.updatedAt = new Date().toISOString();
+
+        persistWorkspace();
+        setMessage($("#planMessage"), "Bunya plan saved locally.", "success");
+        showToast("Bunya plan saved.");
+      }
+
+      function duplicateCurrentPlan() {
+        const plan = selectedPlan();
+        if (!plan) return;
+
+        const copy = normalizePlan({
+          ...plan,
+          id: createId("plan"),
+          resource: `${plan.resource || "Untitled plan"} copy`,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          records: plan.records.map(record => ({
+            ...record,
+            id: createId("record"),
+            createdAt: new Date().toISOString()
+          }))
+        });
+
+        workspace.plans.unshift(copy);
+        workspace.selectedPlanId = copy.id;
+        persistWorkspace();
+        switchView("plan");
+        showToast("Plan duplicated.");
+      }
+
+      function deleteCurrentPlan() {
+        const plan = selectedPlan();
+        if (!plan) return;
+
+        if (!window.confirm(`Delete the local plan "${plan.resource || "Untitled plan"}"?`)) return;
+
+        workspace.plans = workspace.plans.filter(item => item.id !== plan.id);
+        workspace.selectedPlanId = workspace.plans[0]?.id || null;
+        persistWorkspace();
+        showToast("Local plan deleted.");
+      }
+
+      function exportCurrentPlan() {
+        const plan = selectedPlan();
+        if (!plan) return;
+
+        downloadJson(
+          `${fileNameFrom(plan.resource, "bunya-plan")}.json`,
+          {
+            schema: "bunya-plan",
+            version: WORKSPACE_VERSION,
+            exportedAt: new Date().toISOString(),
+            plan
+          }
+        );
+        showToast("Plan exported.");
+      }
+
+      function exportWorkspace() {
+        downloadJson(
+          `bunya-workspace-${new Date().toISOString().slice(0, 10)}.json`,
+          {
+            ...workspace,
+            exportedAt: new Date().toISOString()
+          }
+        );
+        showToast("Bunya workspace exported.");
+      }
+
+      async function importWorkspace(file) {
+        if (!file) return;
+
+        try {
+          const imported = JSON.parse(await file.text());
+
+          let incoming;
+          if (imported?.schema === "bunya-plan" && imported.plan) {
+            const plan = normalizePlan({
+              ...imported.plan,
+              id: createId("plan"),
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString()
+            });
+            workspace.plans.unshift(plan);
+            workspace.selectedPlanId = plan.id;
+            incoming = workspace;
+          } else {
+            incoming = normalizeWorkspace(imported);
+          }
+
+          if (!window.confirm("Replace the current local Bunya workspace with the imported data? Export the current workspace first when needed.")) {
+            return;
+          }
+
+          workspace = incoming;
+          persistWorkspace();
+          showToast("Bunya workspace imported.");
+        } catch (error) {
+          console.warn("Bunya import failed:", error);
+          showToast("The selected file is not a valid Bunya JSON export.");
+        } finally {
+          $("#importWorkspaceInput").value = "";
+        }
+      }
+
+      function selectPlan(planId) {
+        workspace.selectedPlanId = planId;
+        persistWorkspace();
+      }
+
+      function addDnsRecord() {
+        const plan = selectedPlan();
+        if (!plan) {
+          setMessage($("#recordMessage"), "Create or select a plan before adding DNS records.", "error");
+          return;
+        }
+
+        const name = safeText($("#recordName").value);
+        const value = safeText($("#recordValue").value);
+
+        if (!name || !value) {
+          setMessage($("#recordMessage"), "Add both the record name and provider-supplied value.", "error");
+          return;
+        }
+
+        const type = $("#recordType").value;
+        const priority = safeText($("#recordPriority").value);
+        const ttl = Math.max(60, Number($("#recordTtl").value) || 3600);
+
+        plan.records.push(normalizeRecord({
+          id: createId("record"),
+          type,
+          name,
+          value,
+          priority,
+          ttl
+        }));
+        plan.updatedAt = new Date().toISOString();
+
+        $("#recordName").value = "";
+        $("#recordValue").value = "";
+        $("#recordPriority").value = "";
+        $("#recordTtl").value = "3600";
+
+        persistWorkspace();
+        setMessage($("#recordMessage"), `${type} record draft added.`, "success");
+      }
+
+      function removeDnsRecord(recordId) {
+        const plan = selectedPlan();
+        if (!plan) return;
+
+        plan.records = plan.records.filter(record => record.id !== recordId);
+        plan.updatedAt = new Date().toISOString();
+        persistWorkspace();
+        showToast("DNS record draft removed.");
+      }
+
+      function toggleReadiness(itemId, checked) {
+        const plan = selectedPlan();
+        if (!plan) return;
+
+        plan.readiness[itemId] = checked;
+        plan.updatedAt = new Date().toISOString();
+        persistWorkspace();
+      }
+
+      function switchView(view) {
+        activeView = view;
+
+        $$(".workspace-tab").forEach(button => {
+          const active = button.dataset.view === view;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-current", active ? "page" : "false");
+        });
+
+        $$("[data-workspace-view]").forEach(section => {
+          section.classList.toggle("active", section.dataset.workspaceView === view);
+        });
+      }
+
+      function renderSummary() {
+        const records = workspace.plans.reduce((sum, plan) => sum + plan.records.length, 0);
+        const production = workspace.plans.filter(plan => plan.environment === "production").length;
+        const checks = workspace.plans.reduce(
+          (sum, plan) => sum + Object.values(plan.readiness).filter(Boolean).length,
+          0
+        );
+
+        $("#planCount").textContent = workspace.plans.length;
+        $("#recordCount").textContent = records;
+        $("#productionCount").textContent = production;
+        $("#checkCount").textContent = checks;
+        $("#heroPlanCount").textContent = String(workspace.plans.length).padStart(2, "0");
+        $("#heroRecordCount").textContent = String(records).padStart(2, "0");
+        $("#heroConnection").textContent = navigator.onLine ? "Online" : "Local";
+        $("#connectionSummary").textContent = navigator.onLine
+          ? "Internet connection detected. Bunya still operates in local planning mode."
+          : "Offline local planning mode. No remote provider is connected.";
+      }
+
+      function renderPlanList() {
+        const list = $("#planList");
+        const query = safeText($("#planSearch").value).toLowerCase();
+        list.textContent = "";
+
+        const plans = workspace.plans.filter(plan => {
+          const haystack = [
+            plan.resource,
+            plan.owner,
+            plan.provider,
+            plan.service,
+            plan.environment
+          ].join(" ").toLowerCase();
+
+          return haystack.includes(query);
+        });
+
+        if (!plans.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty-table";
+          empty.textContent = workspace.plans.length
+            ? "No plans match this search."
+            : "No local plans yet. Create the first Bunya plan.";
+          list.appendChild(empty);
+          return;
+        }
+
+        plans.forEach(plan => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = `plan-item${plan.id === workspace.selectedPlanId ? " active" : ""}`;
+          button.dataset.planId = plan.id;
+
+          const text = document.createElement("span");
+          const title = document.createElement("strong");
+          const meta = document.createElement("small");
+          const dot = document.createElement("span");
+
+          title.textContent = plan.resource || "Untitled plan";
+          meta.textContent = `${plan.service} · ${formatDate(plan.updatedAt)}`;
+          dot.className = `plan-status-dot ${plan.environment}`;
+          dot.setAttribute("aria-label", `${plan.environment} environment`);
+          dot.title = `${plan.environment} environment`;
+
+          text.append(title, meta);
+          button.append(text, dot);
+          button.addEventListener("click", () => selectPlan(plan.id));
+          list.appendChild(button);
+        });
+      }
+
+      function renderPlanEditor() {
+        const plan = selectedPlan();
+        const hasPlan = Boolean(plan);
+
+        $("#planEditorTitle").textContent = hasPlan
+          ? `Edit ${plan.resource || "Untitled Plan"}`
+          : "Create an Infrastructure Plan";
+
+        $("#resourceName").value = plan?.resource || "";
+        $("#serviceType").value = plan?.service || "domain";
+        $("#resourceOwner").value = plan?.owner || "";
+        $("#resourceEnvironment").value = plan?.environment || "planning";
+        $("#resourceProvider").value = plan?.provider || "";
+        $("#resourceRenewal").value = plan?.renewal || "";
+        $("#resourceNotes").value = plan?.notes || "";
+
+        $("#duplicatePlanButton").disabled = !hasPlan;
+        $("#exportPlanButton").disabled = !hasPlan;
+        $("#deletePlanButton").disabled = !hasPlan;
+        $("#addRecordButton").disabled = !hasPlan;
+
+        setMessage(
+          $("#planMessage"),
+          hasPlan
+            ? `Last updated ${formatDate(plan.updatedAt)}. Changes remain local until saved and exported.`
+            : "Select New Plan to begin."
+        );
+      }
+
+      function renderDnsTable() {
+        const body = $("#recordTableBody");
+        const plan = selectedPlan();
+        body.textContent = "";
+
+        if (!plan?.records.length) {
+          const row = document.createElement("tr");
+          const cell = document.createElement("td");
+          cell.colSpan = 6;
+          cell.className = "empty-table";
+          cell.textContent = plan
+            ? "No DNS record drafts in this plan."
+            : "Create or select a plan before adding DNS record drafts.";
+          row.appendChild(cell);
+          body.appendChild(row);
+          return;
+        }
+
+        plan.records.forEach(record => {
+          const row = document.createElement("tr");
+          const fields = [
+            record.type,
+            record.name,
+            record.value,
+            record.priority || "—",
+            String(record.ttl)
+          ];
+
+          fields.forEach((value, index) => {
+            const cell = document.createElement("td");
+            if (index === 2) {
+              const code = document.createElement("code");
+              code.textContent = value;
+              cell.appendChild(code);
+            } else {
+              cell.textContent = value;
+            }
+            row.appendChild(cell);
+          });
+
+          const actionCell = document.createElement("td");
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "table-action";
+          remove.textContent = "Remove";
+          remove.addEventListener("click", () => removeDnsRecord(record.id));
+          actionCell.appendChild(remove);
+          row.appendChild(actionCell);
+          body.appendChild(row);
+        });
+      }
+
+      function renderReadiness() {
+        const container = $("#readinessChecklist");
+        const plan = selectedPlan();
+        container.textContent = "";
+
+        readinessTemplate.forEach(item => {
+          const label = document.createElement("label");
+          label.className = "check-item";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.disabled = !plan;
+          checkbox.checked = Boolean(plan?.readiness?.[item.id]);
+          checkbox.addEventListener("change", () => toggleReadiness(item.id, checkbox.checked));
+
+          const copy = document.createElement("span");
+          const title = document.createElement("strong");
+          const detail = document.createElement("small");
+          title.textContent = item.title;
+          detail.textContent = item.detail;
+          copy.append(title, detail);
+          label.append(checkbox, copy);
+          container.appendChild(label);
+        });
+      }
+
+      function renderAll() {
+        renderSummary();
+        renderPlanList();
+        renderPlanEditor();
+        renderDnsTable();
+        renderReadiness();
+      }
+
+      function openModal(title, service, trigger) {
+        lastModalTrigger = trigger || document.activeElement;
+        $("#modalTitle").textContent = title;
+        const body = $("#modalBody");
+        body.textContent = "";
+
+        const paragraph = document.createElement("p");
+        paragraph.textContent = service.text;
+
+        const status = document.createElement("p");
+        const strong = document.createElement("strong");
+        strong.textContent = "Current status: ";
+        status.append(strong, "local planning interface only. No production provider credentials or backend APIs are connected.");
+
+        const heading = document.createElement("h3");
+        heading.textContent = "Preparation sequence";
+
+        const list = document.createElement("ul");
+        service.steps.forEach(step => {
+          const item = document.createElement("li");
+          item.textContent = step;
+          list.appendChild(item);
+        });
+
+        body.append(paragraph, status, heading, list);
+        $("#modalLayer").classList.add("active");
+        $("#modalLayer").setAttribute("aria-hidden", "false");
+        $("#modalClose").focus();
+      }
+
+      function closeModal() {
+        $("#modalLayer").classList.remove("active");
+        $("#modalLayer").setAttribute("aria-hidden", "true");
+        lastModalTrigger?.focus?.();
+      }
+
+      function closeMobileMenu() {
+        $("#mobileMenu").classList.remove("open");
+        $("#menuButton").setAttribute("aria-expanded", "false");
+        $("#menuButton").setAttribute("aria-label", "Open navigation");
+        $("#menuButton").textContent = "☰";
+      }
+
+      $$("[data-service]").forEach(button => {
+        button.addEventListener("click", () => {
+          const name = button.dataset.service;
+          openModal(name, serviceCopy[name], button);
         });
       });
 
-      document.addEventListener("keydown",event=>{
-        if(event.key==="Escape"){
+      $$(".workspace-tab").forEach(button => {
+        button.addEventListener("click", () => switchView(button.dataset.view));
+      });
+
+      $("#newPlanButton").addEventListener("click", createPlan);
+      $("#savePlanButton").addEventListener("click", saveCurrentPlan);
+      $("#duplicatePlanButton").addEventListener("click", duplicateCurrentPlan);
+      $("#exportPlanButton").addEventListener("click", exportCurrentPlan);
+      $("#deletePlanButton").addEventListener("click", deleteCurrentPlan);
+      $("#exportWorkspaceButton").addEventListener("click", exportWorkspace);
+      $("#importWorkspaceButton").addEventListener("click", () => $("#importWorkspaceInput").click());
+      $("#importWorkspaceInput").addEventListener("change", event => importWorkspace(event.target.files?.[0]));
+      $("#planSearch").addEventListener("input", renderPlanList);
+      $("#addRecordButton").addEventListener("click", addDnsRecord);
+
+      $("#menuButton").addEventListener("click", () => {
+        const menu = $("#mobileMenu");
+        const open = menu.classList.toggle("open");
+        $("#menuButton").setAttribute("aria-expanded", String(open));
+        $("#menuButton").setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+        $("#menuButton").textContent = open ? "×" : "☰";
+      });
+
+      $$("#mobileMenu a").forEach(link => link.addEventListener("click", closeMobileMenu));
+
+      $("#modalClose").addEventListener("click", closeModal);
+      $("#modalDismiss").addEventListener("click", closeModal);
+      $("#modalLayer").addEventListener("click", event => {
+        if (event.target === $("#modalLayer")) closeModal();
+      });
+
+      window.addEventListener("online", renderSummary);
+      window.addEventListener("offline", renderSummary);
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
           closeModal();
-          mobileMenu.classList.remove("open");
-          menuButton.setAttribute("aria-expanded","false");
-          menuButton.textContent="☰";
+          closeMobileMenu();
         }
       });
+
+      if (!workspace.plans.length) {
+        createPlan();
+      } else {
+        renderAll();
+      }
+
+      switchView(activeView);
     })();
   </script>
 </body>
