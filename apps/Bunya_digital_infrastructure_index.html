@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="Bunya — a local-first digital infrastructure workspace for domains, DNS, websites, E=Ven Mail, 333 Identity, security, publishing, monitoring, backups, and future Verve N Veda member services.">
+  <meta name="description" content="Bunya — the local-first infrastructure registry for HOLLO identity, KANSEE, E=Ven Mail, Bazaar Art Live, SIte publishing, domains, DNS, security, monitoring, and backups across the 333 Network.">
   <meta name="theme-color" content="#0b1628">
   <meta name="color-scheme" content="light dark">
   <meta name="referrer" content="same-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
-  <title>Bunya | Digital Infrastructure Workspace</title>
+  <title>Bunya | 333 Network Infrastructure Console</title>
 
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/icons/icon-192.png">
@@ -934,6 +934,320 @@
         animation:none!important;
       }
     }
+
+    /* =========================================================
+       Bunya v3 — 333 Network Registry and Handoff Console
+       ========================================================= */
+    .network-identity{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-height:34px;
+      padding:6px 9px;
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:var(--r-small);
+      color:#dce4ec;
+      background:rgba(255,255,255,.04);
+      font-size:.65rem;
+    }
+    .network-identity-dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--silver-dark);
+      box-shadow:0 0 0 4px rgba(130,144,160,.11);
+    }
+    .network-identity.ready .network-identity-dot{
+      background:var(--green);
+      box-shadow:0 0 0 4px rgba(95,142,112,.13);
+    }
+    .registry-overview{
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);
+      gap:11px;
+      margin-top:16px;
+    }
+    .identity-snapshot,
+    .handoff-panel{
+      padding:18px;
+      border:1px solid var(--line);
+      border-radius:var(--r-card);
+    }
+    .identity-snapshot{
+      background:linear-gradient(145deg,#f2eadb,#fffdf8);
+    }
+    .handoff-panel{background:#fff}
+    .identity-snapshot-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .identity-snapshot-mark{
+      width:55px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      flex:0 0 55px;
+      border:1px solid rgba(184,154,97,.4);
+      border-radius:var(--r-small);
+      color:#765d2c;
+      background:#fff;
+      font-family:var(--brand);
+      font-size:.65rem;
+      letter-spacing:.08em;
+    }
+    .identity-snapshot h4,
+    .handoff-panel h4,
+    .registry-card h4{
+      margin:0;
+      font-family:var(--serif);
+      font-weight:var(--weight-text);
+    }
+    .identity-snapshot h4,.handoff-panel h4{font-size:1.45rem}
+    .identity-snapshot p,.handoff-panel p{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:.74rem;
+    }
+    .identity-meta{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:7px;
+      margin-top:14px;
+    }
+    .identity-meta div{
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      background:rgba(255,255,255,.68);
+    }
+    .identity-meta span{
+      display:block;
+      color:var(--muted);
+      font-size:.58rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .identity-meta strong{
+      display:block;
+      margin-top:3px;
+      overflow-wrap:anywhere;
+      font-size:.72rem;
+    }
+    .handoff-panel p{margin-bottom:12px}
+    .handoff-actions{display:grid;gap:7px}
+    .handoff-actions button{
+      min-height:42px;
+      padding:9px 11px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:var(--ink);
+      background:#faf7f0;
+      text-align:left;
+      font-size:.68rem;
+    }
+    .handoff-actions button:hover{
+      border-color:var(--gold);
+      background:#f2ead9;
+    }
+    .registry-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:11px;
+      margin-top:16px;
+    }
+    .registry-card{
+      --accent:var(--blue);
+      min-height:235px;
+      display:flex;
+      flex-direction:column;
+      padding:16px;
+      border:1px solid var(--line);
+      border-top:3px solid var(--accent);
+      border-radius:var(--r-card);
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+    }
+    .registry-card-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:9px;
+    }
+    .registry-card h4{
+      color:var(--ink);
+      font-size:1.5rem;
+    }
+    .registry-state{
+      padding:4px 7px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:var(--muted);
+      background:#f5f5f3;
+      font-size:.56rem;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+    .registry-state.ready{
+      color:#356345;
+      border-color:rgba(95,142,112,.35);
+      background:#eaf4ec;
+    }
+    .registry-card p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:.72rem;
+      line-height:1.55;
+    }
+    .registry-metrics{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:12px;
+    }
+    .registry-metric{
+      padding:8px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      background:#faf7f0;
+    }
+    .registry-metric strong{
+      display:block;
+      font-family:var(--mono);
+      font-size:.82rem;
+    }
+    .registry-metric span{
+      display:block;
+      margin-top:2px;
+      color:var(--muted);
+      font-size:.56rem;
+      text-transform:uppercase;
+    }
+    .registry-card-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:auto;
+      padding-top:14px;
+    }
+    .registry-card-actions a,
+    .registry-card-actions button{
+      min-height:38px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:7px 8px;
+      border:1px solid var(--accent);
+      border-radius:var(--r-small);
+      color:#fff;
+      background:var(--accent);
+      font-size:.62rem;
+      font-weight:var(--weight-emphasis);
+      text-transform:uppercase;
+    }
+    .registry-card-actions button.secondary-action{
+      color:var(--accent);
+      background:#fff;
+    }
+    .registry-note{
+      margin-top:14px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:var(--r-small);
+      color:#5f5547;
+      background:#f2eadb;
+      font-size:.7rem;
+      line-height:1.6;
+    }
+    .welcome-layer{
+      position:fixed;
+      inset:0;
+      z-index:5000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      background:rgba(3,8,15,.78);
+      backdrop-filter:blur(12px);
+    }
+    .welcome-layer.active{display:flex}
+    .welcome-card{
+      width:min(100%,610px);
+      max-height:90vh;
+      overflow:auto;
+      padding:24px;
+      border:1px solid rgba(232,215,175,.34);
+      border-radius:var(--r-card);
+      color:#fff;
+      background:
+        radial-gradient(circle at 50% 0,rgba(131,120,182,.14),transparent 22rem),
+        linear-gradient(150deg,var(--night-2),var(--night));
+      box-shadow:0 33px 88px rgba(0,0,0,.48);
+      text-align:center;
+    }
+    .welcome-eyebrow{
+      display:inline-flex;
+      padding:5px 11px;
+      border:1px solid rgba(232,215,175,.35);
+      border-radius:999px;
+      color:var(--gold-soft);
+      font-family:var(--brand);
+      font-size:.58rem;
+      letter-spacing:.15em;
+      text-transform:uppercase;
+    }
+    .welcome-card h2{
+      margin-top:12px;
+      color:#fff;
+      font-size:clamp(2.4rem,8vw,4rem);
+      line-height:.96;
+    }
+    .welcome-card>p{
+      max-width:450px;
+      margin:14px auto 0;
+      color:#b9c4cf;
+      font-size:.78rem;
+    }
+    .welcome-detected{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:7px;
+      margin-top:17px;
+    }
+    .welcome-detected div{
+      padding:10px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--r-small);
+      background:rgba(255,255,255,.035);
+    }
+    .welcome-detected strong{
+      display:block;
+      color:var(--gold-soft);
+      font-family:var(--mono);
+    }
+    .welcome-detected span{
+      color:#aeb9c5;
+      font-size:.57rem;
+      text-transform:uppercase;
+    }
+    .welcome-actions{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:18px;
+    }
+    @media(max-width:1000px){
+      .registry-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:760px){
+      .registry-overview{grid-template-columns:1fr}
+    }
+    @media(max-width:560px){
+      .registry-grid,.identity-meta,.welcome-detected{grid-template-columns:1fr}
+      .registry-card-actions{grid-template-columns:1fr}
+      .welcome-actions{display:grid}
+    }
   </style>
 </head>
 
@@ -946,8 +1260,11 @@
       <nav class="utility-links" aria-label="Utility navigation">
         <a href="../../">Verve N Veda</a>
         <a href="../index.html">333 Network</a>
-        <a href="./EVen_mail_index.html">E=Ven Mail</a>
-        <a href="./SIte_builder_index.html">SIte Builder</a>
+        <a href="./HOLLO_333_direct_connect_index.html">HOLLO</a>
+        <a href="./KANSEE_333_meeting_rooms_index.html">KANSEE</a>
+        <a href="./EVen_mail_index.html#apply">E=Ven Mail</a>
+        <a href="./Bazaar_Art_Live_index.html">Bazaar</a>
+        <a href="./SIte_builder_index.html">SIte</a>
       </nav>
     </div>
   </div>
@@ -970,6 +1287,11 @@
         <a href="#principles">Principles</a>
       </nav>
 
+      <div class="network-identity" id="networkIdentity" title="Shared HOLLO identity status">
+        <span class="network-identity-dot" aria-hidden="true"></span>
+        <span id="networkIdentityText">Local network</span>
+      </div>
+
       <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
     </div>
   </header>
@@ -977,6 +1299,7 @@
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a href="#services">Twelve Halls</a>
     <a href="#workspace">Workspace</a>
+    <a href="#workspace" data-open-registry>Network Registry</a>
     <a href="#network">333 Suite</a>
     <a href="#records">DNS Guide</a>
     <a href="#principles">Principles</a>
@@ -1007,8 +1330,9 @@
           <a class="button secondary" href="../index.html">Return to 333 Network</a>
         </div>
 
-        <div class="platform-strip" aria-label="Bunya platform summary">
+        <div class="platform-strip" aria-label="Bunya platform summary" style="grid-template-columns:repeat(5,minmax(0,1fr))">
           <div class="platform-stat"><strong>12</strong><span>Infrastructure Halls</span></div>
+          <div class="platform-stat"><strong id="heroAppCount">00</strong><span>Apps Detected</span></div>
           <div class="platform-stat"><strong id="heroPlanCount">00</strong><span>Local Plans</span></div>
           <div class="platform-stat"><strong id="heroRecordCount">00</strong><span>DNS Drafts</span></div>
           <div class="platform-stat"><strong id="heroConnection">Local</strong><span>Operating Mode</span></div>
@@ -1046,7 +1370,7 @@
             <span class="service-icon" aria-hidden="true">✉</span>
             <h3>E=Ven Mail</h3>
             <p>Prepare member addresses, aliases, groups, quotas, recovery methods, and future mail policies.</p>
-            <a href="./EVen_mail_index.html">Open E=Ven Mail</a>
+            <a href="./EVen_mail_index.html#apply">Open E=Ven Mail</a>
           </article>
 
           <article class="service-card" style="--accent:var(--rose)">
@@ -1163,6 +1487,7 @@
           <div class="workspace-main">
             <nav class="workspace-tabs" aria-label="Bunya workspace sections">
               <button class="workspace-tab active" type="button" data-view="plan">Infrastructure Plan</button>
+              <button class="workspace-tab" type="button" data-view="registry">Network Registry</button>
               <button class="workspace-tab" type="button" data-view="dns">DNS Drafts</button>
               <button class="workspace-tab" type="button" data-view="readiness">Readiness</button>
               <button class="workspace-tab" type="button" data-view="platform">Platform Status</button>
@@ -1216,6 +1541,29 @@
                   </div>
 
                   <div class="field">
+                    <label for="resourceSource">Source application</label>
+                    <select id="resourceSource">
+                      <option value="manual">Manual Bunya plan</option>
+                      <option value="hollo">HOLLO</option>
+                      <option value="kansee">KANSEE</option>
+                      <option value="even">E=Ven Mail</option>
+                      <option value="bazaar">Bazaar Art Live</option>
+                      <option value="site">SIte</option>
+                      <option value="gateway">333 Network Gateway</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceIdentityNumber">Related member or 333 number</label>
+                    <input id="resourceIdentityNumber" autocomplete="off" inputmode="tel" placeholder="Optional identity reference">
+                  </div>
+
+                  <div class="field">
+                    <label for="resourceEmailReference">Email application reference</label>
+                    <input id="resourceEmailReference" autocomplete="off" placeholder="Optional E=Ven application reference">
+                  </div>
+
+                  <div class="field">
                     <label for="resourceRenewal">Renewal or review date</label>
                     <input id="resourceRenewal" type="date">
                   </div>
@@ -1234,6 +1582,54 @@
                 </div>
 
                 <div class="form-message" id="planMessage" role="status" aria-live="polite"></div>
+              </article>
+            </section>
+
+
+            <section class="workspace-view" id="view-registry" data-workspace-view="registry">
+              <article class="panel">
+                <h3>333 Network Registry</h3>
+                <p>
+                  Bunya reads same-origin local records from the rebuilt applications. Detection confirms
+                  that browser data exists; it does not prove a remote account, mailbox, deployment,
+                  public registration, or cross-device synchronization.
+                </p>
+
+                <div class="registry-overview">
+                  <section class="identity-snapshot" aria-labelledby="registryIdentityTitle">
+                    <div class="identity-snapshot-head">
+                      <span class="identity-snapshot-mark" aria-hidden="true">333</span>
+                      <div>
+                        <h4 id="registryIdentityTitle">Shared Member Identity</h4>
+                        <p id="registryIdentitySummary">No completed HOLLO enrollment detected.</p>
+                      </div>
+                    </div>
+                    <div class="identity-meta">
+                      <div><span>Name</span><strong id="registryIdentityName">Not enrolled</strong></div>
+                      <div><span>Handle</span><strong id="registryIdentityHandle">—</strong></div>
+                      <div><span>Member Number</span><strong id="registryIdentityNumber">—</strong></div>
+                      <div><span>E=Ven Request</span><strong id="registryIdentityEmail">—</strong></div>
+                    </div>
+                  </section>
+
+                  <section class="handoff-panel" aria-labelledby="handoffTitle">
+                    <h4 id="handoffTitle">Create Infrastructure Plans</h4>
+                    <p>Turn detected application records into editable Bunya plans without copying passwords or provider secrets.</p>
+                    <div class="handoff-actions">
+                      <button id="createIdentityPlanButton" type="button">Create plan from HOLLO identity</button>
+                      <button id="createMailPlanButton" type="button">Create plan from E=Ven application</button>
+                      <button id="createSitePlanButton" type="button">Create plan from SIte project</button>
+                      <button id="refreshRegistryButton" type="button">Refresh local registry</button>
+                    </div>
+                  </section>
+                </div>
+
+                <div class="registry-grid" id="appRegistryGrid"></div>
+
+                <div class="registry-note">
+                  Bunya never reads passcodes, password hashes, private keys, API tokens, or provider
+                  credentials from another application. Only descriptive local workspace metadata is summarized.
+                </div>
               </article>
             </section>
 
@@ -1317,10 +1713,13 @@
                   <div class="status-row"><strong>Public Gateway</strong><span>Responsive infrastructure landing page and 333 Network navigation</span><span class="status-badge">Active</span></div>
                   <div class="status-row"><strong>Local Workspace</strong><span>Multiple plans, DNS drafts, checklists, JSON import and export</span><span class="status-badge">Active</span></div>
                   <div class="status-row"><strong>PWA Foundation</strong><span>Shared 333 Network manifest, service worker, icons, and offline shell</span><span class="status-badge">Active</span></div>
-                  <div class="status-row"><strong>333 Authentication</strong><span>Shared identity, roles, devices, permissions, and recovery</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>Shared Local Identity</strong><span>HOLLO enrollment handoff across KANSEE, E=Ven, Bazaar, SIte, and Bunya</span><span class="status-badge">Active Locally</span></div>
+                  <div class="status-row"><strong>Production Authentication</strong><span>Verified accounts, roles, devices, permissions, sessions, and recovery</span><span class="status-badge planned">Planned</span></div>
                   <div class="status-row"><strong>DNS Provider API</strong><span>Nameservers, zones, validation, audit history, and rollback</span><span class="status-badge planned">Planned</span></div>
                   <div class="status-row"><strong>Domain Registrar</strong><span>Registration, transfer, renewal, ownership, and billing</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>E=Ven Applications</strong><span>Local address applications and HOLLO identity handoff</span><span class="status-badge">Active Locally</span></div>
                   <div class="status-row"><strong>E=Ven Mail Delivery</strong><span>Mailbox provisioning, SMTP, IMAP or JMAP, storage, and abuse controls</span><span class="status-badge planned">Planned</span></div>
+                  <div class="status-row"><strong>SIte Build & Export</strong><span>Responsive projects, Embed Studio, static HTML export, and Bunya handoff</span><span class="status-badge">Active Locally</span></div>
                   <div class="status-row"><strong>Deployment Service</strong><span>Builds, releases, rollback, logs, secrets, and monitoring</span><span class="status-badge planned">Planned</span></div>
                   <div class="status-row"><strong>Member Billing</strong><span>Plans, invoices, renewals, service limits, and ownership records</span><span class="status-badge planned">Planned</span></div>
                 </div>
@@ -1361,7 +1760,7 @@
             <span class="network-category">Communication</span>
             <h3>E=Ven Mail</h3>
             <p>Local correspondence workspace prepared for future authenticated delivery.</p>
-            <a href="./EVen_mail_index.html">Open E=Ven Mail</a>
+            <a href="./EVen_mail_index.html#apply">Open E=Ven Mail</a>
           </article>
 
           <article class="network-card" style="--accent:var(--rose)">
@@ -1474,6 +1873,28 @@
     </div>
   </footer>
 
+
+  <div class="welcome-layer" id="welcomeLayer" aria-hidden="true">
+    <section class="welcome-card" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <span class="welcome-eyebrow">333 Network Infrastructure Console</span>
+      <h2 id="welcomeTitle">Welcome to Bunya</h2>
+      <p>
+        Bunya can recognize the rebuilt local applications and turn their descriptive records
+        into infrastructure plans while keeping production services clearly separate.
+      </p>
+      <div class="welcome-detected">
+        <div><strong id="welcomeAppCount">00</strong><span>Apps Detected</span></div>
+        <div><strong id="welcomeIdentityCount">00</strong><span>HOLLO Enrollment</span></div>
+        <div><strong id="welcomeMailCount">00</strong><span>Email Applications</span></div>
+      </div>
+      <div class="welcome-actions">
+        <button class="button primary" id="welcomeRegistryButton" type="button">Open Network Registry</button>
+        <button class="button secondary" id="welcomePlanButton" type="button">Create Manual Plan</button>
+        <button class="button secondary" id="welcomeCloseButton" type="button">Explore Bunya</button>
+      </div>
+    </section>
+  </div>
+
   <div class="modal-layer" id="modalLayer" aria-hidden="true">
     <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <header class="modal-head">
@@ -1495,7 +1916,18 @@
 
       const STORAGE_KEY = "bunya_infrastructure_workspace_v2";
       const WORKSPACE_SCHEMA = "bunya-workspace";
-      const WORKSPACE_VERSION = 2;
+      const WORKSPACE_VERSION = 3;
+      const WELCOME_KEY = "bunya_network_console_welcome_v3";
+
+      const APP_STORAGE = Object.freeze({
+        hollo: "hollo_333_direct_connect_v1",
+        identityHandoff: "333_identity_handoff_v1",
+        kansee: "kansee_333_workspace_v1",
+        even: "even_mail_workspace_v2",
+        bazaar: "bazaar_live_frontend_v1",
+        site: "SITE_ALPHA_V070",
+        siteAuth: "SITE_ALPHA_AUTH_V1"
+      });
 
       const $ = (selector, root = document) => root.querySelector(selector);
       const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -1621,6 +2053,11 @@
             ? plan.environment
             : "planning",
           provider: safeText(plan.provider),
+          sourceApp: ["manual", "hollo", "kansee", "even", "bazaar", "site", "gateway"].includes(plan.sourceApp)
+            ? plan.sourceApp
+            : "manual",
+          identityNumber: safeText(plan.identityNumber),
+          emailReference: safeText(plan.emailReference),
           renewal: safeText(plan.renewal),
           notes: safeText(plan.notes),
           records: Array.isArray(plan.records) ? plan.records.map(normalizeRecord) : [],
@@ -1715,6 +2152,401 @@
           : date.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
       }
 
+
+      function readLocalJson(key) {
+        try {
+          const value = localStorage.getItem(key);
+          return value ? JSON.parse(value) : null;
+        } catch {
+          return null;
+        }
+      }
+
+      function normalizeNumber(value) {
+        return String(value || "").replace(/\D/g, "").slice(0, 15);
+      }
+
+      function readNetworkIdentity() {
+        const handoff = readLocalJson(APP_STORAGE.identityHandoff);
+        const hollo = readLocalJson(APP_STORAGE.hollo);
+
+        const source =
+          handoff?.enrollment?.complete && handoff?.profile
+            ? handoff
+            : hollo?.enrollment?.complete && hollo?.profile
+              ? hollo
+              : handoff?.profile
+                ? handoff
+                : hollo?.profile
+                  ? hollo
+                  : null;
+
+        if (!source?.profile) return null;
+
+        return {
+          name: safeText(source.profile.name),
+          handle: safeText(source.profile.handle),
+          number: normalizeNumber(source.profile.number || source.profile.number333),
+          numberKind: safeText(source.profile.numberKind || source.enrollment?.numberChoice),
+          complete: Boolean(source.enrollment?.complete),
+          completedAt: source.enrollment?.completedAt || source.handedOffAt || null
+        };
+      }
+
+      function readEvenSummary() {
+        const state = readLocalJson(APP_STORAGE.even);
+        const applications = Array.isArray(state?.applications) ? state.applications : [];
+        const mailboxes = Array.isArray(state?.mailboxes) ? state.mailboxes : [];
+        const latest = [...applications]
+          .filter(application => application && application.status !== "withdrawn-local")
+          .sort((a, b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0] || null;
+
+        const address = latest?.requestedLocalPart && latest?.domain
+          ? `${latest.requestedLocalPart}@${latest.domain}`
+          : "";
+
+        return { state, applications, mailboxes, latest, address };
+      }
+
+      function readAppRegistry() {
+        const hollo = readLocalJson(APP_STORAGE.hollo);
+        const kansee = readLocalJson(APP_STORAGE.kansee);
+        const even = readEvenSummary();
+        const bazaar = readLocalJson(APP_STORAGE.bazaar);
+        const site = readLocalJson(APP_STORAGE.site);
+        const siteAuth = readLocalJson(APP_STORAGE.siteAuth);
+        const identity = readNetworkIdentity();
+        const records = workspace.plans.reduce((sum, plan) => sum + plan.records.length, 0);
+
+        return {
+          identity,
+          even,
+          apps: [
+            {
+              id: "hollo",
+              name: "HOLLO",
+              accent: "var(--violet)",
+              href: "./HOLLO_333_direct_connect_index.html",
+              detected: Boolean(hollo),
+              ready: Boolean(hollo?.enrollment?.complete),
+              description: "Enrollment, shared member identity, contacts, and direct communication.",
+              metrics: [
+                [hollo?.enrollment?.complete ? "Complete" : hollo ? "Draft" : "None", "Enrollment"],
+                [Array.isArray(hollo?.contacts) ? hollo.contacts.length : 0, "Contacts"]
+              ]
+            },
+            {
+              id: "kansee",
+              name: "KANSEE",
+              accent: "var(--teal)",
+              href: "./KANSEE_333_meeting_rooms_index.html",
+              detected: Boolean(kansee),
+              ready: Boolean(kansee?.profile?.name && kansee.profile.source === "hollo"),
+              description: "Meeting rooms, invitations, participants, room notes, and local history.",
+              metrics: [
+                [Array.isArray(kansee?.meetings) ? kansee.meetings.length : 0, "Meetings"],
+                [Array.isArray(kansee?.history) ? kansee.history.length : 0, "History"]
+              ]
+            },
+            {
+              id: "even",
+              name: "E=Ven Mail",
+              accent: "var(--blue)",
+              href: "./EVen_mail_index.html#apply",
+              detected: Boolean(even.state),
+              ready: Boolean(even.latest),
+              description: "Email-address applications and a local correspondence workspace.",
+              metrics: [
+                [even.applications.length, "Applications"],
+                [even.mailboxes.length, "Mailboxes"]
+              ]
+            },
+            {
+              id: "bazaar",
+              name: "Bazaar Art Live",
+              accent: "var(--rose)",
+              href: "./Bazaar_Art_Live_index.html",
+              detected: Boolean(bazaar),
+              ready: Boolean(bazaar?.currentUserId),
+              description: "Creative profiles, posts, groups, events, stories, and reels.",
+              metrics: [
+                [Array.isArray(bazaar?.posts) ? bazaar.posts.length : 0, "Posts"],
+                [Array.isArray(bazaar?.users) ? bazaar.users.length : 0, "Profiles"]
+              ]
+            },
+            {
+              id: "site",
+              name: "SIte",
+              accent: "var(--green)",
+              href: "./SIte_builder_index.html",
+              detected: Boolean(site),
+              ready: Boolean(site?.pages?.length),
+              description: "Website projects, responsive layouts, static exports, and Embed Studio.",
+              metrics: [
+                [Array.isArray(site?.pages) ? site.pages.length : 0, "Pages"],
+                [Array.isArray(site?.languages?.list) ? site.languages.list.length : 0, "Languages"]
+              ],
+              site,
+              siteAuth
+            },
+            {
+              id: "bunya",
+              name: "Bunya",
+              accent: "var(--amber)",
+              href: "#workspace",
+              detected: true,
+              ready: true,
+              description: "Infrastructure plans, DNS drafts, readiness, registry, and portable exports.",
+              metrics: [
+                [workspace.plans.length, "Plans"],
+                [records, "DNS Records"]
+              ]
+            }
+          ]
+        };
+      }
+
+      function detectedAppCount() {
+        return readAppRegistry().apps.filter(app => app.detected).length;
+      }
+
+      function createPlanFromSource(sourceId) {
+        const registry = readAppRegistry();
+        const identity = registry.identity;
+        const even = registry.even;
+        const siteEntry = registry.apps.find(app => app.id === "site");
+        const site = siteEntry?.site;
+        const siteAuth = siteEntry?.siteAuth;
+        const now = new Date().toISOString();
+        let planData = null;
+
+        if (sourceId === "hollo" && identity) {
+          planData = {
+            resource: identity.handle || identity.number || `${identity.name || "Member"} identity`,
+            service: "identity",
+            owner: identity.name,
+            environment: "planning",
+            provider: "HOLLO / 333 Identity",
+            sourceApp: "hollo",
+            identityNumber: identity.number,
+            emailReference: "",
+            notes: [
+              "Created from the local HOLLO enrollment record.",
+              `Number type: ${identity.numberKind || "not specified"}.`,
+              "Existing numbers remain unverified and generated 333 numbers remain provisional until production identity services are connected."
+            ].join(" ")
+          };
+        }
+
+        if (sourceId === "even" && even.latest) {
+          planData = {
+            resource: even.address || "E=Ven Mail application",
+            service: "mail",
+            owner: safeText(even.latest.applicantName) || identity?.name || "",
+            environment: "planning",
+            provider: "E=Ven Mail",
+            sourceApp: "even",
+            identityNumber: normalizeNumber(even.latest.memberNumber || identity?.number),
+            emailReference: safeText(even.latest.reference),
+            notes: [
+              `Created from local E=Ven application ${safeText(even.latest.reference) || "without a reference"}.`,
+              `Local status: ${safeText(even.latest.status) || "draft-local"}.`,
+              "The requested address is not a provisioned mailbox until approved and connected to authenticated mail infrastructure."
+            ].join(" ")
+          };
+        }
+
+        if (sourceId === "site" && site?.pages?.length) {
+          const primary = safeText(site.domains?.primary);
+          const meaningfulDomain = primary && primary !== "example.com" ? primary : "";
+          const title = safeText(site.pages[0]?.title) || "SIte project";
+
+          planData = {
+            resource: meaningfulDomain || `${title} website`,
+            service: "website",
+            owner: safeText(siteAuth?.fullName) || identity?.name || "",
+            environment: "development",
+            provider: "SIte / Bunya",
+            sourceApp: "site",
+            identityNumber: normalizeNumber(siteAuth?.memberNumber || identity?.number),
+            emailReference: safeText(siteAuth?.emailApplicationReference),
+            notes: [
+              `Created from a local SIte project with ${site.pages.length} page(s).`,
+              `Languages: ${Array.isArray(site.languages?.list) ? site.languages.list.map(language => language.code).join(", ") : "not recorded"}.`,
+              site.domains?.liveUrl ? `Planned live URL: ${safeText(site.domains.liveUrl)}.` : "",
+              "A static build can be exported now; authenticated Bunya deployment remains unconnected."
+            ].filter(Boolean).join(" ")
+          };
+        }
+
+        if (sourceId === "kansee") {
+          const state = readLocalJson(APP_STORAGE.kansee);
+          if (state) {
+            planData = {
+              resource: "KANSEE meeting service",
+              service: "deployment",
+              owner: safeText(state.profile?.name) || identity?.name || "",
+              environment: "development",
+              provider: "KANSEE / 333 Network",
+              sourceApp: "kansee",
+              identityNumber: normalizeNumber(state.profile?.number || identity?.number),
+              emailReference: "",
+              notes: `Created from the local KANSEE workspace. Meetings detected: ${Array.isArray(state.meetings) ? state.meetings.length : 0}. Production rooms require authenticated signaling, relay, media, moderation, and storage services.`
+            };
+          }
+        }
+
+        if (sourceId === "bazaar") {
+          const state = readLocalJson(APP_STORAGE.bazaar);
+          if (state) {
+            const member = Array.isArray(state.users)
+              ? state.users.find(user => user.id === state.currentUserId)
+              : null;
+            planData = {
+              resource: "Bazaar Art Live community service",
+              service: "storage",
+              owner: safeText(member?.name) || identity?.name || "",
+              environment: "development",
+              provider: "Bazaar Art Live / 333 Network",
+              sourceApp: "bazaar",
+              identityNumber: normalizeNumber(member?.number333 || identity?.number),
+              emailReference: "",
+              notes: `Created from the local Bazaar Art Live workspace. Posts detected: ${Array.isArray(state.posts) ? state.posts.length : 0}. Production community services require authentication, moderation, media storage, privacy controls, reporting, and backups.`
+            };
+          }
+        }
+
+        if (!planData) {
+          showToast("No usable local record was detected for that application.");
+          return;
+        }
+
+        const plan = normalizePlan({
+          id: createId("plan"),
+          ...planData,
+          records: [],
+          readiness: {},
+          createdAt: now,
+          updatedAt: now
+        });
+
+        workspace.plans.unshift(plan);
+        workspace.selectedPlanId = plan.id;
+        persistWorkspace();
+        switchView("plan");
+        $("#workspace").scrollIntoView({ behavior: "smooth", block: "start" });
+        showToast("Infrastructure plan created from the local application record.");
+      }
+
+      function renderRegistry() {
+        const registry = readAppRegistry();
+        const identity = registry.identity;
+        const email = registry.even.address;
+
+        $("#registryIdentitySummary").textContent = identity?.complete
+          ? "Completed HOLLO enrollment is available to the local 333 applications."
+          : identity
+            ? "A local HOLLO profile exists, but enrollment is not marked complete."
+            : "No completed HOLLO enrollment detected.";
+
+        $("#registryIdentityName").textContent = identity?.name || "Not enrolled";
+        $("#registryIdentityHandle").textContent = identity?.handle || "—";
+        $("#registryIdentityNumber").textContent = identity?.number || "—";
+        $("#registryIdentityEmail").textContent = email || "—";
+
+        const networkIdentity = $("#networkIdentity");
+        networkIdentity.classList.toggle("ready", Boolean(identity?.complete));
+        $("#networkIdentityText").textContent = identity?.complete
+          ? `${identity.name || "Member"} · HOLLO`
+          : "Local network";
+
+        $("#createIdentityPlanButton").disabled = !identity;
+        $("#createMailPlanButton").disabled = !registry.even.latest;
+        $("#createSitePlanButton").disabled = !registry.apps.find(app => app.id === "site")?.site?.pages?.length;
+
+        const grid = $("#appRegistryGrid");
+        grid.textContent = "";
+
+        registry.apps.forEach(app => {
+          const card = document.createElement("article");
+          card.className = "registry-card";
+          card.style.setProperty("--accent", app.accent);
+
+          const head = document.createElement("div");
+          head.className = "registry-card-head";
+
+          const title = document.createElement("h4");
+          title.textContent = app.name;
+
+          const status = document.createElement("span");
+          status.className = `registry-state${app.ready ? " ready" : ""}`;
+          status.textContent = app.ready ? "Ready locally" : app.detected ? "Data detected" : "No local data";
+
+          head.append(title, status);
+
+          const description = document.createElement("p");
+          description.textContent = app.description;
+
+          const metrics = document.createElement("div");
+          metrics.className = "registry-metrics";
+
+          app.metrics.forEach(([value, label]) => {
+            const metric = document.createElement("div");
+            metric.className = "registry-metric";
+            const strong = document.createElement("strong");
+            const span = document.createElement("span");
+            strong.textContent = String(value);
+            span.textContent = label;
+            metric.append(strong, span);
+            metrics.appendChild(metric);
+          });
+
+          const actions = document.createElement("div");
+          actions.className = "registry-card-actions";
+
+          const open = document.createElement("a");
+          open.href = app.href;
+          open.textContent = app.id === "bunya" ? "Current Console" : `Open ${app.name}`;
+
+          const plan = document.createElement("button");
+          plan.type = "button";
+          plan.className = "secondary-action";
+          plan.textContent = "Create Plan";
+          plan.disabled = app.id === "bunya" || !app.detected;
+          plan.addEventListener("click", () => createPlanFromSource(app.id));
+
+          actions.append(open, plan);
+          card.append(head, description, metrics, actions);
+          grid.appendChild(card);
+        });
+
+        $("#heroAppCount").textContent = String(
+          registry.apps.filter(app => app.detected).length
+        ).padStart(2, "0");
+      }
+
+      function closeWelcome() {
+        $("#welcomeLayer").classList.remove("active");
+        $("#welcomeLayer").setAttribute("aria-hidden", "true");
+        try { localStorage.setItem(WELCOME_KEY, "seen"); } catch {}
+      }
+
+      function openWelcomeConsole() {
+        let alreadySeen = false;
+        try { alreadySeen = localStorage.getItem(WELCOME_KEY) === "seen"; } catch {}
+        if (alreadySeen || workspace.plans.length) return;
+
+        const registry = readAppRegistry();
+        $("#welcomeAppCount").textContent = String(
+          registry.apps.filter(app => app.detected).length
+        ).padStart(2, "0");
+        $("#welcomeIdentityCount").textContent = registry.identity?.complete ? "01" : "00";
+        $("#welcomeMailCount").textContent = String(registry.even.applications.length).padStart(2, "0");
+        $("#welcomeLayer").classList.add("active");
+        $("#welcomeLayer").setAttribute("aria-hidden", "false");
+        $("#welcomeRegistryButton").focus();
+      }
+
       function createPlan() {
         const plan = normalizePlan({
           id: createId("plan"),
@@ -1723,6 +2555,9 @@
           owner: "",
           environment: "planning",
           provider: "",
+          sourceApp: "manual",
+          identityNumber: "",
+          emailReference: "",
           renewal: "",
           notes: "",
           records: [],
@@ -1757,6 +2592,9 @@
         plan.owner = safeText($("#resourceOwner").value);
         plan.environment = $("#resourceEnvironment").value;
         plan.provider = safeText($("#resourceProvider").value);
+        plan.sourceApp = $("#resourceSource").value;
+        plan.identityNumber = safeText($("#resourceIdentityNumber").value);
+        plan.emailReference = safeText($("#resourceEmailReference").value);
         plan.renewal = $("#resourceRenewal").value;
         plan.notes = safeText($("#resourceNotes").value);
         plan.updatedAt = new Date().toISOString();
@@ -1835,7 +2673,6 @@
         try {
           const imported = JSON.parse(await file.text());
 
-          let incoming;
           if (imported?.schema === "bunya-plan" && imported.plan) {
             const plan = normalizePlan({
               ...imported.plan,
@@ -1843,14 +2680,25 @@
               createdAt: new Date().toISOString(),
               updatedAt: new Date().toISOString()
             });
-            workspace.plans.unshift(plan);
-            workspace.selectedPlanId = plan.id;
-            incoming = workspace;
-          } else {
-            incoming = normalizeWorkspace(imported);
+
+            if (!window.confirm("Add this plan to the current Bunya workspace?")) return;
+
+            workspace = normalizeWorkspace({
+              ...workspace,
+              selectedPlanId: plan.id,
+              plans: [plan, ...workspace.plans],
+              updatedAt: new Date().toISOString()
+            });
+
+            persistWorkspace();
+            switchView("plan");
+            showToast("Bunya plan imported.");
+            return;
           }
 
-          if (!window.confirm("Replace the current local Bunya workspace with the imported data? Export the current workspace first when needed.")) {
+          const incoming = normalizeWorkspace(imported);
+
+          if (!window.confirm("Replace the current local Bunya workspace with the imported workspace? Export the current workspace first when needed.")) {
             return;
           }
 
@@ -1955,6 +2803,7 @@
         $("#checkCount").textContent = checks;
         $("#heroPlanCount").textContent = String(workspace.plans.length).padStart(2, "0");
         $("#heroRecordCount").textContent = String(records).padStart(2, "0");
+        $("#heroAppCount").textContent = String(detectedAppCount()).padStart(2, "0");
         $("#heroConnection").textContent = navigator.onLine ? "Online" : "Local";
         $("#connectionSummary").textContent = navigator.onLine
           ? "Internet connection detected. Bunya still operates in local planning mode."
@@ -2000,7 +2849,7 @@
           const dot = document.createElement("span");
 
           title.textContent = plan.resource || "Untitled plan";
-          meta.textContent = `${plan.service} · ${formatDate(plan.updatedAt)}`;
+          meta.textContent = `${plan.service} · ${plan.sourceApp || "manual"} · ${formatDate(plan.updatedAt)}`;
           dot.className = `plan-status-dot ${plan.environment}`;
           dot.setAttribute("aria-label", `${plan.environment} environment`);
           dot.title = `${plan.environment} environment`;
@@ -2025,6 +2874,9 @@
         $("#resourceOwner").value = plan?.owner || "";
         $("#resourceEnvironment").value = plan?.environment || "planning";
         $("#resourceProvider").value = plan?.provider || "";
+        $("#resourceSource").value = plan?.sourceApp || "manual";
+        $("#resourceIdentityNumber").value = plan?.identityNumber || "";
+        $("#resourceEmailReference").value = plan?.emailReference || "";
         $("#resourceRenewal").value = plan?.renewal || "";
         $("#resourceNotes").value = plan?.notes || "";
 
@@ -2125,6 +2977,7 @@
         renderPlanEditor();
         renderDnsTable();
         renderReadiness();
+        renderRegistry();
       }
 
       function openModal(title, service, trigger) {
@@ -2191,6 +3044,31 @@
       $("#importWorkspaceInput").addEventListener("change", event => importWorkspace(event.target.files?.[0]));
       $("#planSearch").addEventListener("input", renderPlanList);
       $("#addRecordButton").addEventListener("click", addDnsRecord);
+      $("#createIdentityPlanButton").addEventListener("click", () => createPlanFromSource("hollo"));
+      $("#createMailPlanButton").addEventListener("click", () => createPlanFromSource("even"));
+      $("#createSitePlanButton").addEventListener("click", () => createPlanFromSource("site"));
+      $("#refreshRegistryButton").addEventListener("click", () => {
+        renderRegistry();
+        showToast("Local application registry refreshed.");
+      });
+      $$("[data-open-registry]").forEach(link => {
+        link.addEventListener("click", () => switchView("registry"));
+      });
+
+      $("#welcomeRegistryButton").addEventListener("click", () => {
+        closeWelcome();
+        switchView("registry");
+        $("#workspace").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      $("#welcomePlanButton").addEventListener("click", () => {
+        closeWelcome();
+        createPlan();
+        $("#workspace").scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      $("#welcomeCloseButton").addEventListener("click", closeWelcome);
+      $("#welcomeLayer").addEventListener("click", event => {
+        if (event.target === $("#welcomeLayer")) closeWelcome();
+      });
 
       $("#menuButton").addEventListener("click", () => {
         const menu = $("#mobileMenu");
@@ -2208,23 +3086,29 @@
         if (event.target === $("#modalLayer")) closeModal();
       });
 
-      window.addEventListener("online", renderSummary);
-      window.addEventListener("offline", renderSummary);
+      window.addEventListener("online", renderAll);
+      window.addEventListener("offline", renderAll);
+      window.addEventListener("storage", event => {
+        if (Object.values(APP_STORAGE).includes(event.key)) {
+          renderRegistry();
+          renderSummary();
+        }
+      });
+      document.addEventListener("333-hollo-profile-created", renderRegistry);
+      document.addEventListener("333-even-mail-application-created", renderRegistry);
+      document.addEventListener("333-site-profile-created", renderRegistry);
 
       document.addEventListener("keydown", event => {
         if (event.key === "Escape") {
           closeModal();
           closeMobileMenu();
+          closeWelcome();
         }
       });
 
-      if (!workspace.plans.length) {
-        createPlan();
-      } else {
-        renderAll();
-      }
-
+      renderAll();
       switchView(activeView);
+      window.setTimeout(openWelcomeConsole, 180);
     })();
   </script>
 </body>
