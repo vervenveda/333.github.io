@@ -2,11 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>SIte™ Alpha v0.7.0</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>SIte™ · 333 Website & Application Builder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="description" content="SIte — the local-first website and application builder inside the 333 Network, connected to HOLLO identity, E=Ven Mail, and Bunya infrastructure planning.">
+<meta name="theme-color" content="#0b1324">
+<meta name="color-scheme" content="dark light">
+<meta name="referrer" content="same-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; media-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; frame-src 'self' data: blob: https:; base-uri 'self'; form-action 'self';">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" href="../assets/icons/icon-192.png">
+<link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
 <style>
 :root{
   --bg:#000000;
@@ -518,7 +523,7 @@ body.preview #topbar .right #btnPreview{
 }
 
 /* =========================================================
-   SIte™ Alpha v0.7.0 — Verve N Veda professional refinement
+   SIte™ Alpha v0.8.0 — Verve N Veda professional refinement
    ========================================================= */
 :root{
   --bg:#0b1324;
@@ -537,9 +542,9 @@ body.preview #topbar .right #btnPreview{
   --card-radius:21px;
   --shadow:0 22px 55px rgba(7,18,34,.11);
   --shadow-soft:0 11px 33px rgba(7,18,34,.08);
-  --font-brand:"Cinzel","Times New Roman",serif;
-  --font-display:"Cormorant Garamond",Georgia,serif;
-  --font-ui:"Montserrat","Avenir Next","Segoe UI",Arial,sans-serif;
+  --font-brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
+  --font-display:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  --font-ui:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
 }
 body{
   font-family:var(--font-ui);
@@ -801,6 +806,581 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
   #topbar .left,#topbar .right{flex-wrap:wrap}
 }
 
+/* =========================================================
+   333 Network identity and application integration
+   ========================================================= */
+.auth-card{
+  max-width:540px;
+  border:1px solid rgba(184,154,97,.38);
+  background:
+    radial-gradient(circle at 50% 0,rgba(139,120,184,.10),transparent 18rem),
+    #fffdf8;
+}
+.auth-eyebrow{
+  width:max-content;
+  max-width:100%;
+  margin:0 auto 11px;
+  padding:6px 11px;
+  border:1px solid rgba(184,154,97,.38);
+  border-radius:999px;
+  color:#765d2c;
+  font-family:var(--font-brand);
+  font-size:.58rem;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+.auth-card h2{text-align:center;font-weight:333}
+.auth-card .auth-sub{
+  max-width:430px;
+  margin-inline:auto;
+  text-align:center;
+  line-height:1.55;
+}
+.shared-identity-card{
+  margin:14px 0;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:linear-gradient(145deg,#f4eee2,#fffdf8);
+}
+.identity-kicker{
+  display:block;
+  margin-bottom:8px;
+  color:#866b35;
+  font-family:var(--font-brand);
+  font-size:.58rem;
+  letter-spacing:.14em;
+  text-align:center;
+  text-transform:uppercase;
+}
+.identity-summary{
+  display:grid;
+  grid-template-columns:44px minmax(0,1fr);
+  gap:11px;
+  align-items:center;
+}
+.identity-icon{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(184,154,97,.38);
+  border-radius:50%;
+  color:#866b35;
+  background:#fff;
+  font-size:1.1rem;
+}
+.identity-summary p{
+  margin:0;
+  color:var(--muted);
+  font-size:.72rem;
+  line-height:1.5;
+}
+.identity-summary .identity-title{
+  margin-bottom:3px;
+  color:var(--ink);
+  font-size:.78rem;
+}
+.identity-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:11px;
+}
+.identity-actions button,
+.identity-actions a,
+.network-card-link,
+.top-network-link{
+  min-height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 10px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:var(--ink);
+  background:#fff;
+  font-size:.68rem;
+  font-weight:600;
+  text-decoration:none;
+}
+.identity-actions button:hover,
+.identity-actions a:hover,
+.network-card-link:hover,
+.top-network-link:hover{
+  border-color:var(--gold);
+  background:#f7f0e2;
+}
+.auth-network-links{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:13px;
+  font-size:.67rem;
+}
+.auth-network-links a{
+  color:var(--muted);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.site-brandline{color:#fff;text-decoration:none}
+.top-identity{
+  max-width:210px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.network-directory-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.network-directory-card{
+  min-height:126px;
+  display:flex;
+  flex-direction:column;
+  padding:14px;
+  border:1px solid var(--line);
+  border-top:3px solid var(--network-accent,var(--accent));
+  border-radius:21px;
+  background:#fff;
+}
+.network-directory-card h3{
+  margin:0 0 5px;
+  color:var(--ink);
+  font-family:var(--font-display);
+  font-size:1.45rem;
+  font-weight:333;
+  letter-spacing:0;
+  text-transform:none;
+}
+.network-directory-card p{
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:.7rem;
+  line-height:1.5;
+}
+.network-card-link{
+  margin-top:auto;
+  color:#fff;
+  border-color:var(--network-accent,var(--accent));
+  background:var(--network-accent,var(--accent));
+}
+.network-current{
+  margin-top:auto;
+  padding:8px 10px;
+  border-radius:7px;
+  color:#506073;
+  background:#edf2f7;
+  font-size:.68rem;
+  text-align:center;
+}
+.bunya-handoff{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+}
+.bunya-handoff a{
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:var(--ink);
+  background:#fff;
+  text-decoration:none;
+  font-size:.7rem;
+}
+@media(max-width:560px){
+  .identity-actions,.network-directory-grid,.bunya-handoff{grid-template-columns:1fr}
+  .identity-summary{grid-template-columns:1fr;justify-items:center;text-align:center}
+}
+
+/* =========================================================
+   SIte™ v0.8.0 — Welcome Portal and Embed Studio
+   ========================================================= */
+#authOverlay{
+  padding:22px;
+  overflow:auto;
+  background:
+    radial-gradient(circle at 50% 6%,rgba(232,215,175,.15),transparent 28rem),
+    radial-gradient(circle at 10% 90%,rgba(93,159,153,.08),transparent 25rem),
+    rgba(3,8,17,.91);
+  backdrop-filter:blur(15px);
+}
+
+.auth-card{
+  width:min(100%,560px);
+  max-width:560px;
+  margin:auto;
+  padding:24px;
+  overflow:hidden;
+  border:1px solid rgba(232,215,175,.37);
+  border-radius:21px;
+  color:#f5f2eb;
+  background:
+    radial-gradient(circle at 50% 0,rgba(139,120,184,.13),transparent 22rem),
+    linear-gradient(150deg,#18233d,#0c1426 72%);
+  box-shadow:
+    0 33px 88px rgba(0,0,0,.48),
+    inset 0 0 0 1px rgba(255,255,255,.025);
+}
+
+.auth-card,
+.auth-card *{
+  font-weight:333;
+}
+
+.auth-entry-mark{
+  width:55px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 11px;
+  border:1px solid rgba(232,215,175,.42);
+  border-radius:7px;
+  color:var(--gold-soft);
+  background:rgba(255,255,255,.035);
+  font-family:var(--font-brand);
+  font-size:.72rem;
+  letter-spacing:.1em;
+}
+
+.auth-eyebrow{
+  margin:0 auto 11px;
+  color:var(--gold-soft);
+  border-color:rgba(232,215,175,.33);
+  background:rgba(255,255,255,.025);
+  font-weight:333;
+}
+
+.auth-card h2{
+  margin:0;
+  color:#fff;
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,7vw,3.25rem);
+  font-weight:333;
+  line-height:.95;
+  letter-spacing:.01em;
+  text-align:center;
+}
+
+.auth-card .auth-sub{
+  max-width:400px;
+  margin:13px auto 18px;
+  color:#b9c3d1;
+  font-size:.75rem;
+  font-weight:333;
+  line-height:1.65;
+  text-align:center;
+}
+
+.shared-identity-card{
+  margin:0 0 14px;
+  padding:15px;
+  border-color:rgba(232,215,175,.19);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.018));
+}
+
+.identity-kicker{
+  color:var(--gold-soft);
+  font-weight:333;
+}
+
+.identity-icon{
+  color:var(--gold-soft);
+  border-color:rgba(232,215,175,.3);
+  background:rgba(255,255,255,.025);
+  font-family:var(--font-brand);
+  font-size:.63rem;
+}
+
+.identity-summary .identity-title{
+  color:#fff;
+  font-weight:333;
+}
+
+.identity-summary p{
+  color:#aeb9c7;
+  font-weight:333;
+}
+
+.identity-actions button,
+.identity-actions a{
+  color:#edf2f6;
+  border-color:rgba(255,255,255,.15);
+  background:rgba(255,255,255,.035);
+  font-weight:333;
+}
+
+.identity-actions button:hover,
+.identity-actions a:hover{
+  color:#111824;
+  border-color:var(--gold-soft);
+  background:var(--gold-soft);
+}
+
+.auth-tabs{
+  margin:14px 0;
+  padding:4px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:7px;
+  background:rgba(255,255,255,.035);
+}
+
+.auth-tabs button{
+  min-height:38px;
+  border-radius:7px;
+  color:#aeb9c7;
+  font-weight:333;
+}
+
+.auth-tabs button.active{
+  color:#111824;
+  background:linear-gradient(145deg,var(--gold-soft),var(--gold));
+  box-shadow:none;
+}
+
+.auth-row{
+  margin-bottom:10px;
+  text-align:left;
+}
+
+.auth-row label{
+  color:#aeb9c7;
+  font-size:.64rem;
+  font-weight:333;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.auth-row input{
+  min-height:43px;
+  color:#f8f5ee;
+  border-color:rgba(255,255,255,.14);
+  background:rgba(255,255,255,.045);
+}
+
+.auth-row input::placeholder{color:#778294}
+
+.auth-row input:focus{
+  border-color:var(--gold-soft);
+  outline:none;
+}
+
+#btnSignIn,
+#btnCreateAccount{
+  min-height:44px;
+  color:#111824;
+  background:linear-gradient(145deg,var(--gold-soft),var(--gold));
+  font-weight:444;
+}
+
+.auth-error{
+  color:#e8a7ad;
+  text-align:center;
+}
+
+.auth-error.auth-ok{color:#a8d7b9}
+
+.auth-network-links{
+  padding-top:13px;
+  border-top:1px solid rgba(255,255,255,.09);
+}
+
+.auth-network-links a{
+  color:#9eabbc;
+  font-weight:333;
+}
+
+.auth-local-note{
+  margin:10px 0 0;
+  color:#8e9aaa;
+  font-size:.65rem;
+  line-height:1.55;
+  text-align:center;
+}
+
+/* Embed Studio */
+.embed-studio-card{
+  width:min(100%,1040px);
+}
+
+.embed-studio-intro{
+  display:grid;
+  grid-template-columns:54px minmax(0,1fr);
+  gap:13px;
+  align-items:center;
+  margin-bottom:14px;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:linear-gradient(145deg,#f2eadb,#fffdf8);
+}
+
+.embed-studio-mark{
+  width:54px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(184,154,97,.38);
+  border-radius:7px;
+  color:#765d2c;
+  background:#fff;
+  font-family:var(--mono,monospace);
+  font-size:.72rem;
+}
+
+.embed-studio-intro h3{
+  margin:0;
+  color:var(--ink);
+  font-family:var(--font-display);
+  font-size:1.55rem;
+  font-weight:333;
+  letter-spacing:0;
+  text-transform:none;
+}
+
+.embed-studio-intro p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:.72rem;
+  line-height:1.55;
+}
+
+.embed-studio-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);
+  gap:11px;
+}
+
+.embed-studio-pane{
+  min-width:0;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:21px;
+  background:#fff;
+}
+
+.embed-studio-pane label,
+.embed-studio-pane .pane-label{
+  display:block;
+  margin-bottom:7px;
+  color:var(--muted);
+  font-size:.64rem;
+  font-weight:444;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+#embedStudioCode{
+  min-height:360px;
+  margin:0;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:#e9edf4;
+  background:#0b1324;
+  font-family:"Courier New",ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.78rem;
+  line-height:1.55;
+  tab-size:2;
+  resize:vertical;
+}
+
+.embed-preview-shell{
+  position:relative;
+  min-height:360px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:7px;
+  background:
+    linear-gradient(45deg,#f0f1f3 25%,transparent 25%),
+    linear-gradient(-45deg,#f0f1f3 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#f0f1f3 75%),
+    linear-gradient(-45deg,transparent 75%,#f0f1f3 75%),
+    #fff;
+  background-size:22px 22px;
+  background-position:0 0,0 11px,11px -11px,-11px 0;
+}
+
+#embedStudioPreview{
+  width:100%;
+  height:360px;
+  border:0;
+  background:#fff;
+}
+
+.embed-studio-status{
+  min-height:22px;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:.68rem;
+  line-height:1.5;
+}
+
+.embed-studio-help{
+  margin-top:11px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:#5f5547;
+  background:#f2eadb;
+  font-size:.68rem;
+  line-height:1.6;
+}
+
+.embed-studio-help ul{
+  margin:7px 0 0;
+  padding-left:18px;
+}
+
+.embed-studio-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.embed-studio-actions button{
+  min-height:40px;
+}
+
+.embed-studio-actions .insert{
+  color:#111824;
+  background:linear-gradient(145deg,var(--gold-soft),var(--gold));
+}
+
+.embed-mode-badge{
+  display:inline-flex;
+  align-items:center;
+  min-height:29px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:#506073;
+  background:#edf2f7;
+  font-size:.64rem;
+}
+
+@media(max-width:850px){
+  .embed-studio-grid{grid-template-columns:1fr}
+  #embedStudioCode,
+  #embedStudioPreview,
+  .embed-preview-shell{min-height:280px;height:280px}
+}
+
+@media(max-width:560px){
+  #authOverlay{padding:11px}
+  .auth-card{padding:18px 13px}
+  .identity-actions{grid-template-columns:1fr}
+  .embed-studio-intro{grid-template-columns:1fr;text-align:center}
+  .embed-studio-mark{margin:auto}
+}
+
 </style>
 </head>
 
@@ -809,10 +1389,28 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
 <!-- AUTH OVERLAY -->
 <div id="authOverlay">
   <div class="auth-card">
-    <h2>SIte™ — Local Editing Lock</h2>
+    <div class="auth-entry-mark" aria-hidden="true">SIte</div>
+    <div class="auth-eyebrow">333 Network Creation Studio</div>
+    <h2>Enter SIte™</h2>
     <div class="auth-sub">
-      Create a local editing profile for this browser. This is not a server account and does not synchronize across devices.
+      Build privately in your browser with a shared HOLLO identity or a local editor profile.
     </div>
+
+    <section class="shared-identity-card" aria-labelledby="sharedIdentityTitle">
+      <span class="identity-kicker" id="sharedIdentityTitle">Shared Member Identity</span>
+      <div class="identity-summary">
+        <span class="identity-icon" aria-hidden="true">333</span>
+        <div>
+          <p class="identity-title" id="sharedIdentityName">Checking HOLLO enrollment…</p>
+          <p id="sharedIdentityDetails">SIte can prefill the member name, handle, number, and an E=Ven requested address when local records are available.</p>
+        </div>
+      </div>
+      <div class="identity-actions">
+        <button id="btnUseHolloIdentity" class="secondary" type="button">Use HOLLO Profile</button>
+        <a href="./HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a>
+      </div>
+    </section>
+
     <div class="auth-tabs">
       <button id="tabSignIn" class="active" type="button">Sign In</button>
       <button id="tabCreate" type="button">Create Account</button>
@@ -828,7 +1426,7 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <label for="signInPass">Passcode</label>
         <input id="signInPass" type="password" autocomplete="current-password" />
       </div>
-      <button id="btnSignIn" style="width:100%; margin-top:6px;">Sign In</button>
+      <button type="button" id="btnSignIn" style="width:100%; margin-top:6px;">Sign In</button>
     </div>
 
     <!-- Create Account -->
@@ -838,17 +1436,22 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <input id="createName" />
       </div>
       <div class="auth-row">
-        <label for="createEmail">Email</label>
+        <label for="createHandle">HOLLO handle (optional)</label>
+        <input id="createHandle" autocomplete="username" placeholder="@member" />
+      </div>
+      <div class="auth-row">
+        <label for="createMemberNumber">Member or 333 number (optional)</label>
+        <input id="createMemberNumber" inputmode="tel" placeholder="Existing number or 333-000-0000" />
+      </div>
+      <div class="auth-row">
+        <label for="createEmail">Email or E=Ven requested address</label>
         <input id="createEmail" type="email" autocomplete="email" />
       </div>
       <div class="auth-row">
-        <label for="createBirth">Birth Date</label>
+        <label for="createBirth">Birth Date (optional)</label>
         <input id="createBirth" type="date" />
       </div>
-      <div class="auth-row">
-        <label for="createPhone">Phone (optional)</label>
-        <input id="createPhone" type="tel" />
-      </div>
+      <input id="createPhone" type="hidden" />
       <div class="auth-row">
         <label for="createPass">Passcode</label>
         <input id="createPass" type="password" autocomplete="new-password" />
@@ -857,14 +1460,19 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <label for="createPass2">Confirm Passcode</label>
         <input id="createPass2" type="password" autocomplete="new-password" />
       </div>
-      <div class="smallhelp">
-        Passcode must be at least <b>8 characters</b>, include at least <b>1 letter</b> and <b>1 symbol</b>.
-        Protected locally in this browser only. True accounts will connect through 333 Identity.
+      <div class="smallhelp auth-local-note">
+        Use at least 8 characters with one letter and one symbol. This passcode protects only the SIte workspace in this browser.
       </div>
-      <button id="btnCreateAccount" style="width:100%; margin-top:6px;">Create Account</button>
+      <button type="button" id="btnCreateAccount" style="width:100%; margin-top:6px;">Create Account</button>
     </div>
 
     <div id="authMsg" class="auth-error"></div>
+    <p class="auth-local-note">Local editing profiles do not create a remote account or synchronize automatically.</p>
+    <nav class="auth-network-links" aria-label="333 Network">
+      <a href="../index.html">333 Network Gateway</a>
+      <a href="./EVen_mail_index.html#apply">E=Ven Mail Application</a>
+      <a href="./Bunya_digital_infrastructure_index.html">Bunya Infrastructure</a>
+    </nav>
   </div>
 </div>
 
@@ -879,27 +1487,27 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
       <button id="btnPaletteClose" class="secondary small" type="button">Close</button>
     </div>
     <div class="palette-grid">
-      <button class="palette-btn" data-kind="plain">
+      <button type="button" class="palette-btn" data-kind="plain">
         <span class="big">Text Button</span>
         <span class="smallhelp">Simple labeled button.</span>
       </button>
-      <button class="palette-btn" data-kind="emoji-star">
+      <button type="button" class="palette-btn" data-kind="emoji-star">
         <span class="big">⭐</span>
         <span class="smallhelp">Emoji button (star).</span>
       </button>
-      <button class="palette-btn" data-kind="emoji-heart">
+      <button type="button" class="palette-btn" data-kind="emoji-heart">
         <span class="big">❤️</span>
         <span class="smallhelp">Emoji button (heart).</span>
       </button>
-      <button class="palette-btn" data-kind="top">
+      <button type="button" class="palette-btn" data-kind="top">
         <span class="big">↑ Top</span>
         <span class="smallhelp">Scroll-to-top style button.</span>
       </button>
-      <button class="palette-btn" data-kind="home">
+      <button type="button" class="palette-btn" data-kind="home">
         <span class="big">⌂ Home</span>
         <span class="smallhelp">Home-style button.</span>
       </button>
-      <button class="palette-btn" data-kind="social-row">
+      <button type="button" class="palette-btn" data-kind="social-row">
         <span class="big">📘 📸 ▶️</span>
         <span class="smallhelp">Social media icon buttons.</span>
       </button>
@@ -932,7 +1540,7 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
       Tip: Use ▲▼ to reorder pages (saved locally).
     </div>
     <div id="pageList"></div>
-    <button id="btnAddPage" class="small">+ Add Page</button>
+    <button type="button" id="btnAddPage" class="small">+ Add Page</button>
 
     <hr>
 
@@ -946,8 +1554,8 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <input id="langName" placeholder="French" />
       </div>
       <div style="display:flex; gap:8px; margin-top:8px;">
-        <button id="btnLangAdd" class="secondary small">Add</button>
-        <button id="btnLangRemove" class="secondary small">Remove Active</button>
+        <button type="button" id="btnLangAdd" class="secondary small">Add</button>
+        <button type="button" id="btnLangRemove" class="secondary small">Remove Active</button>
       </div>
     </div>
 
@@ -966,7 +1574,7 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
     <div class="label" style="margin-top:8px;">Planned Live URL</div>
     <input id="liveUrl" placeholder="https://www.vervenveda.com/SIte_AccountName" />
 
-    <button id="btnSaveDomains" class="secondary small" style="margin-top:8px;">Save Domains</button>
+    <button type="button" id="btnSaveDomains" class="secondary small" style="margin-top:8px;">Save Domains</button>
 
     <div class="smallhelp" style="margin-top:10px;">
       Domains & live URLs here are <b>descriptive only</b>. They help you track routing for Wix / DNS.
@@ -977,14 +1585,16 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
   <div id="canvas">
     <div id="topbar">
       <div class="left">
-        <div class="site-brandline">
+        <a class="site-brandline" href="../index.html" aria-label="Return to the 333 Network gateway">
           <strong>SIte™</strong>
-          <span>Alpha v0.7.0 · Website & Application Builder</span>
-        </div>
+          <span>333 Website & Application Builder</span>
+        </a>
         <div id="topPageBadge" class="badge">—</div>
         <div id="topLangBadge" class="badge">—</div>
       </div>
       <div class="right workspace-command">
+        <span id="topIdentityBadge" class="badge top-identity">Local editor</span>
+        <button id="btnNetworkDirectory" class="secondary small" type="button">333 Network</button>
         <button id="btnToggleLeft" class="secondary small" type="button">Pages</button>
         <button id="btnToggleRight" class="secondary small" type="button">Inspector</button>
         <div class="device-toolbar" aria-label="Responsive preview">
@@ -995,6 +1605,7 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <button id="btnUndo" class="secondary small" type="button">Undo</button>
         <button id="btnRedo" class="secondary small" type="button">Redo</button>
         <button id="btnSnapshot" class="secondary small" type="button">Restore Point</button>
+        <button id="btnEmbedStudio" class="secondary small" type="button">Embed Studio</button>
         <button id="btnPreview" class="small secondary" type="button">Preview</button>
         <button id="btnExportSite" class="secondary small" type="button">Export Website</button>
         <button id="btnPublishBunya" class="secondary small" type="button">Publish with Bunya</button>
@@ -1010,7 +1621,7 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
     </div>
 
     <div class="canvas-shell"><div id="pageCanvas" class="page-canvas"></div></div>
-    <footer>SIte™ Alpha v0.7.0 — Fixed Drag/Resize Persistence • Page Reorder • Local Mini-Cloud Admin</footer>
+    <footer>SIte™ Alpha v0.8.0 · Website Builder • Embed Studio • Responsive Layouts • Local Workspace</footer>
   </div>
 
   <!-- RIGHT PANEL -->
@@ -1025,18 +1636,18 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
       Layout edits are disabled when a page is locked.
     </div>
 
-    <button id="btnAddSection">Section</button><br><br>
-    <button id="btnAddText">Text</button><br><br>
-    <button id="btnAddButton">Button (Palette)</button><br><br>
-    <button id="btnAddImage">Image</button><br><br>
-    <button id="btnAddEmbed">Embed HTML</button>
+    <button type="button" id="btnAddSection">Section</button><br><br>
+    <button type="button" id="btnAddText">Text</button><br><br>
+    <button type="button" id="btnAddButton">Button (Palette)</button><br><br>
+    <button type="button" id="btnAddImage">Image</button><br><br>
+    <button type="button" id="btnAddEmbed">Embed Studio</button>
   </div>
 
 </div>
 
 <script>
 /* =========================
-   SIte™ Alpha v0.7.0
+   SIte™ Alpha v0.8.0
    - Free positioning default for new text/button/image/embed
    - Free block header only on hover/selection (no overlay on saved content)
    - Same local mini-cloud: localStorage auth + JSON site
@@ -1044,6 +1655,21 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
 
 const STORAGE_KEY = "SITE_ALPHA_V070";      // keep same key so existing data survives
 const AUTH_KEY = "SITE_ALPHA_AUTH_V1";
+const HOLLO_STORAGE_KEY = "hollo_333_direct_connect_v1";
+const IDENTITY_HANDOFF_KEY = "333_identity_handoff_v1";
+const EVEN_MAIL_STORAGE_KEY = "even_mail_workspace_v2";
+const EMBED_STUDIO_DRAFT_KEY = "SITE_EMBED_STUDIO_DRAFT_V1";
+
+let embedPreviewUrl = "";
+
+const PLACEHOLDER_IMAGE = "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" width="900" height="260" viewBox="0 0 900 260">'+
+  '<rect width="900" height="260" fill="#edf1f5"/>'+
+  '<rect x="22" y="22" width="856" height="216" rx="21" fill="#f8f6f0" stroke="#c8d0da"/>'+
+  '<text x="450" y="126" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#566273">SIte Image Block</text>'+
+  '<text x="450" y="160" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" fill="#7b8794">Add an image URL or upload an image in the Inspector</text>'+
+  '</svg>'
+);
 
 const FONT_PRESETS = [
   {value:"system-ui,-apple-system,Segoe UI,Roboto,sans-serif", label:"System UI"},
@@ -1130,6 +1756,128 @@ function escapeHtmlForTextarea(str){
   return escapeHtml(str).replace(/<\/textarea>/gi,"&lt;/textarea&gt;");
 }
 function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+
+function normalizeMemberNumber(value){
+  return String(value||"").replace(/\D/g,"").slice(0,15);
+}
+function safeMemberHandle(value){
+  const clean=String(value||"").trim().replace(/^@+/,"").replace(/[^A-Za-z0-9_.-]/g,"").slice(0,40);
+  return clean?`@${clean}`:"";
+}
+function readHolloIdentity(){
+  const candidates=[];
+  try{
+    const handoff=safeParse(localStorage.getItem(IDENTITY_HANDOFF_KEY)||"null",null);
+    if(handoff?.profile)candidates.push({profile:handoff.profile,enrollment:handoff.enrollment||{},source:"HOLLO enrollment handoff"});
+  }catch(_){}
+  try{
+    const hollo=safeParse(localStorage.getItem(HOLLO_STORAGE_KEY)||"null",null);
+    if(hollo?.profile)candidates.push({profile:hollo.profile,enrollment:hollo.enrollment||{},source:"HOLLO local enrollment"});
+  }catch(_){}
+  const selected=candidates.find(item=>item.enrollment?.complete)||candidates[0];
+  if(!selected)return null;
+  return {
+    name:String(selected.profile.name||"").trim().slice(0,80),
+    handle:safeMemberHandle(selected.profile.handle),
+    number:normalizeMemberNumber(selected.profile.number||selected.profile.number333),
+    numberKind:String(selected.profile.numberKind||selected.enrollment?.numberChoice||""),
+    complete:Boolean(selected.enrollment?.complete),
+    completedAt:selected.enrollment?.completedAt||null,
+    source:selected.source
+  };
+}
+function readEvenMailIdentity(){
+  try{
+    const workspace=safeParse(localStorage.getItem(EVEN_MAIL_STORAGE_KEY)||"null",null);
+    const applications=Array.isArray(workspace?.applications)?workspace.applications:[];
+    const latest=applications
+      .filter(application=>application&&application.status!=="withdrawn-local")
+      .sort((a,b)=>new Date(b.updatedAt||0)-new Date(a.updatedAt||0))[0];
+    if(!latest)return null;
+    const localPart=String(latest.requestedLocalPart||"").trim();
+    const domain=String(latest.domain||"vervenveda.com").trim();
+    return {
+      address:localPart&&domain?`${localPart}@${domain}`:"",
+      reference:String(latest.reference||""),
+      status:String(latest.status||"draft-local"),
+      localOnly:true
+    };
+  }catch(_){return null}
+}
+function renderSharedIdentity(){
+  const hollo=readHolloIdentity();
+  const mail=readEvenMailIdentity();
+  const nameEl=$("sharedIdentityName");
+  const detailEl=$("sharedIdentityDetails");
+  const button=$("btnUseHolloIdentity");
+  if(!nameEl||!detailEl||!button)return;
+
+  if(!hollo){
+    nameEl.textContent="No completed HOLLO profile found";
+    detailEl.textContent="Complete enrollment once to reuse the same member identity throughout the 333 Network.";
+    button.disabled=true;
+    return;
+  }
+
+  nameEl.textContent=hollo.complete
+    ? `${hollo.name||"HOLLO member"} is ready`
+    : `${hollo.name||"HOLLO member"} profile found`;
+
+  const parts=[
+    hollo.handle,
+    hollo.number?`member number ${hollo.number}`:"",
+    mail?.address?`E=Ven request ${mail.address}`:""
+  ].filter(Boolean);
+
+  detailEl.textContent=parts.length
+    ? parts.join(" · ")
+    : "The local HOLLO profile can prefill this editing account.";
+  button.disabled=false;
+}
+function fillAccountFromHollo(){
+  const hollo=readHolloIdentity();
+  if(!hollo){
+    showAuthMessage("Complete HOLLO enrollment before importing a shared identity.");
+    return false;
+  }
+  const mail=readEvenMailIdentity();
+  $("createName").value=hollo.name||"";
+  $("createHandle").value=hollo.handle||"";
+  $("createMemberNumber").value=hollo.number||"";
+  $("createPhone").value=hollo.number||"";
+  if(mail?.address)$("createEmail").value=mail.address;
+  setAuthMode("create");
+  showAuthMessage(
+    mail?.address
+      ? "HOLLO identity imported. The E=Ven address remains a requested local address until approval and mailbox provisioning."
+      : "HOLLO identity imported. Add an email address and create a local editing passcode.",
+    true
+  );
+  document.dispatchEvent(new CustomEvent("333-site-hollo-profile-imported",{
+    detail:{
+      name:hollo.name,
+      handle:hollo.handle,
+      number:hollo.number,
+      numberKind:hollo.numberKind,
+      email:mail?.address||"",
+      emailReference:mail?.reference||""
+    }
+  }));
+  return true;
+}
+function updateTopIdentity(){
+  const badge=$("topIdentityBadge");
+  if(!badge)return;
+  const account=currentUser||loadAccount();
+  if(!account){
+    badge.textContent="Local editor";
+    return;
+  }
+  const label=account.fullName||account.email||"Local editor";
+  const source=account.identitySource==="hollo"?"HOLLO identity":"Local identity";
+  badge.textContent=`${label} · ${source}`;
+  badge.title=account.memberNumber?`${source} · member number ${account.memberNumber}`:source;
+}
 
 /* ----- Status Bar ----- */
 let statusTimer=null;
@@ -1235,19 +1983,26 @@ function authInit(){
   if(acc){ setAuthMode("signin"); }
   else{ setAuthMode("create"); }
 
+  renderSharedIdentity();
+  updateTopIdentity();
+  $("btnUseHolloIdentity").onclick=fillAccountFromHollo;
   $("tabSignIn").onclick=()=>setAuthMode("signin");
   $("tabCreate").onclick=()=>setAuthMode("create");
 
   $("btnCreateAccount").onclick=()=>{
     const name = $("createName").value.trim();
+    const handle=safeMemberHandle($("createHandle").value);
+    const memberNumber=normalizeMemberNumber($("createMemberNumber").value);
     const email= $("createEmail").value.trim().toLowerCase();
     const birth= $("createBirth").value.trim();
-    const phone= $("createPhone").value.trim();
+    const phone= memberNumber||$("createPhone").value.trim();
     const pass = $("createPass").value;
     const pass2= $("createPass2").value;
+    const hollo=readHolloIdentity();
+    const mail=readEvenMailIdentity();
 
-    if(!name || !email || !birth || !pass){
-      showAuthMessage("Please fill in name, email, birth date, and passcode.");
+    if(!name || !email || !pass){
+      showAuthMessage("Please fill in name, email, and passcode.");
       return;
     }
     if(!/^[^@]+@[^@]+\.[^@]+$/.test(email)){
@@ -1270,6 +2025,16 @@ function authInit(){
         email,
         birthDate:birth,
         phone,
+        handle,
+        memberNumber,
+        numberKind:hollo?.numberKind||"",
+        identitySource:hollo&&(
+          hollo.name===name ||
+          hollo.handle===handle ||
+          hollo.number===memberNumber
+        )?"hollo":"local",
+        emailApplicationReference:mail?.address===email?mail.reference||"":"",
+        emailApplicationStatus:mail?.address===email?mail.status||"":"",
         passHash:hash,
         salt:bytesToBase64(salt),
         iterations:210000
@@ -1278,7 +2043,17 @@ function authInit(){
       currentUser=accObj;
       $("authOverlay").classList.add("hidden");
       $("app").classList.remove("hidden");
-      setStatus("Local editing profile created in this browser.","ok");
+      updateTopIdentity();
+      document.dispatchEvent(new CustomEvent("333-site-profile-created",{
+        detail:{
+          name:accObj.fullName,
+          email:accObj.email,
+          handle:accObj.handle,
+          memberNumber:accObj.memberNumber,
+          identitySource:accObj.identitySource
+        }
+      }));
+      setStatus("Local SIte editing profile created in this browser.","ok");
     }).catch(()=>showAuthMessage("Could not secure the local editing profile."));
   };
 
@@ -1304,6 +2079,7 @@ function authInit(){
         currentUser=acc;
         $("authOverlay").classList.add("hidden");
         $("app").classList.remove("hidden");
+        updateTopIdentity();
         setStatus("Signed in as "+(acc.fullName||acc.email)+".","ok");
       }).catch(()=>showAuthMessage("Could not verify the local passcode."));
       return;
@@ -1319,6 +2095,7 @@ function authInit(){
         currentUser=acc;
         $("authOverlay").classList.add("hidden");
         $("app").classList.remove("hidden");
+        updateTopIdentity();
         setStatus("Signed in and upgraded the local passcode protection.","ok");
       });
       return;
@@ -1328,6 +2105,7 @@ function authInit(){
 
   $("btnLogout").onclick=()=>{
     currentUser=null;
+    updateTopIdentity();
     viewMode="admin";
     document.body.classList.remove("preview");
     $("authOverlay").classList.remove("hidden");
@@ -1348,7 +2126,7 @@ function authInit(){
    Default Site
    ========================= */
 const DEFAULT_SITE={
-  meta:{ createdAt:new Date().toISOString(), updatedAt:new Date().toISOString(), version:"0.7.0" },
+  meta:{ createdAt:new Date().toISOString(), updatedAt:new Date().toISOString(), version:"0.8.0" },
   domains:{
     primary:"example.com",
     aliases:["example.site","example.net"],
@@ -1392,7 +2170,7 @@ function loadSite(){
     const data=safeParse(raw,null);
     if(data && data.pages){
       data.meta=data.meta||{};
-      data.meta.version="0.7.0";
+      data.meta.version="0.8.0";
       return data;
     }
   }
@@ -1405,7 +2183,7 @@ function loadSite(){
       const d=safeParse(r,null);
       if(d && d.pages){
         d.meta=d.meta||{};
-        d.meta.version="0.7.0";
+        d.meta.version="0.8.0";
         try{store.setItem(STORAGE_KEY,JSON.stringify(d));}catch(e){}
         return d;
       }
@@ -1415,7 +2193,7 @@ function loadSite(){
 }
 function saveSite(){
   site.meta.updatedAt=new Date().toISOString();
-  site.meta.version="0.7.0";
+  site.meta.version="0.8.0";
   try{ store.setItem(STORAGE_KEY, JSON.stringify(site)); }catch(e){}
 }
 let saveDebounce=null;
@@ -1749,8 +2527,8 @@ function renderPages(){
         <div class="mini">${p.locked?"🔒 Locked":"✏️ Editable"} • ${lang.toUpperCase()} ${badgeText}</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center;">
-        <button class="iconBtn" ${idx===0?"disabled":""} data-pageup="${p.id}" title="Move page up">▲</button>
-        <button class="iconBtn" ${idx===site.pages.length-1?"disabled":""} data-pagedn="${p.id}" title="Move page down">▼</button>
+        <button type="button" class="iconBtn" ${idx===0?"disabled":""} data-pageup="${p.id}" title="Move page up">▲</button>
+        <button type="button" class="iconBtn" ${idx===site.pages.length-1?"disabled":""} data-pagedn="${p.id}" title="Move page down">▼</button>
       </div>
     `;
 
@@ -1791,7 +2569,7 @@ function renderLangs(){
         <div class="code">${l.code.toUpperCase()}</div>
         <div class="name">${escapeHtml(l.name)}</div>
       </div>
-      <button class="secondary small">${l.code===active?"Active":"Use"}</button>
+      <button type="button" class="secondary small">${l.code===active?"Active":"Use"}</button>
     `;
     row.querySelector("button").addEventListener("click",e=>{
       e.stopPropagation();
@@ -1838,7 +2616,7 @@ function renderCanvas(){
       el.appendChild(btn);
     }else if(b.type==="image"){
       const img=document.createElement("img");
-      img.src=b.src||"https://via.placeholder.com/900x260";
+      img.src=b.src||PLACEHOLDER_IMAGE;
       img.style.maxWidth="100%";
       img.style.borderRadius="12px";
       applyBlockStyle(b,img);
@@ -1904,7 +2682,7 @@ function renderCanvas(){
       applyBlockStyle(b,inner);
     }else if(b.type==="image"){
       const img=document.createElement("img");
-      img.src=b.src||"https://via.placeholder.com/900x260";
+      img.src=b.src||PLACEHOLDER_IMAGE;
       img.style.width="100%";
       img.style.height="100%";
       img.style.objectFit="cover";
@@ -1980,8 +2758,8 @@ function renderInspector(){
 
   let html=`
     <div class="row2" style="margin-bottom:10px;">
-      <button id="btnLockPage" class="${currentPage.locked?"locked":""} small">${currentPage.locked?"Unlock Page":"Lock Page"}</button>
-      <button id="btnRenamePage" class="secondary small">Rename</button>
+      <button type="button" id="btnLockPage" class="${currentPage.locked?"locked":""} small">${currentPage.locked?"Unlock Page":"Lock Page"}</button>
+      <button type="button" id="btnRenamePage" class="secondary small">Rename</button>
     </div>
 
     <div class="label">Language</div>
@@ -1994,7 +2772,7 @@ function renderInspector(){
 
     <div class="label" style="margin-top:10px;">Page Background Image URL</div>
     <input id="pageBgImage" value="${escapeHtml(bgImage)}" placeholder="https://..." />
-    <button id="btnApplyPageBg" class="secondary small" style="margin-top:6px;">Apply Background</button>
+    <button type="button" id="btnApplyPageBg" class="secondary small" style="margin-top:6px;">Apply Background</button>
 
     <div class="label" style="margin-top:10px;">Blocks</div>
     <div class="blockList" id="blockList">
@@ -2010,8 +2788,8 @@ function renderInspector(){
               <span class="blockLabel">${escapeHtml(label)}</span>
             </div>
             <div class="blockMiniBtns">
-              <button class="iconBtn" ${upDis} data-up="${blk.id}">▲</button>
-              <button class="iconBtn" ${dnDis} data-dn="${blk.id}">▼</button>
+              <button type="button" class="iconBtn" ${upDis} data-up="${blk.id}">▲</button>
+              <button type="button" class="iconBtn" ${dnDis} data-dn="${blk.id}">▼</button>
             </div>
           </div>
         `;
@@ -2030,8 +2808,8 @@ function renderInspector(){
   const idx=currentPage.blocks.findIndex(x=>x.id===b.id);
   html+=`
     <div class="row2" style="margin-top:10px;">
-      <button id="btnMoveUp" class="secondary small" ${(!canEditStructure||idx<=0)?"disabled":""}>Up</button>
-      <button id="btnMoveDn" class="secondary small" ${(!canEditStructure||idx>=currentPage.blocks.length-1)?"disabled":""}>Down</button>
+      <button type="button" id="btnMoveUp" class="secondary small" ${(!canEditStructure||idx<=0)?"disabled":""}>Up</button>
+      <button type="button" id="btnMoveDn" class="secondary small" ${(!canEditStructure||idx>=currentPage.blocks.length-1)?"disabled":""}>Down</button>
     </div>
   `;
 
@@ -2157,8 +2935,8 @@ function renderInspector(){
       <div class="label" style="margin-top:12px;">Image URL</div>
       <input id="imgUrl" value="${escapeHtml(url)}" placeholder="https://..." ${canEditStructure?"":"disabled"} />
       <div class="row2" style="margin-top:10px;">
-        <button id="btnImgApply" class="secondary small" ${canEditStructure?"":"disabled"}>Apply URL</button>
-        <button id="btnImgUpload" class="secondary small" ${canEditStructure?"":"disabled"}>Upload + Convert</button>
+        <button type="button" id="btnImgApply" class="secondary small" ${canEditStructure?"":"disabled"}>Apply URL</button>
+        <button type="button" id="btnImgUpload" class="secondary small" ${canEditStructure?"":"disabled"}>Upload + Convert</button>
       </div>
       <input id="imgFile" type="file" accept="image/*" style="display:none" />
 
@@ -2202,8 +2980,8 @@ function renderInspector(){
         Sections can act as full-width bands with their own text.
       </div>
       <div class="row2" style="margin-top:10px;">
-        <button id="btnInsertSectionAbove" class="secondary small" ${canEditStructure?"":"disabled"}>Insert Section Above</button>
-        <button id="btnInsertSectionBelow" class="secondary small" ${canEditStructure?"":"disabled"}>Insert Section Below</button>
+        <button type="button" id="btnInsertSectionAbove" class="secondary small" ${canEditStructure?"":"disabled"}>Insert Section Above</button>
+        <button type="button" id="btnInsertSectionBelow" class="secondary small" ${canEditStructure?"":"disabled"}>Insert Section Below</button>
       </div>
     `;
   }
@@ -2211,8 +2989,8 @@ function renderInspector(){
   html+=`
     <hr>
     <div class="row2">
-      <button id="btnDup" class="secondary small" ${canEditStructure?"":"disabled"}>Duplicate</button>
-      <button id="btnDel" class="secondary small" ${canEditStructure?"":"disabled"}>Delete</button>
+      <button type="button" id="btnDup" class="secondary small" ${canEditStructure?"":"disabled"}>Duplicate</button>
+      <button type="button" id="btnDel" class="secondary small" ${canEditStructure?"":"disabled"}>Delete</button>
     </div>
   `;
 
@@ -2305,6 +3083,7 @@ function wireInspectorSelected(){
       setStatus("Free positioning enabled.","ok");
     }else{
       delete b.pos;
+      delete b.layouts;
       saveSiteDebounced();
       renderCanvas();
       renderInspector();
@@ -2594,7 +3373,7 @@ function patchBlockContent(b){
     inner.innerHTML=getText(b,lang);
   }else if(b.type==="image"){
     const img=inner.querySelector("img") || document.createElement("img");
-    img.src=b.src||"https://via.placeholder.com/900x260";
+    img.src=b.src||PLACEHOLDER_IMAGE;
     if(el.classList.contains("freeWrap")){
       inner.style.padding="0";
       img.style.width="100%";
@@ -2752,7 +3531,7 @@ function addBlock(type){
 $("btnAddSection").addEventListener("click",()=>addBlock("section"));
 $("btnAddText").addEventListener("click",()=>addBlock("text"));
 $("btnAddImage").addEventListener("click",()=>addBlock("image"));
-$("btnAddEmbed").addEventListener("click",()=>addBlock("embed"));
+$("btnAddEmbed").addEventListener("click",openEmbedStudio);
 
 /* =========================
    Languages add/remove
@@ -2859,6 +3638,10 @@ function openBunyaPublish(){
     <div class="notice-card">
       SIte™ can prepare a publishable static build now. Real publishing through Bunya will require 333 Identity authentication, a deployment API, environment permissions, domain selection, and server-side credentials.
     </div>
+    <div class="bunya-handoff">
+      <a href="./Bunya_digital_infrastructure_index.html">Open Bunya Workspace</a>
+      <a href="../index.html">Open 333 Network Gateway</a>
+    </div>
     <div class="label" style="margin-top:14px">Target environment</div>
     <select id="bunyaEnvironment">
       <option value="preview">Preview</option>
@@ -2868,8 +3651,8 @@ function openBunyaPublish(){
     <div class="label">Target domain</div>
     <input id="bunyaDomain" value="${escapeHtml(site.domains.primary||"")}" placeholder="example.com">
   `,`
-    <button class="secondary small" id="downloadBuildBtn">Download Static Build</button>
-    <button class="small" id="sendBunyaBtn">Send to Bunya</button>
+    <button type="button" class="secondary small" id="downloadBuildBtn">Download Static Build</button>
+    <button type="button" class="small" id="sendBunyaBtn">Send to Bunya</button>
   `);
   $("downloadBuildBtn").onclick=()=>downloadText("index.html",buildStaticWebsite(),"text/html");
   $("sendBunyaBtn").onclick=async()=>{
@@ -2883,6 +3666,294 @@ function openBunyaPublish(){
     closeSiteModal();
   };
 }
+function openNetworkDirectory(){
+  siteModal("333 Network Applications",`
+    <div class="network-directory-grid">
+      <article class="network-directory-card" style="--network-accent:#8378b6">
+        <h3>HOLLO</h3>
+        <p>Enrollment, shared member identity, trusted contacts, and direct communication.</p>
+        <a class="network-card-link" href="./HOLLO_333_direct_connect_index.html">Open HOLLO</a>
+      </article>
+      <article class="network-directory-card" style="--network-accent:#5d9f99">
+        <h3>KANSEE</h3>
+        <p>Private meeting rooms, invitations, participants, notes, and room history.</p>
+        <a class="network-card-link" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a>
+      </article>
+      <article class="network-directory-card" style="--network-accent:#597ba6">
+        <h3>E=Ven Mail</h3>
+        <p>Email-address applications and a local correspondence workspace prepared for provisioning.</p>
+        <a class="network-card-link" href="./EVen_mail_index.html#apply">Open E=Ven Mail</a>
+      </article>
+      <article class="network-directory-card" style="--network-accent:#b66f88">
+        <h3>Bazaar Art Live</h3>
+        <p>Creative profiles, posts, stories, reels, groups, events, and public community participation.</p>
+        <a class="network-card-link" href="./Bazaar_Art_Live_index.html">Open Bazaar</a>
+      </article>
+      <article class="network-directory-card" style="--network-accent:#5f8e70">
+        <h3>SIte</h3>
+        <p>The current website and application creation studio.</p>
+        <span class="network-current">Current Application</span>
+      </article>
+      <article class="network-directory-card" style="--network-accent:#b57a49">
+        <h3>Bunya</h3>
+        <p>Domains, DNS, infrastructure plans, deployment preparation, monitoring, and backups.</p>
+        <a class="network-card-link" href="./Bunya_digital_infrastructure_index.html">Open Bunya</a>
+      </article>
+    </div>
+  `,`<a class="top-network-link" href="../index.html">Return to 333 Network Gateway</a>`);
+}
+
+function selectedEmbedBlock(){
+  const block=selectedBlock();
+  return block?.type==="embed"?block:null;
+}
+
+function embedStarterTemplate(){
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      font-family:system-ui,sans-serif;
+      background:#f4f1e9;
+      color:#172131;
+    }
+    .widget{
+      padding:24px;
+      border:1px solid #d7d0c3;
+      border-radius:21px;
+      background:#fff;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <section class="widget">
+    <h1>Hello from SIte</h1>
+    <p>Edit this HTML, CSS, or JavaScript and select Preview.</p>
+  </section>
+</body>
+</html>`;
+}
+
+function setEmbedStudioStatus(message,tone="neutral"){
+  const status=$("embedStudioStatus");
+  if(!status)return;
+  status.textContent=message;
+  status.style.color=
+    tone==="ok"?"var(--ok)":
+    tone==="bad"?"var(--lock)":
+    tone==="warn"?"var(--warn)":
+    "var(--muted)";
+}
+
+function clearEmbedPreviewUrl(){
+  if(embedPreviewUrl){
+    URL.revokeObjectURL(embedPreviewUrl);
+    embedPreviewUrl="";
+  }
+}
+
+function runEmbedStudioPreview(){
+  const code=$("embedStudioCode")?.value||"";
+  const frame=$("embedStudioPreview");
+  if(!frame)return;
+
+  clearEmbedPreviewUrl();
+
+  const documentCode=code.trim()||"<!doctype html><html><body></body></html>";
+  const blob=new Blob([documentCode],{type:"text/html"});
+  embedPreviewUrl=URL.createObjectURL(blob);
+  frame.src=embedPreviewUrl;
+
+  try{localStorage.setItem(EMBED_STUDIO_DRAFT_KEY,code)}catch(_){}
+  setEmbedStudioStatus(
+    "Preview refreshed inside a sandboxed frame. External resources may contact their own providers.",
+    "ok"
+  );
+}
+
+async function copyEmbedStudioCode(){
+  const input=$("embedStudioCode");
+  if(!input)return;
+  const code=input.value;
+
+  try{
+    await navigator.clipboard.writeText(code);
+    setEmbedStudioStatus("Embed code copied to the clipboard.","ok");
+  }catch(_){
+    input.focus();
+    input.select();
+    const copied=document.execCommand("copy");
+    setEmbedStudioStatus(
+      copied?"Embed code copied to the clipboard.":"Clipboard access was blocked. The code is selected for manual copying.",
+      copied?"ok":"warn"
+    );
+  }
+}
+
+function clearEmbedStudio(){
+  const input=$("embedStudioCode");
+  const frame=$("embedStudioPreview");
+  if(!input||!frame)return;
+
+  input.value="";
+  clearEmbedPreviewUrl();
+  frame.removeAttribute("src");
+  frame.srcdoc="<!doctype html><html><body></body></html>";
+  try{localStorage.removeItem(EMBED_STUDIO_DRAFT_KEY)}catch(_){}
+  setEmbedStudioStatus("Embed Studio cleared.");
+  input.focus();
+}
+
+function saveEmbedStudioToCanvas(){
+  if(currentPage.locked){
+    setEmbedStudioStatus("Unlock this page before adding or updating an embed block.","bad");
+    return;
+  }
+
+  const input=$("embedStudioCode");
+  const code=input?.value||"";
+  if(!code.trim()){
+    setEmbedStudioStatus("Add HTML, CSS, or JavaScript before inserting it.","bad");
+    input?.focus();
+    return;
+  }
+
+  const lang=getLang();
+  let block=selectedEmbedBlock();
+
+  if(block){
+    ensureTranslationMap(block);
+    block.t[lang]=code;
+    saveSite();
+    pushHistory("Updated Embed Studio block");
+    render();
+    closeSiteModal();
+    setStatus("Selected embed block updated.","ok");
+    return;
+  }
+
+  block={
+    id:uid(),
+    type:"embed",
+    t:{[site.languages.default]:code},
+    layouts:{
+      desktop:{x:70,y:100,w:520,h:340}
+    }
+  };
+  block.pos=block.layouts.desktop;
+
+  currentPage.blocks.push(block);
+  selectedBlockId=block.id;
+  saveSite();
+  pushHistory("Added Embed Studio block");
+  render();
+  closeSiteModal();
+  setStatus("Embed Studio block added to the page.","ok");
+}
+
+function openEmbedStudio(){
+  const block=selectedEmbedBlock();
+  const lang=getLang();
+  let initialCode="";
+
+  if(block){
+    ensureTranslationMap(block);
+    initialCode=getText(block,lang);
+  }else{
+    try{
+      initialCode=localStorage.getItem(EMBED_STUDIO_DRAFT_KEY)||"";
+    }catch(_){}
+    if(!initialCode)initialCode=embedStarterTemplate();
+  }
+
+  siteModal(
+    block?"Edit Embed Block":"SIte Embed Studio",
+    `<div class="embed-studio-intro">
+      <span class="embed-studio-mark" aria-hidden="true">&lt;/&gt;</span>
+      <div>
+        <h3>Build and test an embedded experience</h3>
+        <p>Write HTML, CSS, or JavaScript, preview it in isolation, then insert it into the current SIte page.</p>
+      </div>
+    </div>
+    <div class="embed-studio-grid">
+      <section class="embed-studio-pane">
+        <label for="embedStudioCode">Embed code</label>
+        <textarea id="embedStudioCode" spellcheck="false" aria-describedby="embedStudioStatus"></textarea>
+        <div class="embed-studio-status" id="embedStudioStatus" role="status" aria-live="polite">
+          ${block?"Editing the selected embed block.":"A private local draft is preserved in this browser."}
+        </div>
+      </section>
+      <section class="embed-studio-pane">
+        <span class="pane-label">Sandboxed preview</span>
+        <div class="embed-preview-shell">
+          <iframe
+            id="embedStudioPreview"
+            title="Embed Studio preview"
+            sandbox="allow-scripts allow-forms allow-modals allow-popups"
+            referrerpolicy="no-referrer"
+          ></iframe>
+        </div>
+        <div class="embed-studio-help">
+          Preview code cannot access the SIte parent page or its local storage. External scripts,
+          fonts, images, and APIs may still send requests to their providers.
+          <ul>
+            <li>Use Preview after each meaningful change.</li>
+            <li>Copy Code keeps the original source available elsewhere.</li>
+            <li>Insert into Page creates a freely positioned embed block.</li>
+          </ul>
+        </div>
+      </section>
+    </div>`,
+    `<div class="embed-studio-actions">
+      <span class="embed-mode-badge">${block?"Updating selected embed":"Creating a new embed"}</span>
+      <button type="button" class="secondary small" id="embedPreviewBtn">Preview</button>
+      <button type="button" class="secondary small" id="embedCopyBtn">Copy Code</button>
+      <button type="button" class="secondary small" id="embedClearBtn">Clear</button>
+      <button type="button" class="small insert" id="embedInsertBtn">${block?"Update Embed":"Insert into Page"}</button>
+    </div>`
+  );
+
+  const modalCard=$("siteModalLayer")?.querySelector(".modal-card");
+  modalCard?.classList.add("embed-studio-card");
+
+  const input=$("embedStudioCode");
+  input.value=initialCode;
+
+  $("embedPreviewBtn").onclick=runEmbedStudioPreview;
+  $("embedCopyBtn").onclick=copyEmbedStudioCode;
+  $("embedClearBtn").onclick=clearEmbedStudio;
+  $("embedInsertBtn").onclick=saveEmbedStudioToCanvas;
+
+  input.addEventListener("input",()=>{
+    try{localStorage.setItem(EMBED_STUDIO_DRAFT_KEY,input.value)}catch(_){}
+  });
+
+  input.addEventListener("keydown",event=>{
+    if(event.key==="Tab"){
+      event.preventDefault();
+      const start=input.selectionStart;
+      const end=input.selectionEnd;
+      input.setRangeText("  ",start,end,"end");
+    }
+
+    if((event.ctrlKey||event.metaKey)&&event.key==="Enter"){
+      event.preventDefault();
+      runEmbedStudioPreview();
+    }
+  });
+
+  runEmbedStudioPreview();
+  input.focus();
+}
+
 function siteModal(title,body,footer=""){
   $("siteModalTitle").textContent=title;
   $("siteModalBody").innerHTML=body;
@@ -2891,6 +3962,8 @@ function siteModal(title,body,footer=""){
   $("siteModalLayer").setAttribute("aria-hidden","false");
 }
 function closeSiteModal(){
+  clearEmbedPreviewUrl();
+  $("siteModalLayer").querySelector(".modal-card")?.classList.remove("embed-studio-card");
   $("siteModalLayer").classList.remove("active");
   $("siteModalLayer").setAttribute("aria-hidden","true");
 }
@@ -2901,11 +3974,11 @@ function openRestorePoints(){
       ${list.length?list.map(item=>`
         <div class="restore-row">
           <div><strong>${escapeHtml(item.name)}</strong><small>${new Date(item.createdAt).toLocaleString()}</small></div>
-          <button class="secondary small" data-restore-id="${item.id}">Restore</button>
+          <button type="button" class="secondary small" data-restore-id="${item.id}">Restore</button>
         </div>
       `).join(""):`<div class="notice-card">No restore points exist yet.</div>`}
     </div>
-  `,`<button class="small" id="createRestoreNowBtn">Create Restore Point</button>`);
+  `,`<button type="button" class="small" id="createRestoreNowBtn">Create Restore Point</button>`);
   $("createRestoreNowBtn").onclick=()=>{
     createRestorePoint("Manual restore point");
     closeSiteModal();
@@ -3016,9 +4089,9 @@ function createButtonFromPalette(kind){
     blocksToAdd.push(b);
   }else if(kind==="social-row"){
     const icons=[
-      {label:"📘", url:"https://facebook.com"},
-      {label:"📸", url:"https://instagram.com"},
-      {label:"▶️", url:"https://youtube.com"}
+      {label:"📘", url:""},
+      {label:"📸", url:""},
+      {label:"▶️", url:""}
     ];
     icons.forEach((icon,idx)=>{
       const pos=deepClone(basePos);
@@ -3069,11 +4142,13 @@ function render(){
 $("btnUndo").addEventListener("click",undo);
 $("btnRedo").addEventListener("click",redo);
 $("btnSnapshot").addEventListener("click",openRestorePoints);
+$("btnEmbedStudio").addEventListener("click",openEmbedStudio);
 $("btnExportSite").addEventListener("click",()=>{
   downloadText("index.html",buildStaticWebsite(),"text/html");
   setStatus("Static website exported.","ok");
 });
 $("btnPublishBunya").addEventListener("click",openBunyaPublish);
+$("btnNetworkDirectory").addEventListener("click",openNetworkDirectory);
 $("siteModalClose").addEventListener("click",closeSiteModal);
 $("siteModalLayer").addEventListener("click",e=>{if(e.target===$("siteModalLayer"))closeSiteModal()});
 $("btnToggleLeft").addEventListener("click",()=>{
@@ -3096,7 +4171,20 @@ document.querySelectorAll("[data-device]").forEach(button=>{
     setStatus(currentDevice.charAt(0).toUpperCase()+currentDevice.slice(1)+" canvas active.","ok");
   });
 });
+window.addEventListener("storage",event=>{
+  if([HOLLO_STORAGE_KEY,IDENTITY_HANDOFF_KEY,EVEN_MAIL_STORAGE_KEY,AUTH_KEY].includes(event.key)){
+    renderSharedIdentity();
+    updateTopIdentity();
+  }
+});
+document.addEventListener("333-hollo-profile-created",renderSharedIdentity);
+document.addEventListener("333-even-mail-application-created",renderSharedIdentity);
+
 document.addEventListener("keydown",e=>{
+  if((e.ctrlKey||e.metaKey)&&e.shiftKey&&e.key.toLowerCase()==="e"){
+    e.preventDefault();
+    if(!$("app").classList.contains("hidden"))openEmbedStudio();
+  }
   if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="z"){
     e.preventDefault();
     e.shiftKey?redo():undo();
