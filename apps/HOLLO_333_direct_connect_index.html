@@ -1455,6 +1455,7 @@
       </div>
       <div class="status-actions">
         <button class="small-btn" id="profileBtn" type="button">Enrollment & Profile</button>
+        <button class="small-btn" id="emailApplicationBtn" type="button">Apply for E=Ven Email</button>
         <button class="small-btn" id="settingsBtn" type="button">Settings & Backup</button>
       </div>
     </div>
@@ -1470,15 +1471,15 @@
           HOLLO currently stores the member profile, trusted contacts, private message threads,
           invitations, and activity in this browser. The application includes a documented
           service-adapter boundary so authenticated accounts, encrypted server storage,
-          WebSocket signaling, and cross-device synchronization can be added without replacing
-          the current interface.
+          WebSocket signaling, cross-device synchronization, and E=Ven Mail application review
+          can be added without replacing the current interface.
         </p>
       </div>
       <div class="backend-status-grid" aria-label="HOLLO persistence status">
         <div><strong>Active</strong><span>Browser persistence</span></div>
         <div><strong>Active</strong><span>JSON backup and restore</span></div>
-        <div><strong>Planned</strong><span>Authenticated cloud sync</span></div>
-        <div><strong>Planned</strong><span>Real-time signaling</span></div>
+        <div><strong>Active</strong><span>E=Ven application handoff</span></div>
+        <div><strong>Planned</strong><span>Cloud sync & signaling</span></div>
       </div>
     </div>
   </section>
@@ -1667,6 +1668,7 @@
           <div class="enrollment-step active">1 · Your Profile</div>
           <div class="enrollment-step active">2 · Choose a Number</div>
           <div class="enrollment-step active">3 · Save Locally</div>
+          <div class="enrollment-step">4 · Optional Email</div>
         </div>
 
         <div class="form-grid">
@@ -1718,6 +1720,7 @@
       </div>
       <div class="modal-actions">
         <button class="quiet-btn" id="continueGuestBtn" type="button">Continue as Local Guest</button>
+        <button class="small-btn" id="completeAndApplyEmailBtn" type="button">Complete & Apply for Email</button>
         <button class="primary-btn" id="completeEnrollmentBtn" type="button">Complete Enrollment</button>
       </div>
     </div>
@@ -1745,6 +1748,7 @@
       </div>
       <div class="modal-actions">
         <button class="quiet-btn" type="button" data-close-modal>Cancel</button>
+        <button class="small-btn" id="profileEmailApplicationBtn" type="button">Save & Apply for E=Ven Email</button>
         <button class="primary-btn" type="button" id="saveProfileBtn">Save Profile</button>
       </div>
     </div>
@@ -1864,6 +1868,7 @@
 
     const APP_VERSION = '1.2.0';
     const STORAGE_KEY = 'hollo_333_direct_connect_v1';
+    const IDENTITY_HANDOFF_KEY = '333_identity_handoff_v1';
     const MAX_MESSAGES_PER_THREAD = 500;
     const MAX_ACTIVITY = 200;
     const $ = (s,root=document)=>root.querySelector(s);
@@ -2577,7 +2582,7 @@
       openModal($('#enrollmentModal'));
     }
 
-    function completeEnrollment(){
+    function completeEnrollment(options={}){
       const name=$('#enrollmentName').value.trim();
       const handle=safeHandle($('#enrollmentHandle').value);
       const choice=selectedEnrollmentChoice();
@@ -2642,14 +2647,69 @@
       document.dispatchEvent(new CustomEvent('333-hollo-profile-created',{
         detail:{
           profileId:state.profile.id,
+          name:state.profile.name,
+          handle:state.profile.handle,
+          number:state.profile.number,
           numberKind:state.profile.numberKind,
           enrolledAt:state.enrollment.completedAt
         }
       }));
 
+      writeIdentityHandoff();
+
+      if(options.continueToEmail){
+        showToast('HOLLO enrollment complete. Opening the E=Ven Mail application.');
+        window.setTimeout(()=>{
+          window.location.href='./EVen_mail_index.html#apply';
+        },240);
+        return;
+      }
+
       showToast(choice==='network'
         ? 'HOLLO profile created with a provisional 333 number.'
         : 'HOLLO profile created with your existing number.');
+    }
+
+    function writeIdentityHandoff(){
+      const handoff={
+        schema:'333-identity-handoff',
+        version:1,
+        source:'HOLLO',
+        profile:{
+          id:state.profile.id,
+          name:state.profile.name,
+          handle:state.profile.handle,
+          number:state.profile.number,
+          numberKind:state.profile.numberKind,
+          presence:state.profile.presence,
+          status:state.profile.status
+        },
+        enrollment:{
+          complete:Boolean(state.enrollment?.complete),
+          completedAt:state.enrollment?.completedAt||null,
+          numberChoice:state.enrollment?.numberChoice||state.profile.numberKind||null,
+          verification:state.enrollment?.verification||'local-unverified'
+        },
+        handedOffAt:nowIso()
+      };
+
+      try{
+        localStorage.setItem(IDENTITY_HANDOFF_KEY,JSON.stringify(handoff));
+        return true;
+      }catch{
+        return false;
+      }
+    }
+
+    function openEmailApplication(){
+      if(!state.enrollment?.complete){
+        showToast('Complete HOLLO enrollment before applying for an E=Ven Mail address.');
+        openEnrollment();
+        return;
+      }
+
+      writeIdentityHandoff();
+      window.location.href='./EVen_mail_index.html#apply';
     }
 
     function continueAsGuest(){
@@ -2686,9 +2746,28 @@
         status:$('#profileStatus').value.trim().slice(0,120)
       };
       saveState();
+      writeIdentityHandoff();
       renderAll();
       closeModal();
       showToast('Profile saved locally.');
+    }
+
+    function saveProfileAndOpenEmail(){
+      const name=$('#profileName').value.trim();
+      const handle=safeHandle($('#profileHandle').value);
+      if(!name){ showToast('Profile name is required.'); return; }
+
+      state.profile={
+        ...state.profile,
+        name:name.slice(0,80),
+        handle,
+        presence:$('#profilePresence').value,
+        status:$('#profileStatus').value.trim().slice(0,120)
+      };
+
+      saveState();
+      writeIdentityHandoff();
+      window.location.href='./EVen_mail_index.html#apply';
     }
 
     function saveContact(){
@@ -2777,6 +2856,8 @@
       $('#cameraSelect').addEventListener('change',()=>{ if(localStream) startMediaPreview({audio:localStream.getAudioTracks().length>0,video:localStream.getVideoTracks().length>0},'device-change'); });
       $('#micSelect').addEventListener('change',()=>{ if(localStream) startMediaPreview({audio:localStream.getAudioTracks().length>0,video:localStream.getVideoTracks().length>0},'device-change'); });
       $('#profileBtn').addEventListener('click',openProfile);
+      $('#emailApplicationBtn').addEventListener('click',openEmailApplication);
+      $('#profileEmailApplicationBtn').addEventListener('click',saveProfileAndOpenEmail);
       $('#profileEnrollmentBtn').addEventListener('click',()=>{closeModal();setTimeout(openEnrollment,0);});
       $('#saveProfileBtn').addEventListener('click',saveProfile);
       $$('input[name="enrollmentNumberChoice"]').forEach(input=>{
@@ -2786,7 +2867,8 @@
         $('#enrollmentNetworkNumber').value=formatNumber(generateNetworkNumber());
         showToast('A new provisional 333 number was generated.');
       });
-      $('#completeEnrollmentBtn').addEventListener('click',completeEnrollment);
+      $('#completeEnrollmentBtn').addEventListener('click',()=>completeEnrollment());
+      $('#completeAndApplyEmailBtn').addEventListener('click',()=>completeEnrollment({continueToEmail:true}));
       $('#continueGuestBtn').addEventListener('click',continueAsGuest);
       $('#settingsBtn').addEventListener('click',()=>{updateStorageSummary();openModal($('#settingsModal'));});
       $('#exportBackupBtn').addEventListener('click',exportBackup);
