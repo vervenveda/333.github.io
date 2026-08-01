@@ -4,13 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="HOLLO™ 333 Direct Connect — a local-first, backend-ready workspace for trusted contacts, private messages, consent-based invitations, and voice or video preview.">
+  <meta name="description" content="HOLLO™ 333 Direct Connect — local-first enrollment, profile creation, trusted contacts, private messages, and consent-based voice or video invitations. Members may use an existing number or create a provisional 333 Network number.">
   <meta name="theme-color" content="#111426">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'unsafe-inline'; connect-src 'self' ws: wss:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>HOLLO™ — 333 Direct Connect</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="referrer" content="same-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self' ws: wss:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>HOLLO™ — Enrollment & 333 Direct Connect</title>
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
   <style>
     :root{
       --ink:#151426;
@@ -1201,21 +1202,232 @@
       }
     }
 
+    /* =========================================================
+       HOLLO enrollment and profile identity
+       ========================================================= */
+    .profile-identity{
+      min-width:220px;
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr);
+      gap:3px 9px;
+      align-items:center;
+      padding:9px 11px;
+      border:1px solid rgba(111,91,179,.22);
+      border-radius:7px;
+      background:rgba(255,255,255,.58);
+      text-align:left;
+    }
+
+    .profile-identity .identity-chip{
+      grid-row:1/3;
+      min-width:64px;
+      display:grid;
+      place-items:center;
+      align-self:stretch;
+      padding:6px 8px;
+      border-radius:7px;
+      color:#fff;
+      background:var(--violet);
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .profile-identity strong{
+      display:block;
+      overflow:hidden;
+      color:var(--ink);
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:11px;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .profile-identity span:last-child{
+      display:block;
+      color:var(--muted);
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:10px;
+    }
+
+    .modal.enrollment-modal{
+      width:min(760px,100%);
+    }
+
+    .enrollment-progress{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:7px;
+      margin-bottom:14px;
+    }
+
+    .enrollment-step{
+      min-height:54px;
+      display:grid;
+      place-items:center;
+      padding:8px;
+      border:1px solid var(--line);
+      border-radius:7px;
+      color:var(--muted);
+      background:#fffdf8;
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:9px;
+      font-weight:650;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+
+    .enrollment-step.active{
+      color:#fff;
+      border-color:var(--violet);
+      background:var(--violet);
+    }
+
+    .choice-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+      margin-top:13px;
+    }
+
+    .choice-card{
+      position:relative;
+      display:grid;
+      grid-template-columns:auto minmax(0,1fr);
+      gap:10px;
+      align-items:start;
+      min-height:118px;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:7px;
+      background:#fffdf8;
+      cursor:pointer;
+      text-align:left;
+    }
+
+    .choice-card:hover,
+    .choice-card:has(input:checked){
+      border-color:var(--violet);
+      box-shadow:inset 0 0 0 1px rgba(111,91,179,.12);
+    }
+
+    .choice-card input{
+      width:18px;
+      height:18px;
+      margin:2px 0 0;
+      accent-color:var(--violet);
+    }
+
+    .choice-card strong{
+      display:block;
+      color:var(--night);
+      font-family:var(--font-display,Georgia,serif);
+      font-size:18px;
+    }
+
+    .choice-card span{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:10px;
+      line-height:1.55;
+    }
+
+    .number-choice-panel{
+      margin-top:11px;
+      padding:13px;
+      border:1px solid var(--line);
+      border-radius:7px;
+      background:#f8f4eb;
+    }
+
+    .number-choice-panel[hidden]{display:none!important}
+
+    .number-preview{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:7px;
+      margin-top:8px;
+    }
+
+    .number-preview input{
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:16px;
+      font-weight:700;
+      letter-spacing:.07em;
+      text-align:center;
+    }
+
+    .verification-note{
+      margin:10px 0 0;
+      padding:10px;
+      border-left:4px solid var(--gold);
+      color:#654d20;
+      background:#fff5d8;
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:10px;
+      line-height:1.55;
+      text-align:left;
+    }
+
+    .enrollment-consent{
+      display:flex;
+      align-items:flex-start;
+      gap:9px;
+      margin-top:13px;
+      padding:11px;
+      border:1px solid var(--line);
+      border-radius:7px;
+      background:#fffdf8;
+      color:var(--ink-soft);
+      font-family:var(--font-ui,system-ui,sans-serif);
+      font-size:10px;
+      line-height:1.55;
+      text-align:left;
+    }
+
+    .enrollment-consent input{
+      width:18px;
+      height:18px;
+      margin:2px 0 0;
+      flex:0 0 auto;
+      accent-color:var(--violet);
+    }
+
+    .profile-number-actions{
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    @media (max-width:620px){
+      .choice-grid{grid-template-columns:1fr}
+      .number-preview{grid-template-columns:1fr}
+      .enrollment-progress{grid-template-columns:1fr}
+      .profile-identity{width:100%}
+    }
+
   </style>
 </head>
 <body>
   <div class="topline">
     <div class="topline-inner">
       <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="https://vervenveda.github.io/">Verve N Veda</a><span aria-hidden="true">›</span>
-        <a href="https://vervenveda.github.io/333.github.io/">333 Network</a><span aria-hidden="true">›</span>
+        <a href="../../">Verve N Veda</a><span aria-hidden="true">›</span>
+        <a href="../index.html">333 Network</a><span aria-hidden="true">›</span>
         <span>HOLLO</span>
       </nav>
       <div class="network-links" aria-label="333 Network services">
-        <a href="https://vervenveda.github.io/333.github.io/">333 Network Home</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html">KANSEE Meeting Rooms</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/Bazaar%20Art%20Live%20333%20Social%20Feed_index.html">Bazaar Art Live</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+        <a href="../index.html">333 Network Home</a>
+        <a href="./KANSEE_333_meeting_rooms_index.html">KANSEE Meeting Rooms</a>
+        <a href="./Bazaar_Art_Live_index.html">Bazaar Art Live</a>
+        <a href="./EVen_mail_index.html">E=Ven Mail</a>
+        <a href="./SIte_builder_index.html">SIte</a>
+        <a href="./Bunya_digital_infrastructure_index.html">Bunya</a>
       </div>
     </div>
   </div>
@@ -1224,7 +1436,7 @@
     <div>
       <p class="eyebrow">333 Network · Direct Communication</p>
       <h1>HOLLO™</h1>
-      <p class="hero-copy">A private, consent-based workspace for trusted contacts, direct messages, and voice or video invitations. Every connection begins by choice.</p>
+      <p class="hero-copy">A private, consent-based enrollment and communication workspace. Create your HOLLO profile, use an existing number or generate a provisional 333 Network number, then connect with trusted contacts through local messages and voice or video invitations.</p>
     </div>
     <div class="service-number" aria-label="HOLLO service number">
       <small>Internal HOLLO Route</small>
@@ -1235,9 +1447,14 @@
 
   <div class="status-strip">
     <div class="status-card">
-      <div><span class="status-dot"></span><strong>Local-first mode:</strong> contacts, messages, invitations, activity, profiles, and media previews persist on this device. Secure accounts, synchronization, and cross-device delivery activate only when the HOLLO backend is connected.</div>
+      <div><span class="status-dot"></span><strong>Local-first enrollment:</strong> your profile, selected number, contacts, messages, invitations, activity, and media previews remain on this device. Existing numbers are not verified and generated 333 numbers are provisional until the HOLLO identity backend is connected.</div>
+      <div class="profile-identity" id="profileIdentity" aria-live="polite">
+        <span class="identity-chip" id="identityType">Guest</span>
+        <strong id="identityName">Local Member</strong>
+        <span id="identityNumber">No number selected</span>
+      </div>
       <div class="status-actions">
-        <button class="small-btn" id="profileBtn" type="button">My Profile</button>
+        <button class="small-btn" id="profileBtn" type="button">Enrollment & Profile</button>
         <button class="small-btn" id="settingsBtn" type="button">Settings & Backup</button>
       </div>
     </div>
@@ -1276,7 +1493,7 @@
   <main class="app-shell">
     <section class="panel contacts-panel mobile-active" id="contactsPanel" data-view="contacts" aria-labelledby="contactsTitle">
       <div class="panel-head">
-        <div><h2 id="contactsTitle">Trusted Contacts</h2><p>Search by name, handle, or 333 number.</p></div>
+        <div><h2 id="contactsTitle">Trusted Contacts</h2><p>Search by name, handle, phone number, or 333 number.</p></div>
         <button class="icon-btn" type="button" id="addContactBtn" aria-label="Add contact" title="Add contact">＋</button>
       </div>
       <div class="panel-body">
@@ -1290,7 +1507,7 @@
           <h3 id="dialerTitle">Internal 333 Dialer</h3>
           <div class="dialer-row">
             <label class="sr-only" for="dialInput">333 number or handle</label>
-            <input id="dialInput" inputmode="tel" placeholder="333-111-7777 or @handle" autocomplete="off">
+            <input id="dialInput" inputmode="tel" placeholder="Phone, 333 number, or @handle" autocomplete="off">
             <button class="primary-btn" id="dialBtn" type="button">Connect</button>
           </div>
           <div class="quick-numbers">
@@ -1299,7 +1516,7 @@
             <button class="small-btn" type="button" data-quick-number="3333337777">KANSEE Rooms</button>
             <button class="small-btn" type="button" data-quick-number="3334447777">Bazaar Live</button>
           </div>
-          <p class="dialer-help">Internal 333 routes connect the network apps. They are not public telephone numbers.</p>
+          <p class="dialer-help">Known 333 routes open network applications. Existing phone numbers and member-created 333 numbers search only this local contact list until secure directory services are connected.</p>
         </section>
       </div>
     </section>
@@ -1439,21 +1656,92 @@
     </div>
   </div>
 
+  <div class="modal-layer hidden" id="enrollmentModal" role="dialog" aria-modal="true" aria-labelledby="enrollmentTitle">
+    <div class="modal enrollment-modal">
+      <div class="modal-head">
+        <h2 id="enrollmentTitle">HOLLO Enrollment & Profile Creation</h2>
+        <button class="icon-btn" type="button" data-close-modal aria-label="Close enrollment">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="enrollment-progress" aria-label="Enrollment steps">
+          <div class="enrollment-step active">1 · Your Profile</div>
+          <div class="enrollment-step active">2 · Choose a Number</div>
+          <div class="enrollment-step active">3 · Save Locally</div>
+        </div>
+
+        <div class="form-grid">
+          <label>Display name<input id="enrollmentName" maxlength="80" autocomplete="name" placeholder="Your name"></label>
+          <label>HOLLO handle<input id="enrollmentHandle" maxlength="40" autocomplete="off" placeholder="@yourhandle"></label>
+          <label>Presence<select id="enrollmentPresence"><option value="available">Available</option><option value="busy">Busy</option><option value="away">Away</option><option value="invisible">Invisible</option></select></label>
+          <label>Status message<input id="enrollmentStatus" maxlength="120" placeholder="Available for trusted contacts"></label>
+        </div>
+
+        <div class="choice-grid" role="radiogroup" aria-label="Choose your HOLLO number">
+          <label class="choice-card">
+            <input type="radio" name="enrollmentNumberChoice" value="existing">
+            <span>
+              <strong>Use My Existing Number</strong>
+              <span>Use a phone number you already control as the number shown on this local HOLLO profile.</span>
+            </span>
+          </label>
+
+          <label class="choice-card">
+            <input type="radio" name="enrollmentNumberChoice" value="network" checked>
+            <span>
+              <strong>Create a 333 Number</strong>
+              <span>Generate a provisional internal HOLLO identity beginning with 333 for this device.</span>
+            </span>
+          </label>
+        </div>
+
+        <div class="number-choice-panel" id="existingNumberPanel" hidden>
+          <label>
+            Your existing number
+            <input id="enrollmentExistingNumber" inputmode="tel" maxlength="24" autocomplete="tel" placeholder="+1 555 000 0000">
+          </label>
+          <p class="verification-note">HOLLO stores this number only in the local profile. It is not verified, called, texted, or registered by this browser prototype.</p>
+        </div>
+
+        <div class="number-choice-panel" id="networkNumberPanel">
+          <label for="enrollmentNetworkNumber">Your provisional 333 Network number</label>
+          <div class="number-preview">
+            <input id="enrollmentNetworkNumber" readonly aria-describedby="networkNumberNotice">
+            <button class="small-btn" id="generateNumberBtn" type="button">Generate Another</button>
+          </div>
+          <p class="verification-note" id="networkNumberNotice">This number is reserved only inside this browser. A production HOLLO enrollment service must verify availability and issue the permanent network identity.</p>
+        </div>
+
+        <label class="enrollment-consent">
+          <input id="enrollmentConsent" type="checkbox">
+          <span>I understand that this is local profile enrollment. Existing numbers are unverified, generated 333 numbers are provisional, and cross-device messaging or calling requires the future authenticated HOLLO backend.</span>
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="quiet-btn" id="continueGuestBtn" type="button">Continue as Local Guest</button>
+        <button class="primary-btn" id="completeEnrollmentBtn" type="button">Complete Enrollment</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-layer hidden" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
     <div class="modal">
       <div class="modal-head">
-        <h2 id="profileTitle">My Profile</h2>
+        <h2 id="profileTitle">My HOLLO Profile</h2>
         <button class="icon-btn" type="button" data-close-modal aria-label="Close profile">×</button>
       </div>
       <div class="modal-body">
         <div class="form-grid">
           <label>Display name<input id="profileName" maxlength="80"></label>
           <label>Handle<input id="profileHandle" maxlength="40" placeholder="@handle"></label>
-          <label>Internal 333 number<input id="profileNumber" inputmode="tel" maxlength="14" placeholder="333-000-0000"></label>
+          <label>Current number<input id="profileNumber" readonly></label>
+          <label>Number type<input id="profileNumberType" readonly></label>
           <label>Presence<select id="profilePresence"><option value="available">Available</option><option value="busy">Busy</option><option value="away">Away</option><option value="invisible">Invisible</option></select></label>
           <label class="wide">Status message<input id="profileStatus" maxlength="120" placeholder="Optional status"></label>
         </div>
-        <div class="privacy-note" style="margin-top:13px">This profile is stored only in this browser in the prototype. A production account would receive a server-verified 333 number.</div>
+        <div class="privacy-note" id="profilePrivacyNote" style="margin-top:13px">This profile is stored only in this browser.</div>
+        <div class="profile-number-actions">
+          <button class="small-btn" id="profileEnrollmentBtn" type="button">Review Enrollment or Change Number</button>
+        </div>
       </div>
       <div class="modal-actions">
         <button class="quiet-btn" type="button" data-close-modal>Cancel</button>
@@ -1472,7 +1760,7 @@
         <div class="form-grid">
           <label>Name<input id="contactNameInput" maxlength="80"></label>
           <label>Handle<input id="contactHandleInput" maxlength="40" placeholder="@handle"></label>
-          <label>333 number<input id="contactNumberInput" inputmode="tel" maxlength="14" placeholder="333-000-0000"></label>
+          <label>Phone or 333 number<input id="contactNumberInput" inputmode="tel" maxlength="24" placeholder="+1 555 000 0000 or 333-000-0000"></label>
           <label>Presence<select id="contactPresenceInput"><option value="available">Available</option><option value="busy">Busy</option><option value="away">Away</option><option value="offline">Offline</option></select></label>
           <label class="wide"><input id="contactTrustedInput" type="checkbox" style="width:auto;margin-right:7px">Mark as trusted contact</label>
         </div>
@@ -1574,7 +1862,7 @@
       }
     });
 
-    const APP_VERSION = '1.1.0';
+    const APP_VERSION = '1.2.0';
     const STORAGE_KEY = 'hollo_333_direct_connect_v1';
     const MAX_MESSAGES_PER_THREAD = 500;
     const MAX_ACTIVITY = 200;
@@ -1584,9 +1872,11 @@
     const knownRoutes = {
       '3331117777': {type:'contact', contactId:'founder'},
       '3332227777': {type:'service', label:'HOLLO Direct Connect'},
-      '3333337777': {type:'link', label:'KANSEE Meetings', href:'https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html'},
-      '3334447777': {type:'link', label:'Live Social Feed', href:'https://vervenveda.github.io/proresource_hub.github.io/Protools/Bazaar%20Art%20Live%20333%20Social%20Feed_index.html'}
+      '3333337777': {type:'link', label:'KANSEE Meetings', href:'./KANSEE_333_meeting_rooms_index.html'},
+      '3334447777': {type:'link', label:'Bazaar Art Live', href:'./Bazaar_Art_Live_index.html'}
     };
+
+    const RESERVED_333_NUMBERS = new Set(Object.keys(knownRoutes));
 
     const defaultState = ()=>({
       schema:'hollo-backup',
@@ -1595,9 +1885,17 @@
         id:'local-member',
         name:'Local Member',
         handle:'@localmember',
-        number:'3330000000',
+        number:'',
+        numberKind:'none',
+        numberVerified:false,
         presence:'available',
         status:'Available for trusted contacts'
+      },
+      enrollment:{
+        complete:false,
+        completedAt:null,
+        numberChoice:null,
+        verification:'local-unverified'
       },
       contacts:[
         {id:'founder',name:'Jennifer Kay Pearl',handle:'@JenniferPearl',number:'3331117777',presence:'available',trusted:true,favorite:true,role:'Founder Network Line',pinned:true},
@@ -1634,13 +1932,51 @@
     function clone(v){ return JSON.parse(JSON.stringify(v)); }
     function uid(prefix='id'){ return prefix+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
     function nowIso(){ return new Date().toISOString(); }
-    function normalizeNumber(value){ return String(value||'').replace(/\D/g,'').slice(0,10); }
+    function normalizeNumber(value){ return String(value||'').replace(/\D/g,'').slice(0,15); }
+    function isInternal333Number(value){
+      const n=normalizeNumber(value);
+      return n.length===10 && n.startsWith('333');
+    }
+    function isSupportedMemberNumber(value){
+      const n=normalizeNumber(value);
+      if(isInternal333Number(n)) return true;
+      return n.length>=7 && n.length<=15;
+    }
     function formatNumber(value){
       const n=normalizeNumber(value);
-      if(n.length===10) return n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6);
-      if(n.length>6) return n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6);
-      if(n.length>3) return n.slice(0,3)+'-'+n.slice(3);
+      if(!n) return '';
+      if(isInternal333Number(n)) return n.slice(0,3)+'-'+n.slice(3,6)+'-'+n.slice(6);
+      if(n.length===10) return '('+n.slice(0,3)+') '+n.slice(3,6)+'-'+n.slice(6);
+      if(n.length===11 && n.startsWith('1')) return '+1 ('+n.slice(1,4)+') '+n.slice(4,7)+'-'+n.slice(7);
+      if(n.length>11) return '+'+n;
+      if(n.length>6) return n.slice(0,n.length-7)+' '+n.slice(-7,-4)+'-'+n.slice(-4);
       return n;
+    }
+    function numberKindLabel(kind){
+      if(kind==='existing') return 'Existing number · locally stored';
+      if(kind==='network') return 'Provisional 333 Network number';
+      return 'Guest profile · no number selected';
+    }
+    function generatedNumberIsAvailable(number){
+      const normalized=normalizeNumber(number);
+      if(!isInternal333Number(normalized) || RESERVED_333_NUMBERS.has(normalized)) return false;
+      if(state?.profile?.number===normalized) return false;
+      return !state?.contacts?.some(contact=>normalizeNumber(contact.number)===normalized);
+    }
+    function generateNetworkNumber(){
+      for(let attempt=0;attempt<200;attempt+=1){
+        let suffix;
+        if(window.crypto?.getRandomValues){
+          const values=new Uint32Array(1);
+          window.crypto.getRandomValues(values);
+          suffix=String(values[0]%10000000).padStart(7,'0');
+        }else{
+          suffix=String(Math.floor(Math.random()*10000000)).padStart(7,'0');
+        }
+        const candidate='333'+suffix;
+        if(generatedNumberIsAvailable(candidate)) return candidate;
+      }
+      return '333'+String(Date.now()).slice(-7);
     }
     function initials(name){
       const parts=String(name||'?').trim().split(/\s+/).filter(Boolean);
@@ -1680,7 +2016,40 @@
       const base=defaultState();
       if(!input || typeof input!=='object') return base;
       const out=base;
-      if(input.profile && typeof input.profile==='object') out.profile={...base.profile,...input.profile};
+      if(input.profile && typeof input.profile==='object'){
+        const incomingNumber=normalizeNumber(input.profile.number);
+        const incomingKind=['existing','network','none'].includes(input.profile.numberKind)
+          ? input.profile.numberKind
+          : (isInternal333Number(incomingNumber) ? 'network' : (incomingNumber ? 'existing' : 'none'));
+        out.profile={
+          ...base.profile,
+          ...input.profile,
+          name:String(input.profile.name||base.profile.name).slice(0,80),
+          handle:safeHandle(input.profile.handle||base.profile.handle),
+          number:incomingNumber,
+          numberKind:incomingKind,
+          numberVerified:Boolean(input.profile.numberVerified)
+        };
+      }
+      const legacyProfileLooksComplete=Boolean(
+        input.profile &&
+        (
+          (String(input.profile.name||'').trim() && String(input.profile.name||'').trim()!=='Local Member') ||
+          (normalizeNumber(input.profile.number) && normalizeNumber(input.profile.number)!=='3330000000')
+        )
+      );
+      out.enrollment={
+        ...base.enrollment,
+        ...(input.enrollment&&typeof input.enrollment==='object'?input.enrollment:{}),
+        complete:typeof input.enrollment?.complete==='boolean'
+          ? input.enrollment.complete
+          : legacyProfileLooksComplete
+      };
+      if(!input.enrollment && out.profile.number==='3330000000'){
+        out.profile.number='';
+        out.profile.numberKind='none';
+        out.profile.numberVerified=false;
+      }
       if(Array.isArray(input.contacts)){
         out.contacts=input.contacts.filter(c=>c&&typeof c==='object'&&c.id&&c.name).map(c=>({
           id:String(c.id),name:String(c.name).slice(0,80),handle:safeHandle(c.handle),number:normalizeNumber(c.number),
@@ -1747,6 +2116,7 @@
       renderInvites();
       renderActivity();
       updateProfileSummary();
+      updateIdentitySummary();
       updateStorageSummary();
     }
 
@@ -1883,15 +2253,32 @@
     function updateProfileSummary(){
       $('#profileName').value=state.profile.name||'';
       $('#profileHandle').value=state.profile.handle||'';
-      $('#profileNumber').value=formatNumber(state.profile.number||'');
+      $('#profileNumber').value=formatNumber(state.profile.number||'')||'Not selected';
+      $('#profileNumberType').value=numberKindLabel(state.profile.numberKind);
       $('#profilePresence').value=state.profile.presence||'available';
       $('#profileStatus').value=state.profile.status||'';
+      $('#profilePrivacyNote').textContent=state.profile.numberKind==='existing'
+        ? 'Your existing number is stored only in this browser and has not been verified by HOLLO.'
+        : state.profile.numberKind==='network'
+          ? 'Your generated 333 number is provisional on this device until a production enrollment service verifies and issues it.'
+          : 'This is a local guest profile with no member number selected.';
+    }
+
+    function updateIdentitySummary(){
+      const complete=Boolean(state.enrollment?.complete);
+      $('#identityType').textContent=complete
+        ? (state.profile.numberKind==='network'?'333 ID':'Own Number')
+        : 'Guest';
+      $('#identityName').textContent=state.profile.name||'Local Member';
+      $('#identityNumber').textContent=complete
+        ? (formatNumber(state.profile.number)||'No number selected')
+        : 'Enrollment not completed';
     }
 
     function updateStorageSummary(){
       const el=$('#storageSummary'); if(!el) return;
       const bytes=new Blob([JSON.stringify(state)]).size;
-      el.textContent='Local workspace: '+(bytes/1024).toFixed(1)+' KB · '+state.contacts.length+' contacts · '+Object.values(state.threads).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0)+' messages · storage '+(storageAvailable?'available':'temporary session memory')+' · sync '+HOLLO_BACKEND.mode;
+      el.textContent='Local workspace: '+(bytes/1024).toFixed(1)+' KB · '+state.contacts.length+' contacts · '+Object.values(state.threads).reduce((n,v)=>n+(Array.isArray(v)?v.length:0),0)+' messages · identity '+numberKindLabel(state.profile.numberKind)+' · storage '+(storageAvailable?'available':'temporary session memory')+' · sync '+HOLLO_BACKEND.mode;
     }
 
     function updateCallContact(){
@@ -2115,14 +2502,16 @@
         if(route.type==='service'){ showToast('You are already inside '+route.label+'.'); return; }
         if(route.type==='link'){ window.location.href=route.href; return; }
       }
-      if(number.length===10 && number.startsWith('333')){
+      if(isSupportedMemberNumber(number)){
         $('#contactNumberInput').value=formatNumber(number);
         $('#contactNameInput').value=''; $('#contactHandleInput').value='';
         openModal($('#contactModal'));
-        showToast('This 333 number is not in your local contacts yet.');
+        showToast(isInternal333Number(number)
+          ? 'This 333 number is not in your local contacts yet.'
+          : 'This phone number is not in your local contacts yet.');
         return;
       }
-      showToast('Enter a ten-digit internal 333 number or an existing handle.');
+      showToast('Enter a supported phone number, a ten-digit 333 number, or an existing handle.');
     }
 
     function openModal(modal){
@@ -2154,20 +2543,160 @@
       $('#activityPanel').classList.toggle('mobile-active',view==='activity');
     }
 
-    function openProfile(){ updateProfileSummary(); openModal($('#profileModal')); }
+    function selectedEnrollmentChoice(){
+      return $('input[name="enrollmentNumberChoice"]:checked')?.value||'network';
+    }
+
+    function setEnrollmentChoice(choice){
+      const resolved=choice==='existing'?'existing':'network';
+      $$('input[name="enrollmentNumberChoice"]').forEach(input=>{
+        input.checked=input.value===resolved;
+      });
+      $('#existingNumberPanel').hidden=resolved!=='existing';
+      $('#networkNumberPanel').hidden=resolved!=='network';
+      if(resolved==='network' && !normalizeNumber($('#enrollmentNetworkNumber').value)){
+        $('#enrollmentNetworkNumber').value=formatNumber(generateNetworkNumber());
+      }
+    }
+
+    function prepareEnrollment(){
+      $('#enrollmentName').value=state.enrollment?.complete ? state.profile.name||'' : (state.profile.name==='Local Member'?'':state.profile.name||'');
+      $('#enrollmentHandle').value=state.enrollment?.complete ? state.profile.handle||'' : (state.profile.handle==='@localmember'?'':state.profile.handle||'');
+      $('#enrollmentPresence').value=state.profile.presence||'available';
+      $('#enrollmentStatus').value=state.profile.status||'Available for trusted contacts';
+      $('#enrollmentExistingNumber').value=state.profile.numberKind==='existing' ? formatNumber(state.profile.number) : '';
+      $('#enrollmentNetworkNumber').value=state.profile.numberKind==='network' && state.profile.number
+        ? formatNumber(state.profile.number)
+        : formatNumber(generateNetworkNumber());
+      $('#enrollmentConsent').checked=false;
+      setEnrollmentChoice(state.profile.numberKind==='existing'?'existing':'network');
+    }
+
+    function openEnrollment(){
+      prepareEnrollment();
+      openModal($('#enrollmentModal'));
+    }
+
+    function completeEnrollment(){
+      const name=$('#enrollmentName').value.trim();
+      const handle=safeHandle($('#enrollmentHandle').value);
+      const choice=selectedEnrollmentChoice();
+
+      if(!name){
+        showToast('Add your display name to complete enrollment.');
+        $('#enrollmentName').focus();
+        return;
+      }
+
+      let number='';
+      if(choice==='existing'){
+        number=normalizeNumber($('#enrollmentExistingNumber').value);
+        if(!isSupportedMemberNumber(number)){
+          showToast('Enter an existing phone number containing 7 to 15 digits.');
+          $('#enrollmentExistingNumber').focus();
+          return;
+        }
+        if(RESERVED_333_NUMBERS.has(number)){
+          showToast('That number is reserved as a 333 Network service route.');
+          return;
+        }
+        if(state.contacts.some(contact=>normalizeNumber(contact.number)===number)){
+          showToast('That number is already assigned to one of your local contacts.');
+          return;
+        }
+      }else{
+        number=normalizeNumber($('#enrollmentNetworkNumber').value);
+        const conflictsWithContact=state.contacts.some(contact=>normalizeNumber(contact.number)===number);
+        if(!isInternal333Number(number) || RESERVED_333_NUMBERS.has(number) || conflictsWithContact){
+          number=generateNetworkNumber();
+        }
+      }
+
+      if(!$('#enrollmentConsent').checked){
+        showToast('Please acknowledge the local and provisional enrollment notice.');
+        $('#enrollmentConsent').focus();
+        return;
+      }
+
+      state.profile={
+        ...state.profile,
+        name:name.slice(0,80),
+        handle,
+        number,
+        numberKind:choice,
+        numberVerified:false,
+        presence:$('#enrollmentPresence').value,
+        status:$('#enrollmentStatus').value.trim().slice(0,120)
+      };
+      state.enrollment={
+        complete:true,
+        completedAt:nowIso(),
+        numberChoice:choice,
+        verification:'local-unverified'
+      };
+
+      saveState();
+      renderAll();
+      closeModal();
+
+      document.dispatchEvent(new CustomEvent('333-hollo-profile-created',{
+        detail:{
+          profileId:state.profile.id,
+          numberKind:state.profile.numberKind,
+          enrolledAt:state.enrollment.completedAt
+        }
+      }));
+
+      showToast(choice==='network'
+        ? 'HOLLO profile created with a provisional 333 number.'
+        : 'HOLLO profile created with your existing number.');
+    }
+
+    function continueAsGuest(){
+      state.enrollment={
+        ...(state.enrollment||{}),
+        complete:false,
+        numberChoice:null,
+        verification:'guest-local'
+      };
+      saveState();
+      renderAll();
+      closeModal();
+      showToast('Continuing in local guest mode.');
+    }
+
+    function openProfile(){
+      if(!state.enrollment?.complete){
+        openEnrollment();
+        return;
+      }
+      updateProfileSummary();
+      openModal($('#profileModal'));
+    }
+
     function saveProfile(){
-      const name=$('#profileName').value.trim(); const handle=safeHandle($('#profileHandle').value); const number=normalizeNumber($('#profileNumber').value);
+      const name=$('#profileName').value.trim();
+      const handle=safeHandle($('#profileHandle').value);
       if(!name){ showToast('Profile name is required.'); return; }
-      if(number && (number.length!==10 || !number.startsWith('333'))){ showToast('Use a ten-digit internal number beginning with 333.'); return; }
-      state.profile={...state.profile,name:name.slice(0,80),handle,number:number||'3330000000',presence:$('#profilePresence').value,status:$('#profileStatus').value.trim().slice(0,120)};
-      saveState(); updateStorageSummary(); closeModal(); showToast('Profile saved locally.');
+      state.profile={
+        ...state.profile,
+        name:name.slice(0,80),
+        handle,
+        presence:$('#profilePresence').value,
+        status:$('#profileStatus').value.trim().slice(0,120)
+      };
+      saveState();
+      renderAll();
+      closeModal();
+      showToast('Profile saved locally.');
     }
 
     function saveContact(){
       const name=$('#contactNameInput').value.trim(); const number=normalizeNumber($('#contactNumberInput').value); const handle=safeHandle($('#contactHandleInput').value);
       if(!name){ showToast('Contact name is required.'); return; }
-      if(number.length!==10||!number.startsWith('333')){ showToast('Use a ten-digit internal number beginning with 333.'); return; }
-      if(state.contacts.some(c=>c.number===number)){ showToast('That 333 number is already in your contacts.'); return; }
+      if(!isSupportedMemberNumber(number)){ showToast('Use a phone number with 7 to 15 digits or a ten-digit 333 number.'); return; }
+      if(RESERVED_333_NUMBERS.has(number)){ showToast('That number is reserved as a 333 Network service route.'); return; }
+      if(state.contacts.some(c=>normalizeNumber(c.number)===number)){ showToast('That number is already in your contacts.'); return; }
       const contact={id:uid('contact'),name:name.slice(0,80),handle,number,presence:$('#contactPresenceInput').value,trusted:$('#contactTrustedInput').checked,favorite:false,role:'Network Contact',pinned:false};
       state.contacts.push(contact); state.activeContactId=contact.id; saveState(); renderAll(); closeModal(); showToast('Contact added.');
     }
@@ -2218,7 +2747,7 @@
     }
     function resetApp(){
       if(!confirm('Reset all local HOLLO contacts, messages, invitations, profile, and activity? This cannot be undone without a backup.')) return;
-      stopMedia(false); state=defaultState(); storageAvailable=true; try{localStorage.removeItem(STORAGE_KEY);}catch{} saveState(); renderAll(); closeModal(); showToast('HOLLO local data reset.');
+      stopMedia(false); state=defaultState(); storageAvailable=true; try{localStorage.removeItem(STORAGE_KEY);}catch{} saveState(); renderAll(); closeModal(); window.setTimeout(openEnrollment,120); showToast('HOLLO local data reset.');
     }
 
     function wireEvents(){
@@ -2248,7 +2777,17 @@
       $('#cameraSelect').addEventListener('change',()=>{ if(localStream) startMediaPreview({audio:localStream.getAudioTracks().length>0,video:localStream.getVideoTracks().length>0},'device-change'); });
       $('#micSelect').addEventListener('change',()=>{ if(localStream) startMediaPreview({audio:localStream.getAudioTracks().length>0,video:localStream.getVideoTracks().length>0},'device-change'); });
       $('#profileBtn').addEventListener('click',openProfile);
+      $('#profileEnrollmentBtn').addEventListener('click',()=>{closeModal();setTimeout(openEnrollment,0);});
       $('#saveProfileBtn').addEventListener('click',saveProfile);
+      $$('input[name="enrollmentNumberChoice"]').forEach(input=>{
+        input.addEventListener('change',()=>setEnrollmentChoice(input.value));
+      });
+      $('#generateNumberBtn').addEventListener('click',()=>{
+        $('#enrollmentNetworkNumber').value=formatNumber(generateNetworkNumber());
+        showToast('A new provisional 333 number was generated.');
+      });
+      $('#completeEnrollmentBtn').addEventListener('click',completeEnrollment);
+      $('#continueGuestBtn').addEventListener('click',continueAsGuest);
       $('#settingsBtn').addEventListener('click',()=>{updateStorageSummary();openModal($('#settingsModal'));});
       $('#exportBackupBtn').addEventListener('click',exportBackup);
       $('#importBackupBtn').addEventListener('click',()=>$('#importBackupInput').click());
@@ -2284,6 +2823,9 @@
       updateCallContact();
       refreshDevices();
       if(!storageAvailable) showToast('HOLLO is using temporary session memory because browser storage is unavailable.');
+      if(!state.enrollment?.complete){
+        window.setTimeout(openEnrollment,180);
+      }
     }
 
     init();
