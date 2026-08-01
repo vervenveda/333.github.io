@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
   <meta name="description" content="KANSEE™ 333 Meeting Rooms — a local-first, backend-ready collaboration platform for private rooms, conversation links, social invitations, casting, chat, participant management, and consent-based media preview.">
   <meta name="theme-color" content="#0d1325">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'unsafe-inline'; connect-src 'self' ws: wss:; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
   <title>KANSEE™ — 333 Meeting Rooms</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="icon" href="../assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="../assets/icons/icon-192.png">
   <style>
     :root{
       --ink:#141729;--ink-soft:#343950;--night:#0d1325;--night-2:#17213a;
@@ -186,9 +186,9 @@
        Verve N Veda refinement layer
        ========================================================= */
     :root{
-      --font-display:"Gaspacho","Cormorant Garamond",Georgia,serif;
-      --font-brand:"Cinzel","Aboreto",Georgia,serif;
-      --font-ui:"Brandon Grotesque","Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+      --font-display:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --font-brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
+      --font-ui:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
       --ink:#1b1e2d;
       --ink-soft:#4c5261;
       --night:#0e1425;
@@ -907,15 +907,17 @@
   <div class="topline">
     <div class="topline-inner">
       <nav class="crumbs" aria-label="Breadcrumb">
-        <a href="https://vervenveda.github.io/">Verve N Veda</a><span aria-hidden="true">›</span>
-        <a href="https://vervenveda.github.io/333.github.io/">333 Network</a><span aria-hidden="true">›</span>
+        <a href="../../">Verve N Veda</a><span aria-hidden="true">›</span>
+        <a href="../index.html">333 Network</a><span aria-hidden="true">›</span>
         <span>KANSEE</span>
       </nav>
       <nav class="network-links" aria-label="333 Network services">
-        <a href="https://vervenveda.github.io/333.github.io/">333 Network Home</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/HOLLO%E2%84%A2%20333%20Direct%20Connect_index.html">HOLLO Direct Connect</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/Bazaar%20Art%20Live%20333%20Social%20Feed_index.html">Bazaar Art Live</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+        <a href="../index.html">333 Network</a>
+        <a href="./HOLLO_333_direct_connect_index.html">HOLLO</a>
+        <a href="./EVen_mail_index.html">E=Ven Mail</a>
+        <a href="./Bazaar_Art_Live_index.html">Bazaar Live</a>
+        <a href="./SIte_builder_index.html">SIte</a>
+        <a href="./Bunya_digital_infrastructure_index.html">Bunya</a>
       </nav>
     </div>
   </div>
@@ -937,7 +939,9 @@
     <div class="status-card" id="networkStatusCard">
       <div><span class="status-dot"></span><strong id="networkStatusTitle">Local meeting preview</strong> <span id="networkStatusText">Rooms, local media preview, chat, lobby demonstrations, invitations, shared links, and backups persist on this device. Real participants, cross-device synchronization, casting, and live delivery require connected KANSEE services.</span></div>
       <div class="status-actions">
-        <button class="quiet-btn" id="openProfileBtn" type="button">My Meeting Profile</button>
+        <span class="pill host" id="identitySourceBadge">Meeting identity: local</span>
+        <button class="quiet-btn" id="syncHolloProfileBtn" type="button">Use HOLLO Profile</button>
+        <button class="quiet-btn" id="openProfileBtn" type="button">Meeting Profile</button>
         <button class="quiet-btn" id="openSettingsBtn" type="button">Connection Settings</button>
       </div>
     </div>
@@ -950,8 +954,9 @@
         <p class="readiness-kicker">Conversation Continuity</p>
         <h2 id="kanseeReadinessTitle">Every room can become a lasting collaborative space.</h2>
         <p>
-          KANSEE currently preserves rooms, schedules, participants, invitations, chat,
-          notes, and history in this browser. The application is prepared for authenticated
+          KANSEE uses the member profile created through HOLLO enrollment and currently
+          preserves rooms, schedules, participants, invitations, chat, notes, and history in
+          this browser. The application is prepared for authenticated
           accounts, permanent room links, social sharing, casting, synchronized files,
           agendas, polls, minutes, transcripts, and cross-device continuity.
         </p>
@@ -1166,13 +1171,23 @@
   <div class="modal-backdrop" id="profileModalBackdrop" aria-hidden="true">
     <section class="modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" tabindex="-1">
       <h2 id="profileModalTitle">Meeting identity</h2>
-      <p class="lead">This local identity appears in your KANSEE rooms. A production account will be verified by the shared 333 Network identity service.</p>
-      <form id="profileForm">
+      <p class="lead">
+        KANSEE can use the profile created during HOLLO enrollment, including the member’s
+        display name, handle, and existing or provisional 333 number. A local meeting profile
+        may still be edited here without changing the HOLLO enrollment record.
+      </p>
+      <div class="note" id="profileSourceNote">No HOLLO enrollment profile has been imported yet.</div>
+      <form id="profileForm" style="margin-top:12px">
         <div class="field"><label for="profileNameInput">Display name</label><input id="profileNameInput" type="text" maxlength="80" required></div>
-        <div class="field"><label for="profileNumberInput">333 Network number</label><input id="profileNumberInput" type="text" maxlength="20" required></div>
-        <div class="field"><label for="profileHandleInput">Handle</label><input id="profileHandleInput" type="text" maxlength="40" placeholder="@JenniferPearl"></div>
+        <div class="field"><label for="profileNumberInput">Member or 333 Network number</label><input id="profileNumberInput" type="text" maxlength="24"></div>
+        <div class="field"><label for="profileHandleInput">HOLLO handle</label><input id="profileHandleInput" type="text" maxlength="40" placeholder="@member"></div>
         <div class="field"><label for="profileRoleInput">Default meeting role</label><select id="profileRoleInput"><option value="host">Host</option><option value="participant">Participant</option><option value="presenter">Presenter</option></select></div>
-        <div class="modal-actions"><button class="quiet-btn" id="cancelProfileBtn" type="button">Cancel</button><button class="primary-btn" type="submit">Save Identity</button></div>
+        <div class="modal-actions">
+          <a class="small-btn" href="./HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a>
+          <button class="small-btn" id="useHolloProfileBtn" type="button">Use HOLLO Profile</button>
+          <button class="quiet-btn" id="cancelProfileBtn" type="button">Cancel</button>
+          <button class="primary-btn" type="submit">Save Meeting Identity</button>
+        </div>
       </form>
     </section>
   </div>
@@ -1182,9 +1197,9 @@
       <h2 id="settingsModalTitle">Network settings</h2>
       <p class="lead">These fields describe the future service endpoints. This standalone edition does not transmit credentials or automatically connect to them.</p>
       <form id="settingsForm">
-        <div class="field"><label for="signalingUrlInput">Signaling WebSocket URL</label><input id="signalingUrlInput" type="url" placeholder="wss://meet.example.org/signal"></div>
-        <div class="field"><label for="turnUrlInput">TURN service URL</label><input id="turnUrlInput" type="text" placeholder="turns:relay.example.org:5349"></div>
-        <div class="field"><label for="mediaUrlInput">Group media/SFU URL</label><input id="mediaUrlInput" type="url" placeholder="https://media.example.org"></div>
+        <div class="field"><label for="signalingUrlInput">Signaling WebSocket URL</label><input id="signalingUrlInput" type="url" placeholder="Private signaling service endpoint"></div>
+        <div class="field"><label for="turnUrlInput">TURN service URL</label><input id="turnUrlInput" type="text" placeholder="Private TURN relay endpoint"></div>
+        <div class="field"><label for="mediaUrlInput">Group media/SFU URL</label><input id="mediaUrlInput" type="url" placeholder="Private media service endpoint"></div>
         <div class="note">Do not place TURN passwords, API keys, or administrator secrets in a public HTML file. Production credentials must be issued securely by the backend.</div>
         <div class="modal-actions"><button class="quiet-btn" id="cancelSettingsBtn" type="button">Cancel</button><button class="primary-btn" type="submit">Save Configuration</button></div>
       </form>
@@ -1251,7 +1266,9 @@
     });
 
     const STORAGE_KEY='kansee_333_workspace_v1';
-    const BUILD='KANSEE-333-2026.07';
+    const HOLLO_STORAGE_KEY='hollo_333_direct_connect_v1';
+    const IDENTITY_HANDOFF_KEY='333_identity_handoff_v1';
+    const BUILD='KANSEE-333-2026.08';
     const $=s=>document.querySelector(s);
     const $$=s=>Array.from(document.querySelectorAll(s));
     const nowIso=()=>new Date().toISOString();
@@ -1261,7 +1278,16 @@
     const DEFAULT_STATE={
       schemaVersion:1,
       build:BUILD,
-      profile:{name:'Jennifer Kay Pearl',number:'333-111-7777',handle:'@JenniferPearl',role:'host'},
+      profile:{
+        name:'Local Meeting Member',
+        number:'',
+        handle:'@member',
+        role:'host',
+        source:'local-default',
+        numberKind:'none',
+        verified:false,
+        updatedAt:null
+      },
       settings:{signalingUrl:'',turnUrl:'',mediaUrl:''},
       meetings:[],
       currentRoomId:null,
@@ -1286,12 +1312,20 @@
     function normalizeState(raw){
       const s={...safeClone(DEFAULT_STATE),...(raw&&typeof raw==='object'?raw:{})};
       s.profile={...DEFAULT_STATE.profile,...(s.profile||{})};
+      s.profile.name=String(s.profile.name||DEFAULT_STATE.profile.name).slice(0,80);
+      s.profile.number=String(s.profile.number||'').slice(0,24);
+      s.profile.handle=String(s.profile.handle||'').slice(0,40);
+      s.profile.role=['host','participant','presenter'].includes(s.profile.role)?s.profile.role:'host';
+      s.profile.source=String(s.profile.source||'local');
+      s.profile.numberKind=String(s.profile.numberKind||'none');
+      s.profile.verified=Boolean(s.profile.verified);
+      s.profile.updatedAt=s.profile.updatedAt||null;
       s.settings={...DEFAULT_STATE.settings,...(s.settings||{})};
       s.meetings=Array.isArray(s.meetings)?s.meetings:[];
       s.history=Array.isArray(s.history)?s.history:[];
-      s.inviteHistory=Array.isArray(s.inviteHistory)?s.inviteHistory:[],
-      continuity:{},
-      sync:{mode:'local',lastSyncedAt:null,revision:1};
+      s.inviteHistory=Array.isArray(s.inviteHistory)?s.inviteHistory:[];
+      s.continuity=s.continuity&&typeof s.continuity==='object'?s.continuity:{};
+      s.sync={...DEFAULT_STATE.sync,...(s.sync||{}),mode:KANSEE_SERVICE.mode};
       s.meetings=s.meetings.map(normalizeMeeting).filter(Boolean);
       return s;
     }
@@ -1358,6 +1392,117 @@
     function findMeetingByCode(code){return state.meetings.find(m=>m.code===normalizeCode(code))||null}
     function backendAdapter(){return window.KANSEE_BACKEND_ADAPTER&&typeof window.KANSEE_BACKEND_ADAPTER==='object'?window.KANSEE_BACKEND_ADAPTER:null}
 
+    function normalizeMemberNumber(value){
+      return String(value||'').trim().replace(/[^0-9+]/g,'').slice(0,16);
+    }
+
+    function readHolloIdentity(){
+      let handoff=null;
+      let hollo=null;
+
+      try{
+        handoff=JSON.parse(localStorage.getItem(IDENTITY_HANDOFF_KEY)||'null');
+      }catch{}
+
+      if(
+        handoff &&
+        handoff.schema==='333-identity-handoff' &&
+        handoff.enrollment?.complete &&
+        handoff.profile?.name
+      ){
+        return {
+          name:String(handoff.profile.name).slice(0,80),
+          number:normalizeMemberNumber(handoff.profile.number),
+          handle:String(handoff.profile.handle||'').slice(0,40),
+          numberKind:String(handoff.profile.numberKind||handoff.enrollment.numberChoice||'none'),
+          verified:false,
+          completedAt:handoff.enrollment.completedAt||handoff.handedOffAt||null,
+          source:'HOLLO enrollment handoff'
+        };
+      }
+
+      try{
+        hollo=JSON.parse(localStorage.getItem(HOLLO_STORAGE_KEY)||'null');
+      }catch{}
+
+      if(hollo?.enrollment?.complete && hollo.profile?.name){
+        return {
+          name:String(hollo.profile.name).slice(0,80),
+          number:normalizeMemberNumber(hollo.profile.number),
+          handle:String(hollo.profile.handle||'').slice(0,40),
+          numberKind:String(hollo.profile.numberKind||hollo.enrollment.numberChoice||'none'),
+          verified:Boolean(hollo.profile.numberVerified),
+          completedAt:hollo.enrollment.completedAt||null,
+          source:'HOLLO local enrollment'
+        };
+      }
+
+      return null;
+    }
+
+    function isLegacyDefaultProfile(profile){
+      const name=String(profile?.name||'').trim();
+      const number=String(profile?.number||'').replace(/\D/g,'');
+      return (
+        profile?.source==='local-default' ||
+        (name==='Jennifer Kay Pearl' && number==='3331117777') ||
+        (name==='Local Meeting Member' && !number)
+      );
+    }
+
+    function applyHolloIdentity(options={}){
+      const identity=readHolloIdentity();
+
+      if(!identity){
+        if(!options.silent){
+          toast('Complete HOLLO enrollment before importing a shared meeting identity.');
+          window.location.href='./HOLLO_333_direct_connect_index.html#enroll';
+        }
+        return false;
+      }
+
+      state.profile={
+        ...state.profile,
+        name:identity.name,
+        number:identity.number,
+        handle:identity.handle,
+        source:'hollo',
+        numberKind:identity.numberKind,
+        verified:identity.verified,
+        updatedAt:identity.completedAt||nowIso()
+      };
+
+      const room=currentMeeting();
+      if(room) ensureLocalParticipant(room);
+
+      saveState();
+
+      if(!options.silent){
+        renderAll();
+        toast('HOLLO enrollment profile imported into KANSEE.');
+      }
+
+      document.dispatchEvent(new CustomEvent('333-kansee-identity-imported',{
+        detail:{
+          name:state.profile.name,
+          number:state.profile.number,
+          handle:state.profile.handle,
+          source:state.profile.source
+        }
+      }));
+
+      return true;
+    }
+
+    function adoptHolloIdentityOnLoad(){
+      const identity=readHolloIdentity();
+      if(!identity) return;
+
+      if(isLegacyDefaultProfile(state.profile) || state.profile.source==='hollo'){
+        applyHolloIdentity({silent:true});
+      }
+    }
+
     function renderAll(){
       currentRoom=currentMeeting();
       renderStatus();renderMeetings();renderRoom();renderParticipants();renderWaiting();renderChat();renderInviteHistory();renderDetails();
@@ -1365,6 +1510,13 @@
     function renderStatus(){
       const adapter=backendAdapter();
       const card=$('#networkStatusCard');
+      const badge=$('#identitySourceBadge');
+      const source=state.profile.source==='hollo'?'HOLLO profile':'Local profile';
+      const numberLabel=state.profile.numberKind==='network'?'333 ID':state.profile.numberKind==='existing'?'Own number':'No number';
+      badge.textContent=source+' · '+numberLabel;
+      badge.title=state.profile.number
+        ? state.profile.name+' · '+state.profile.number
+        : state.profile.name+' · no member number selected';
       if(adapter&&adapter.connected===true){
         card.classList.add('connected');$('#networkStatusTitle').textContent='KANSEE network connected';$('#networkStatusText').textContent='A trusted backend adapter is active. Remote delivery depends on the adapter implementation and configured services.';
       }else{
@@ -1638,7 +1790,7 @@
         '• Chrome / Edge: open the browser menu and choose Cast or Cast, save, and share.\\n'+
         '• Apple devices: use AirPlay or Screen Mirroring from Control Center.\\n'+
         '• Windows: use Wireless Display / Project controls.\\n'+
-        '• Smart TVs and streaming devices: use the device\\'s native casting or mirroring support.\\n'+
+        '• Smart TVs and streaming devices: use the device\'s native casting or mirroring support.\\n'+
         '• Any display: HDMI remains the most reliable direct connection.\\n\\n'+
         'KANSEE does not claim direct control of third-party casting devices from this standalone page.'
       );
@@ -1658,7 +1810,25 @@
 
 
     function openMeetingModal(){const d=new Date(Date.now()+3600000);$('#meetingTitleInput').value='';$('#meetingDateInput').value=d.toISOString().slice(0,10);$('#meetingTimeInput').value=d.toTimeString().slice(0,5);openDialog($('#meetingModalBackdrop'),$('#meetingModal'))}
-    function openProfileModal(){$('#profileNameInput').value=state.profile.name;$('#profileNumberInput').value=state.profile.number;$('#profileHandleInput').value=state.profile.handle;$('#profileRoleInput').value=state.profile.role;openDialog($('#profileModalBackdrop'),$('#profileModal'))}
+    function openProfileModal(){
+      $('#profileNameInput').value=state.profile.name;
+      $('#profileNumberInput').value=state.profile.number;
+      $('#profileHandleInput').value=state.profile.handle;
+      $('#profileRoleInput').value=state.profile.role;
+
+      const imported=state.profile.source==='hollo';
+      const kind=state.profile.numberKind==='network'
+        ? 'provisional 333 number'
+        : state.profile.numberKind==='existing'
+          ? 'existing member number'
+          : 'number not selected';
+
+      $('#profileSourceNote').textContent=imported
+        ? 'Using the HOLLO enrollment profile for '+state.profile.name+' · '+kind+'. Changes made only in KANSEE do not overwrite HOLLO.'
+        : 'Using a local KANSEE meeting profile. Select “Use HOLLO Profile” to import the completed enrollment identity.';
+
+      openDialog($('#profileModalBackdrop'),$('#profileModal'));
+    }
     function openSettingsModal(){$('#signalingUrlInput').value=state.settings.signalingUrl;$('#turnUrlInput').value=state.settings.turnUrl;$('#mediaUrlInput').value=state.settings.mediaUrl;openDialog($('#settingsModalBackdrop'),$('#settingsModal'))}
     function openDetailsModal(){if(!currentMeeting())return;renderDetails();openDialog($('#detailsModalBackdrop'),$('#detailsModal'))}
 
@@ -1681,7 +1851,14 @@
 
     $('#copyInviteBtn').addEventListener('click',copyInvite);$('#roomDetailsBtn').addEventListener('click',openDetailsModal);$('#sendInviteBtn').addEventListener('click',sendInvite);$('#saveNotesBtn').addEventListener('click',saveNotes);
     $('#exportWorkspaceBtn').addEventListener('click',exportWorkspace);$('#exportHistoryBtn').addEventListener('click',exportHistory);$('#clearHistoryBtn').addEventListener('click',clearHistory);$('#importWorkspaceBtn').addEventListener('click',()=>$('#workspaceFileInput').click());$('#workspaceFileInput').addEventListener('change',e=>{importWorkspace(e.target.files&&e.target.files[0]);e.target.value=''})
-    $('#openProfileBtn').addEventListener('click',openProfileModal);$('#openSettingsBtn').addEventListener('click',openSettingsModal);
+    $('#openProfileBtn').addEventListener('click',openProfileModal);
+    $('#syncHolloProfileBtn').addEventListener('click',()=>applyHolloIdentity());
+    $('#useHolloProfileBtn').addEventListener('click',()=>{
+      if(applyHolloIdentity()){
+        closeDialog($('#profileModalBackdrop'));
+      }
+    });
+    $('#openSettingsBtn').addEventListener('click',openSettingsModal);
     $$('[data-side-tab]').forEach(b=>b.addEventListener('click',()=>switchSideTab(b.dataset.sideTab)));
 
     $$('[data-side-tab]').forEach((button,index,buttons)=>{
@@ -1716,13 +1893,51 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
     $('#chatForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#chatInput');sendChat(input.value);input.value=''});
 
     $('#meetingForm').addEventListener('submit',e=>{e.preventDefault();const data={type:$('#meetingTypeInput').value,title:$('#meetingTitleInput').value.trim()||'KANSEE Meeting',date:$('#meetingDateInput').value,time:$('#meetingTimeInput').value,duration:$('#meetingDurationInput').value,access:$('#meetingAccessInput').value,waitingRoom:$('#meetingWaitingInput').checked,muteOnEntry:$('#meetingMuteInput').checked};createMeeting(data,false);closeDialog($('#meetingModalBackdrop'))});
-    $('#profileForm').addEventListener('submit',e=>{e.preventDefault();state.profile={name:$('#profileNameInput').value.trim()||'KANSEE Host',number:$('#profileNumberInput').value.trim()||'333-111-7777',handle:$('#profileHandleInput').value.trim(),role:$('#profileRoleInput').value};const room=currentMeeting();if(room)ensureLocalParticipant(room);saveState();renderAll();closeDialog($('#profileModalBackdrop'));toast('Meeting identity saved')});
+    $('#profileForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const number=normalizeMemberNumber($('#profileNumberInput').value);
+      state.profile={
+        ...state.profile,
+        name:$('#profileNameInput').value.trim()||'KANSEE Member',
+        number,
+        handle:$('#profileHandleInput').value.trim(),
+        role:$('#profileRoleInput').value,
+        source:'local',
+        numberKind:number.startsWith('333')?'network':number?'existing':'none',
+        verified:false,
+        updatedAt:nowIso()
+      };
+      const room=currentMeeting();
+      if(room)ensureLocalParticipant(room);
+      saveState();
+      renderAll();
+      closeDialog($('#profileModalBackdrop'));
+      toast('Local KANSEE meeting identity saved');
+    });
     $('#settingsForm').addEventListener('submit',e=>{e.preventDefault();state.settings={signalingUrl:$('#signalingUrlInput').value.trim(),turnUrl:$('#turnUrlInput').value.trim(),mediaUrl:$('#mediaUrlInput').value.trim()};saveState();closeDialog($('#settingsModalBackdrop'));toast('Network configuration saved locally. No connection was attempted.')});
 
     bindDialog($('#meetingModalBackdrop'),$('#meetingModal'),[$('#cancelMeetingBtn')]);bindDialog($('#profileModalBackdrop'),$('#profileModal'),[$('#cancelProfileBtn')]);bindDialog($('#settingsModalBackdrop'),$('#settingsModal'),[$('#cancelSettingsBtn')]);bindDialog($('#detailsModalBackdrop'),$('#detailsModal'),[$('#closeDetailsBtn')]);
 
     window.addEventListener('pagehide',stopAllMedia);window.addEventListener('beforeunload',stopAllMedia);
     window.addEventListener('resize',()=>{if(matchMedia('(min-width:781px)').matches)$$('.app-shell>.panel').forEach(p=>p.classList.remove('mobile-active'))});
+
+    window.addEventListener('storage',event=>{
+      if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){
+        const imported=applyHolloIdentity({silent:true});
+        if(imported){
+          renderAll();
+          toast('KANSEE refreshed the shared HOLLO identity.');
+        }
+      }
+    });
+
+    document.addEventListener('333-hollo-profile-created',()=>{
+      if(applyHolloIdentity({silent:true})){
+        renderAll();
+      }
+    });
+
+    adoptHolloIdentityOnLoad();
 
     const incomingCode=new URLSearchParams(location.search).get('room');
     if(incomingCode){$('#joinCodeInput').value=normalizeCode(incomingCode)||incomingCode}
