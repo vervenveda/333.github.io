@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="333 Network — a clean internal communications gateway for HOLLO Direct Connect, KANSEE Meeting Rooms, and Bazaar Art Live.">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="333 Network — a local-first gateway for HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya.">
   <meta name="theme-color" content="#0b1324">
   <meta name="color-scheme" content="light dark">
-  <title>333 Network | Inner Communications Hub</title>
+  <meta name="referrer" content="same-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
+  <title>333 Network | Sovereign Communications & Infrastructure Gateway</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Aboreto&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="333 Network">
 
   <style>
     :root{
@@ -26,19 +31,31 @@
       --teal:#4faaa5;
       --violet:#8574c4;
       --rose:#c982a1;
+      --cyan:#579cad;
+      --green:#618f75;
+      --amber:#bd7d4c;
       --line:rgba(19,31,49,.15);
       --line-light:rgba(255,255,255,.15);
       --shadow:0 22px 55px rgba(13,25,43,.11);
       --radius:21px;
       --small:7px;
-      --max:1180px;
-      --display:"Cormorant Garamond",Georgia,serif;
-      --brand:"Cinzel","Aboreto",Georgia,serif;
-      --sans:"Montserrat","Avenir Next","Segoe UI",Arial,sans-serif;
+      --max:1220px;
+      --weight-text:333;
+      --weight-emphasis:444;
+      --display:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
+      --sans:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
+      --mono:"Courier New",ui-monospace,SFMono-Regular,Menlo,monospace;
     }
 
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    html{
+      scroll-behavior:smooth;
+      scroll-padding-top:88px;
+      font-synthesis:none;
+      text-rendering:geometricPrecision;
+      -webkit-font-smoothing:antialiased;
+    }
     body{
       margin:0;
       min-width:300px;
@@ -47,369 +64,734 @@
       font-family:var(--sans);
       font-size:16px;
       line-height:1.68;
-      font-weight:400;
+      font-weight:var(--weight-text);
       text-align:center;
-      -webkit-font-smoothing:antialiased;
     }
     a{color:inherit;text-decoration:none}
     button,input{font:inherit}
     button{cursor:pointer}
+    strong,b{font-weight:var(--weight-emphasis)}
     [hidden]{display:none!important}
     :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+    ::selection{color:#0b1324;background:var(--gold-soft)}
     .shell{width:min(calc(100% - 2rem),var(--max));margin:auto}
 
     .skip{
-      position:fixed;left:11px;top:11px;z-index:3000;
-      transform:translateY(-170%);
-      padding:.7rem 1rem;border-radius:7px;
-      color:white;background:#111;
+      position:fixed;
+      left:11px;
+      top:11px;
+      z-index:4000;
+      transform:translateY(-180%);
+      padding:.7rem 1rem;
+      border-radius:var(--small);
+      color:white;
+      background:#111;
     }
     .skip:focus{transform:none}
 
     .utility{
-      color:#d7e0e8;background:#050b14;
+      color:#d7e0e8;
+      background:#050b14;
       border-bottom:1px solid rgba(255,255,255,.08);
     }
     .utility .shell{
       min-height:38px;
-      display:flex;align-items:center;justify-content:space-between;gap:1rem;
-      font-size:.72rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      font-size:.74rem;
     }
-    .utility-links{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
+    .utility-links{
+      display:flex;
+      gap:1rem;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .utility-links a:hover{color:var(--gold-soft)}
+
+    .update-banner{
+      position:relative;
+      z-index:1100;
+      padding:10px 16px;
+      color:#111824;
+      background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+      border-bottom:1px solid rgba(11,19,36,.18);
+    }
+    .update-banner-inner{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:11px;
+      flex-wrap:wrap;
+    }
+    .update-banner strong{
+      font-family:var(--brand);
+      font-size:.76rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .update-button{
+      min-height:36px;
+      padding:6px 10px;
+      border:1px solid rgba(11,19,36,.24);
+      border-radius:var(--small);
+      color:white;
+      background:var(--midnight);
+      font-size:.7rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
 
     .header{
-      position:sticky;top:0;z-index:1000;
+      position:sticky;
+      top:0;
+      z-index:1000;
       background:rgba(11,19,36,.96);
       border-bottom:1px solid rgba(255,255,255,.10);
       backdrop-filter:blur(16px);
     }
     .nav{
       min-height:72px;
-      display:flex;align-items:center;justify-content:space-between;gap:1rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
     }
     .brand{
-      display:flex;align-items:center;gap:.8rem;text-align:left;color:white;
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      text-align:left;
+      color:white;
     }
     .brand-mark{
-      width:44px;height:44px;display:grid;place-items:center;
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      flex:0 0 44px;
       border:1px solid rgba(230,213,173,.45);
-      border-radius:7px;color:var(--gold-soft);
+      border-radius:var(--small);
+      color:var(--gold-soft);
       background:rgba(255,255,255,.04);
-      font:500 .68rem var(--brand);
+      font-family:var(--brand);
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
       letter-spacing:.06em;
     }
     .brand strong{
       display:block;
-      font:500 1rem var(--brand);
-      letter-spacing:.08em;text-transform:uppercase;
+      font-family:var(--brand);
+      font-size:1rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
     .brand small{
-      display:block;margin-top:.15rem;
+      display:block;
+      margin-top:.15rem;
       color:rgba(255,255,255,.58);
-      font-size:.57rem;letter-spacing:.11em;text-transform:uppercase;
+      font-size:.59rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
     }
 
     .nav-links{display:flex;gap:.25rem}
     .nav-links a{
-      min-height:42px;display:flex;align-items:center;
-      padding:.58rem .7rem;border-radius:7px;
-      color:#eef2f6;font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      padding:.58rem .7rem;
+      border-radius:var(--small);
+      color:#eef2f6;
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
+      text-transform:uppercase;
     }
     .nav-links a:hover{background:rgba(255,255,255,.07)}
 
     .menu-button{
-      display:none;width:44px;height:44px;
-      border:1px solid rgba(255,255,255,.25);border-radius:7px;
-      color:white;background:transparent;font-size:1.15rem;
+      display:none;
+      width:44px;
+      height:44px;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:var(--small);
+      color:white;
+      background:transparent;
+      font-size:1.15rem;
     }
     .mobile-menu{
-      position:fixed;inset:72px 0 auto;z-index:900;
-      display:none;padding:1rem;
-      color:white;background:var(--midnight);
+      position:fixed;
+      inset:72px 0 auto;
+      z-index:900;
+      display:none;
+      padding:1rem;
+      color:white;
+      background:var(--midnight);
       border-bottom:1px solid rgba(255,255,255,.12);
       box-shadow:var(--shadow);
     }
     .mobile-menu.open{display:grid;gap:.35rem}
-    .mobile-menu a{padding:.7rem;border-radius:7px}
+    .mobile-menu a{
+      padding:.7rem;
+      border-radius:var(--small);
+    }
+    .mobile-menu a:hover{background:rgba(255,255,255,.07)}
 
     .breadcrumbs{
-      color:#c4ced8;background:#09111f;
+      color:#c4ced8;
+      background:#09111f;
       border-bottom:1px solid rgba(255,255,255,.08);
     }
     .breadcrumbs .shell{
       min-height:44px;
-      display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.55rem;
-      font-size:.72rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:.55rem;
+      font-size:.74rem;
     }
     .breadcrumbs a{color:white}
 
     .hero{
-      min-height:680px;
-      display:grid;align-items:center;
-      padding:88px 0;
+      min-height:650px;
+      display:grid;
+      align-items:center;
+      padding:82px 0;
       color:white;
       background:
-        radial-gradient(circle at 50% 0,rgba(230,213,173,.12),transparent 32rem),
+        radial-gradient(circle at 50% 0,rgba(230,213,173,.13),transparent 33rem),
+        radial-gradient(circle at 14% 90%,rgba(79,170,165,.08),transparent 26rem),
         linear-gradient(145deg,#1b2d4d 0%,#0b1324 62%,#060b14);
       border-bottom:1px solid var(--line-light);
     }
-    .hero-copy{max-width:980px;margin:auto}
+    .hero-copy{max-width:1010px;margin:auto}
     .eyebrow,.kicker{
-      margin:0;color:var(--gold-soft);
+      margin:0;
+      color:var(--gold-soft);
       font-family:var(--brand);
-      font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.18em;
+      text-transform:uppercase;
     }
     h1,h2,h3{
       margin:0;
       font-family:var(--display);
-      font-weight:500;
+      font-weight:var(--weight-text);
       letter-spacing:.01em;
       text-wrap:balance;
     }
     h1{
       margin-top:1rem;
-      font-size:clamp(4rem,8vw,7.5rem);
+      font-size:clamp(4rem,8vw,7.4rem);
       line-height:.91;
     }
     .hero-subtitle{
-      display:block;margin-top:1rem;
+      display:block;
+      margin-top:1rem;
       color:var(--gold-soft);
       font-family:var(--brand);
-      font-size:clamp(.9rem,1.8vw,1.3rem);
-      letter-spacing:.16em;text-transform:uppercase;
+      font-size:clamp(.92rem,1.8vw,1.3rem);
+      letter-spacing:.14em;
+      text-transform:uppercase;
     }
     .hero-lead{
-      max-width:780px;margin:1.5rem auto 0;
+      max-width:820px;
+      margin:1.5rem auto 0;
       color:#d7e0e8;
       font-family:var(--display);
-      font-size:clamp(1.15rem,2.2vw,1.55rem);
+      font-size:clamp(1.2rem,2.2vw,1.6rem);
       line-height:1.5;
     }
     .hero-note{
-      max-width:700px;margin:1rem auto 0;
-      color:#aebac7;font-size:.88rem;
+      max-width:760px;
+      margin:1rem auto 0;
+      color:#aebac7;
+      font-size:.9rem;
     }
     .actions{
-      display:flex;justify-content:center;flex-wrap:wrap;gap:.7rem;margin-top:2rem;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:.7rem;
+      margin-top:2rem;
     }
     .btn{
-      min-height:46px;display:inline-flex;align-items:center;justify-content:center;
-      padding:.72rem 1rem;border:1px solid transparent;border-radius:7px;
-      font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+      min-height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:.72rem 1rem;
+      border:1px solid transparent;
+      border-radius:var(--small);
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.07em;
+      text-transform:uppercase;
       transition:.18s;
     }
     .btn:hover{transform:translateY(-2px)}
-    .btn-primary{color:#111824;background:linear-gradient(145deg,var(--gold-soft),var(--gold))}
-    .btn-secondary{color:white;border-color:rgba(255,255,255,.33);background:transparent}
+    .btn-primary{
+      color:#111824;
+      background:linear-gradient(145deg,var(--gold-soft),var(--gold));
+    }
+    .btn-secondary{
+      color:white;
+      border-color:rgba(255,255,255,.33);
+      background:transparent;
+    }
     .btn-secondary:hover{background:rgba(255,255,255,.06)}
 
+    .platform-strip{
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:7px;
+    }
+    .platform-stat{
+      padding:11px;
+      border:1px solid rgba(255,255,255,.13);
+      border-radius:var(--small);
+      background:rgba(255,255,255,.035);
+    }
+    .platform-stat strong{
+      display:block;
+      color:var(--gold-soft);
+      font-family:var(--mono);
+      font-size:1rem;
+    }
+    .platform-stat span{
+      display:block;
+      margin-top:3px;
+      color:#aebac7;
+      font-size:.67rem;
+      text-transform:uppercase;
+    }
+
     .section{padding:88px 18px}
-    .section-alt{background:var(--paper-bright);border-block:1px solid var(--line)}
+    .section-alt{
+      background:var(--paper-bright);
+      border-block:1px solid var(--line);
+    }
     .section-dark{color:white;background:var(--midnight)}
     .section-inner{width:min(100%,var(--max));margin:auto}
-    .section-heading{max-width:840px;margin:0 auto 42px}
+    .section-heading{max-width:860px;margin:0 auto 42px}
     .section-heading .kicker{color:var(--gold)}
     .section h2{
       margin-top:.7rem;
-      font-size:clamp(2.8rem,5.5vw,5.1rem);
+      font-size:clamp(2.8rem,5.5vw,5rem);
       line-height:.98;
     }
     .section-heading p{
-      max-width:700px;margin:1.1rem auto 0;color:var(--muted);
+      max-width:730px;
+      margin:1.1rem auto 0;
+      color:var(--muted);
     }
     .section-dark .section-heading p{color:#b6c1cd}
 
+    .category-shelf{
+      margin-top:18px;
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:rgba(255,255,255,.58);
+    }
+    .category-shelf:first-of-type{margin-top:0}
+    .category-head{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:18px;
+      align-items:end;
+      padding-bottom:14px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+    }
+    .category-head h3{
+      color:var(--midnight);
+      font-size:2rem;
+    }
+    .category-head p{
+      max-width:720px;
+      margin:.45rem 0 0;
+      color:var(--muted);
+      font-size:.85rem;
+    }
+    .category-count{
+      color:var(--accent);
+      font-family:var(--mono);
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
     .service-grid{
-      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1rem;
+      margin-top:18px;
+    }
+    .service-grid.single{
+      grid-template-columns:minmax(0,1fr);
     }
     .service-card{
-      min-height:390px;
-      display:flex;flex-direction:column;align-items:center;
+      min-height:405px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
       padding:1.6rem;
-      border:1px solid var(--line);border-top:3px solid var(--accent);
-      border-radius:21px;background:white;box-shadow:var(--shadow);
+      border:1px solid var(--line);
+      border-top:3px solid var(--accent);
+      border-radius:var(--radius);
+      background:white;
+      box-shadow:var(--shadow);
       transition:.18s;
     }
-    .service-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+    .service-card:hover{
+      transform:translateY(-4px);
+      border-color:var(--accent);
+    }
     .service-icon{
-      width:56px;height:48px;display:grid;place-items:center;
-      border-radius:7px;color:white;background:var(--accent);
-      font-size:1.35rem;
+      width:58px;
+      height:50px;
+      display:grid;
+      place-items:center;
+      border-radius:var(--small);
+      color:white;
+      background:var(--accent);
+      font-size:1.38rem;
+    }
+    .category-tag{
+      margin-top:11px;
+      color:var(--accent);
+      font-family:var(--mono);
+      font-size:.63rem;
+      letter-spacing:.09em;
+      text-transform:uppercase;
     }
     .service-card h3{
-      margin-top:1rem;color:var(--midnight);
-      font-size:1.9rem;line-height:1.05;
+      margin-top:.65rem;
+      color:var(--midnight);
+      font-size:2rem;
+      line-height:1.05;
     }
     .service-sub{
-      margin-top:.3rem;color:var(--accent);
+      margin-top:.35rem;
+      color:var(--accent);
       font-family:var(--brand);
-      font-size:.62rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;
+      font-size:.65rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.11em;
+      text-transform:uppercase;
     }
-    .service-card p{color:var(--muted);font-size:.85rem}
+    .service-card p{
+      color:var(--muted);
+      font-size:.87rem;
+    }
     .feature-list{
-      width:100%;margin:.4rem 0 0;padding:0;
-      display:grid;gap:.55rem;list-style:none;text-align:left;
-      color:#4f5862;font-size:.76rem;
+      width:100%;
+      margin:.4rem 0 0;
+      padding:0;
+      display:grid;
+      gap:.55rem;
+      list-style:none;
+      text-align:left;
+      color:#4f5862;
+      font-size:.78rem;
     }
     .feature-list li{display:flex;gap:.55rem}
     .feature-list li::before{content:"•";color:var(--accent)}
     .service-actions{
-      width:100%;display:grid;gap:.55rem;margin-top:auto;padding-top:1.2rem;
+      width:100%;
+      display:grid;
+      gap:.55rem;
+      margin-top:auto;
+      padding-top:1.2rem;
     }
     .service-actions a,.service-actions button{
-      min-height:42px;display:flex;align-items:center;justify-content:center;
-      border:1px solid var(--line);border-radius:7px;
-      font-size:.7rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+      min-height:42px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--line);
+      border-radius:var(--small);
+      font-size:.72rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.05em;
+      text-transform:uppercase;
     }
-    .service-actions a{color:white;background:var(--accent)}
-    .service-actions button{color:var(--midnight);background:var(--paper-bright)}
+    .service-actions a{
+      color:white;
+      background:var(--accent);
+    }
+    .service-actions button{
+      color:var(--midnight);
+      background:var(--paper-bright);
+    }
+    .service-actions button:hover{border-color:var(--accent)}
 
     .route-layout{
-      display:grid;grid-template-columns:.8fr 1.2fr;gap:1rem;
+      display:grid;
+      grid-template-columns:.8fr 1.2fr;
+      gap:1rem;
     }
     .route-card{
-      padding:1.6rem;border:1px solid var(--line);border-radius:21px;
-      background:white;box-shadow:var(--shadow);
+      padding:1.6rem;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:white;
+      box-shadow:var(--shadow);
     }
-    .route-card.dark{color:white;background:linear-gradient(145deg,var(--midnight-2),var(--midnight))}
+    .route-card.dark{
+      color:white;
+      background:linear-gradient(145deg,var(--midnight-2),var(--midnight));
+    }
     .route-card h3{font-size:2rem}
     .route-card p{color:var(--muted)}
     .route-card.dark p{color:#b7c2ce}
 
     .dial-display{
-      width:100%;min-height:52px;margin:1rem 0;
-      padding:0 .8rem;border:1px solid rgba(255,255,255,.25);
-      border-radius:7px;color:var(--gold-soft);background:rgba(255,255,255,.05);
-      font-size:1.1rem;font-weight:500;letter-spacing:.08em;text-align:center;
+      width:100%;
+      min-height:52px;
+      margin:1rem 0;
+      padding:0 .8rem;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:var(--small);
+      color:var(--gold-soft);
+      background:rgba(255,255,255,.05);
+      font-size:1.1rem;
+      font-weight:var(--weight-emphasis);
+      letter-spacing:.08em;
+      text-align:center;
     }
-    .dial-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem}
+    .dial-pad{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:.55rem;
+    }
     .dial-key{
-      min-height:44px;border:1px solid rgba(255,255,255,.12);
-      border-radius:7px;color:white;background:rgba(255,255,255,.05);
+      min-height:44px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--small);
+      color:white;
+      background:rgba(255,255,255,.05);
     }
     .dial-key:hover{background:rgba(230,213,173,.12)}
-    .dial-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.55rem}
+    .dial-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.55rem;
+      margin-top:.55rem;
+    }
     .dial-actions button{
-      min-height:42px;border:1px solid rgba(255,255,255,.15);
-      border-radius:7px;font-weight:500;
+      min-height:42px;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:var(--small);
+      font-weight:var(--weight-emphasis);
     }
     #resetRoute{color:white;background:rgba(255,255,255,.05)}
     #openRoute{color:#111824;background:var(--gold-soft)}
     .dial-status{
-      margin-top:.8rem;min-height:48px;padding:.75rem;
-      border:1px solid rgba(255,255,255,.10);border-radius:7px;
-      color:#c6d0da;background:rgba(255,255,255,.04);
-      font-size:.72rem;
+      margin-top:.8rem;
+      min-height:48px;
+      padding:.75rem;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--small);
+      color:#c6d0da;
+      background:rgba(255,255,255,.04);
+      font-size:.74rem;
     }
 
     .route-list{display:grid;gap:.5rem;margin-top:1rem}
     .route-row{
-      display:grid;grid-template-columns:125px minmax(0,1fr) auto;gap:.75rem;align-items:center;
-      padding:.9rem 0;border-top:1px solid var(--line);text-align:left;
+      display:grid;
+      grid-template-columns:125px minmax(0,1fr) auto;
+      gap:.75rem;
+      align-items:center;
+      padding:.9rem 0;
+      border-top:1px solid var(--line);
+      text-align:left;
     }
     .route-row:first-child{border-top:0}
-    .route-number{color:var(--gold);font-weight:600;font-size:.72rem}
+    .route-number{
+      color:var(--gold);
+      font-weight:var(--weight-emphasis);
+      font-size:.74rem;
+    }
     .route-row strong{display:block;color:var(--midnight)}
     .route-row small{display:block;margin-top:.15rem;color:var(--muted)}
-    .copy-button{
-      min-height:36px;padding:0 .7rem;border:1px solid var(--line);
-      border-radius:7px;color:var(--midnight);background:var(--paper);
-      font-size:.66rem;font-weight:500;
+    .copy-button,.launch-button{
+      min-height:36px;
+      padding:0 .7rem;
+      border:1px solid var(--line);
+      border-radius:var(--small);
+      color:var(--midnight);
+      background:var(--paper);
+      font-size:.68rem;
+      font-weight:var(--weight-emphasis);
     }
+    .app-directory{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:7px;
+      margin-top:14px;
+    }
+    .app-directory a{
+      min-height:70px;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      gap:3px;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:var(--small);
+      color:var(--midnight);
+      background:var(--paper);
+    }
+    .app-directory a:hover{border-color:var(--gold)}
+    .app-directory strong{
+      font-family:var(--brand);
+      font-size:.74rem;
+      text-transform:uppercase;
+    }
+    .app-directory small{color:var(--muted);font-size:.66rem}
 
     .principle-grid{
-      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1rem;
     }
     .principle{
-      min-height:220px;padding:1.4rem;
-      border:1px solid var(--line-light);border-radius:21px;
+      min-height:220px;
+      padding:1.4rem;
+      border:1px solid var(--line-light);
+      border-radius:var(--radius);
       background:rgba(255,255,255,.04);
     }
-    .principle h3{font-size:1.45rem}
-    .principle p{color:#b7c3cf;font-size:.82rem}
+    .principle h3{font-size:1.5rem}
+    .principle p{color:#b7c3cf;font-size:.84rem}
 
     .notice{
-      max-width:980px;margin:auto;padding:1.4rem;
-      border:1px solid var(--line);border-radius:21px;
-      background:#eee6d6;color:#5e5548;
-      font-size:.8rem;
+      max-width:980px;
+      margin:auto;
+      padding:1.4rem;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:#eee6d6;
+      color:#5e5548;
+      font-size:.82rem;
     }
 
     footer{
-      padding:44px 18px;color:rgba(255,255,255,.66);
-      background:#050b14;border-top:1px solid rgba(255,255,255,.08);
+      padding:44px 18px;
+      color:rgba(255,255,255,.66);
+      background:#050b14;
+      border-top:1px solid rgba(255,255,255,.08);
     }
     .footer-inner{
-      display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
     }
-    .footer-links{display:flex;gap:1rem;flex-wrap:wrap}
+    .footer-links{
+      display:flex;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
 
     .toast{
-      position:fixed;left:50%;bottom:20px;z-index:2000;
+      position:fixed;
+      left:50%;
+      bottom:20px;
+      z-index:3000;
       transform:translate(-50%,120px);
-      padding:.75rem 1rem;border-radius:7px;color:white;background:#111d2d;
-      box-shadow:var(--shadow);transition:.2s;
+      padding:.75rem 1rem;
+      border-radius:var(--small);
+      color:white;
+      background:#111d2d;
+      box-shadow:var(--shadow);
+      transition:.2s;
     }
     .toast.show{transform:translate(-50%,0)}
+
+    .install-help{
+      width:min(100%,700px);
+      margin:22px auto 0;
+      padding:18px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:var(--radius);
+      color:#d7e0e8;
+      background:rgba(255,255,255,.05);
+      white-space:pre-wrap;
+      text-align:left;
+      font-size:.82rem;
+      line-height:1.7;
+    }
 
     @media(max-width:1000px){
       .service-grid{grid-template-columns:1fr}
       .route-layout{grid-template-columns:1fr}
       .nav-links{display:none}
       .menu-button{display:grid;place-items:center}
+      .platform-strip{grid-template-columns:1fr 1fr}
     }
     @media(max-width:760px){
       .principle-grid{grid-template-columns:1fr}
       .route-row{grid-template-columns:1fr auto}
       .route-row>div{grid-column:1/-1}
+      .app-directory{grid-template-columns:1fr 1fr}
+      .category-head{grid-template-columns:1fr}
+      .category-count{white-space:normal}
     }
     @media(max-width:560px){
-      .utility .shell{flex-direction:column;padding:.5rem 0}
+      .utility .shell{
+        flex-direction:column;
+        padding:.5rem 0;
+      }
       .actions{display:grid}
       .btn{width:100%}
       .brand small{display:none}
       .footer-inner{justify-content:center}
+      .platform-strip,.app-directory{grid-template-columns:1fr}
+      .category-shelf{padding:12px}
     }
     @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+      *,*::before,*::after{
+        scroll-behavior:auto!important;
+        transition:none!important;
+        animation:none!important;
+      }
     }
-  
-    .install-help{
-      width:min(100%,700px);
-      margin:22px auto 0;
-      padding:18px;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:21px;
-      color:#d7e0e8;
-      background:rgba(255,255,255,.05);
-      white-space:pre-wrap;
-      text-align:left;
-      font-size:.8rem;
-      line-height:1.7;
-    }
-
   </style>
-
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./assets/icons/icon-192.png">
-  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="333 Network">
-
 </head>
 
 <body id="top">
-  <a class="skip" href="#services">Skip to communication services</a>
+  <a class="skip" href="#applications">Skip to 333 applications</a>
 
   <div class="utility">
     <div class="shell">
-      <span>333 Network · Inner Communications Gateway</span>
+      <span>333 Network · Sovereign Communications & Infrastructure Gateway</span>
       <nav class="utility-links" aria-label="Utility navigation">
-        <a href="https://vervenveda.github.io/">Verve N Veda</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+        <a href="../">Verve N Veda</a>
+        <a href="../proresource_hub.github.io/">ProResource Hub</a>
         <a href="#routes">Route Directory</a>
       </nav>
+    </div>
+  </div>
+
+  <div class="update-banner" id="updateBanner" hidden>
+    <div class="shell update-banner-inner">
+      <strong>A new 333 Network version is ready.</strong>
+      <button class="update-button" id="applyUpdateButton" type="button">Update Now</button>
+      <button class="update-button" id="dismissUpdateButton" type="button">Later</button>
     </div>
   </div>
 
@@ -419,33 +801,31 @@
         <span class="brand-mark">333</span>
         <span>
           <strong>333 Network</strong>
-          <small>Direct Connect · Meeting Rooms · Creative Community</small>
+          <small>Communication · Community · Creation · Infrastructure</small>
         </span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#services">Communication Hubs</a>
+        <a href="#applications">Applications</a>
         <a href="#routes">Route Directory</a>
         <a href="#principles">Network Principles</a>
-        <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+        <a href="../proresource_hub.github.io/">ProResource Hub</a>
       </nav>
 
-      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
     </div>
   </header>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-    <a href="#services">Communication Hubs</a>
+    <a href="#applications">Applications</a>
     <a href="#routes">Route Directory</a>
     <a href="#principles">Network Principles</a>
-    <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+    <a href="../proresource_hub.github.io/">ProResource Hub</a>
   </nav>
 
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <div class="shell">
-      <a href="https://vervenveda.github.io/">Verve N Veda</a>
-      <span aria-hidden="true">›</span>
-      <a href="https://vervenveda.github.io/proresource_hub.github.io/">ProResource Hub</a>
+      <a href="../">Verve N Veda</a>
       <span aria-hidden="true">›</span>
       <span aria-current="page">333 Network</span>
     </div>
@@ -454,89 +834,194 @@
   <main>
     <section class="hero">
       <div class="shell hero-copy">
-        <p class="eyebrow">Three Focused Ways to Connect</p>
+        <p class="eyebrow">Six Local-First Applications · One Clear Gateway</p>
         <h1>333 Network</h1>
-        <span class="hero-subtitle">HOLLO · KANSEE · BAZAAR ART LIVE</span>
+        <span class="hero-subtitle">HOLLO · KANSEE · E=VEN MAIL · BAZAAR · SITE · BUNYA</span>
 
         <p class="hero-lead">
-          A clear starting point for private direct communication, organized meeting rooms,
-          and optional creative community participation across the Verve N Veda ecosystem.
+          A sovereign starting point for direct communication, private meeting rooms,
+          personal mail, creative community participation, website creation, and digital infrastructure planning.
         </p>
 
         <p class="hero-note">
-          Each hub remains focused and independent while sharing a recognizable identity,
-          internal routing language, and future permissions framework.
+          Every application keeps its own purpose while sharing a recognizable network identity,
+          local-first operation, transparent capability notices, and a common path back to this gateway.
         </p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="#services">Choose a Communication Hub</a>
-          <a class="btn btn-secondary" href="#routes">Use the 333 Route Finder</a>
+          <a class="btn btn-primary" href="#applications">Explore the Six Applications</a>
+          <a class="btn btn-secondary" href="#routes">Use the Route Finder</a>
           <button class="btn btn-secondary" type="button" data-install-app data-install-label="Install 333 Network">Install 333 Network</button>
         </div>
+
+        <div class="platform-strip" aria-label="333 Network platform summary">
+          <div class="platform-stat"><strong>06</strong><span>Applications</span></div>
+          <div class="platform-stat"><strong>04</strong><span>Service Categories</span></div>
+          <div class="platform-stat"><strong>Local</strong><span>Browser Continuity</span></div>
+          <div class="platform-stat"><strong>PWA</strong><span>Installable Gateway</span></div>
+        </div>
+
         <pre class="install-help" data-install-help hidden></pre>
       </div>
     </section>
 
-    <section class="section section-alt" id="services">
+    <section class="section section-alt" id="applications">
       <div class="section-inner">
         <div class="section-heading">
-          <p class="kicker">Communication Hubs</p>
-          <h2>Open only the experience you need.</h2>
+          <p class="kicker">333 Applications</p>
+          <h2>Open only the space you need.</h2>
           <p>
-            The 333 Network separates direct contact, meetings, and social participation
-            so every tool remains understandable, consent-based, and easy to navigate.
+            The repository now contains six local applications. The gateway launches each file
+            directly from this repository instead of redirecting into older ProResource copies.
           </p>
         </div>
 
-        <div class="service-grid">
-          <article class="service-card" style="--accent:var(--violet)">
-            <span class="service-icon">◌</span>
-            <h3>HOLLO™</h3>
-            <span class="service-sub">Direct Connect · 333-222-7777</span>
-            <p>Private one-to-one communication, trusted contacts, messages, and consent-based voice or video invitations.</p>
-            <ul class="feature-list">
-              <li>Trusted contacts and private message threads</li>
-              <li>Voice, camera, and invitation previews</li>
-              <li>Local-first profiles, history, and backups</li>
-            </ul>
-            <div class="service-actions">
-              <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/HOLLO%E2%84%A2%20333%20Direct%20Connect_index.html">Open HOLLO</a>
-              <button type="button" data-route="3332227777">Load HOLLO Route</button>
+        <section class="category-shelf" style="--accent:var(--violet)" aria-labelledby="communicationTitle">
+          <div class="category-head">
+            <div>
+              <h3 id="communicationTitle">Communication</h3>
+              <p>Private contact, meeting rooms, and a personal mail workspace.</p>
             </div>
-          </article>
+            <span class="category-count">3 applications</span>
+          </div>
 
-          <article class="service-card" style="--accent:var(--teal)">
-            <span class="service-icon">▦</span>
-            <h3>KANSEE™</h3>
-            <span class="service-sub">Meeting Rooms · 333-333-7777</span>
-            <p>Private or scheduled rooms, participant controls, invitations, room chat, notes, and local media previews.</p>
-            <ul class="feature-list">
-              <li>Create, schedule, or join with a room code</li>
-              <li>Waiting-room and participant controls</li>
-              <li>Camera, microphone, and screen preview by choice</li>
-            </ul>
-            <div class="service-actions">
-              <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html">Open KANSEE</a>
-              <button type="button" data-route="3333337777">Load KANSEE Route</button>
-            </div>
-          </article>
+          <div class="service-grid">
+            <article class="service-card" style="--accent:var(--violet)">
+              <span class="service-icon" aria-hidden="true">◌</span>
+              <span class="category-tag">Communication</span>
+              <h3>HOLLO™</h3>
+              <span class="service-sub">Direct Connect · 333-222-7777</span>
+              <p>Trusted contacts, private message threads, consent-based call invitations, presence, and local communication history.</p>
+              <ul class="feature-list">
+                <li>Contacts, messages, and private invitations</li>
+                <li>Camera and microphone previews by choice</li>
+                <li>Local profiles, history, and portable backups</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/HOLLO_333_direct_connect_index.html">Open HOLLO</a>
+                <button type="button" data-route="3332227777">Load HOLLO Route</button>
+              </div>
+            </article>
 
-          <article class="service-card" style="--accent:var(--rose)">
-            <span class="service-icon">✦</span>
-            <h3>Bazaar Art Live</h3>
-            <span class="service-sub">Creative Community · 333-444-7777</span>
-            <p>An optional creative community space for artists, neighbors, builders, groups, events, posts, and shared inspiration.</p>
-            <ul class="feature-list">
-              <li>Posts, images, reactions, comments, and reels</li>
-              <li>Artists, groups, events, and saved inspiration</li>
-              <li>Optional participation—HOLLO and KANSEE stand alone</li>
-            </ul>
-            <div class="service-actions">
-              <a href="https://vervenveda.github.io/proresource_hub.github.io/Protools/Bazaar%20Art%20Live%20333%20Social%20Feed_index.html">Open Bazaar Art Live</a>
-              <button type="button" data-route="3334447777">Load Community Route</button>
+            <article class="service-card" style="--accent:var(--teal)">
+              <span class="service-icon" aria-hidden="true">▦</span>
+              <span class="category-tag">Communication</span>
+              <h3>KANSEE™</h3>
+              <span class="service-sub">Meeting Rooms · 333-333-7777</span>
+              <p>Private or scheduled rooms, participant controls, room chat, invitations, notes, and local media previews.</p>
+              <ul class="feature-list">
+                <li>Create, schedule, or join with a room code</li>
+                <li>Waiting-room and participant controls</li>
+                <li>Camera, microphone, and screen previews</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/KANSEE_333_meeting_rooms_index.html">Open KANSEE</a>
+                <button type="button" data-route="3333337777">Load KANSEE Route</button>
+              </div>
+            </article>
+
+            <article class="service-card" style="--accent:var(--cyan)">
+              <span class="service-icon" aria-hidden="true">✉</span>
+              <span class="category-tag">Communication</span>
+              <h3>E=Ven Mail</h3>
+              <span class="service-sub">Private Mail Workspace · Direct Gateway Access</span>
+              <p>A calm mail and correspondence workspace prepared for future authenticated delivery while preserving local organization tools.</p>
+              <ul class="feature-list">
+                <li>Messages, drafts, folders, and correspondence tools</li>
+                <li>Local workspace continuity</li>
+                <li>Prepared for future secure delivery services</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/EVen_mail_index.html">Open E=Ven Mail</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="category-shelf" style="--accent:var(--rose)" aria-labelledby="communityTitle">
+          <div class="category-head">
+            <div>
+              <h3 id="communityTitle">Community</h3>
+              <p>Optional creative participation, discovery, groups, events, and artistic exchange.</p>
             </div>
-          </article>
-        </div>
+            <span class="category-count">1 application</span>
+          </div>
+
+          <div class="service-grid single">
+            <article class="service-card" style="--accent:var(--rose)">
+              <span class="service-icon" aria-hidden="true">✦</span>
+              <span class="category-tag">Community</span>
+              <h3>Bazaar Art Live</h3>
+              <span class="service-sub">Creative Community · 333-444-7777</span>
+              <p>An optional creative community space for artists, neighbors, builders, groups, events, posts, reels, and shared inspiration.</p>
+              <ul class="feature-list">
+                <li>Posts, images, reactions, comments, and reels</li>
+                <li>Artists, groups, events, profiles, and saved work</li>
+                <li>Local-first participation with future synchronization boundaries</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/Bazaar_Art_Live_index.html">Open Bazaar Art Live</a>
+                <button type="button" data-route="3334447777">Load Community Route</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="category-shelf" style="--accent:var(--green)" aria-labelledby="creationTitle">
+          <div class="category-head">
+            <div>
+              <h3 id="creationTitle">Creation</h3>
+              <p>Build websites and application experiences within a transparent local editing environment.</p>
+            </div>
+            <span class="category-count">1 application</span>
+          </div>
+
+          <div class="service-grid single">
+            <article class="service-card" style="--accent:var(--green)">
+              <span class="service-icon" aria-hidden="true">▤</span>
+              <span class="category-tag">Creation</span>
+              <h3>SIte™</h3>
+              <span class="service-sub">Website & Application Builder · Direct Gateway Access</span>
+              <p>A browser-based visual builder for pages, responsive previews, language variants, blocks, restore points, and portable website projects.</p>
+              <ul class="feature-list">
+                <li>Pages, blocks, inspector controls, and responsive views</li>
+                <li>Undo, redo, restore points, and project export</li>
+                <li>Local editing profiles and future Bunya publishing preparation</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/SIte_builder_index.html">Open SIte</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="category-shelf" style="--accent:var(--amber)" aria-labelledby="infrastructureTitle">
+          <div class="category-head">
+            <div>
+              <h3 id="infrastructureTitle">Infrastructure</h3>
+              <p>Plan domains, deployment, hosting, monitoring, identity, and the future technical foundation of the network.</p>
+            </div>
+            <span class="category-count">1 application</span>
+          </div>
+
+          <div class="service-grid single">
+            <article class="service-card" style="--accent:var(--amber)">
+              <span class="service-icon" aria-hidden="true">⌂</span>
+              <span class="category-tag">Infrastructure</span>
+              <h3>Bunya</h3>
+              <span class="service-sub">Digital Infrastructure · Direct Gateway Access</span>
+              <p>A structured infrastructure workspace for domains, DNS, deployment, hosting, monitoring, identity, and future network operations.</p>
+              <ul class="feature-list">
+                <li>Domain and DNS planning</li>
+                <li>Deployment, hosting, and monitoring workspaces</li>
+                <li>Future identity and service architecture preparation</li>
+              </ul>
+              <div class="service-actions">
+                <a href="./apps/Bunya_digital_infrastructure_index.html">Open Bunya</a>
+              </div>
+            </article>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -544,17 +1029,17 @@
       <div class="section-inner">
         <div class="section-heading">
           <p class="kicker">Internal Route Directory</p>
-          <h2>Memorable routes with clear purposes.</h2>
+          <h2>Established routes remain clear and unchanged.</h2>
           <p>
-            The 333 numbers are internal network identities. They are not public telephone
-            numbers and should not be presented as carrier-connected calling services.
+            The four existing 333 numbers are preserved. SIte, Bunya, and E=Ven Mail are available
+            through direct gateway links until permanent internal routes are intentionally assigned.
           </p>
         </div>
 
         <div class="route-layout">
           <article class="route-card dark">
             <h3>333 Route Finder</h3>
-            <p>Enter or load a complete internal route, then open the matching communication hub.</p>
+            <p>Enter or load a complete established internal route, then open the matching destination.</p>
 
             <input class="dial-display" id="dialDisplay" inputmode="numeric" autocomplete="off" maxlength="12" value="333-" aria-label="333 internal route">
 
@@ -579,18 +1064,18 @@
             </div>
 
             <div class="dial-status" id="dialStatus" role="status" aria-live="polite">
-              Ready for an internal 333 service route.
+              Ready for an established internal 333 service route.
             </div>
           </article>
 
           <article class="route-card">
             <h3>333 Route Map</h3>
-            <p>Use a route button to copy or load the destination into the Route Finder.</p>
+            <p>The following numbers are already established in the current network documents and applications.</p>
 
             <div class="route-list">
               <div class="route-row">
                 <span class="route-number">333-111-7777</span>
-                <div><strong>Network Entry</strong><small>Main identity and central 333 gateway.</small></div>
+                <div><strong>333 Network Entry</strong><small>Main identity and central gateway.</small></div>
                 <button class="copy-button" type="button" data-copy="333-111-7777">Copy</button>
               </div>
 
@@ -602,7 +1087,7 @@
 
               <div class="route-row">
                 <span class="route-number">333-333-7777</span>
-                <div><strong>KANSEE Meeting Rooms</strong><small>Private rooms, scheduled meetings, and group calls.</small></div>
+                <div><strong>KANSEE Meeting Rooms</strong><small>Private rooms, scheduled meetings, and group collaboration.</small></div>
                 <button class="copy-button" type="button" data-copy="333-333-7777">Copy</button>
               </div>
 
@@ -611,6 +1096,18 @@
                 <div><strong>Bazaar Art Live</strong><small>Creative feed, groups, events, posts, and reels.</small></div>
                 <button class="copy-button" type="button" data-copy="333-444-7777">Copy</button>
               </div>
+            </div>
+
+            <h3 style="margin-top:1.4rem">Direct Application Directory</h3>
+            <p>These launch paths do not claim unapproved internal numbers.</p>
+
+            <div class="app-directory">
+              <a href="./apps/HOLLO_333_direct_connect_index.html"><strong>HOLLO</strong><small>Direct Connect</small></a>
+              <a href="./apps/KANSEE_333_meeting_rooms_index.html"><strong>KANSEE</strong><small>Meeting Rooms</small></a>
+              <a href="./apps/EVen_mail_index.html"><strong>E=Ven Mail</strong><small>Mail Workspace</small></a>
+              <a href="./apps/Bazaar_Art_Live_index.html"><strong>Bazaar Art Live</strong><small>Creative Community</small></a>
+              <a href="./apps/SIte_builder_index.html"><strong>SIte</strong><small>Website Builder</small></a>
+              <a href="./apps/Bunya_digital_infrastructure_index.html"><strong>Bunya</strong><small>Infrastructure</small></a>
             </div>
           </article>
         </div>
@@ -627,17 +1124,17 @@
         <div class="principle-grid">
           <article class="principle">
             <h3>Connection by Choice</h3>
-            <p>Members decide whether to answer, join, appear in a directory, activate media, or participate in a community feed.</p>
+            <p>Members decide whether to answer, join, activate media, appear in a directory, publish work, or participate in a community feed.</p>
           </article>
 
           <article class="principle">
             <h3>Separate, but Connected</h3>
-            <p>HOLLO, KANSEE, and Bazaar Art Live retain their own purposes while sharing navigation and internal routing.</p>
+            <p>Each application retains a distinct purpose while sharing navigation, local continuity, and a common path through the 333 gateway.</p>
           </article>
 
           <article class="principle">
             <h3>Honest Infrastructure</h3>
-            <p>Local browser tools are not represented as full carrier, calling, meeting, or cross-device network services until the necessary backend exists.</p>
+            <p>Local browser tools are not represented as live carrier, hosted meeting, mail-delivery, or synchronized cloud services until those systems exist.</p>
           </article>
         </div>
       </div>
@@ -646,10 +1143,10 @@
     <section class="section section-alt">
       <div class="section-inner">
         <article class="notice">
-          <strong>Current build notice:</strong> The 333 Network is presently a public gateway
-          into browser-based communication applications. Secure accounts, cross-device messaging,
-          live calling, hosted meetings, member directories, and synchronized social participation
-          require authenticated production services before they can operate as a true communications network.
+          <strong>Current build notice:</strong> The 333 Network is presently an installable,
+          local-first public gateway into six browser applications. Secure accounts, cross-device
+          messaging, hosted meetings, mail delivery, synchronized community activity, shared identity,
+          and production infrastructure require authenticated backend services before operating as a true live network.
         </article>
       </div>
     </section>
@@ -657,9 +1154,9 @@
 
   <footer>
     <div class="shell footer-inner">
-      <span><strong>333 Network</strong> · HOLLO · KANSEE · Bazaar Art Live</span>
-      <nav class="footer-links">
-        <a href="#services">Communication Hubs</a>
+      <span><strong>333 Network</strong> · HOLLO · KANSEE · E=Ven Mail · Bazaar Art Live · SIte · Bunya</span>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#applications">Applications</a>
         <a href="#routes">Route Directory</a>
         <a href="#principles">Principles</a>
         <a href="#top">Back to Top</a>
@@ -676,22 +1173,22 @@
       const ROUTES = Object.freeze({
         "3331117777": {
           name: "333 Network Entry",
-          href: "#services",
-          message: "Opening the 333 communication hubs."
+          href: "#applications",
+          message: "Opening the complete 333 application directory."
         },
         "3332227777": {
           name: "HOLLO Direct Connect",
-          href: "https://vervenveda.github.io/proresource_hub.github.io/Protools/HOLLO%E2%84%A2%20333%20Direct%20Connect_index.html",
+          href: "./apps/HOLLO_333_direct_connect_index.html",
           message: "Opening HOLLO Direct Connect."
         },
         "3333337777": {
           name: "KANSEE Meeting Rooms",
-          href: "https://vervenveda.github.io/proresource_hub.github.io/Protools/KANSEE%E2%84%A2%20333%20Meeting%20Rooms_index.html",
+          href: "./apps/KANSEE_333_meeting_rooms_index.html",
           message: "Opening KANSEE Meeting Rooms."
         },
         "3334447777": {
           name: "Bazaar Art Live",
-          href: "https://vervenveda.github.io/proresource_hub.github.io/Protools/Bazaar%20Art%20Live%20333%20Social%20Feed_index.html",
+          href: "./apps/Bazaar_Art_Live_index.html",
           message: "Opening Bazaar Art Live."
         }
       });
@@ -701,17 +1198,23 @@
       const toast = document.getElementById("toast");
       const menuButton = document.getElementById("menuButton");
       const mobileMenu = document.getElementById("mobileMenu");
+      const updateBanner = document.getElementById("updateBanner");
+      const applyUpdateButton = document.getElementById("applyUpdateButton");
+      const dismissUpdateButton = document.getElementById("dismissUpdateButton");
+
+      let updateAvailable = false;
+      let updateInProgress = false;
 
       function digitsOnly(value){
         return String(value || "").replace(/\D/g,"").slice(0,10);
       }
 
       function formatRoute(value){
-        const d = digitsOnly(value);
-        if(!d) return "";
-        if(d.length <= 3) return d;
-        if(d.length <= 6) return d.slice(0,3) + "-" + d.slice(3);
-        return d.slice(0,3) + "-" + d.slice(3,6) + "-" + d.slice(6);
+        const digits = digitsOnly(value);
+        if(!digits) return "";
+        if(digits.length <= 3) return digits;
+        if(digits.length <= 6) return digits.slice(0,3) + "-" + digits.slice(3);
+        return digits.slice(0,3) + "-" + digits.slice(3,6) + "-" + digits.slice(6);
       }
 
       function setRoute(value){
@@ -722,7 +1225,7 @@
         toast.textContent = message;
         toast.classList.add("show");
         clearTimeout(showToast.timer);
-        showToast.timer = setTimeout(() => toast.classList.remove("show"), 1700);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 1900);
       }
 
       async function copyValue(value){
@@ -732,6 +1235,9 @@
         }catch{
           const text = document.createElement("textarea");
           text.value = value;
+          text.setAttribute("aria-hidden","true");
+          text.style.position = "fixed";
+          text.style.opacity = "0";
           document.body.appendChild(text);
           text.select();
           document.execCommand("copy");
@@ -764,9 +1270,60 @@
         showToast(route.name);
 
         if(route.href.startsWith("#")){
-          document.querySelector(route.href)?.scrollIntoView({behavior:"smooth"});
+          document.querySelector(route.href)?.scrollIntoView({
+            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+          });
         }else{
-          window.location.href = route.href;
+          window.location.assign(route.href);
+        }
+      }
+
+      function closeMobileMenu(){
+        mobileMenu.classList.remove("open");
+        menuButton.setAttribute("aria-expanded","false");
+        menuButton.setAttribute("aria-label","Open navigation");
+        menuButton.textContent = "☰";
+      }
+
+      function showUpdateBanner(){
+        updateAvailable = true;
+        updateBanner.hidden = false;
+      }
+
+      async function applyServiceWorkerUpdate(){
+        if(updateInProgress) return;
+        updateInProgress = true;
+        applyUpdateButton.disabled = true;
+        applyUpdateButton.textContent = "Updating…";
+
+        if(!("serviceWorker" in navigator)){
+          window.location.reload();
+          return;
+        }
+
+        try{
+          const registration = await navigator.serviceWorker.getRegistration();
+          const waitingWorker = registration?.waiting;
+
+          if(!waitingWorker){
+            window.location.reload();
+            return;
+          }
+
+          let reloaded = false;
+          navigator.serviceWorker.addEventListener("controllerchange", () => {
+            if(reloaded) return;
+            reloaded = true;
+            window.location.reload();
+          });
+
+          waitingWorker.postMessage({type:"SKIP_WAITING"});
+
+          setTimeout(() => {
+            if(!reloaded) window.location.reload();
+          }, 3500);
+        }catch{
+          window.location.reload();
         }
       }
 
@@ -787,7 +1344,7 @@
 
       document.getElementById("resetRoute").addEventListener("click", () => {
         setRoute("333");
-        status.textContent = "Ready for an internal 333 service route.";
+        status.textContent = "Ready for an established internal 333 service route.";
       });
 
       document.getElementById("openRoute").addEventListener("click", openSelectedRoute);
@@ -806,7 +1363,9 @@
       document.querySelectorAll("[data-route]").forEach(button => {
         button.addEventListener("click", () => {
           setRoute(button.dataset.route);
-          document.getElementById("routes").scrollIntoView({behavior:"smooth"});
+          document.getElementById("routes").scrollIntoView({
+            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
+          });
           status.textContent = "Route loaded. Select Open Route to continue.";
         });
       });
@@ -814,23 +1373,32 @@
       menuButton.addEventListener("click", () => {
         const open = mobileMenu.classList.toggle("open");
         menuButton.setAttribute("aria-expanded", String(open));
+        menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
         menuButton.textContent = open ? "×" : "☰";
       });
 
       mobileMenu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", () => {
-          mobileMenu.classList.remove("open");
-          menuButton.setAttribute("aria-expanded","false");
-          menuButton.textContent = "☰";
-        });
+        link.addEventListener("click", closeMobileMenu);
       });
 
+      applyUpdateButton.addEventListener("click", applyServiceWorkerUpdate);
+
+      dismissUpdateButton.addEventListener("click", () => {
+        updateBanner.hidden = true;
+      });
+
+      window.addEventListener("333-app-update-ready", showUpdateBanner);
+
+      if("serviceWorker" in navigator){
+        navigator.serviceWorker.getRegistration()
+          .then(registration => {
+            if(registration?.waiting) showUpdateBanner();
+          })
+          .catch(() => {});
+      }
+
       document.addEventListener("keydown", event => {
-        if(event.key === "Escape"){
-          mobileMenu.classList.remove("open");
-          menuButton.setAttribute("aria-expanded","false");
-          menuButton.textContent = "☰";
-        }
+        if(event.key === "Escape") closeMobileMenu();
       });
 
       setRoute("333");
@@ -839,6 +1407,5 @@
 
   <script src="./install-app.js"></script>
   <script src="./register-service-worker.js"></script>
-
 </body>
 </html>
