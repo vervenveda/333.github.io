@@ -26,20 +26,19 @@ Never share databases, signing secrets, upload buckets, or provider tokens betwe
 
 ## Before deployment
 
-The package in this archive is not a complete running API. Add at least:
+The package now includes the runnable application entry point, validated settings, asynchronous database sessions, base model metadata, and the Alembic environment. Add the feature models, schemas, routers, services, security module, and tests before public use:
 
 ```text
-app/main.py
-app/core/config.py
-app/core/database.py
 app/core/security.py
-app/routers/
-app/models/
+app/models/user.py
+app/models/profile.py
+app/models/network_number.py
+app/models/email_application.py
+app/models/refresh_session.py
+app/models/audit_log.py
 app/schemas/
+app/routers/
 app/services/
-migrations/env.py
-migrations/script.py.mako
-migrations/versions/
 tests/
 ```
 

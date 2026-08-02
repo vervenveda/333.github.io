@@ -1,6 +1,6 @@
 # 333 Network Backend Foundation
 
-This package supplies the root configuration and governance files for the shared backend serving:
+This package supplies the root configuration, asynchronous database foundation, Alembic environment, and governance files for the shared backend serving:
 
 - HOLLO enrollment, profiles, contacts, and direct communication
 - KANSEE meeting rooms and invitations
@@ -11,22 +11,21 @@ This package supplies the root configuration and governance files for the shared
 
 ## What this package contains
 
-This archive contains configuration and policy files only. It does **not** yet contain the application package, database models, API routers, migrations, or tests.
+This archive now contains a runnable FastAPI entry point, validated settings, structured logging, an asynchronous SQLAlchemy engine, reusable model metadata, and the Alembic migration environment.
 
-The following paths must be added before the API can run:
+The next application paths still need to be created:
 
 ```text
 app/
-  main.py
-  core/
-  models/
+  models/user.py
+  models/profile.py
+  models/network_number.py
+  models/email_application.py
+  models/refresh_session.py
+  models/audit_log.py
   schemas/
   routers/
   services/
-migrations/
-  env.py
-  script.py.mako
-  versions/
 tests/
 ```
 
@@ -34,6 +33,32 @@ The default Docker command expects:
 
 ```text
 app.main:app
+```
+
+## Database foundation
+
+The core package provides:
+
+```text
+app/core/config.py       validated environment settings
+app/core/database.py     async engine, sessions, health check, shutdown disposal
+app/core/logging.py      JSON or text logs with request IDs
+app/models/base.py       UUID and timestamp mixins with Alembic naming conventions
+migrations/env.py        asynchronous migration runner
+migrations/script.py.mako migration template
+```
+
+The database URL must use the asynchronous PostgreSQL driver:
+
+```text
+postgresql+asyncpg://USER:PASSWORD@HOST:5432/DATABASE
+```
+
+Create the first empty migration only after the initial models have been added. Alembic autogeneration then becomes:
+
+```bash
+alembic revision --autogenerate -m "create identity foundation"
+alembic upgrade head
 ```
 
 ## Recommended first milestone
