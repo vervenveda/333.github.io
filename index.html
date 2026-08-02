@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="333 Network — the local-first gateway for HOLLO enrollment, KANSEE meetings, E=Ven Mail applications, Bazaar Art Live, SIte with Embed Studio, and the Bunya infrastructure registry.">
+  <meta name="description" content="333 Network — a local-first gateway connecting HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya through one clear member journey.">
   <meta name="theme-color" content="#0b1324">
   <meta name="color-scheme" content="light dark">
   <meta name="referrer" content="same-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
-  <title>333 Network | Shared Identity, Communication & Infrastructure Gateway</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
+  <title>333 Network | Communication, Community, Creation & Infrastructure</title>
 
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./assets/icons/icon-192.png">
+  <link rel="icon" href="./assets/icons/icon-192.png" sizes="192x192" type="image/png">
   <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -19,29 +19,29 @@
 
   <style>
     :root{
-      --midnight:#0b1324;
-      --midnight-2:#14213a;
-      --midnight-3:#1d2d4c;
-      --paper:#f5f1e8;
-      --paper-bright:#fffdf9;
-      --ink:#1b2431;
-      --muted:#67707c;
+      --night:#0b1324;
+      --night-2:#14213a;
+      --night-3:#1d2d4c;
+      --paper:#f4f0e7;
+      --paper-bright:#fffdf8;
+      --ink:#EDEDED;
+      --ink-soft:#EDEDED;
+      --muted:#EDEDED;
       --gold:#b89a61;
       --gold-soft:#e6d5ad;
-      --teal:#4faaa5;
       --violet:#8574c4;
-      --rose:#c982a1;
+      --teal:#8AD1C7;
       --cyan:#579cad;
+      --rose:#c982a1;
       --green:#618f75;
       --amber:#bd7d4c;
-      --line:rgba(19,31,49,.15);
+      --line:rgba(18,31,49,.15);
       --line-light:rgba(255,255,255,.15);
       --shadow:0 22px 55px rgba(13,25,43,.11);
-      --radius:21px;
+      --shadow-small:0 11px 33px rgba(13,25,43,.08);
+      --radius:7px;
       --small:7px;
-      --max:1220px;
-      --weight-text:333;
-      --weight-emphasis:444;
+      --max:1444px;
       --display:"Iowan Old Style","Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
       --brand:"Avenir Next Condensed","Arial Narrow","Trebuchet MS",sans-serif;
       --sans:"Avenir Next","Helvetica Neue","Trebuchet MS","Segoe UI",Arial,sans-serif;
@@ -49,992 +49,251 @@
     }
 
     *{box-sizing:border-box}
-    html{
-      scroll-behavior:smooth;
-      scroll-padding-top:88px;
-      font-synthesis:none;
-      text-rendering:geometricPrecision;
-      -webkit-font-smoothing:antialiased;
-    }
-    body{
-      margin:0;
-      min-width:300px;
-      color:var(--ink);
-      background:linear-gradient(180deg,var(--paper-bright),var(--paper));
-      font-family:var(--sans);
-      font-size:16px;
-      line-height:1.68;
-      font-weight:var(--weight-text);
-      text-align:center;
-    }
+    html{scroll-behavior:smooth;scroll-padding-top:77px;font-synthesis:none;text-rendering:geometricPrecision;-webkit-font-smoothing:antialiased}
+    body{margin:0;min-width:300px;overflow-x:hidden;color:var(--ink);background:var(--paper);font-family:var(--sans);font-size:11px;line-height:3;font-weight:400;text-align:center}
+    body.menu-open{overflow:hidden}
     a{color:inherit;text-decoration:none}
     button,input{font:inherit}
     button{cursor:pointer}
-    strong,b{font-weight:var(--weight-emphasis)}
+    strong,b{font-weight:400}
     [hidden]{display:none!important}
     :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
-    ::selection{color:#0b1324;background:var(--gold-soft)}
-    .shell{width:min(calc(100% - 2rem),var(--max));margin:auto}
+    ::selection{color:var(--night);background:var(--gold-soft)}
+    .shell{width:min(calc(100% - 44px),var(--max));margin-inline:auto}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
-    .skip{
-      position:fixed;
-      left:11px;
-      top:11px;
-      z-index:4000;
-      transform:translateY(-180%);
-      padding:.7rem 1rem;
-      border-radius:var(--small);
-      color:white;
-      background:#111;
-    }
+    .skip{position:fixed;left:11px;top:11px;z-index:4000;transform:translateY(-180%);padding:11px 14px;border-radius:var(--small);color:#fff;background:#111}
     .skip:focus{transform:none}
 
-    .utility{
-      color:#d7e0e8;
-      background:#050b14;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .utility .shell{
-      min-height:38px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-      font-size:.74rem;
-    }
-    .utility-links{
-      display:flex;
-      gap:1rem;
-      flex-wrap:wrap;
-      justify-content:center;
-    }
-    .utility-links a:hover{color:var(--gold-soft)}
+    .utility{color:#d7e0e8;background:#050b14;border-bottom:1px solid rgba(255,255,255,.08)}
+    .utility-inner{min-height:37px;display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:.7rem}
+    .utility-links{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+    .utility a:hover{color:var(--gold-soft)}
+    .support-link{color:var(--gold-soft)!important}
 
-    .update-banner{
-      position:relative;
-      z-index:1100;
-      padding:10px 16px;
-      color:#111824;
-      background:linear-gradient(135deg,var(--gold-soft),var(--gold));
-      border-bottom:1px solid rgba(11,19,36,.18);
-    }
-    .update-banner-inner{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:11px;
-      flex-wrap:wrap;
-    }
-    .update-banner strong{
-      font-family:var(--brand);
-      font-size:.76rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .update-button{
-      min-height:36px;
-      padding:6px 10px;
-      border:1px solid rgba(11,19,36,.24);
-      border-radius:var(--small);
-      color:white;
-      background:var(--midnight);
-      font-size:.7rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
+    .update-banner{position:relative;z-index:1200;padding:11px 14px;color:#111824;background:linear-gradient(135deg,var(--gold-soft),var(--gold));border-bottom:1px solid rgba(11,19,36,.18)}
+    .update-inner{display:flex;align-items:center;justify-content:center;gap:3px;flex-wrap:wrap}
+    .update-inner strong{font-family:var(--brand);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase}
+    .update-button{min-height:24px;padding:3px 7px;border:1px solid rgba(11,19,36,.22);border-radius:var(--small);color:#fff;background:var(--night);font-size:.66rem;font-weight:444;letter-spacing:.05em;text-transform:uppercase}
 
-    .header{
-      position:sticky;
-      top:0;
-      z-index:1000;
-      background:rgba(11,19,36,.96);
-      border-bottom:1px solid rgba(255,255,255,.10);
-      backdrop-filter:blur(16px);
-    }
-    .nav{
-      min-height:72px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:.8rem;
-      text-align:left;
-      color:white;
-    }
-    .brand-mark{
-      width:44px;
-      height:44px;
-      display:grid;
-      place-items:center;
-      flex:0 0 44px;
-      border:1px solid rgba(230,213,173,.45);
-      border-radius:var(--small);
-      color:var(--gold-soft);
-      background:rgba(255,255,255,.04);
-      font-family:var(--brand);
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.06em;
-    }
-    .brand strong{
-      display:block;
-      font-family:var(--brand);
-      font-size:1rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    .brand small{
-      display:block;
-      margin-top:.15rem;
-      color:rgba(255,255,255,.58);
-      font-size:.59rem;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-    }
-
-    .nav-links{display:flex;gap:.25rem}
-    .nav-links a{
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      padding:.58rem .7rem;
-      border-radius:var(--small);
-      color:#eef2f6;
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
+    .header{position:sticky;top:0;z-index:1100;color:#fff;background:rgba(11,19,36,.96);border-bottom:1px solid rgba(255,255,255,.1);backdrop-filter:blur(16px)}
+    .header-inner{min-height:55px;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:14px}
+    .brand{justify-self:start;display:inline-flex;align-items:center;gap:9px;min-width:0;text-align:left}
+    .brand-mark{width:33px;height:11px;display:grid;place-items:center;flex:33px 0px 33px;border:1px solid rgba(230,213,173,.42);border-radius:var(--small);color:var(--gold-soft);background:rgba(255,255,255,.04);font-family:var(--brand);font-size:.7rem;font-weight:333;letter-spacing:.07em}
+    .brand-copy{display:grid;line-height:1.05}
+    .brand-name{font-family:var(--brand);font-size:.94rem;font-weight:444;letter-spacing:.09em;text-transform:uppercase}
+    .brand-sub{margin-top:3px;color:rgba(255,255,255,.57);font-size:.2rem;letter-spacing:.05em;text-transform:uppercase}
+    .nav-links{display:flex;justify-content:center;gap:2px}
+    .nav-links a{min-height:40px;display:inline-flex;align-items:center;padding:7px 9px;border-radius:var(--small);color:#edf2f6;font-size:.62rem;font-weight:444;letter-spacing:.055em;text-transform:uppercase}
     .nav-links a:hover{background:rgba(255,255,255,.07)}
-
-    .menu-button{
-      display:none;
-      width:44px;
-      height:44px;
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:var(--small);
-      color:white;
-      background:transparent;
-      font-size:1.15rem;
-    }
-    .mobile-menu{
-      position:fixed;
-      inset:72px 0 auto;
-      z-index:900;
-      display:none;
-      padding:1rem;
-      color:white;
-      background:var(--midnight);
-      border-bottom:1px solid rgba(255,255,255,.12);
-      box-shadow:var(--shadow);
-    }
-    .mobile-menu.open{display:grid;gap:.35rem}
-    .mobile-menu a{
-      padding:.7rem;
-      border-radius:var(--small);
-    }
+    .header-tools{justify-self:end;display:flex;align-items:center;gap:7px}
+    .identity-pill{min-height:34px;display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid rgba(255,255,255,.15);border-radius:var(--small);color:#dce4ec;background:rgba(255,255,255,.04);font-size:.61rem;white-space:nowrap}
+    .identity-dot{width:8px;height:8px;border-radius:50%;background:#8290a0;box-shadow:0 0 0 4px rgba(130,144,160,.11)}
+    .identity-pill.ready .identity-dot{background:var(--green);box-shadow:0 0 0 4px rgba(97,143,117,.14)}
+    .menu-button{display:none;width:40px;height:40px;border:1px solid rgba(255,255,255,.24);border-radius:var(--small);color:#fff;background:transparent}
+    .mobile-menu{position:fixed;inset:72px 0 auto;z-index:1050;display:none;padding:14px;color:#fff;background:var(--night);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+    .mobile-menu.open{display:grid;gap:4px}
+    .mobile-menu a{padding:11px;border-radius:var(--small)}
     .mobile-menu a:hover{background:rgba(255,255,255,.07)}
 
-    .breadcrumbs{
-      color:#c4ced8;
-      background:#09111f;
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
-    .breadcrumbs .shell{
-      min-height:44px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:.55rem;
-      font-size:.74rem;
-    }
-    .breadcrumbs a{color:white}
-
-    .hero{
-      min-height:650px;
-      display:grid;
-      align-items:center;
-      padding:82px 0;
-      color:white;
-      background:
-        radial-gradient(circle at 50% 0,rgba(230,213,173,.13),transparent 33rem),
-        radial-gradient(circle at 14% 90%,rgba(79,170,165,.08),transparent 26rem),
-        linear-gradient(145deg,#1b2d4d 0%,#0b1324 62%,#060b14);
-      border-bottom:1px solid var(--line-light);
-    }
-    .hero-copy{max-width:1010px;margin:auto}
-    .eyebrow,.kicker{
-      margin:0;
-      color:var(--gold-soft);
-      font-family:var(--brand);
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.18em;
-      text-transform:uppercase;
-    }
-    h1,h2,h3{
-      margin:0;
-      font-family:var(--display);
-      font-weight:var(--weight-text);
-      letter-spacing:.01em;
-      text-wrap:balance;
-    }
-    h1{
-      margin-top:1rem;
-      font-size:clamp(4rem,8vw,7.4rem);
-      line-height:.91;
-    }
-    .hero-subtitle{
-      display:block;
-      margin-top:1rem;
-      color:var(--gold-soft);
-      font-family:var(--brand);
-      font-size:clamp(.92rem,1.8vw,1.3rem);
-      letter-spacing:.14em;
-      text-transform:uppercase;
-    }
-    .hero-lead{
-      max-width:820px;
-      margin:1.5rem auto 0;
-      color:#d7e0e8;
-      font-family:var(--display);
-      font-size:clamp(1.2rem,2.2vw,1.6rem);
-      line-height:1.5;
-    }
-    .hero-note{
-      max-width:760px;
-      margin:1rem auto 0;
-      color:#aebac7;
-      font-size:.9rem;
-    }
-    .actions{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:.7rem;
-      margin-top:2rem;
-    }
-    .btn{
-      min-height:46px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:.72rem 1rem;
-      border:1px solid transparent;
-      border-radius:var(--small);
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.07em;
-      text-transform:uppercase;
-      transition:.18s;
-    }
+    .hero{position:relative;min-height:680px;display:grid;align-items:center;overflow:hidden;color:#fff;background:radial-gradient(circle at 50% 0,rgba(230,213,173,.14),transparent 33rem),radial-gradient(circle at 12% 88%,rgba(79,170,165,.09),transparent 26rem),linear-gradient(145deg,#1b2d4d 0%,#0b1324 64%,#060b14);border-bottom:1px solid var(--line-light);isolation:isolate}
+    .hero::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.23;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:55px 55px;mask-image:linear-gradient(to bottom,black,transparent 92%)}
+    .hero-inner{padding:99px 0 77px}
+    .eyebrow,.kicker{margin:0;color:var(--gold-soft);font-family:var(--brand);font-size:.68rem;font-weight:444;letter-spacing:.18em;text-transform:uppercase}
+    h1,h2,h3{margin:0;font-family:var(--display);font-weight:333;letter-spacing:.01em;text-wrap:balance}
+    h1{margin-top:15px;font-size:clamp(4.2rem,9vw,7.6rem);line-height:.9}
+    .hero-subtitle{display:block;margin-top:17px;color:var(--gold-soft);font-family:var(--brand);font-size:clamp(.82rem,1.65vw,1.18rem);letter-spacing:.15em;text-transform:uppercase}
+    .hero-lead{max-width:830px;margin:25px auto 0;color:#d9e1e8;font-family:var(--display);font-size:clamp(1.18rem,2.1vw,1.55rem);line-height:1.5}
+    .hero-note{max-width:790px;margin:12px auto 0;color:#aebac7;font-size:.83rem}
+    .actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:29px}
+    .btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;border:1px solid transparent;border-radius:var(--small);font-size:.66rem;font-weight:444;letter-spacing:.065em;text-transform:uppercase;transition:transform .17s,border-color .17s,background .17s}
     .btn:hover{transform:translateY(-2px)}
-    .btn-primary{
-      color:#111824;
-      background:linear-gradient(145deg,var(--gold-soft),var(--gold));
-    }
-    .btn-secondary{
-      color:white;
-      border-color:rgba(255,255,255,.33);
-      background:transparent;
-    }
+    .btn-primary{color:#111824;background:linear-gradient(145deg,var(--gold-soft),var(--gold))}
+    .btn-secondary{color:#fff;border-color:rgba(255,255,255,.32);background:transparent}
     .btn-secondary:hover{background:rgba(255,255,255,.06)}
-
-    .platform-strip{
-      margin-top:30px;
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:7px;
-    }
-    .platform-stat{
-      padding:11px;
-      border:1px solid rgba(255,255,255,.13);
-      border-radius:var(--small);
-      background:rgba(255,255,255,.035);
-    }
-    .platform-stat strong{
-      display:block;
-      color:var(--gold-soft);
-      font-family:var(--mono);
-      font-size:1rem;
-    }
-    .platform-stat span{
-      display:block;
-      margin-top:3px;
-      color:#aebac7;
-      font-size:.67rem;
-      text-transform:uppercase;
-    }
+    .btn-support{color:#fff;border-color:rgba(230,213,173,.42);background:rgba(184,154,97,.13)}
+    .platform-strip{max-width:900px;margin:33px auto 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+    .platform-stat{padding:11px;border:1px solid rgba(255,255,255,.13);border-radius:var(--small);background:rgba(255,255,255,.035)}
+    .platform-stat strong{display:block;color:var(--gold-soft);font-family:var(--mono);font-size:.96rem}
+    .platform-stat span{display:block;margin-top:3px;color:#aebac7;font-size:.61rem;letter-spacing:.05em;text-transform:uppercase}
+    .install-help{width:min(100%,720px);margin:22px auto 0;padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);color:#d7e0e8;background:rgba(255,255,255,.05);white-space:pre-wrap;text-align:left;font-size:.8rem;line-height:1.7}
 
     .section{padding:88px 18px}
-    .section-alt{
-      background:var(--paper-bright);
-      border-block:1px solid var(--line);
-    }
-    .section-dark{color:white;background:var(--midnight)}
+    .section-alt{background:var(--paper-bright);border-block:1px solid var(--line)}
+    .section-dark{color:#fff;background:var(--night)}
     .section-inner{width:min(100%,var(--max));margin:auto}
-    .section-heading{max-width:860px;margin:0 auto 42px}
+    .section-heading{max-width:850px;margin:0 auto 42px}
     .section-heading .kicker{color:var(--gold)}
-    .section h2{
-      margin-top:.7rem;
-      font-size:clamp(2.8rem,5.5vw,5rem);
-      line-height:.98;
-    }
-    .section-heading p{
-      max-width:730px;
-      margin:1.1rem auto 0;
-      color:var(--muted);
-    }
+    .section h2{margin-top:10px;font-size:clamp(2.75rem,5.4vw,5rem);line-height:.98}
+    .section-heading p{max-width:730px;margin:17px auto 0;color:var(--muted)}
     .section-dark .section-heading p{color:#b6c1cd}
 
-    .category-shelf{
-      margin-top:18px;
-      padding:20px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.58);
-    }
+    .choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .choice-card{--accent:var(--teal);min-height:220px;display:flex;flex-direction:column;align-items:center;padding:22px;border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-small);transition:.18s}
+    .choice-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+    .choice-icon{width:55px;height:46px;display:grid;place-items:center;border-radius:var(--small);color:#fff;background:var(--accent);font-size:1.2rem}
+    .choice-card h3{margin-top:14px;color:var(--night);font-size:1.7rem;line-height:1.08}
+    .choice-card p{margin:9px 0 0;color:var(--muted);font-size:.78rem}
+    .choice-card span:last-child{margin-top:auto;padding-top:16px;color:var(--accent);font-family:var(--brand);font-size:.62rem;font-weight:444;letter-spacing:.07em;text-transform:uppercase}
+
+    .continuity-layout{display:grid;grid-template-columns:.86fr 1.14fr;gap:11px;align-items:start}
+    .continuity-card{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);text-align:left}
+    .continuity-card.dark{color:#fff;background:radial-gradient(circle at 50% 0,rgba(230,213,173,.09),transparent 22rem),linear-gradient(145deg,var(--night-2),var(--night))}
+    .continuity-card h3{font-size:2rem;line-height:1.05}
+    .continuity-card>p{margin:10px 0 0;color:var(--muted);font-size:.82rem}
+    .continuity-card.dark>p{color:#b7c2ce}
+    .identity-overview{display:grid;grid-template-columns:55px minmax(0,1fr);gap:12px;align-items:center;margin-top:16px;padding:15px;border:1px solid rgba(255,255,255,.13);border-radius:var(--radius);background:rgba(255,255,255,.04)}
+    .identity-mark{width:55px;height:48px;display:grid;place-items:center;border:1px solid rgba(230,213,173,.38);border-radius:var(--small);color:var(--gold-soft);background:rgba(255,255,255,.035);font-family:var(--brand);font-size:.64rem;letter-spacing:.08em}
+    .identity-overview h4{margin:0;color:#fff;font-family:var(--display);font-size:1.42rem;font-weight:333}
+    .identity-overview p{margin:3px 0 0;color:#aebac7;font-size:.7rem;line-height:1.5}
+    .identity-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:11px}
+    .identity-detail{padding:10px;border:1px solid rgba(255,255,255,.11);border-radius:var(--small);background:rgba(255,255,255,.035)}
+    .identity-detail span{display:block;color:#93a0af;font-size:.54rem;letter-spacing:.06em;text-transform:uppercase}
+    .identity-detail strong{display:block;margin-top:3px;overflow-wrap:anywhere;color:#eef2f6;font-size:.7rem}
+    .continuity-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px}
+    .continuity-actions a,.continuity-actions button{min-height:40px;display:flex;align-items:center;justify-content:center;padding:8px 10px;border:1px solid rgba(255,255,255,.18);border-radius:var(--small);color:#fff;background:rgba(255,255,255,.045);font-size:.62rem;font-weight:444;text-align:center;text-transform:uppercase}
+    .continuity-actions a.primary{color:#111824;border-color:transparent;background:linear-gradient(145deg,var(--gold-soft),var(--gold))}
+    .status-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:16px}
+    .status-card{--accent:var(--teal);min-height:148px;display:flex;flex-direction:column;padding:13px;border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:var(--radius);background:#fffdf9}
+    .status-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+    .status-head h4{margin:0;color:var(--night);font-family:var(--display);font-size:1.18rem;font-weight:333}
+    .status-chip{padding:4px 7px;border:1px solid var(--line);border-radius:var(--small);color:var(--muted);background:#f1f1ee;font-size:.52rem;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+    .status-chip.ready{color:#356345;border-color:rgba(97,143,117,.35);background:#eaf4ec}
+    .status-meta{margin:8px 0 0;color:var(--muted);font-size:.67rem;line-height:1.5}
+    .status-card a{min-height:34px;display:flex;align-items:center;justify-content:center;margin-top:auto;padding:6px 8px;border-radius:var(--small);color:#fff;background:var(--accent);font-size:.59rem;font-weight:444;text-transform:uppercase}
+
+    .directory-toolbar{display:grid;grid-template-columns:minmax(220px,1fr) auto;gap:11px;max-width:850px;margin:0 auto 28px}
+    .field{width:100%;min-height:46px;padding:9px 13px;border:1px solid var(--line);border-radius:var(--small);color:var(--ink);background:#fff;outline:none}
+    .field:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(184,154,97,.15)}
+    .clear-button{min-height:46px;padding:9px 13px;border:1px solid var(--line);border-radius:var(--small);color:var(--night);background:var(--paper-bright);font-size:.65rem;font-weight:444;text-transform:uppercase}
+    .category-shelf{--accent:var(--teal);margin-top:18px;padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:rgba(255,255,255,.62)}
     .category-shelf:first-of-type{margin-top:0}
-    .category-head{
-      display:grid;
-      grid-template-columns:minmax(0,1fr) auto;
-      gap:18px;
-      align-items:end;
-      padding-bottom:14px;
-      border-bottom:1px solid var(--line);
-      text-align:left;
-    }
-    .category-head h3{
-      color:var(--midnight);
-      font-size:2rem;
-    }
-    .category-head p{
-      max-width:720px;
-      margin:.45rem 0 0;
-      color:var(--muted);
-      font-size:.85rem;
-    }
-    .category-count{
-      color:var(--accent);
-      font-family:var(--mono);
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-
-    .service-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:1rem;
-      margin-top:18px;
-    }
-    .service-grid.single{
-      grid-template-columns:minmax(0,1fr);
-    }
-    .service-card{
-      min-height:405px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      padding:1.6rem;
-      border:1px solid var(--line);
-      border-top:3px solid var(--accent);
-      border-radius:var(--radius);
-      background:white;
-      box-shadow:var(--shadow);
-      transition:.18s;
-    }
-    .service-card:hover{
-      transform:translateY(-4px);
-      border-color:var(--accent);
-    }
-    .service-icon{
-      width:58px;
-      height:50px;
-      display:grid;
-      place-items:center;
-      border-radius:var(--small);
-      color:white;
-      background:var(--accent);
-      font-size:1.38rem;
-    }
-    .category-tag{
-      margin-top:11px;
-      color:var(--accent);
-      font-family:var(--mono);
-      font-size:.63rem;
-      letter-spacing:.09em;
-      text-transform:uppercase;
-    }
-    .service-card h3{
-      margin-top:.65rem;
-      color:var(--midnight);
-      font-size:2rem;
-      line-height:1.05;
-    }
-    .service-sub{
-      margin-top:.35rem;
-      color:var(--accent);
-      font-family:var(--brand);
-      font-size:.65rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.11em;
-      text-transform:uppercase;
-    }
-    .service-card p{
-      color:var(--muted);
-      font-size:.87rem;
-    }
-    .feature-list{
-      width:100%;
-      margin:.4rem 0 0;
-      padding:0;
-      display:grid;
-      gap:.55rem;
-      list-style:none;
-      text-align:left;
-      color:#4f5862;
-      font-size:.78rem;
-    }
-    .feature-list li{display:flex;gap:.55rem}
+    .category-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end;padding-bottom:14px;border-bottom:1px solid var(--line);text-align:left}
+    .category-head h3{color:var(--night);font-size:2rem}
+    .category-head p{max-width:720px;margin:7px 0 0;color:var(--muted);font-size:.82rem}
+    .category-count{color:var(--accent);font-family:var(--mono);font-size:.68rem;font-weight:444;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+    .app-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:18px}
+    .app-grid.single{grid-template-columns:1fr}
+    .app-card{--accent:var(--teal);min-height:390px;display:flex;flex-direction:column;align-items:center;padding:24px;border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-small);transition:.18s}
+    .app-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+    .app-icon{width:58px;height:50px;display:grid;place-items:center;border-radius:var(--small);color:#fff;background:var(--accent);font-size:1.3rem}
+    .app-tag{margin-top:11px;color:var(--accent);font-family:var(--mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase}
+    .app-card h3{margin-top:9px;color:var(--night);font-size:2rem;line-height:1.05}
+    .app-sub{margin-top:5px;color:var(--accent);font-family:var(--brand);font-size:.62rem;font-weight:444;letter-spacing:.1em;text-transform:uppercase}
+    .app-card p{color:var(--muted);font-size:.82rem}
+    .feature-list{width:100%;margin:5px 0 0;padding:0;display:grid;gap:8px;list-style:none;text-align:left;color:#4f5862;font-size:.75rem}
+    .feature-list li{display:flex;gap:8px}
     .feature-list li::before{content:"•";color:var(--accent)}
-    .service-actions{
-      width:100%;
-      display:grid;
-      gap:.55rem;
-      margin-top:auto;
-      padding-top:1.2rem;
-    }
-    .service-actions a,.service-actions button{
-      min-height:42px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border:1px solid var(--line);
-      border-radius:var(--small);
-      font-size:.72rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.05em;
-      text-transform:uppercase;
-    }
-    .service-actions a{
-      color:white;
-      background:var(--accent);
-    }
-    .service-actions button{
-      color:var(--midnight);
-      background:var(--paper-bright);
-    }
-    .service-actions button:hover{border-color:var(--accent)}
+    .app-actions{width:100%;display:grid;gap:7px;margin-top:auto;padding-top:18px}
+    .app-actions a,.app-actions button{min-height:40px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:var(--small);font-size:.66rem;font-weight:444;letter-spacing:.05em;text-transform:uppercase}
+    .app-actions a{color:#fff;background:var(--accent)}
+    .app-actions button{color:var(--night);background:var(--paper-bright)}
+    .empty{margin:24px auto 0;color:var(--muted)}
 
-    .route-layout{
-      display:grid;
-      grid-template-columns:.8fr 1.2fr;
-      gap:1rem;
-    }
-    .route-card{
-      padding:1.6rem;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:white;
-      box-shadow:var(--shadow);
-    }
-    .route-card.dark{
-      color:white;
-      background:linear-gradient(145deg,var(--midnight-2),var(--midnight));
-    }
+    .route-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:11px}
+    .route-card{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow);text-align:left}
+    .route-card.dark{color:#fff;background:linear-gradient(145deg,var(--night-2),var(--night))}
     .route-card h3{font-size:2rem}
     .route-card p{color:var(--muted)}
     .route-card.dark p{color:#b7c2ce}
-
-    .dial-display{
-      width:100%;
-      min-height:52px;
-      margin:1rem 0;
-      padding:0 .8rem;
-      border:1px solid rgba(255,255,255,.25);
-      border-radius:var(--small);
-      color:var(--gold-soft);
-      background:rgba(255,255,255,.05);
-      font-size:1.1rem;
-      font-weight:var(--weight-emphasis);
-      letter-spacing:.08em;
-      text-align:center;
-    }
-    .dial-pad{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:.55rem;
-    }
-    .dial-key{
-      min-height:44px;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:var(--small);
-      color:white;
-      background:rgba(255,255,255,.05);
-    }
+    .dial-display{width:100%;min-height:52px;margin:16px 0;padding:0 12px;border:1px solid rgba(255,255,255,.25);border-radius:var(--small);color:var(--gold-soft);background:rgba(255,255,255,.05);font-size:1.08rem;font-weight:444;letter-spacing:.08em;text-align:center}
+    .dial-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+    .dial-key{min-height:44px;border:1px solid rgba(255,255,255,.12);border-radius:var(--small);color:#fff;background:rgba(255,255,255,.05)}
     .dial-key:hover{background:rgba(230,213,173,.12)}
-    .dial-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:.55rem;
-      margin-top:.55rem;
-    }
-    .dial-actions button{
-      min-height:42px;
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:var(--small);
-      font-weight:var(--weight-emphasis);
-    }
-    #resetRoute{color:white;background:rgba(255,255,255,.05)}
+    .dial-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+    .dial-actions button{min-height:42px;border:1px solid rgba(255,255,255,.15);border-radius:var(--small);font-weight:444}
+    #resetRoute{color:#fff;background:rgba(255,255,255,.05)}
     #openRoute{color:#111824;background:var(--gold-soft)}
-    .dial-status{
-      margin-top:.8rem;
-      min-height:48px;
-      padding:.75rem;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--small);
-      color:#c6d0da;
-      background:rgba(255,255,255,.04);
-      font-size:.74rem;
-    }
-
-    .route-list{display:grid;gap:.5rem;margin-top:1rem}
-    .route-row{
-      display:grid;
-      grid-template-columns:125px minmax(0,1fr) auto;
-      gap:.75rem;
-      align-items:center;
-      padding:.9rem 0;
-      border-top:1px solid var(--line);
-      text-align:left;
-    }
+    .dial-status{margin-top:12px;min-height:48px;padding:11px;border:1px solid rgba(255,255,255,.1);border-radius:var(--small);color:#c6d0da;background:rgba(255,255,255,.04);font-size:.72rem;text-align:center}
+    .route-list{display:grid;gap:5px;margin-top:14px}
+    .route-row{display:grid;grid-template-columns:125px minmax(0,1fr) auto;gap:11px;align-items:center;padding:13px 0;border-top:1px solid var(--line)}
     .route-row:first-child{border-top:0}
-    .route-number{
-      color:var(--gold);
-      font-weight:var(--weight-emphasis);
-      font-size:.74rem;
-    }
-    .route-row strong{display:block;color:var(--midnight)}
-    .route-row small{display:block;margin-top:.15rem;color:var(--muted)}
-    .copy-button,.launch-button{
-      min-height:36px;
-      padding:0 .7rem;
-      border:1px solid var(--line);
-      border-radius:var(--small);
-      color:var(--midnight);
-      background:var(--paper);
-      font-size:.68rem;
-      font-weight:var(--weight-emphasis);
-    }
-    .app-directory{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:7px;
-      margin-top:14px;
-    }
-    .app-directory a{
-      min-height:70px;
-      display:grid;
-      place-items:center;
-      align-content:center;
-      gap:3px;
-      padding:10px;
-      border:1px solid var(--line);
-      border-radius:var(--small);
-      color:var(--midnight);
-      background:var(--paper);
-    }
-    .app-directory a:hover{border-color:var(--gold)}
-    .app-directory strong{
-      font-family:var(--brand);
-      font-size:.74rem;
-      text-transform:uppercase;
-    }
-    .app-directory small{color:var(--muted);font-size:.66rem}
+    .route-number{color:var(--gold);font-weight:444;font-size:.72rem}
+    .route-row strong{display:block;color:var(--night)}
+    .route-row small{display:block;margin-top:2px;color:var(--muted)}
+    .copy-button{min-height:34px;padding:0 9px;border:1px solid var(--line);border-radius:var(--small);color:var(--night);background:var(--paper);font-size:.63rem;font-weight:444}
 
-    .principle-grid{
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:1rem;
-    }
-    .principle{
-      min-height:220px;
-      padding:1.4rem;
-      border:1px solid var(--line-light);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.04);
-    }
-    .principle h3{font-size:1.5rem}
-    .principle p{color:#b7c3cf;font-size:.84rem}
+    .principle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+    .principle{min-height:220px;padding:22px;border:1px solid var(--line-light);border-radius:var(--radius);background:rgba(255,255,255,.04)}
+    .principle h3{font-size:1.55rem}
+    .principle p{color:#b7c3cf;font-size:.81rem}
 
-    .notice{
-      max-width:980px;
-      margin:auto;
-      padding:1.4rem;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:#eee6d6;
-      color:#5e5548;
-      font-size:.82rem;
-    }
+    .support-panel{display:grid;grid-template-columns:1.1fr .9fr;gap:11px;align-items:stretch}
+    .support-copy,.support-card{padding:28px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-small)}
+    .support-copy{text-align:left}
+    .support-copy h2{font-size:clamp(2.6rem,5vw,4.6rem)}
+    .support-copy p{color:var(--muted)}
+    .support-card{display:grid;place-items:center;align-content:center;background:linear-gradient(145deg,var(--night-2),var(--night));color:#fff}
+    .support-card strong{color:var(--gold-soft);font-family:var(--display);font-size:2rem;font-weight:333}
+    .support-card p{max-width:430px;color:#b7c2ce;font-size:.82rem}
+    .support-card .btn{margin-top:10px}
 
-    footer{
-      padding:44px 18px;
-      color:rgba(255,255,255,.66);
-      background:#050b14;
-      border-top:1px solid rgba(255,255,255,.08);
-    }
-    .footer-inner{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:1rem;
-      flex-wrap:wrap;
-    }
-    .footer-links{
-      display:flex;
-      gap:1rem;
-      flex-wrap:wrap;
-    }
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:20px;
-      z-index:3000;
-      transform:translate(-50%,120px);
-      padding:.75rem 1rem;
-      border-radius:var(--small);
-      color:white;
-      background:#111d2d;
-      box-shadow:var(--shadow);
-      transition:.2s;
-    }
+    .notice{max-width:980px;margin:auto;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:#eee6d6;color:#5e5548;font-size:.8rem}
+    footer{padding:44px 18px;color:rgba(255,255,255,.66);background:#050b14;border-top:1px solid rgba(255,255,255,.08)}
+    .footer-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:start;text-align:left}
+    .footer-brand h2{color:#fff;font-size:2rem}
+    .footer-brand p{max-width:620px;color:rgba(255,255,255,.55);font-size:.78rem}
+    .footer-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+    .footer-links a{padding:8px;border-radius:var(--small);font-size:.72rem}
+    .footer-links a:hover{color:#fff;background:rgba(255,255,255,.05)}
+    .copyright{grid-column:1/-1;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.66rem}
+    .toast{position:fixed;left:50%;bottom:20px;z-index:3000;transform:translate(-50%,120px);max-width:min(92vw,560px);padding:11px 15px;border-radius:var(--small);color:#fff;background:#111d2d;box-shadow:var(--shadow);transition:.2s}
     .toast.show{transform:translate(-50%,0)}
 
-    .install-help{
-      width:min(100%,700px);
-      margin:22px auto 0;
-      padding:18px;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:var(--radius);
-      color:#d7e0e8;
-      background:rgba(255,255,255,.05);
-      white-space:pre-wrap;
-      text-align:left;
-      font-size:.82rem;
-      line-height:1.7;
-    }
-
-    @media(max-width:1000px){
-      .service-grid{grid-template-columns:1fr}
-      .route-layout{grid-template-columns:1fr}
+    @media(max-width:1040px){
+      .header-inner{grid-template-columns:auto 1fr auto}
       .nav-links{display:none}
       .menu-button{display:grid;place-items:center}
-      .platform-strip{grid-template-columns:1fr 1fr}
+      .choice-grid,.app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .continuity-layout,.route-layout,.support-panel{grid-template-columns:1fr}
     }
-    @media(max-width:760px){
-      .principle-grid{grid-template-columns:1fr}
-      .route-row{grid-template-columns:1fr auto}
-      .route-row>div{grid-column:1/-1}
-      .app-directory{grid-template-columns:1fr 1fr}
+    @media(max-width:720px){
+      .utility-inner{flex-direction:column;padding:8px 0}
+      .identity-pill{display:none}
+      .choice-grid,.app-grid,.status-grid,.principle-grid,.identity-details,.continuity-actions,.footer-inner,.footer-links{grid-template-columns:1fr}
       .category-head{grid-template-columns:1fr}
       .category-count{white-space:normal}
+      .directory-toolbar{grid-template-columns:1fr}
+      .route-row{grid-template-columns:1fr auto}
+      .route-row>div{grid-column:1/-1}
+      .platform-strip{grid-template-columns:1fr 1fr}
+      .footer-inner{text-align:center}
+      .copyright{grid-column:auto}
     }
-    @media(max-width:560px){
-      .utility .shell{
-        flex-direction:column;
-        padding:.5rem 0;
-      }
+    @media(max-width:520px){
+      .shell{width:min(calc(100% - 22px),var(--max))}
+      .brand-sub{display:none}
+      .hero-inner{padding:77px 0 66px}
       .actions{display:grid}
       .btn{width:100%}
-      .brand small{display:none}
-      .footer-inner{justify-content:center}
-      .platform-strip,.app-directory{grid-template-columns:1fr}
+      .platform-strip{grid-template-columns:1fr}
+      .section{padding:66px 11px}
       .category-shelf{padding:12px}
+      .support-copy,.support-card{padding:22px}
     }
     @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{
-        scroll-behavior:auto!important;
-        transition:none!important;
-        animation:none!important;
-      }
-    }
-
-    /* =========================================================
-       333 Network — shared local continuity
-       ========================================================= */
-    .network-identity{
-      min-height:34px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 9px;
-      border:1px solid rgba(255,255,255,.15);
-      border-radius:var(--small);
-      color:#dce4ec;
-      background:rgba(255,255,255,.04);
-      font-size:.64rem;
-      white-space:nowrap;
-    }
-    .network-identity-dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:#8290a0;
-      box-shadow:0 0 0 4px rgba(130,144,160,.11);
-    }
-    .network-identity.ready .network-identity-dot{
-      background:var(--green);
-      box-shadow:0 0 0 4px rgba(97,143,117,.14);
-    }
-    .continuity-layout{
-      display:grid;
-      grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
-      gap:11px;
-      align-items:start;
-    }
-    .continuity-card{
-      padding:22px;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      background:#fff;
-      box-shadow:var(--shadow);
-      text-align:left;
-    }
-    .continuity-card.dark{
-      color:#fff;
-      background:
-        radial-gradient(circle at 50% 0,rgba(230,213,173,.09),transparent 22rem),
-        linear-gradient(145deg,var(--midnight-2),var(--midnight));
-    }
-    .continuity-card h3{
-      font-size:2rem;
-      line-height:1.05;
-    }
-    .continuity-card>p{
-      margin:.7rem 0 0;
-      color:var(--muted);
-      font-size:.84rem;
-    }
-    .continuity-card.dark>p{color:#b7c2ce}
-    .identity-overview{
-      display:grid;
-      grid-template-columns:55px minmax(0,1fr);
-      gap:12px;
-      align-items:center;
-      margin-top:16px;
-      padding:15px;
-      border:1px solid rgba(255,255,255,.13);
-      border-radius:var(--radius);
-      background:rgba(255,255,255,.04);
-    }
-    .identity-mark{
-      width:55px;
-      height:48px;
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(230,213,173,.38);
-      border-radius:var(--small);
-      color:var(--gold-soft);
-      background:rgba(255,255,255,.035);
-      font-family:var(--brand);
-      font-size:.64rem;
-      letter-spacing:.08em;
-    }
-    .identity-overview h4{
-      margin:0;
-      color:#fff;
-      font-family:var(--display);
-      font-size:1.45rem;
-      font-weight:var(--weight-text);
-    }
-    .identity-overview p{
-      margin:3px 0 0;
-      color:#aebac7;
-      font-size:.72rem;
-      line-height:1.5;
-    }
-    .identity-details{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:7px;
-      margin-top:11px;
-    }
-    .identity-detail{
-      padding:10px;
-      border:1px solid rgba(255,255,255,.11);
-      border-radius:var(--small);
-      background:rgba(255,255,255,.035);
-    }
-    .identity-detail span{
-      display:block;
-      color:#93a0af;
-      font-size:.56rem;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-    }
-    .identity-detail strong{
-      display:block;
-      margin-top:3px;
-      overflow-wrap:anywhere;
-      color:#eef2f6;
-      font-size:.72rem;
-    }
-    .continuity-actions{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:7px;
-      margin-top:13px;
-    }
-    .continuity-actions a,
-    .continuity-actions button{
-      min-height:40px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:8px 10px;
-      border:1px solid rgba(255,255,255,.18);
-      border-radius:var(--small);
-      color:#fff;
-      background:rgba(255,255,255,.045);
-      font-size:.65rem;
-      font-weight:var(--weight-emphasis);
-      text-align:center;
-      text-transform:uppercase;
-    }
-    .continuity-actions a.primary{
-      color:#111824;
-      border-color:transparent;
-      background:linear-gradient(145deg,var(--gold-soft),var(--gold));
-    }
-    .continuity-actions button:hover,
-    .continuity-actions a:hover{border-color:var(--gold-soft)}
-    .app-status-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:7px;
-      margin-top:16px;
-    }
-    .app-status-card{
-      --accent:var(--teal);
-      min-height:146px;
-      display:flex;
-      flex-direction:column;
-      padding:13px;
-      border:1px solid var(--line);
-      border-top:3px solid var(--accent);
-      border-radius:var(--radius);
-      background:#fffdf9;
-    }
-    .app-status-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:8px;
-    }
-    .app-status-head h4{
-      margin:0;
-      color:var(--midnight);
-      font-family:var(--display);
-      font-size:1.2rem;
-      font-weight:var(--weight-text);
-    }
-    .status-chip{
-      padding:4px 7px;
-      border:1px solid var(--line);
-      border-radius:var(--small);
-      color:var(--muted);
-      background:#f1f1ee;
-      font-size:.54rem;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-    .status-chip.ready{
-      color:#356345;
-      border-color:rgba(97,143,117,.35);
-      background:#eaf4ec;
-    }
-    .app-status-meta{
-      margin:8px 0 0;
-      color:var(--muted);
-      font-size:.68rem;
-      line-height:1.5;
-    }
-    .app-status-card a{
-      min-height:34px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      margin-top:auto;
-      padding:6px 8px;
-      border-radius:var(--small);
-      color:#fff;
-      background:var(--accent);
-      font-size:.61rem;
-      font-weight:var(--weight-emphasis);
-      text-transform:uppercase;
-    }
-    .local-status{
-      width:100%;
-      margin:4px 0 10px;
-      padding:8px 10px;
-      border:1px solid var(--line);
-      border-radius:var(--small);
-      color:var(--muted);
-      background:#f6f3ec;
-      font-size:.65rem;
-      line-height:1.45;
-    }
-    .local-status.ready{
-      color:#356345;
-      border-color:rgba(97,143,117,.3);
-      background:#eaf4ec;
-    }
-    @media(max-width:980px){
-      .continuity-layout{grid-template-columns:1fr}
-    }
-    @media(max-width:620px){
-      .app-status-grid,.identity-details,.continuity-actions{grid-template-columns:1fr}
-      .identity-overview{
-        grid-template-columns:1fr;
-        justify-items:center;
-        text-align:center;
-      }
-      .network-identity{display:none}
+      html{scroll-behavior:auto}
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
     }
   </style>
 </head>
-
 <body id="top">
-  <a class="skip" href="#applications">Skip to 333 applications</a>
+  <a class="skip" href="#start">Skip to network choices</a>
 
   <div class="utility">
-    <div class="shell">
-      <span>333 Network · Sovereign Communications & Infrastructure Gateway</span>
+    <div class="shell utility-inner">
+      <span>333 Network · Local-first communication, community, creation, and infrastructure</span>
       <nav class="utility-links" aria-label="Utility navigation">
-        <a href="../">Verve N Veda</a>
-        <a href="./apps/HOLLO_333_direct_connect_index.html#enroll">Member Enrollment</a>
-        <a href="./apps/EVen_mail_index.html#apply">Email Application</a>
-        <a href="./apps/Bunya_digital_infrastructure_index.html#workspace">Bunya Registry</a>
-        <a href="#routes">Route Directory</a>
+        <a href="https://vervenveda.com/">Verve N Veda</a>
+        <a href="./app/HOLLO_333_direct_connect_index.html#enroll">Member Enrollment</a>
+        <a href="./app/EVen_mail_index.html#apply">Email Application</a>
+        <a class="support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Contribute</a>
       </nav>
     </div>
   </div>
 
   <div class="update-banner" id="updateBanner" hidden>
-    <div class="shell update-banner-inner">
+    <div class="shell update-inner">
       <strong>A new 333 Network version is ready.</strong>
       <button class="update-button" id="applyUpdateButton" type="button">Update Now</button>
       <button class="update-button" id="dismissUpdateButton" type="button">Later</button>
@@ -1042,437 +301,280 @@
   </div>
 
   <header class="header">
-    <div class="shell nav">
+    <div class="shell header-inner">
       <a class="brand" href="#top" aria-label="333 Network home">
         <span class="brand-mark">333</span>
-        <span>
-          <strong>333 Network</strong>
-          <small>Communication · Community · Creation · Infrastructure</small>
+        <span class="brand-copy">
+          <span class="brand-name"></span>
+          <span class="brand-sub">Community Communication Infrastructure</span>
         </span>
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#start">Start Here</a>
         <a href="#continuity">My Network</a>
         <a href="#applications">Applications</a>
-        <a href="#routes">Route Directory</a>
-        <a href="#principles">Network Principles</a>
+        <a href="#routes">Routes</a>
+        <a href="#principles">Principles</a>
+        <a href="#support">Support</a>
       </nav>
 
-      <div class="network-identity" id="networkIdentity" title="Shared HOLLO profile status">
-        <span class="network-identity-dot" aria-hidden="true"></span>
-        <span id="networkIdentityText">Local network</span>
+      <div class="header-tools">
+        <div class="identity-pill" id="networkIdentity" title="Shared HOLLO profile status">
+          <span class="identity-dot" aria-hidden="true"></span>
+          <span id="networkIdentityText">Local network</span>
+        </div>
+        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
       </div>
-
-      <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
     </div>
   </header>
 
   <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#start">Start Here</a>
     <a href="#continuity">My Network</a>
     <a href="#applications">Applications</a>
-    <a href="#routes">Route Directory</a>
-    <a href="#principles">Network Principles</a>
-    <a href="./apps/HOLLO_333_direct_connect_index.html#enroll">Member Enrollment</a>
-  </nav>
-
-  <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <div class="shell">
-      <a href="../">Verve N Veda</a>
-      <span aria-hidden="true">›</span>
-      <span aria-current="page">333 Network</span>
-    </div>
+    <a href="#routes">Routes</a>
+    <a href="#principles">Principles</a>
+    <a href="#support">Support</a>
+    <a href="./app/HOLLO_333_direct_connect_index.html#enroll">Member Enrollment</a>
   </nav>
 
   <main>
-    <section class="hero">
-      <div class="shell hero-copy">
-        <p class="eyebrow">One Enrollment · Six Connected Local Applications</p>
-        <h1>333 Network</h1>
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="shell hero-inner">
+        <p class="eyebrow">One Local Identity · Six Connected Application Spaces</p>
+        <h1 id="heroTitle">333 Network</h1>
         <span class="hero-subtitle">HOLLO · KANSEE · E=VEN MAIL · BAZAAR · SITE · BUNYA</span>
-
-        <p class="hero-lead">
-          Begin in HOLLO to create or connect your member profile, then carry that local identity
-          into meetings, email applications, creative community spaces, website building, and infrastructure planning.
-        </p>
-
-        <p class="hero-note">
-          Each application remains independently understandable and portable. Shared local continuity
-          is active in this browser; verified accounts, global number reservation, mail delivery,
-          hosted meetings, publishing, and cross-device synchronization still require production services.
-        </p>
+        <p class="hero-lead">Begin with the task you need today. Join the network, meet privately, apply for an address, participate creatively, build a site, or organize the infrastructure beneath it.</p>
+        <p class="hero-note">The current applications work locally in this browser. Hosted communication, global identity verification, mail delivery, publishing, and cross-device synchronization require future authenticated services.</p>
 
         <div class="actions">
-          <a class="btn btn-primary" href="./apps/HOLLO_333_direct_connect_index.html#enroll">Begin Member Enrollment</a>
-          <a class="btn btn-secondary" href="#continuity">Check My Local Network</a>
-          <a class="btn btn-secondary" href="#applications">Explore Applications</a>
+          <a class="btn btn-primary" href="./app/HOLLO_333_direct_connect_index.html#enroll">Begin Member Enrollment</a>
+          <a class="btn btn-secondary" href="#start">Choose a Network Tool</a>
           <button class="btn btn-secondary" type="button" data-install-app data-install-label="Install 333 Network">Install 333 Network</button>
+          <a class="btn btn-support" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support the Network</a>
         </div>
 
-        <div class="platform-strip" aria-label="333 Network platform summary">
-          <div class="platform-stat"><strong>06</strong><span>Applications</span></div>
+        <div class="platform-strip" aria-label="333 Network summary">
+          <div class="platform-stat"><strong>06</strong><span>Verified Applications</span></div>
           <div class="platform-stat"><strong id="heroDetectedCount">00</strong><span>Local Records</span></div>
           <div class="platform-stat"><strong id="heroIdentityStatus">Guest</strong><span>Shared Profile</span></div>
           <div class="platform-stat"><strong>PWA</strong><span>Installable Gateway</span></div>
         </div>
-
         <pre class="install-help" data-install-help hidden></pre>
       </div>
     </section>
 
+    <section class="section section-alt" id="start" aria-labelledby="startTitle">
+      <div class="section-inner">
+        <div class="section-heading">
+          <p class="kicker">Start with a purpose</p>
+          <h2 id="startTitle">What would you like to do?</h2>
+          <p>Each doorway opens a verified application file inside the 333 Network. No repository pages and no unfinished destinations are presented as working tools.</p>
+        </div>
 
-    <section class="section" id="continuity">
+        <div class="choice-grid">
+          <a class="choice-card" style="--accent:var(--violet)" href="./app/HOLLO_333_direct_connect_index.html#enroll">
+            <span class="choice-icon" aria-hidden="true">◌</span><h3>Join the Network</h3><p>Create or connect a local HOLLO member identity and trusted contact space.</p><span>Open HOLLO →</span>
+          </a>
+          <a class="choice-card" style="--accent:var(--teal)" href="./app/KANSEE_333_meeting_rooms_index.html">
+            <span class="choice-icon" aria-hidden="true">▦</span><h3>Meet & Collaborate</h3><p>Create, schedule, or join a local meeting room with clear consent controls.</p><span>Open KANSEE →</span>
+          </a>
+          <a class="choice-card" style="--accent:var(--cyan)" href="./app/EVen_mail_index.html#apply">
+            <span class="choice-icon" aria-hidden="true">✉</span><h3>Apply for Email</h3><p>Request an E=Ven address and organize drafts and correspondence locally.</p><span>Open E=Ven Mail →</span>
+          </a>
+          <a class="choice-card" style="--accent:var(--rose)" href="./app/Bazaar_Art_Live_index.html">
+            <span class="choice-icon" aria-hidden="true">✦</span><h3>Enter the Community</h3><p>Explore creative posts, groups, events, reels, and artistic participation.</p><span>Open Bazaar Art Live →</span>
+          </a>
+          <a class="choice-card" style="--accent:var(--green)" href="./app/SIte_builder_index.html">
+            <span class="choice-icon" aria-hidden="true">◇</span><h3>Build a Site</h3><p>Create websites and applications with the SIte builder and Embed Studio.</p><span>Open SIte →</span>
+          </a>
+          <a class="choice-card" style="--accent:var(--amber)" href="./app/Bunya_digital_infrastructure_index.html#workspace">
+            <span class="choice-icon" aria-hidden="true">⌘</span><h3>Plan Infrastructure</h3><p>Organize domains, DNS, deployment, monitoring, backups, and readiness.</p><span>Open Bunya →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="continuity" aria-labelledby="continuityTitle">
       <div class="section-inner">
         <div class="section-heading">
           <p class="kicker">My 333 Network</p>
-          <h2>One local identity, separate application spaces.</h2>
-          <p>
-            This gateway summarizes descriptive records stored by the six applications on this
-            device. It does not read passcodes, private keys, provider credentials, message bodies,
-            or unpublished project content.
-          </p>
+          <h2 id="continuityTitle">One identity, separate application control.</h2>
+          <p>This gateway reads only descriptive local records created by the six applications on this device. It does not display passcodes, private keys, message bodies, credentials, or unpublished project content.</p>
         </div>
 
         <div class="continuity-layout">
           <article class="continuity-card dark">
             <h3>Shared Member Profile</h3>
             <p>HOLLO enrollment is the local doorway into the connected 333 application experience.</p>
-
             <div class="identity-overview">
               <span class="identity-mark" aria-hidden="true">333</span>
-              <div>
-                <h4 id="sharedIdentityName">No HOLLO enrollment detected</h4>
-                <p id="sharedIdentitySummary">Create a profile, use an existing number, or generate a provisional 333 number.</p>
-              </div>
+              <div><h4 id="sharedIdentityName">No HOLLO enrollment detected</h4><p id="sharedIdentitySummary">Create a profile, use an existing number, or generate a provisional 333 number.</p></div>
             </div>
-
             <div class="identity-details">
               <div class="identity-detail"><span>Handle</span><strong id="sharedIdentityHandle">—</strong></div>
               <div class="identity-detail"><span>Member Number</span><strong id="sharedIdentityNumber">—</strong></div>
               <div class="identity-detail"><span>Number Type</span><strong id="sharedIdentityNumberType">—</strong></div>
               <div class="identity-detail"><span>E=Ven Request</span><strong id="sharedIdentityEmail">—</strong></div>
             </div>
-
             <div class="continuity-actions">
-              <a class="primary" href="./apps/HOLLO_333_direct_connect_index.html#enroll" id="holloIdentityAction">Begin HOLLO Enrollment</a>
-              <a href="./apps/EVen_mail_index.html#apply">Apply for E=Ven Email</a>
-              <a href="./apps/Bunya_digital_infrastructure_index.html#workspace">Open Bunya Registry</a>
+              <a class="primary" href="./app/HOLLO_333_direct_connect_index.html#enroll" id="holloIdentityAction">Begin HOLLO Enrollment</a>
+              <a href="./app/EVen_mail_index.html#apply">Apply for E=Ven Email</a>
+              <a href="./app/Bunya_digital_infrastructure_index.html#workspace">Open Bunya Registry</a>
               <button id="refreshContinuityButton" type="button">Refresh Local Status</button>
             </div>
           </article>
 
           <article class="continuity-card">
             <h3>Application Continuity</h3>
-            <p>Local status is determined only by whether each application has created browser records on this device.</p>
-            <div class="app-status-grid" id="appStatusGrid"></div>
+            <p>Local status reflects whether each application has stored a browser record on this device.</p>
+            <div class="status-grid" id="appStatusGrid"></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt" id="applications">
+    <section class="section section-alt" id="applications" aria-labelledby="applicationsTitle">
       <div class="section-inner">
         <div class="section-heading">
-          <p class="kicker">333 Applications</p>
-          <h2>Open only the space you need.</h2>
-          <p>
-            Each application now has a distinct role in the member journey, direct local navigation,
-            shared HOLLO identity handoffs where appropriate, portable browser records, and an honest
-            boundary between working local tools and future production services.
-          </p>
+          <p class="kicker">Verified Application Directory</p>
+          <h2 id="applicationsTitle">Six roles. One organized network.</h2>
+          <p>Search by application, purpose, or feature. All six launch paths were matched to existing files in the repository’s singular <code>app/</code> directory.</p>
+        </div>
+
+        <div class="directory-toolbar">
+          <label><span class="sr-only">Search 333 applications</span><input class="field" id="appSearch" type="search" placeholder="Search meetings, email, art, website, DNS…" autocomplete="off"></label>
+          <button class="clear-button" id="clearSearch" type="button">Clear Search</button>
         </div>
 
         <section class="category-shelf" style="--accent:var(--violet)" aria-labelledby="communicationTitle">
-          <div class="category-head">
-            <div>
-              <h3 id="communicationTitle">Communication</h3>
-              <p>Private contact, meeting rooms, and a personal mail workspace.</p>
-            </div>
-            <span class="category-count">3 applications</span>
-          </div>
-
-          <div class="service-grid">
-            <article class="service-card" style="--accent:var(--violet)">
-              <span class="service-icon" aria-hidden="true">◌</span>
-              <span class="category-tag">Communication</span>
-              <h3>HOLLO™</h3>
-              <span class="service-sub">Direct Connect · 333-222-7777</span>
-              <p>The enrollment and profile doorway for the 333 Network, followed by trusted contacts, messages, and consent-based direct connection.</p>
-              <div class="local-status" data-service-status="hollo">No local HOLLO record detected.</div>
-              <ul class="feature-list">
-                <li>Use an existing number or create a provisional 333 number</li>
-                <li>Shared profile handoff into connected 333 applications</li>
-                <li>Contacts, private threads, presence, and portable backups</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a>
-                <button type="button" data-route="3332227777">Load HOLLO Route</button>
-              </div>
+          <div class="category-head"><div><h3 id="communicationTitle">Communication</h3><p>Member identity, private meeting rooms, and a personal correspondence workspace.</p></div><span class="category-count">3 applications</span></div>
+          <div class="app-grid">
+            <article class="app-card" style="--accent:var(--violet)" data-app data-search="hollo enrollment identity member profile contacts messages direct connect number">
+              <span class="app-icon" aria-hidden="true">◌</span><span class="app-tag">Communication</span><h3>HOLLO™</h3><span class="app-sub">Direct Connect · 333-222-7777</span><p>The enrollment and profile doorway for the 333 Network, followed by trusted contacts and consent-based direct connection.</p>
+              <ul class="feature-list"><li>Existing or provisional member-number pathways</li><li>Shared identity handoff to connected applications</li><li>Contacts, private threads, presence, and backups</li></ul>
+              <div class="app-actions"><a href="./app/HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a><button type="button" data-route="3332227777">Load HOLLO Route</button></div>
             </article>
-
-            <article class="service-card" style="--accent:var(--teal)">
-              <span class="service-icon" aria-hidden="true">▦</span>
-              <span class="category-tag">Communication</span>
-              <h3>KANSEE™</h3>
-              <span class="service-sub">Meeting Rooms · 333-333-7777</span>
-              <p>Private and scheduled meeting rooms that can reuse the member identity created during HOLLO enrollment.</p>
-              <div class="local-status" data-service-status="kansee">No local KANSEE record detected.</div>
-              <ul class="feature-list">
-                <li>Create, schedule, or join with a room code</li>
-                <li>HOLLO identity import with a local meeting-profile fallback</li>
-                <li>Participants, invitations, notes, chat, and media previews</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/KANSEE_333_meeting_rooms_index.html">Open KANSEE</a>
-                <button type="button" data-route="3333337777">Load KANSEE Route</button>
-              </div>
+            <article class="app-card" style="--accent:var(--teal)" data-app data-search="kansee meetings rooms video voice collaboration schedule invitations chat participants">
+              <span class="app-icon" aria-hidden="true">▦</span><span class="app-tag">Communication</span><h3>KANSEE™</h3><span class="app-sub">Meeting Rooms · 333-333-7777</span><p>Private and scheduled meeting rooms that can reuse a locally created HOLLO member identity.</p>
+              <ul class="feature-list"><li>Create, schedule, or join with a room code</li><li>HOLLO identity import or local meeting profile</li><li>Participants, invitations, notes, chat, and previews</li></ul>
+              <div class="app-actions"><a href="./app/KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><button type="button" data-route="3333337777">Load KANSEE Route</button></div>
             </article>
-
-            <article class="service-card" style="--accent:var(--cyan)">
-              <span class="service-icon" aria-hidden="true">✉</span>
-              <span class="category-tag">Communication</span>
-              <h3>E=Ven Mail</h3>
-              <span class="service-sub">Email Applications & Correspondence · Direct Access</span>
-              <p>Apply for an E=Ven address using the HOLLO profile, then organize a local correspondence workspace while approval remains pending.</p>
-              <div class="local-status" data-service-status="even">No local E=Ven application detected.</div>
-              <ul class="feature-list">
-                <li>Requested-address preview and local application reference</li>
-                <li>HOLLO name, handle, and member-number handoff</li>
-                <li>Drafts, folders, correspondence tools, and portable records</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/EVen_mail_index.html#apply">Apply for E=Ven Email</a>
-              </div>
+            <article class="app-card" style="--accent:var(--cyan)" data-app data-search="even mail email application address drafts correspondence inbox folders">
+              <span class="app-icon" aria-hidden="true">✉</span><span class="app-tag">Communication</span><h3>E=Ven Mail</h3><span class="app-sub">Applications & Correspondence</span><p>Apply for an E=Ven address using a HOLLO profile, then organize drafts and correspondence locally.</p>
+              <ul class="feature-list"><li>Requested-address preview and local application reference</li><li>Name, handle, and member-number handoff</li><li>Drafts, folders, correspondence tools, and exports</li></ul>
+              <div class="app-actions"><a href="./app/EVen_mail_index.html#apply">Apply for E=Ven Email</a></div>
             </article>
           </div>
         </section>
 
         <section class="category-shelf" style="--accent:var(--rose)" aria-labelledby="communityTitle">
-          <div class="category-head">
-            <div>
-              <h3 id="communityTitle">Community</h3>
-              <p>Optional creative participation, discovery, groups, events, and artistic exchange.</p>
-            </div>
-            <span class="category-count">1 application</span>
-          </div>
-
-          <div class="service-grid single">
-            <article class="service-card" style="--accent:var(--rose)">
-              <span class="service-icon" aria-hidden="true">✦</span>
-              <span class="category-tag">Community</span>
-              <h3>Bazaar Art Live</h3>
-              <span class="service-sub">Creative Community · 333-444-7777</span>
-              <p>An optional creative community with an organized first-entry experience, HOLLO profile import, or a separate local art identity.</p>
-              <div class="local-status" data-service-status="bazaar">No local Bazaar Art record detected.</div>
-              <ul class="feature-list">
-                <li>Browse publicly before creating a participating profile</li>
-                <li>Posts, stories, reels, groups, events, and artist profiles</li>
-                <li>Portable workspace and media backups with moderation controls</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/Bazaar_Art_Live_index.html">Open Bazaar Art Live</a>
-                <button type="button" data-route="3334447777">Load Community Route</button>
-              </div>
+          <div class="category-head"><div><h3 id="communityTitle">Community</h3><p>Creative participation, discovery, groups, events, posts, and artistic exchange.</p></div><span class="category-count">1 application</span></div>
+          <div class="app-grid single">
+            <article class="app-card" style="--accent:var(--rose)" data-app data-search="bazaar art live community feed posts groups events reels artists creative social">
+              <span class="app-icon" aria-hidden="true">✦</span><span class="app-tag">Community</span><h3>Bazaar Art Live</h3><span class="app-sub">Creative Community · 333-444-7777</span><p>A local-first creative community feed for art, ideas, events, groups, short videos, and trusted participation.</p>
+              <ul class="feature-list"><li>Public browsing and local participating profiles</li><li>Posts, groups, events, comments, reactions, and reels</li><li>Creative identity connected to the broader 333 journey</li></ul>
+              <div class="app-actions"><a href="./app/Bazaar_Art_Live_index.html">Open Bazaar Art Live</a><button type="button" data-route="3334447777">Load Bazaar Route</button></div>
             </article>
           </div>
         </section>
 
         <section class="category-shelf" style="--accent:var(--green)" aria-labelledby="creationTitle">
-          <div class="category-head">
-            <div>
-              <h3 id="creationTitle">Creation</h3>
-              <p>Build websites and application experiences within a transparent local editing environment.</p>
-            </div>
-            <span class="category-count">1 application</span>
-          </div>
-
-          <div class="service-grid single">
-            <article class="service-card" style="--accent:var(--green)">
-              <span class="service-icon" aria-hidden="true">▤</span>
-              <span class="category-tag">Creation</span>
-              <h3>SIte™</h3>
-              <span class="service-sub">Website Builder & Embed Studio · Direct Access</span>
-              <p>A local visual builder for responsive pages, multilingual content, portable projects, and sandboxed HTML, CSS, and JavaScript embeds.</p>
-              <div class="local-status" data-service-status="site">No local SIte project detected.</div>
-              <ul class="feature-list">
-                <li>Pages, blocks, responsive views, and inspector controls</li>
-                <li>Embed Studio with sandbox preview, copy, insert, and update</li>
-                <li>HOLLO profile prefill, restore points, export, and Bunya handoff</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/SIte_builder_index.html">Open SIte</a>
-              </div>
+          <div class="category-head"><div><h3 id="creationTitle">Creation & Infrastructure</h3><p>Build the public experience, then organize the domains, deployment, and operational plan beneath it.</p></div><span class="category-count">2 applications</span></div>
+          <div class="app-grid">
+            <article class="app-card" style="--accent:var(--green)" data-app data-search="site builder website app embed studio pages html css javascript publishing project">
+              <span class="app-icon" aria-hidden="true">◇</span><span class="app-tag">Creation</span><h3>SIte™</h3><span class="app-sub">Website & Application Builder</span><p>A local-first website and application builder connected to identity, correspondence, and infrastructure planning.</p>
+              <ul class="feature-list"><li>Page and application project workspaces</li><li>Embed Studio and local project records</li><li>Portable source and planning handoffs</li></ul>
+              <div class="app-actions"><a href="./app/SIte_builder_index.html">Open SIte Builder</a></div>
+            </article>
+            <article class="app-card" style="--accent:var(--amber)" data-app data-search="bunya infrastructure domains dns deployment hosting monitoring backups security registry">
+              <span class="app-icon" aria-hidden="true">⌘</span><span class="app-tag">Infrastructure</span><h3>Bunya</h3><span class="app-sub">Network Registry & Readiness</span><p>The shared infrastructure console for application detection, editable plans, DNS drafts, monitoring, security, backups, and deployment readiness.</p>
+              <ul class="feature-list"><li>Detect connected local application records</li><li>Create infrastructure plans from projects and identities</li><li>Domains, DNS, monitoring, security, and backups</li></ul>
+              <div class="app-actions"><a href="./app/Bunya_digital_infrastructure_index.html#workspace">Open Bunya Workspace</a></div>
             </article>
           </div>
         </section>
-
-        <section class="category-shelf" style="--accent:var(--amber)" aria-labelledby="infrastructureTitle">
-          <div class="category-head">
-            <div>
-              <h3 id="infrastructureTitle">Infrastructure</h3>
-              <p>Plan domains, deployment, hosting, monitoring, identity, and the future technical foundation of the network.</p>
-            </div>
-            <span class="category-count">1 application</span>
-          </div>
-
-          <div class="service-grid single">
-            <article class="service-card" style="--accent:var(--amber)">
-              <span class="service-icon" aria-hidden="true">⌂</span>
-              <span class="category-tag">Infrastructure</span>
-              <h3>Bunya</h3>
-              <span class="service-sub">Network Registry & Infrastructure · Direct Access</span>
-              <p>The shared infrastructure registry for application detection, identity handoffs, editable plans, DNS drafts, readiness, and portable exports.</p>
-              <div class="local-status" data-service-status="bunya">No local Bunya plan detected.</div>
-              <ul class="feature-list">
-                <li>Detect HOLLO, KANSEE, E=Ven, Bazaar, and SIte records</li>
-                <li>Create infrastructure plans from identity, mail, and SIte projects</li>
-                <li>Domains, DNS, monitoring, security, backups, and deployment planning</li>
-              </ul>
-              <div class="service-actions">
-                <a href="./apps/Bunya_digital_infrastructure_index.html">Open Bunya</a>
-              </div>
-            </article>
-          </div>
-        </section>
+        <p class="empty" id="emptyResults" hidden>No application matches that search.</p>
       </div>
     </section>
 
-    <section class="section" id="routes">
+    <section class="section" id="routes" aria-labelledby="routesTitle">
       <div class="section-inner">
         <div class="section-heading">
           <p class="kicker">Internal Route Directory</p>
-          <h2>Established routes remain clear and unchanged.</h2>
-          <p>
-            The four existing 333 numbers are preserved. SIte, Bunya, and E=Ven Mail are available
-            through direct gateway links until permanent internal routes are intentionally assigned.
-          </p>
+          <h2 id="routesTitle">Established routes remain clear.</h2>
+          <p>The four current 333 routes are preserved. E=Ven Mail, SIte, and Bunya use direct verified application links until permanent routes are intentionally assigned.</p>
         </div>
 
         <div class="route-layout">
           <article class="route-card dark">
-            <h3>333 Route Finder</h3>
-            <p>Enter or load a complete established internal route, then open the matching destination.</p>
-
+            <h3>333 Route Finder</h3><p>Enter or load an established route, then open the matching destination.</p>
             <input class="dial-display" id="dialDisplay" inputmode="numeric" autocomplete="off" maxlength="12" value="333-" aria-label="333 internal route">
-
             <div class="dial-pad" aria-label="Route keypad">
-              <button class="dial-key" type="button" data-key="1">1</button>
-              <button class="dial-key" type="button" data-key="2">2</button>
-              <button class="dial-key" type="button" data-key="3">3</button>
-              <button class="dial-key" type="button" data-key="4">4</button>
-              <button class="dial-key" type="button" data-key="5">5</button>
-              <button class="dial-key" type="button" data-key="6">6</button>
-              <button class="dial-key" type="button" data-key="7">7</button>
-              <button class="dial-key" type="button" data-key="8">8</button>
-              <button class="dial-key" type="button" data-key="9">9</button>
-              <button class="dial-key" type="button" data-key="back" aria-label="Backspace">⌫</button>
-              <button class="dial-key" type="button" data-key="0">0</button>
-              <button class="dial-key" type="button" data-key="clear" aria-label="Clear route">C</button>
+              <button class="dial-key" type="button" data-key="1">1</button><button class="dial-key" type="button" data-key="2">2</button><button class="dial-key" type="button" data-key="3">3</button>
+              <button class="dial-key" type="button" data-key="4">4</button><button class="dial-key" type="button" data-key="5">5</button><button class="dial-key" type="button" data-key="6">6</button>
+              <button class="dial-key" type="button" data-key="7">7</button><button class="dial-key" type="button" data-key="8">8</button><button class="dial-key" type="button" data-key="9">9</button>
+              <button class="dial-key" type="button" data-key="back" aria-label="Backspace">⌫</button><button class="dial-key" type="button" data-key="0">0</button><button class="dial-key" type="button" data-key="clear" aria-label="Clear route">C</button>
             </div>
-
-            <div class="dial-actions">
-              <button id="resetRoute" type="button">Reset</button>
-              <button id="openRoute" type="button">Open Route</button>
-            </div>
-
-            <div class="dial-status" id="dialStatus" role="status" aria-live="polite">
-              Ready for an established internal 333 service route.
-            </div>
+            <div class="dial-actions"><button id="resetRoute" type="button">Reset</button><button id="openRoute" type="button">Open Route</button></div>
+            <div class="dial-status" id="dialStatus" role="status" aria-live="polite">Ready for an established internal 333 service route.</div>
           </article>
 
           <article class="route-card">
-            <h3>333 Route Map</h3>
-            <p>The following numbers are already established in the current network documents and applications.</p>
-
+            <h3>333 Route Map</h3><p>These numbers are established in the current network.</p>
             <div class="route-list">
-              <div class="route-row">
-                <span class="route-number">333-111-7777</span>
-                <div><strong>333 Network Entry</strong><small>Main identity and central gateway.</small></div>
-                <button class="copy-button" type="button" data-copy="333-111-7777">Copy</button>
-              </div>
-
-              <div class="route-row">
-                <span class="route-number">333-222-7777</span>
-                <div><strong>HOLLO Direct Connect</strong><small>Contacts, messages, and private invitations.</small></div>
-                <button class="copy-button" type="button" data-copy="333-222-7777">Copy</button>
-              </div>
-
-              <div class="route-row">
-                <span class="route-number">333-333-7777</span>
-                <div><strong>KANSEE Meeting Rooms</strong><small>Private rooms, scheduled meetings, and group collaboration.</small></div>
-                <button class="copy-button" type="button" data-copy="333-333-7777">Copy</button>
-              </div>
-
-              <div class="route-row">
-                <span class="route-number">333-444-7777</span>
-                <div><strong>Bazaar Art Live</strong><small>Creative feed, groups, events, posts, and reels.</small></div>
-                <button class="copy-button" type="button" data-copy="333-444-7777">Copy</button>
-              </div>
-            </div>
-
-            <h3 style="margin-top:1.4rem">Direct Application Directory</h3>
-            <p>These launch paths do not claim unapproved internal numbers.</p>
-
-            <div class="app-directory">
-              <a href="./apps/HOLLO_333_direct_connect_index.html"><strong>HOLLO</strong><small>Direct Connect</small></a>
-              <a href="./apps/KANSEE_333_meeting_rooms_index.html"><strong>KANSEE</strong><small>Meeting Rooms</small></a>
-              <a href="./apps/EVen_mail_index.html#apply"><strong>E=Ven Mail</strong><small>Email Application</small></a>
-              <a href="./apps/Bazaar_Art_Live_index.html"><strong>Bazaar Art Live</strong><small>Creative Community</small></a>
-              <a href="./apps/SIte_builder_index.html"><strong>SIte</strong><small>Builder & Embed Studio</small></a>
-              <a href="./apps/Bunya_digital_infrastructure_index.html#workspace"><strong>Bunya</strong><small>Network Registry</small></a>
+              <div class="route-row"><span class="route-number">333-111-7777</span><div><strong>333 Network Entry</strong><small>Main gateway and application directory.</small></div><button class="copy-button" type="button" data-copy="333-111-7777">Copy</button></div>
+              <div class="route-row"><span class="route-number">333-222-7777</span><div><strong>HOLLO Direct Connect</strong><small>Enrollment, contacts, messages, and private invitations.</small></div><button class="copy-button" type="button" data-copy="333-222-7777">Copy</button></div>
+              <div class="route-row"><span class="route-number">333-333-7777</span><div><strong>KANSEE Meeting Rooms</strong><small>Private rooms, scheduled meetings, and collaboration.</small></div><button class="copy-button" type="button" data-copy="333-333-7777">Copy</button></div>
+              <div class="route-row"><span class="route-number">333-444-7777</span><div><strong>Bazaar Art Live</strong><small>Creative feed, groups, events, posts, and reels.</small></div><button class="copy-button" type="button" data-copy="333-444-7777">Copy</button></div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-dark" id="principles">
+    <section class="section section-dark" id="principles" aria-labelledby="principlesTitle">
       <div class="section-inner">
-        <div class="section-heading">
-          <p class="kicker">Network Principles</p>
-          <h2>Connection should remain understandable and voluntary.</h2>
-        </div>
-
+        <div class="section-heading"><p class="kicker">Network Principles</p><h2 id="principlesTitle">Connection should remain understandable and voluntary.</h2></div>
         <div class="principle-grid">
-          <article class="principle">
-            <h3>Connection by Choice</h3>
-            <p>Members decide whether to answer, join, activate media, appear in a directory, publish work, or participate in a community feed.</p>
-          </article>
-
-          <article class="principle">
-            <h3>Shared Identity, Separate Control</h3>
-            <p>HOLLO can supply a local member identity while each application keeps its own purpose, profile choices, permissions, data, and export controls.</p>
-          </article>
-
-          <article class="principle">
-            <h3>Honest Infrastructure</h3>
-            <p>Local browser tools are not represented as live carrier, hosted meeting, mail-delivery, or synchronized cloud services until those systems exist.</p>
-          </article>
+          <article class="principle"><h3>Connection by Choice</h3><p>Members decide whether to answer, join, activate media, appear in a directory, publish work, or participate in a community feed.</p></article>
+          <article class="principle"><h3>Shared Identity, Separate Control</h3><p>HOLLO can supply a local identity while each application keeps its own purpose, permissions, records, and export controls.</p></article>
+          <article class="principle"><h3>Honest Infrastructure</h3><p>Local browser tools are not represented as live carrier, hosted meeting, mail-delivery, publishing, or synchronized cloud services until those systems exist.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section section-alt">
-      <div class="section-inner">
-        <article class="notice">
-          <strong>Current build notice:</strong> HOLLO enrollment handoffs, E=Ven applications,
-          KANSEE workspaces, Bazaar profiles and feeds, SIte projects with Embed Studio, and the
-          Bunya registry operate locally in this browser. Verified accounts, permanent global 333
-          number reservation, hosted meetings, external mail delivery, synchronized community activity,
-          remote publishing, provider APIs, and cross-device continuity still require authenticated backend services.
+    <section class="section section-alt" id="support" aria-labelledby="supportTitle">
+      <div class="section-inner support-panel">
+        <article class="support-copy">
+          <p class="kicker">Contribute to the network</p>
+          <h2 id="supportTitle">Help sustain open, thoughtful digital infrastructure.</h2>
+          <p>Contributions support continued development, accessibility, documentation, testing, educational access, and the careful expansion of the Verve N Veda ecosystem.</p>
+          <p>The contribution page opens through Stripe in a new tab. Contributions do not create a membership, account, ownership interest, or guaranteed service entitlement.</p>
         </article>
+        <aside class="support-card">
+          <strong>Support 333 Network</strong>
+          <p>Help maintain the gateway and continue building the communication, community, creation, and infrastructure tools around it.</p>
+          <a class="btn btn-primary" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Open Secure Contribution Page</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <article class="notice"><strong>Current build notice:</strong> HOLLO enrollment handoffs, E=Ven applications, KANSEE workspaces, Bazaar profiles and feeds, SIte projects, and the Bunya registry operate locally in this browser. Verified accounts, permanent global number reservation, hosted meetings, external mail delivery, synchronized community activity, remote publishing, provider APIs, and cross-device continuity require authenticated backend services.</article>
       </div>
     </section>
   </main>
 
   <footer>
     <div class="shell footer-inner">
-      <span><strong>333 Network</strong> · HOLLO · KANSEE · E=Ven Mail · Bazaar Art Live · SIte · Bunya</span>
+      <div class="footer-brand"><h2>333 Network</h2><p>HOLLO · KANSEE · E=Ven Mail · Bazaar Art Live · SIte · Bunya. A local-first network gateway within Verve N Veda.</p></div>
       <nav class="footer-links" aria-label="Footer navigation">
-        <a href="#applications">Applications</a>
-        <a href="#routes">Route Directory</a>
-        <a href="#principles">Principles</a>
-        <a href="#top">Back to Top</a>
+        <a href="#start">Start Here</a><a href="#applications">Applications</a><a href="#continuity">My Network</a><a href="#routes">Route Directory</a><a href="#principles">Principles</a><a href="#support">Contribute</a><a href="https://vervenveda.com/">Verve N Veda</a><a href="#top">Back to Top</a>
       </nav>
+      <div class="copyright">© <span id="year"></span> Jennifer Kay Pearl · 333 Network · Verve N Veda · All Rights Reserved.</div>
     </div>
   </footer>
 
@@ -1482,527 +584,199 @@
     (() => {
       "use strict";
 
-      const APP_STORAGE = Object.freeze({
-        hollo: "hollo_333_direct_connect_v1",
-        identityHandoff: "333_identity_handoff_v1",
-        kansee: "kansee_333_workspace_v1",
-        even: "even_mail_workspace_v2",
-        bazaar: "bazaar_live_frontend_v1",
-        site: "SITE_ALPHA_V070",
-        bunya: "bunya_infrastructure_workspace_v2"
+      const STORAGE = Object.freeze({
+        hollo:"hollo_333_direct_connect_v1",
+        identityHandoff:"333_identity_handoff_v1",
+        kansee:"kansee_333_workspace_v1",
+        even:"even_mail_workspace_v2",
+        bazaar:"bazaar_live_frontend_v1",
+        site:"SITE_ALPHA_V070",
+        bunya:"bunya_infrastructure_workspace_v2"
       });
 
-      const APP_LINKS = Object.freeze({
-        hollo: "./apps/HOLLO_333_direct_connect_index.html#enroll",
-        kansee: "./apps/KANSEE_333_meeting_rooms_index.html",
-        even: "./apps/EVen_mail_index.html#apply",
-        bazaar: "./apps/Bazaar_Art_Live_index.html",
-        site: "./apps/SIte_builder_index.html",
-        bunya: "./apps/Bunya_digital_infrastructure_index.html#workspace"
+      const LINKS = Object.freeze({
+        hollo:"./app/HOLLO_333_direct_connect_index.html#enroll",
+        kansee:"./app/KANSEE_333_meeting_rooms_index.html",
+        even:"./app/EVen_mail_index.html#apply",
+        bazaar:"./app/Bazaar_Art_Live_index.html",
+        site:"./app/SIte_builder_index.html",
+        bunya:"./app/Bunya_digital_infrastructure_index.html#workspace"
       });
 
       const ROUTES = Object.freeze({
-        "3331117777": {
-          name: "333 Network Entry",
-          href: "#applications",
-          message: "Opening the complete 333 application directory."
-        },
-        "3332227777": {
-          name: "HOLLO Direct Connect",
-          href: "./apps/HOLLO_333_direct_connect_index.html",
-          message: "Opening HOLLO Direct Connect."
-        },
-        "3333337777": {
-          name: "KANSEE Meeting Rooms",
-          href: "./apps/KANSEE_333_meeting_rooms_index.html",
-          message: "Opening KANSEE Meeting Rooms."
-        },
-        "3334447777": {
-          name: "Bazaar Art Live",
-          href: "./apps/Bazaar_Art_Live_index.html",
-          message: "Opening Bazaar Art Live."
-        }
+        "3331117777":{name:"333 Network Entry",href:"#applications"},
+        "3332227777":{name:"HOLLO Direct Connect",href:"./app/HOLLO_333_direct_connect_index.html"},
+        "3333337777":{name:"KANSEE Meeting Rooms",href:"./app/KANSEE_333_meeting_rooms_index.html"},
+        "3334447777":{name:"Bazaar Art Live",href:"./app/Bazaar_Art_Live_index.html"}
       });
 
-      const display = document.getElementById("dialDisplay");
-      const status = document.getElementById("dialStatus");
-      const toast = document.getElementById("toast");
-      const menuButton = document.getElementById("menuButton");
-      const mobileMenu = document.getElementById("mobileMenu");
-      const updateBanner = document.getElementById("updateBanner");
-      const applyUpdateButton = document.getElementById("applyUpdateButton");
-      const dismissUpdateButton = document.getElementById("dismissUpdateButton");
-      const networkIdentity = document.getElementById("networkIdentity");
-      const networkIdentityText = document.getElementById("networkIdentityText");
-      const refreshContinuityButton = document.getElementById("refreshContinuityButton");
-      const appStatusGrid = document.getElementById("appStatusGrid");
-
-      let updateAvailable = false;
-      let updateInProgress = false;
-
-
-      function readLocalJson(key){
-        try{
-          const raw = localStorage.getItem(key);
-          return raw ? JSON.parse(raw) : null;
-        }catch{
-          return null;
-        }
-      }
-
-      function cleanText(value){
-        return String(value ?? "").trim();
-      }
-
-      function normalizeMemberNumber(value){
-        return String(value || "").replace(/\D/g,"").slice(0,15);
-      }
-
-      function readSharedIdentity(){
-        const handoff = readLocalJson(APP_STORAGE.identityHandoff);
-        const hollo = readLocalJson(APP_STORAGE.hollo);
-
-        const source =
-          handoff?.enrollment?.complete && handoff?.profile
-            ? handoff
-            : hollo?.enrollment?.complete && hollo?.profile
-              ? hollo
-              : handoff?.profile
-                ? handoff
-                : hollo?.profile
-                  ? hollo
-                  : null;
-
-        if(!source?.profile) return null;
-
-        return {
-          name: cleanText(source.profile.name),
-          handle: cleanText(source.profile.handle),
-          number: normalizeMemberNumber(source.profile.number || source.profile.number333),
-          numberKind: cleanText(source.profile.numberKind || source.enrollment?.numberChoice),
-          complete: Boolean(source.enrollment?.complete)
-        };
-      }
-
-      function readEvenSummary(){
-        const state = readLocalJson(APP_STORAGE.even);
-        const applications = Array.isArray(state?.applications) ? state.applications : [];
-        const mailboxes = Array.isArray(state?.mailboxes) ? state.mailboxes : [];
-        const latest = [...applications]
-          .filter(application => application && application.status !== "withdrawn-local")
-          .sort((a,b) => new Date(b.updatedAt || 0) - new Date(a.updatedAt || 0))[0] || null;
-
-        const address = latest?.requestedLocalPart && latest?.domain
-          ? `${latest.requestedLocalPart}@${latest.domain}`
-          : "";
-
-        return { state, applications, mailboxes, latest, address };
-      }
-
-      function readApplicationStatus(){
-        const hollo = readLocalJson(APP_STORAGE.hollo);
-        const kansee = readLocalJson(APP_STORAGE.kansee);
-        const even = readEvenSummary();
-        const bazaar = readLocalJson(APP_STORAGE.bazaar);
-        const site = readLocalJson(APP_STORAGE.site);
-        const bunya = readLocalJson(APP_STORAGE.bunya);
-        const identity = readSharedIdentity();
-
-        return {
-          identity,
-          even,
-          apps: [
-            {
-              id:"hollo",
-              name:"HOLLO",
-              accent:"var(--violet)",
-              href:APP_LINKS.hollo,
-              detected:Boolean(hollo),
-              ready:Boolean(hollo?.enrollment?.complete),
-              meta:hollo?.enrollment?.complete
-                ? `Enrollment complete · ${Array.isArray(hollo.contacts) ? hollo.contacts.length : 0} contacts`
-                : hollo
-                  ? "Local profile or enrollment draft detected"
-                  : "Begin enrollment to create the shared member profile"
-            },
-            {
-              id:"kansee",
-              name:"KANSEE",
-              accent:"var(--teal)",
-              href:APP_LINKS.kansee,
-              detected:Boolean(kansee),
-              ready:Boolean(kansee?.profile?.source === "hollo"),
-              meta:kansee
-                ? `${Array.isArray(kansee.meetings) ? kansee.meetings.length : 0} meetings · ${kansee.profile?.source === "hollo" ? "HOLLO identity" : "local meeting profile"}`
-                : "No meeting workspace has been created on this device"
-            },
-            {
-              id:"even",
-              name:"E=Ven Mail",
-              accent:"var(--cyan)",
-              href:APP_LINKS.even,
-              detected:Boolean(even.state),
-              ready:Boolean(even.latest),
-              meta:even.latest
-                ? `${even.applications.length} application${even.applications.length === 1 ? "" : "s"} · ${even.address || "requested address saved"}`
-                : even.state
-                  ? "Mail workspace detected without an active application"
-                  : "No email application has been created on this device"
-            },
-            {
-              id:"bazaar",
-              name:"Bazaar Art Live",
-              accent:"var(--rose)",
-              href:APP_LINKS.bazaar,
-              detected:Boolean(bazaar),
-              ready:Boolean(bazaar?.currentUserId),
-              meta:bazaar
-                ? `${Array.isArray(bazaar.posts) ? bazaar.posts.length : 0} posts · ${bazaar.currentUserId ? "participating profile selected" : "public browsing mode"}`
-                : "No Bazaar workspace has been opened on this device"
-            },
-            {
-              id:"site",
-              name:"SIte",
-              accent:"var(--green)",
-              href:APP_LINKS.site,
-              detected:Boolean(site),
-              ready:Boolean(site?.pages?.length),
-              meta:site
-                ? `${Array.isArray(site.pages) ? site.pages.length : 0} pages · Embed Studio available`
-                : "No SIte project has been created on this device"
-            },
-            {
-              id:"bunya",
-              name:"Bunya",
-              accent:"var(--amber)",
-              href:APP_LINKS.bunya,
-              detected:Boolean(bunya),
-              ready:Boolean(bunya?.plans?.length),
-              meta:bunya
-                ? `${Array.isArray(bunya.plans) ? bunya.plans.length : 0} infrastructure plans · registry active`
-                : "No Bunya infrastructure plan has been created yet"
-            }
-          ]
-        };
-      }
-
-      function updateCardStatus(app){
-        const element = document.querySelector(`[data-service-status="${app.id}"]`);
-        if(!element) return;
-        element.textContent = app.meta;
-        element.classList.toggle("ready", app.ready);
-      }
-
-      function renderContinuity(){
-        const registry = readApplicationStatus();
-        const identity = registry.identity;
-        const detected = registry.apps.filter(app => app.detected).length;
-
-        document.getElementById("heroDetectedCount").textContent =
-          String(detected).padStart(2,"0");
-
-        document.getElementById("heroIdentityStatus").textContent =
-          identity?.complete ? "Enrolled" : identity ? "Draft" : "Guest";
-
-        document.getElementById("sharedIdentityName").textContent =
-          identity?.name || "No HOLLO enrollment detected";
-
-        document.getElementById("sharedIdentitySummary").textContent =
-          identity?.complete
-            ? "This local member profile can continue into the rebuilt 333 applications."
-            : identity
-              ? "A HOLLO profile exists, but enrollment is not marked complete."
-              : "Create a profile, use an existing number, or generate a provisional 333 number.";
-
-        document.getElementById("sharedIdentityHandle").textContent =
-          identity?.handle || "—";
-
-        document.getElementById("sharedIdentityNumber").textContent =
-          identity?.number || "—";
-
-        document.getElementById("sharedIdentityNumberType").textContent =
-          identity?.numberKind === "network"
-            ? "Provisional 333 number"
-            : identity?.numberKind === "existing"
-              ? "Existing number"
-              : "—";
-
-        document.getElementById("sharedIdentityEmail").textContent =
-          registry.even.address || "—";
-
-        const identityAction = document.getElementById("holloIdentityAction");
-        identityAction.textContent = identity?.complete
-          ? "Open HOLLO Profile"
-          : "Begin HOLLO Enrollment";
-
-        networkIdentity.classList.toggle("ready", Boolean(identity?.complete));
-        networkIdentityText.textContent = identity?.complete
-          ? `${identity.name || "Member"} · HOLLO`
-          : "Local network";
-
-        appStatusGrid.textContent = "";
-
-        registry.apps.forEach(app => {
-          updateCardStatus(app);
-
-          const card = document.createElement("article");
-          card.className = "app-status-card";
-          card.style.setProperty("--accent", app.accent);
-
-          const head = document.createElement("div");
-          head.className = "app-status-head";
-
-          const title = document.createElement("h4");
-          title.textContent = app.name;
-
-          const chip = document.createElement("span");
-          chip.className = `status-chip${app.ready ? " ready" : ""}`;
-          chip.textContent = app.ready
-            ? "Ready locally"
-            : app.detected
-              ? "Data detected"
-              : "Not started";
-
-          head.append(title, chip);
-
-          const meta = document.createElement("p");
-          meta.className = "app-status-meta";
-          meta.textContent = app.meta;
-
-          const link = document.createElement("a");
-          link.href = app.href;
-          link.textContent = `Open ${app.name}`;
-
-          card.append(head, meta, link);
-          appStatusGrid.appendChild(card);
-        });
-      }
-
-      function digitsOnly(value){
-        return String(value || "").replace(/\D/g,"").slice(0,10);
-      }
-
-      function formatRoute(value){
-        const digits = digitsOnly(value);
-        if(!digits) return "";
-        if(digits.length <= 3) return digits;
-        if(digits.length <= 6) return digits.slice(0,3) + "-" + digits.slice(3);
-        return digits.slice(0,3) + "-" + digits.slice(3,6) + "-" + digits.slice(6);
-      }
-
-      function setRoute(value){
-        display.value = formatRoute(value);
-      }
+      const $ = (selector, root=document) => root.querySelector(selector);
+      const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+      const toast = $("#toast");
+      let toastTimer = null;
 
       function showToast(message){
         toast.textContent = message;
         toast.classList.add("show");
-        clearTimeout(showToast.timer);
-        showToast.timer = setTimeout(() => toast.classList.remove("show"), 1900);
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
       }
 
-      async function copyValue(value){
-        try{
-          await navigator.clipboard.writeText(value);
-          showToast(value + " copied");
-        }catch{
-          const text = document.createElement("textarea");
-          text.value = value;
-          text.setAttribute("aria-hidden","true");
-          text.style.position = "fixed";
-          text.style.opacity = "0";
-          document.body.appendChild(text);
-          text.select();
-          document.execCommand("copy");
-          text.remove();
-          showToast(value + " copied");
-        }
+      function safeJson(key){
+        try{const raw=localStorage.getItem(key);return raw?JSON.parse(raw):null}catch{return null}
+      }
+      function clean(value){return String(value ?? "").trim()}
+      function digits(value){return String(value || "").replace(/\D/g,"").slice(0,15)}
+      function formatNumber(value){
+        const number=digits(value);
+        if(number.length===10)return `${number.slice(0,3)}-${number.slice(3,6)}-${number.slice(6)}`;
+        return number || "—";
       }
 
-      function openSelectedRoute(){
-        const digits = digitsOnly(display.value);
+      function readIdentity(){
+        const handoff=safeJson(STORAGE.identityHandoff);
+        const hollo=safeJson(STORAGE.hollo);
+        const source=handoff?.profile?handoff:hollo?.profile?hollo:null;
+        if(!source?.profile)return null;
+        return {
+          name:clean(source.profile.name),
+          handle:clean(source.profile.handle),
+          number:digits(source.profile.number || source.profile.number333),
+          numberKind:clean(source.profile.numberKind || source.enrollment?.numberChoice),
+          complete:Boolean(source.enrollment?.complete)
+        };
+      }
 
-        if(digits.length !== 10){
-          status.textContent = "Enter a complete ten-digit internal route beginning with 333.";
-          return;
-        }
+      function readEven(){
+        const state=safeJson(STORAGE.even);
+        const applications=Array.isArray(state?.applications)?state.applications:[];
+        const latest=[...applications].filter(item=>item&&item.status!=="withdrawn-local").sort((a,b)=>new Date(b.updatedAt||0)-new Date(a.updatedAt||0))[0]||null;
+        const address=latest?.requestedLocalPart&&latest?.domain?`${latest.requestedLocalPart}@${latest.domain}`:"";
+        return {state,applications,latest,address};
+      }
 
-        if(!digits.startsWith("333")){
-          status.textContent = "This gateway recognizes internal routes beginning with 333.";
-          return;
-        }
+      function currentStatus(){
+        const identity=readIdentity();
+        const even=readEven();
+        const data={
+          hollo:safeJson(STORAGE.hollo),kansee:safeJson(STORAGE.kansee),even,
+          bazaar:safeJson(STORAGE.bazaar),site:safeJson(STORAGE.site),bunya:safeJson(STORAGE.bunya)
+        };
+        return {identity,even,apps:[
+          {id:"hollo",name:"HOLLO",accent:"var(--violet)",href:LINKS.hollo,detected:Boolean(data.hollo),ready:Boolean(identity?.complete),meta:data.hollo?(identity?.complete?"Enrollment complete":"Profile or enrollment draft detected"):"No local member record detected"},
+          {id:"kansee",name:"KANSEE",accent:"var(--teal)",href:LINKS.kansee,detected:Boolean(data.kansee),ready:Boolean(data.kansee?.profile),meta:data.kansee?`${Array.isArray(data.kansee.meetings)?data.kansee.meetings.length:0} meeting records detected`:"No local meeting workspace detected"},
+          {id:"even",name:"E=Ven Mail",accent:"var(--cyan)",href:LINKS.even,detected:Boolean(even.state),ready:Boolean(even.latest),meta:even.latest?(even.address||"Active application detected"):"No active email application detected"},
+          {id:"bazaar",name:"Bazaar Art Live",accent:"var(--rose)",href:LINKS.bazaar,detected:Boolean(data.bazaar),ready:Boolean(data.bazaar?.currentUserId),meta:data.bazaar?`${Array.isArray(data.bazaar.posts)?data.bazaar.posts.length:0} local posts detected`:"No local creative workspace detected"},
+          {id:"site",name:"SIte",accent:"var(--green)",href:LINKS.site,detected:Boolean(data.site),ready:Boolean(data.site?.pages?.length),meta:data.site?`${Array.isArray(data.site.pages)?data.site.pages.length:0} project pages detected`:"No local SIte project detected"},
+          {id:"bunya",name:"Bunya",accent:"var(--amber)",href:LINKS.bunya,detected:Boolean(data.bunya),ready:Boolean(data.bunya?.plans?.length||data.bunya?.projects?.length),meta:data.bunya?"Infrastructure workspace detected":"No local infrastructure plan detected"}
+        ]};
+      }
 
-        const route = ROUTES[digits];
+      function renderContinuity(){
+        const status=currentStatus();
+        const detected=status.apps.filter(app=>app.detected).length;
+        $("#heroDetectedCount").textContent=String(detected).padStart(2,"0");
+        $("#heroIdentityStatus").textContent=status.identity?.complete?"Ready":status.identity?"Draft":"Guest";
+        const pill=$("#networkIdentity");
+        pill.classList.toggle("ready",Boolean(status.identity));
+        $("#networkIdentityText").textContent=status.identity?.handle||status.identity?.name||"Local network";
 
-        if(!route){
-          status.textContent = "This 333 route is not assigned in the current public gateway.";
-          return;
-        }
-
-        status.textContent = route.message;
-        showToast(route.name);
-
-        if(route.href.startsWith("#")){
-          document.querySelector(route.href)?.scrollIntoView({
-            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
-          });
+        if(status.identity){
+          $("#sharedIdentityName").textContent=status.identity.name||"HOLLO member profile";
+          $("#sharedIdentitySummary").textContent=status.identity.complete?"A completed local HOLLO enrollment is available to connected applications.":"A local HOLLO profile or enrollment draft is available.";
+          $("#sharedIdentityHandle").textContent=status.identity.handle||"—";
+          $("#sharedIdentityNumber").textContent=formatNumber(status.identity.number);
+          $("#sharedIdentityNumberType").textContent=status.identity.numberKind||"Local profile";
+          $("#holloIdentityAction").textContent=status.identity.complete?"Open HOLLO Profile":"Continue HOLLO Enrollment";
         }else{
-          window.location.assign(route.href);
+          $("#sharedIdentityName").textContent="No HOLLO enrollment detected";
+          $("#sharedIdentitySummary").textContent="Create a profile, use an existing number, or generate a provisional 333 number.";
+          $("#sharedIdentityHandle").textContent="—";
+          $("#sharedIdentityNumber").textContent="—";
+          $("#sharedIdentityNumberType").textContent="—";
+          $("#holloIdentityAction").textContent="Begin HOLLO Enrollment";
         }
+        $("#sharedIdentityEmail").textContent=status.even.address||"—";
+
+        $("#appStatusGrid").innerHTML=status.apps.map(app=>`
+          <article class="status-card" style="--accent:${app.accent}">
+            <div class="status-head"><h4>${app.name}</h4><span class="status-chip ${app.ready?"ready":""}">${app.ready?"Ready":app.detected?"Local record":"Not started"}</span></div>
+            <p class="status-meta">${app.meta}</p><a href="${app.href}">Open ${app.name}</a>
+          </article>`).join("");
       }
 
-      function closeMobileMenu(){
-        mobileMenu.classList.remove("open");
-        menuButton.setAttribute("aria-expanded","false");
-        menuButton.setAttribute("aria-label","Open navigation");
-        menuButton.textContent = "☰";
-      }
+      const menuButton=$("#menuButton");
+      const mobileMenu=$("#mobileMenu");
+      menuButton.addEventListener("click",()=>{
+        const open=mobileMenu.classList.toggle("open");
+        document.body.classList.toggle("menu-open",open);
+        menuButton.setAttribute("aria-expanded",String(open));
+        menuButton.textContent=open?"×":"☰";
+      });
+      $$("#mobileMenu a").forEach(link=>link.addEventListener("click",()=>{
+        mobileMenu.classList.remove("open");document.body.classList.remove("menu-open");menuButton.setAttribute("aria-expanded","false");menuButton.textContent="☰";
+      }));
 
-      function showUpdateBanner(){
-        updateAvailable = true;
-        updateBanner.hidden = false;
-      }
-
-      async function applyServiceWorkerUpdate(){
-        if(updateInProgress) return;
-        updateInProgress = true;
-        applyUpdateButton.disabled = true;
-        applyUpdateButton.textContent = "Updating…";
-
-        if(!("serviceWorker" in navigator)){
-          window.location.reload();
-          return;
-        }
-
-        try{
-          const registration = await navigator.serviceWorker.getRegistration();
-          const waitingWorker = registration?.waiting;
-
-          if(!waitingWorker){
-            window.location.reload();
-            return;
-          }
-
-          let reloaded = false;
-          navigator.serviceWorker.addEventListener("controllerchange", () => {
-            if(reloaded) return;
-            reloaded = true;
-            window.location.reload();
-          });
-
-          waitingWorker.postMessage({type:"SKIP_WAITING"});
-
-          setTimeout(() => {
-            if(!reloaded) window.location.reload();
-          }, 3500);
-        }catch{
-          window.location.reload();
-        }
-      }
-
-      display.addEventListener("input", () => setRoute(display.value));
-
-      document.querySelectorAll("[data-key]").forEach(button => {
-        button.addEventListener("click", () => {
-          const key = button.dataset.key;
-          let digits = digitsOnly(display.value);
-
-          if(key === "back") digits = digits.slice(0,-1);
-          else if(key === "clear") digits = "333";
-          else if(digits.length < 10) digits += key;
-
-          setRoute(digits);
+      const search=$("#appSearch");
+      function filterApps(){
+        const query=search.value.trim().toLowerCase();
+        let visible=0;
+        $$('[data-app]').forEach(card=>{
+          const show=!query||card.dataset.search.includes(query)||card.textContent.toLowerCase().includes(query);
+          card.hidden=!show;if(show)visible+=1;
         });
-      });
-
-      document.getElementById("resetRoute").addEventListener("click", () => {
-        setRoute("333");
-        status.textContent = "Ready for an established internal 333 service route.";
-      });
-
-      document.getElementById("openRoute").addEventListener("click", openSelectedRoute);
-
-      display.addEventListener("keydown", event => {
-        if(event.key === "Enter"){
-          event.preventDefault();
-          openSelectedRoute();
-        }
-      });
-
-      document.querySelectorAll("[data-copy]").forEach(button => {
-        button.addEventListener("click", () => copyValue(button.dataset.copy));
-      });
-
-      document.querySelectorAll("[data-route]").forEach(button => {
-        button.addEventListener("click", () => {
-          setRoute(button.dataset.route);
-          document.getElementById("routes").scrollIntoView({
-            behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
-          });
-          status.textContent = "Route loaded. Select Open Route to continue.";
-        });
-      });
-
-      menuButton.addEventListener("click", () => {
-        const open = mobileMenu.classList.toggle("open");
-        menuButton.setAttribute("aria-expanded", String(open));
-        menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
-        menuButton.textContent = open ? "×" : "☰";
-      });
-
-      mobileMenu.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", closeMobileMenu);
-      });
-
-      applyUpdateButton.addEventListener("click", applyServiceWorkerUpdate);
-
-      dismissUpdateButton.addEventListener("click", () => {
-        updateBanner.hidden = true;
-      });
-
-      window.addEventListener("333-app-update-ready", showUpdateBanner);
-
-      refreshContinuityButton.addEventListener("click", () => {
-        renderContinuity();
-        showToast("Local 333 application status refreshed");
-      });
-
-      window.addEventListener("storage", event => {
-        if(Object.values(APP_STORAGE).includes(event.key)){
-          renderContinuity();
-        }
-      });
-
-      [
-        "333-hollo-profile-created",
-        "333-kansee-identity-imported",
-        "333-even-mail-application-created",
-        "333-bazaar-profile-created",
-        "333-bazaar-profile-imported",
-        "333-site-profile-created",
-        "333-site-hollo-profile-imported"
-      ].forEach(eventName => {
-        document.addEventListener(eventName, renderContinuity);
-      });
-
-      if("serviceWorker" in navigator){
-        navigator.serviceWorker.getRegistration()
-          .then(registration => {
-            if(registration?.waiting) showUpdateBanner();
-          })
-          .catch(() => {});
+        $$(".category-shelf").forEach(shelf=>{shelf.hidden=!$$('[data-app]:not([hidden])',shelf).length});
+        $("#emptyResults").hidden=visible!==0;
       }
+      search.addEventListener("input",filterApps);
+      $("#clearSearch").addEventListener("click",()=>{search.value="";filterApps();search.focus()});
 
-      document.addEventListener("keydown", event => {
-        if(event.key === "Escape") closeMobileMenu();
-      });
+      const display=$("#dialDisplay");
+      const dialStatus=$("#dialStatus");
+      function formatRoute(value){
+        const number=digits(value).slice(0,10);
+        const parts=[];
+        if(number.length)parts.push(number.slice(0,3));
+        if(number.length>3)parts.push(number.slice(3,6));
+        if(number.length>6)parts.push(number.slice(6,10));
+        return parts.join("-")||"333-";
+      }
+      function setRoute(value){display.value=formatRoute(value)}
+      function openCurrentRoute(){
+        const key=digits(display.value);
+        const route=ROUTES[key];
+        if(!route){dialStatus.textContent="That route is not assigned in the current directory.";return}
+        dialStatus.textContent=`Opening ${route.name}.`;
+        window.location.href=route.href;
+      }
+      $$("[data-key]").forEach(button=>button.addEventListener("click",()=>{
+        const key=button.dataset.key;
+        let value=digits(display.value);
+        if(key==="clear")value="333";else if(key==="back")value=value.slice(0,-1)||"333";else if(value.length<10)value+=key;
+        setRoute(value);
+      }));
+      display.addEventListener("input",()=>setRoute(display.value));
+      $("#resetRoute").addEventListener("click",()=>{setRoute("333");dialStatus.textContent="Ready for an established internal 333 service route."});
+      $("#openRoute").addEventListener("click",openCurrentRoute);
+      $$("[data-route]").forEach(button=>button.addEventListener("click",()=>{setRoute(button.dataset.route);document.querySelector("#routes").scrollIntoView({behavior:"smooth"});dialStatus.textContent="Route loaded. Select Open Route when ready."}));
+      $$("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
+        try{await navigator.clipboard.writeText(button.dataset.copy);showToast(`${button.dataset.copy} copied.`)}catch{showToast("Copy was unavailable. Select the route manually.")}
+      }));
 
-      setRoute("333");
+      $("#refreshContinuityButton").addEventListener("click",()=>{renderContinuity();showToast("Local application status refreshed.")});
+      $("#year").textContent=new Date().getFullYear();
       renderContinuity();
+      setRoute("333");
+
+      const updateBanner=$("#updateBanner");
+      let waitingWorker=null;
+      document.addEventListener("333-app-update-ready",event=>{waitingWorker=event.detail?.worker||event.detail?.registration?.waiting||null;updateBanner.hidden=false});
+      $("#applyUpdateButton").addEventListener("click",()=>{if(waitingWorker)waitingWorker.postMessage({type:"SKIP_WAITING"});else navigator.serviceWorker?.getRegistration?.().then(reg=>reg?.waiting?.postMessage({type:"SKIP_WAITING"}))});
+      $("#dismissUpdateButton").addEventListener("click",()=>{updateBanner.hidden=true});
+      document.addEventListener("333-service-worker-controller-changed",()=>window.location.reload());
     })();
   </script>
-
-  <script src="./install-app.js"></script>
-  <script src="./register-service-worker.js"></script>
+  <script src="./install-app.js" defer></script>
+  <script src="./register-service-worker.js" defer></script>
 </body>
 </html>
