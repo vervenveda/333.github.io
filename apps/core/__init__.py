@@ -1,1 +1,1 @@
-"""333 Network shared backend application package."""
+"""Shared configuration, database, and logging services."""

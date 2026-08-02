@@ -54,6 +54,23 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_format: str = "json"
 
+    jwt_issuer: str = "333-network"
+    jwt_audience: str = "333-network-api"
+    minimum_password_length: int = Field(default=12, ge=10, le=128)
+    login_max_attempts: int = Field(default=5, ge=3, le=20)
+    login_lock_minutes: int = Field(default=15, ge=1, le=1440)
+    registration_rate_limit: int = Field(default=5, ge=1, le=100)
+    login_rate_limit: int = Field(default=20, ge=1, le=500)
+    refresh_rate_limit: int = Field(default=60, ge=1, le=1000)
+    email_application_rate_limit: int = Field(default=5, ge=1, le=100)
+    rate_limit_fail_closed: bool = False
+
+    network_number_prefix: str = "333"
+    network_number_total_digits: int = Field(default=10, ge=7, le=15)
+    even_mail_allowed_domains: list[str] = Field(
+        default_factory=lambda: ["evenmail.example.invalid"]
+    )
+
     api_public_url: str = "http://localhost:8000"
     frontend_public_url: str = "http://localhost:5500"
     frontend_origins: list[str] = Field(
@@ -113,7 +130,7 @@ class Settings(BaseSettings):
             prefix = f"/{prefix}"
         return prefix.rstrip("/") or "/api"
 
-    @field_validator("frontend_origins", "trusted_hosts", mode="before")
+    @field_validator("frontend_origins", "trusted_hosts", "even_mail_allowed_domains", mode="before")
     @classmethod
     def parse_csv_lists(cls, value: Any) -> list[str]:
         return _split_csv(value)
@@ -197,6 +214,10 @@ class Settings(BaseSettings):
             problems.append("wildcard FRONTEND_ORIGINS is not allowed")
         if "*" in self.trusted_hosts:
             problems.append("wildcard TRUSTED_HOSTS is not allowed")
+        if any(_contains_placeholder(domain) for domain in self.even_mail_allowed_domains):
+            problems.append("EVEN_MAIL_ALLOWED_DOMAINS contains a placeholder")
+        if not self.network_number_prefix.isdigit():
+            problems.append("NETWORK_NUMBER_PREFIX must contain only digits")
 
         if problems:
             raise ValueError(
