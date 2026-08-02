@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="KANSEE™ 333 Meeting Rooms — a local-first, backend-ready collaboration platform for private rooms, conversation links, social invitations, casting, chat, participant management, and consent-based media preview.">
   <meta name="theme-color" content="#0d1325">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; script-src 'self' 'unsafe-inline'; connect-src 'self' https: wss: ws:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'">
   <title>KANSEE™ — 333 Meeting Rooms</title>
   <link rel="manifest" href="../manifest.webmanifest">
   <link rel="icon" href="../assets/icons/icon-192.png">
@@ -901,6 +901,120 @@
       .collab-grid{grid-template-columns:1fr}
     }
 
+
+
+    /* =========================================================
+       KANSEE 333 — streamlined professional stability layer
+       ========================================================= */
+    html{overflow-x:hidden;scroll-padding-top:18px}
+    body{min-width:300px;overflow-x:hidden;font-size:15px;line-height:1.58}
+    body.modal-open{overflow:hidden}
+    a,button,input,select,textarea,.meeting-meta,.participant-meta,.room-banner .meta,.note,.status-card,.hero-copy,.info-card p,.kv dd{
+      overflow-wrap:anywhere;
+      word-break:normal;
+    }
+    button,a.small-btn,a.primary-btn,a.quiet-btn{white-space:normal}
+    .topline-inner,.hero,.status-strip,.kansee-readiness,.mobile-tabs,.app-shell,footer{width:min(calc(100% - 24px),1221px);padding-left:0;padding-right:0}
+    .network-links{justify-content:flex-end;min-width:0}
+    .network-links a{flex:0 1 auto;line-height:1.25;text-align:center}
+    .hero{padding-top:34px;padding-bottom:22px}
+    .hero-copy{font-size:15px;line-height:1.68}
+    .status-card>div:first-child{min-width:0;max-width:780px}
+    .status-actions{min-width:0}
+    .status-actions>*{flex:0 1 auto}
+    .kansee-readiness-inner{padding:19px;gap:18px}
+    .app-shell{grid-template-columns:260px minmax(0,1fr) 340px;gap:10px}
+    .panel{min-width:0}
+    .panel-head{min-width:0;padding:12px 13px}
+    .panel-head>div{min-width:0}
+    .panel-head h2{font-size:20px;line-height:1.1}
+    .panel-head p{font-size:11px}
+    .panel-body{padding:11px}
+    .small-btn,.primary-btn,.danger-btn,.quiet-btn,.icon-btn,.control-btn{font-size:11.5px;line-height:1.25;min-height:38px}
+    .icon-btn{min-height:40px}
+    input,textarea,select{min-width:0;font-size:13px}
+    label{font-size:11px}
+    .join-box,.room-search{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;margin-bottom:10px}
+    .room-summary{margin:-2px 0 10px;color:var(--muted);font-size:10.5px;line-height:1.45;text-align:left}
+    .meeting-list{max-height:600px;overscroll-behavior:contain}
+    .meeting-card{min-width:0;padding:10px}
+    .meeting-card h3{font-size:17px;line-height:1.2;overflow-wrap:anywhere}
+    .meeting-meta{font-size:10.5px}
+    .meeting-actions button{flex:1 1 68px;min-width:0}
+    .stage-panel{min-height:660px}
+    .stage-grid{min-width:0;min-height:390px;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(175px,1fr)}
+    .video-tile{min-width:0;min-height:175px}
+    .video-label{min-width:0}
+    .video-label>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .call-controls{padding:7px;gap:6px}
+    .control-btn{min-width:0;flex:1 1 92px}
+    .media-status{margin-top:7px;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#f7f4ed;color:var(--muted);font-size:10.5px;line-height:1.45;text-align:center}
+    .participant{min-width:0}
+    .participant-main{overflow:hidden}
+    .participant-actions{min-width:0;flex-wrap:wrap;justify-content:flex-end}
+    .participant-actions button{min-width:0}
+    .side-tabs{overflow-x:auto;scrollbar-width:thin}
+    .side-tabs button{min-width:70px;white-space:nowrap}
+    .chat-log{height:360px;overscroll-behavior:contain}
+    .chat-message{overflow-wrap:anywhere}
+    .chat-form{grid-template-columns:minmax(0,1fr) auto}
+    .chat-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:7px;color:var(--muted);font-size:10px}
+    .chat-tools .button-row{margin-left:auto}
+    .history-list{overscroll-behavior:contain}
+    .collab-tool{overflow-wrap:anywhere}
+    .collab-counter{margin-top:-3px;color:var(--muted);font-size:10px;text-align:right}
+    .modal{width:min(590px,100%);padding:17px;overscroll-behavior:contain}
+    .modal-actions>*{flex:0 1 auto}
+    footer a{display:inline-block;margin-top:8px;color:var(--teal);font-weight:650;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    @media(max-width:1180px){
+      .app-shell{grid-template-columns:250px minmax(0,1fr)}
+      .right-panel{grid-column:1/-1}
+      .right-panel .panel-body{min-height:390px}
+    }
+    @media(max-width:780px){
+      .topline-inner,.hero,.status-strip,.kansee-readiness,.mobile-tabs,.app-shell,footer{width:min(calc(100% - 20px),1221px)}
+      .network-links{width:100%;justify-content:center}
+      .network-links a{flex:1 1 120px}
+      .mobile-tabs{position:sticky;top:0;z-index:40;padding:8px;background:rgba(250,248,242,.96);border:1px solid var(--line);border-radius:7px;backdrop-filter:blur(12px)}
+      .app-shell{display:block}
+      .panel{display:none}
+      .panel.mobile-active{display:block;margin-bottom:10px}
+      .stage-panel{min-height:auto}
+      .stage-grid{grid-template-columns:1fr;grid-auto-rows:minmax(210px,auto);min-height:390px}
+      .right-panel .panel-body{min-height:0}
+    }
+    @media(max-width:520px){
+      .topline-inner,.hero,.status-strip,.kansee-readiness,.mobile-tabs,.app-shell,footer{width:min(calc(100% - 16px),1221px)}
+      .topline-inner{justify-content:center}
+      .network-links a{flex:1 1 42%;padding:7px 6px}
+      .hero{padding-top:25px}
+      .service-number{width:100%}
+      .status-actions{width:100%}
+      .status-actions>*{flex:1 1 44%}
+      .readiness-grid{grid-template-columns:1fr}
+      .mobile-tabs{gap:5px}
+      .mobile-tabs button{font-size:9.5px;padding:8px 5px}
+      .join-box,.room-search,.chat-form{grid-template-columns:1fr}
+      .join-box button,.room-search button,.chat-form button{width:100%}
+      .panel-head{align-items:flex-start;flex-wrap:wrap}
+      .panel-head .button-row{width:100%}
+      .panel-head .button-row>*{flex:1}
+      .room-banner{align-items:flex-start}
+      .call-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+      .control-btn{width:100%;font-size:10.5px}
+      .video-label{align-items:flex-start;flex-direction:column}
+      .participant{align-items:flex-start;flex-wrap:wrap}
+      .participant-actions{width:100%;justify-content:flex-end}
+      .participant-actions button{flex:1}
+      .chat-tools{align-items:flex-start}
+      .chat-tools .button-row{width:100%;margin-left:0}
+      .chat-tools button{flex:1}
+      .modal{padding:14px}
+      .modal-actions{display:grid;grid-template-columns:1fr}
+      .modal-actions>*{width:100%}
+    }
+
   </style>
 </head>
 <body>
@@ -918,6 +1032,7 @@
         <a href="./Bazaar_Art_Live_index.html">Bazaar Live</a>
         <a href="./SIte_builder_index.html">SIte</a>
         <a href="./Bunya_digital_infrastructure_index.html">Bunya</a>
+        <a href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support 333</a>
       </nav>
     </div>
   </div>
@@ -992,6 +1107,12 @@
           <button class="small-btn" id="importWorkspaceBtn" type="button">Import Backup</button>
           <input class="hidden" id="workspaceFileInput" type="file" accept="application/json,.json">
         </div>
+        <div class="room-search" role="search">
+          <label class="sr-only" for="roomSearchInput">Search rooms</label>
+          <input id="roomSearchInput" type="search" autocomplete="off" placeholder="Search title, code, type, or status">
+          <button class="quiet-btn" id="clearRoomSearchBtn" type="button" disabled>Clear</button>
+        </div>
+        <div class="room-summary" id="roomSummary" aria-live="polite">No rooms saved yet.</div>
         <div class="section-label">Your scheduled and recent rooms</div>
         <div class="meeting-list" id="meetingList"></div>
       </div>
@@ -1018,9 +1139,10 @@
           <button class="control-btn" id="muteBtn" type="button" disabled>🎙 Mute</button>
           <button class="control-btn" id="cameraBtn" type="button" disabled>📷 Camera</button>
           <button class="control-btn" id="shareBtn" type="button" disabled>▣ Share</button>
-          <button class="control-btn" id="simulateGuestBtn" type="button" disabled>＋ Add Demo Guest</button>
+          <button class="control-btn" id="simulateGuestBtn" type="button" disabled>＋ Demo Guest</button>
           <button class="control-btn danger" id="leaveRoomBtn" type="button" disabled>Leave</button>
         </div>
+        <div class="media-status" id="mediaStatus" role="status" aria-live="polite">No room is open. Camera, microphone, and screen sharing are off.</div>
       </div>
     </section>
 
@@ -1030,29 +1152,36 @@
         <span class="pill" id="participantCountBadge">0 people</span>
       </div>
       <div class="side-tabs" role="tablist" aria-label="Room console tabs">
-        <button class="small-btn active" type="button" data-side-tab="people" role="tab" aria-selected="true">People</button>
-        <button class="small-btn" type="button" data-side-tab="chat" role="tab" aria-selected="false">Chat</button>
-        <button class="small-btn" type="button" data-side-tab="invite" role="tab" aria-selected="false">Invite</button>
-        <button class="small-btn" type="button" data-side-tab="collab" role="tab" aria-selected="false">Collaborate</button>
-        <button class="small-btn" type="button" data-side-tab="details" role="tab" aria-selected="false">Details</button>
+        <button class="small-btn active" type="button" data-side-tab="people" role="tab" aria-selected="true" aria-controls="sidePeople">People</button>
+        <button class="small-btn" type="button" data-side-tab="chat" role="tab" aria-selected="false" aria-controls="sideChat">Chat</button>
+        <button class="small-btn" type="button" data-side-tab="invite" role="tab" aria-selected="false" aria-controls="sideInvite">Invite</button>
+        <button class="small-btn" type="button" data-side-tab="collab" role="tab" aria-selected="false" aria-controls="sideCollab">Collaborate</button>
+        <button class="small-btn" type="button" data-side-tab="details" role="tab" aria-selected="false" aria-controls="sideDetails">Details</button>
       </div>
       <div class="panel-body">
-        <section class="side-pane active" id="sidePeople" data-side-pane="people">
+        <section class="side-pane active" id="sidePeople" data-side-pane="people" role="tabpanel">
           <div class="section-label">In the room</div>
           <div class="participant-list" id="participantList"></div>
           <div class="section-label">Reception Lobby</div>
           <div class="waiting-list" id="waitingList"></div>
         </section>
 
-        <section class="side-pane" id="sideChat" data-side-pane="chat">
+        <section class="side-pane" id="sideChat" data-side-pane="chat" role="tabpanel">
           <div class="chat-log" id="chatLog" aria-live="polite"></div>
           <form class="chat-form" id="chatForm">
-            <input id="chatInput" type="text" autocomplete="off" maxlength="1000" placeholder="Message everyone in this room">
+            <input id="chatInput" type="text" autocomplete="off" maxlength="1000" placeholder="Message everyone in this room" aria-describedby="chatCharacterCount">
             <button class="primary-btn" type="submit">Send</button>
           </form>
+          <div class="chat-tools">
+            <span id="chatCharacterCount">0 / 1000</span>
+            <div class="button-row">
+              <button class="quiet-btn" id="exportChatBtn" type="button" disabled>Export Chat</button>
+              <button class="quiet-btn" id="clearChatBtn" type="button" disabled>Clear Chat</button>
+            </div>
+          </div>
         </section>
 
-        <section class="side-pane" id="sideInvite" data-side-pane="invite">
+        <section class="side-pane" id="sideInvite" data-side-pane="invite" role="tabpanel">
           <div class="info-card">
             <h3>Invite by 333 identity</h3>
             <div class="field"><label for="inviteNumberInput">333 Network number or handle</label><input id="inviteNumberInput" type="text" autocomplete="off" placeholder="333-111-7777 or @JenniferPearl"></div>
@@ -1064,7 +1193,7 @@
         </section>
 
 
-        <section class="side-pane" id="sideCollab" data-side-pane="collab">
+        <section class="side-pane" id="sideCollab" data-side-pane="collab" role="tabpanel">
           <div class="info-card">
             <h3>Share this conversation</h3>
             <p>Create a reusable room link, copy an invitation, or open the device sharing menu.</p>
@@ -1103,7 +1232,7 @@
           </div>
         </section>
 
-        <section class="side-pane" id="sideDetails" data-side-pane="details">
+        <section class="side-pane" id="sideDetails" data-side-pane="details" role="tabpanel">
           <div class="info-card">
             <h3>Current room</h3>
             <dl class="kv" id="roomDetailsList"></dl>
@@ -1113,7 +1242,14 @@
             <div class="field"><label for="meetingNotes">Private notes saved with this room</label><textarea id="meetingNotes" placeholder="Agenda, decisions, follow-up items…"></textarea></div>
             <button class="small-btn" id="saveNotesBtn" type="button">Save Notes</button>
           </div>
+          <div class="info-card">
+            <h3>Recent session history</h3>
+            <div class="history-list" id="meetingHistoryList"></div>
+          </div>
           <div class="button-row">
+            <button class="small-btn" id="editRoomBtn" type="button" disabled>Edit Room</button>
+            <button class="small-btn" id="duplicateRoomBtn" type="button" disabled>Duplicate</button>
+            <button class="small-btn" id="exportRoomBtn" type="button" disabled>Export Room</button>
             <button class="small-btn" id="exportWorkspaceBtn" type="button">Export Workspace</button>
             <button class="small-btn" id="exportHistoryBtn" type="button">Export History</button>
             <button class="danger-btn" id="clearHistoryBtn" type="button">Clear History</button>
@@ -1127,7 +1263,8 @@
   <footer>
     <strong>KANSEE™ · 333 Meeting Rooms</strong><br>
     Verve N Veda · Khaemenes Academy · Jennifer Kay Pearl · All Rights Reserved 2026<br>
-    Rooms, links, invitations, collaboration notes, and media previews remain local to this browser until authenticated KANSEE services are configured.
+    Rooms, links, invitations, collaboration notes, and media previews remain local to this browser until authenticated KANSEE services are configured.<br>
+    <a href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Contribute to the 333 Network</a>
   </footer>
 
   <div class="modal-backdrop" id="meetingModalBackdrop" aria-hidden="true">
@@ -1162,7 +1299,7 @@
         <div class="field"><label><input id="meetingMuteInput" type="checkbox" checked style="width:auto;margin-right:6px">Mute guests when admitted</label></div>
         <div class="modal-actions">
           <button class="quiet-btn" id="cancelMeetingBtn" type="button">Cancel</button>
-          <button class="primary-btn" type="submit">Create Room</button>
+          <button class="primary-btn" id="saveMeetingBtn" type="submit">Create Room</button>
         </div>
       </form>
     </section>
@@ -1201,7 +1338,7 @@
         <div class="field"><label for="turnUrlInput">TURN service URL</label><input id="turnUrlInput" type="text" placeholder="Private TURN relay endpoint"></div>
         <div class="field"><label for="mediaUrlInput">Group media/SFU URL</label><input id="mediaUrlInput" type="url" placeholder="Private media service endpoint"></div>
         <div class="note">Do not place TURN passwords, API keys, or administrator secrets in a public HTML file. Production credentials must be issued securely by the backend.</div>
-        <div class="modal-actions"><button class="quiet-btn" id="cancelSettingsBtn" type="button">Cancel</button><button class="primary-btn" type="submit">Save Configuration</button></div>
+        <div class="modal-actions"><button class="danger-btn" id="resetWorkspaceBtn" type="button">Reset Local Workspace</button><button class="quiet-btn" id="cancelSettingsBtn" type="button">Cancel</button><button class="primary-btn" type="submit">Save Configuration</button></div>
       </form>
     </section>
   </div>
@@ -1210,7 +1347,30 @@
     <section class="modal" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle" tabindex="-1">
       <h2 id="detailsModalTitle">Room details</h2>
       <div class="info-card"><dl class="kv" id="detailsModalList"></dl></div>
-      <div class="modal-actions"><button class="primary-btn" id="closeDetailsBtn" type="button">Close</button></div>
+      <div class="modal-actions">
+        <button class="small-btn" id="detailsEditRoomBtn" type="button">Edit Room</button>
+        <button class="small-btn" id="detailsDuplicateRoomBtn" type="button">Duplicate</button>
+        <button class="small-btn" id="detailsExportRoomBtn" type="button">Export Room</button>
+        <button class="primary-btn" id="closeDetailsBtn" type="button">Close</button>
+      </div>
+    </section>
+  </div>
+
+
+
+  <div class="modal-backdrop" id="collabModalBackdrop" aria-hidden="true">
+    <section class="modal" id="collabModal" role="dialog" aria-modal="true" aria-labelledby="collabModalTitle" tabindex="-1">
+      <h2 id="collabModalTitle">Collaboration tool</h2>
+      <p class="lead" id="collabModalLead">Save room-specific working material locally.</p>
+      <div class="field">
+        <label for="collabContentInput" id="collabContentLabel">Content</label>
+        <textarea id="collabContentInput" maxlength="12000" placeholder="Add room-specific content"></textarea>
+      </div>
+      <div class="collab-counter" id="collabCharacterCount">0 / 12000</div>
+      <div class="modal-actions">
+        <button class="quiet-btn" id="cancelCollabBtn" type="button">Cancel</button>
+        <button class="primary-btn" id="saveCollabBtn" type="button">Save</button>
+      </div>
     </section>
   </div>
 
@@ -1268,7 +1428,7 @@
     const STORAGE_KEY='kansee_333_workspace_v1';
     const HOLLO_STORAGE_KEY='hollo_333_direct_connect_v1';
     const IDENTITY_HANDOFF_KEY='333_identity_handoff_v1';
-    const BUILD='KANSEE-333-2026.08';
+    const BUILD='KANSEE-333-2026.08.2';
     const $=s=>document.querySelector(s);
     const $$=s=>Array.from(document.querySelectorAll(s));
     const nowIso=()=>new Date().toISOString();
@@ -1326,7 +1486,10 @@
       s.inviteHistory=Array.isArray(s.inviteHistory)?s.inviteHistory:[];
       s.continuity=s.continuity&&typeof s.continuity==='object'?s.continuity:{};
       s.sync={...DEFAULT_STATE.sync,...(s.sync||{}),mode:KANSEE_SERVICE.mode};
-      s.meetings=s.meetings.map(normalizeMeeting).filter(Boolean);
+      s.meetings=s.meetings.map(normalizeMeeting).filter(Boolean).slice(0,250);
+      s.history=s.history.slice(0,250);
+      s.inviteHistory=s.inviteHistory.slice(0,250);
+      s.currentRoomId=s.meetings.some(room=>String(room.id)===String(s.currentRoomId))?s.currentRoomId:null;
       return s;
     }
     function saveState(){
@@ -1368,6 +1531,10 @@
     let cameraOff=false;
     let lastFocus=null;
     let toastTimer=null;
+    let editingRoomId=null;
+    let currentCollabTool='';
+    let previewStarting=false;
+    let roomSearchQuery='';
 
     function toast(message){
       const el=$('#toast');el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600);
@@ -1394,6 +1561,28 @@
 
     function normalizeMemberNumber(value){
       return String(value||'').trim().replace(/[^0-9+]/g,'').slice(0,16);
+    }
+    function normalizeHandle(value){
+      const clean=String(value||'').trim().replace(/\s+/g,'').replace(/^@+/, '').replace(/[^A-Za-z0-9_.-]/g,'').slice(0,39);
+      return clean?'@'+clean:'';
+    }
+    function normalizeInviteTarget(value){
+      const raw=String(value||'').trim();
+      if(raw.startsWith('@')){
+        const handle=normalizeHandle(raw);
+        return /^@[A-Za-z0-9][A-Za-z0-9_.-]{1,38}$/.test(handle)?handle:'';
+      }
+      const number=normalizeMemberNumber(raw);
+      const digits=number.replace(/\D/g,'');
+      return digits.length>=7&&digits.length<=15?number:'';
+    }
+    function toLocalDateInput(date){const pad=value=>String(value).padStart(2,'0');return date.getFullYear()+'-'+pad(date.getMonth()+1)+'-'+pad(date.getDate())}
+    function toLocalTimeInput(date){const pad=value=>String(value).padStart(2,'0');return pad(date.getHours())+':'+pad(date.getMinutes())}
+    function scheduledTimestamp(data){
+      if(!data.date&&!data.time)return null;
+      if(!data.date||!data.time)return NaN;
+      const value=new Date(data.date+'T'+data.time);
+      return value.getTime();
     }
 
     function readHolloIdentity(){
@@ -1525,12 +1714,16 @@
     }
     function renderMeetings(){
       const list=$('#meetingList');list.replaceChildren();
-      const rooms=state.meetings.slice().sort((a,b)=>{
+      const query=roomSearchQuery.trim().toLowerCase();
+      const allRooms=state.meetings.slice().sort((a,b)=>{
         if(a.status==='active'&&b.status!=='active')return -1;if(b.status==='active'&&a.status!=='active')return 1;
         const ad=(a.date||'9999')+(a.time||'');const bd=(b.date||'9999')+(b.time||'');return ad.localeCompare(bd);
       });
+      const rooms=query?allRooms.filter(room=>[room.title,room.code,room.type,room.status,room.access,formattedWhen(room)].join(' ').toLowerCase().includes(query)):allRooms;
+      $('#clearRoomSearchBtn').disabled=!query;
+      $('#roomSummary').textContent=!allRooms.length?'No rooms saved yet.':query?rooms.length+' of '+allRooms.length+' rooms match this search.':allRooms.length+' saved room'+(allRooms.length===1?'':'s')+'.';
       if(!rooms.length){
-        const empty=document.createElement('div');empty.className='info-card';empty.innerHTML='<h3>No meetings yet</h3><p>Create an instant meeting or schedule one. Each room receives a KNS-333 code.</p>';list.appendChild(empty);return;
+        const empty=document.createElement('div');empty.className='info-card';empty.innerHTML=query?'<h3>No matching rooms</h3><p>Clear the search or try a room title, code, type, or status.</p>':'<h3>No meetings yet</h3><p>Create an instant meeting or schedule one. Each room receives a KNS-333 code.</p>';list.appendChild(empty);return;
       }
       rooms.forEach(room=>{
         const card=document.createElement('article');card.className='meeting-card'+(currentRoom&&currentRoom.id===room.id?' active':'');
@@ -1542,21 +1735,27 @@
         const actions=document.createElement('div');actions.className='meeting-actions';
         const open=document.createElement('button');open.className='small-btn';open.type='button';open.textContent=room.status==='active'?'Open':'Start';open.onclick=()=>openRoom(room.id,true);
         const copy=document.createElement('button');copy.className='small-btn';copy.type='button';copy.textContent='Copy code';copy.onclick=()=>copyText(room.code,'Room code copied');
+        const edit=document.createElement('button');edit.className='small-btn';edit.type='button';edit.textContent='Edit';edit.onclick=()=>openMeetingModal(room);
         const del=document.createElement('button');del.className='quiet-btn';del.type='button';del.textContent='Delete';del.onclick=()=>deleteMeeting(room.id);
-        actions.append(open,copy,del);card.append(h,meta,badges,actions);list.appendChild(card);
+        actions.append(open,copy,edit,del);card.append(h,meta,badges,actions);list.appendChild(card);
       });
     }
 
     function renderRoom(){
       const room=currentMeeting();
       const has=!!room;
-      $('#copyInviteBtn').disabled=!has;$('#roomDetailsBtn').disabled=!has;$('#previewBtn').disabled=!has;$('#simulateGuestBtn').disabled=!has;$('#leaveRoomBtn').disabled=!has;
+      $('#copyInviteBtn').disabled=!has;$('#roomDetailsBtn').disabled=!has;$('#previewBtn').disabled=!has||previewStarting;$('#simulateGuestBtn').disabled=!has;$('#leaveRoomBtn').disabled=!has;
+      $('#copyConversationLinkBtn').disabled=!has;$('#nativeShareBtn').disabled=!has;$('#copySocialTextBtn').disabled=!has;$('#startPresentBtn').disabled=!has||!navigator.mediaDevices?.getDisplayMedia;
+      $$('.collab-tool').forEach(button=>button.disabled=!has);
+      $('#editRoomBtn').disabled=!has;$('#duplicateRoomBtn').disabled=!has;$('#exportRoomBtn').disabled=!has;
+      $('#exportChatBtn').disabled=!has||!room.chat.length;$('#clearChatBtn').disabled=!has||!room.chat.length;
       $('#stageTitle').textContent=has?room.title:'Meeting Room';
       $('#stageSubtitle').textContent=has?room.code+' · '+formattedWhen(room):'Choose or create a room to begin.';
       $('#roomBannerTitle').textContent=has?room.title:'Ready when you are';
       $('#roomBannerMeta').textContent=has?(room.code+' · '+(room.waitingRoom?'Reception Lobby on':'Reception Lobby off')+' · '+room.duration+' minutes'):'Create or join a room to begin.';
       $('#roomModeBadge').textContent=backendAdapter()&&backendAdapter().connected?'Network room':'Local Preview';
       $('#roomModeBadge').className='pill '+(backendAdapter()&&backendAdapter().connected?'online':'prototype');
+      updateMediaControls();
       renderStage();
     }
     function renderStage(){
@@ -1569,14 +1768,14 @@
     function escapeText(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
     function makeVideoTile(person){
       const tile=document.createElement('div');tile.className='video-tile';tile.dataset.personId=person.id;
-      if(person.id==='local'&&localStream){
+      if(person.id==='local'&&(screenStream||localStream)){
         const video=document.createElement('video');video.autoplay=true;video.muted=true;video.playsInline=true;video.srcObject=screenStream||localStream;video.onloadedmetadata=()=>video.play().catch(()=>{});tile.appendChild(video);
       }else{
         const avatar=document.createElement('div');avatar.className='avatar';avatar.textContent=initials(person.name);tile.appendChild(avatar);
       }
       const label=document.createElement('div');label.className='video-label';
       const left=document.createElement('span');left.textContent=person.name+(person.simulated?' · Demo':'');
-      const right=document.createElement('span');right.className='video-badge';right.textContent=(person.muted?'🔇':'🎙')+' '+(person.camera?'📷':'◼');
+      const right=document.createElement('span');right.className='video-badge';right.textContent=(person.muted?'🔇':'🎙')+' '+((person.camera||person.id==='local'&&screenStream)?'📷':'◼');
       label.append(left,right);tile.appendChild(label);return tile;
     }
 
@@ -1623,9 +1822,12 @@
       box.append(who,p,t);log.appendChild(box);
     }
     function renderInviteHistory(){
-      const list=$('#inviteHistoryList');list.replaceChildren();const items=state.inviteHistory.slice(0,20);
+      const list=$('#inviteHistoryList');list.replaceChildren();const items=state.inviteHistory.slice(0,30);
       if(!items.length){const e=document.createElement('div');e.className='info-card';e.innerHTML='<p>No local invitations yet.</p>';list.appendChild(e);return}
-      items.forEach(i=>{const row=document.createElement('div');row.className='participant';const av=document.createElement('div');av.className='avatar';av.textContent='✉';const main=document.createElement('div');main.className='participant-main';const n=document.createElement('div');n.className='participant-name';n.textContent=i.target;const m=document.createElement('div');m.className='participant-meta';m.textContent=i.roomCode+' · '+i.role+' · '+new Date(i.ts).toLocaleString();main.append(n,m);const badge=document.createElement('span');badge.className='pill prototype';badge.textContent=i.status;row.append(av,main,badge);list.appendChild(row)});
+      items.forEach(i=>{
+        const row=document.createElement('div');row.className='participant';const av=document.createElement('div');av.className='avatar';av.textContent='✉';const main=document.createElement('div');main.className='participant-main';const n=document.createElement('div');n.className='participant-name';n.textContent=i.target;const m=document.createElement('div');m.className='participant-meta';m.textContent=i.roomCode+' · '+i.role+' · '+new Date(i.ts).toLocaleString();main.append(n,m);
+        const actions=document.createElement('div');actions.className='participant-actions';const badge=document.createElement('span');badge.className='pill prototype';badge.textContent=i.status;const copy=document.createElement('button');copy.className='quiet-btn';copy.type='button';copy.textContent='Copy';copy.onclick=()=>copyText((i.roomTitle||'KANSEE meeting')+'\nRoom: '+i.roomCode+'\nFor: '+i.target,'Invitation details copied');const remove=document.createElement('button');remove.className='quiet-btn';remove.type='button';remove.textContent='Remove';remove.onclick=()=>{state.inviteHistory=state.inviteHistory.filter(item=>item.id!==i.id);saveState();renderInviteHistory()};actions.append(badge,copy,remove);row.append(av,main,actions);list.appendChild(row)
+      });
     }
     function renderDetails(){
       const room=currentMeeting();const list=$('#roomDetailsList');const modal=$('#detailsModalList');list.replaceChildren();modal.replaceChildren();
@@ -1633,7 +1835,21 @@
         ['Title',room.title],['Room type',room.type||'meeting'],['Room code',room.code],['Schedule',formattedWhen(room)],['Duration',room.duration+' minutes'],['Access',room.access],['Reception Lobby',room.waitingRoom?'On':'Off'],['Mute on entry',room.muteOnEntry?'On':'Off'],['Status',room.status]
       ]:[['Room','No room open'],['Service','333-333-7777'],['Mode','Local Preview']];
       [list,modal].forEach(target=>values.forEach(([k,v])=>{const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;target.append(dt,dd)}));
-      $('#meetingNotes').value=room?room.notes:'';$('#meetingNotes').disabled=!room;$('#saveNotesBtn').disabled=!room;$('#sendInviteBtn').disabled=!room;$('#chatInput').disabled=!room;$('#chatForm').querySelector('button').disabled=!room;
+      $('#meetingNotes').value=room?room.notes:'';$('#meetingNotes').disabled=!room;$('#saveNotesBtn').disabled=!room;$('#sendInviteBtn').disabled=!room;$('#chatInput').disabled=!room;$('#chatForm').querySelector('button').disabled=!room;renderMeetingHistory();
+    }
+
+    function renderMeetingHistory(){
+      const list=$('#meetingHistoryList');list.replaceChildren();
+      const items=state.history.slice(0,12);
+      if(!items.length){const empty=document.createElement('p');empty.textContent='No completed local sessions yet.';list.appendChild(empty);return}
+      items.forEach(item=>{
+        const row=document.createElement('div');row.className='participant';
+        const av=document.createElement('div');av.className='avatar';av.textContent='✓';
+        const main=document.createElement('div');main.className='participant-main';
+        const name=document.createElement('div');name.className='participant-name';name.textContent=item.title||'KANSEE Meeting';
+        const meta=document.createElement('div');meta.className='participant-meta';meta.textContent=[item.code,new Date(item.endedAt).toLocaleString(),String(item.participants||0)+' people'].filter(Boolean).join(' · ');
+        main.append(name,meta);row.append(av,main);list.appendChild(row);
+      });
     }
 
     function createMeeting(data,openNow){
@@ -1646,7 +1862,11 @@
     }
     function openRoom(id,markActive){
       const room=state.meetings.find(m=>m.id===id);if(!room)return;
-      if(currentRoom&&currentRoom.id!==room.id&&currentRoom.status==='active'){currentRoom.status='scheduled';currentRoom.updatedAt=nowIso()}
+      const previous=currentMeeting();
+      if(previous&&previous.id!==room.id){
+        stopAllMedia({persist:true});
+        if(previous.status==='active'){previous.status='scheduled';previous.updatedAt=nowIso()}
+      }
       currentRoom=room;state.currentRoomId=room.id;if(markActive!==false)room.status='active';room.updatedAt=nowIso();
       ensureLocalParticipant(room);addSystemMessage(room,'Room opened on this device. Cross-device participation is not active yet.');
       saveState();renderAll();activateMobilePanel('stagePanel');announce('Opened '+room.title);
@@ -1660,48 +1880,91 @@
     function joinByCode(){
       const raw=$('#joinCodeInput').value;const code=normalizeCode(raw);if(!code){toast('Enter a complete KNS-333 room code');return}
       let room=findMeetingByCode(code);
-      if(!room){room=normalizeMeeting({id:uid('room'),code,title:'Joined KANSEE Room',status:'active',createdAt:nowIso(),participants:[],waiting:[],chat:[],notes:'',access:'waiting',waitingRoom:true,muteOnEntry:true,duration:60});state.meetings.unshift(room)}
+      const known=Boolean(room);
+      if(!room){room=normalizeMeeting({id:uid('room'),code,title:'Local preview for '+code,status:'active',createdAt:nowIso(),participants:[],waiting:[],chat:[],notes:'',access:'waiting',waitingRoom:true,muteOnEntry:true,duration:60});state.meetings.unshift(room)}
       openRoom(room.id,true);$('#joinCodeInput').value='';
+      toast(known?'Room opened locally':'Room code saved as a local preview. No remote room was contacted.');
     }
     function deleteMeeting(id){
-      const room=state.meetings.find(m=>m.id===id);if(!room)return;if(!confirm('Delete “'+room.title+'” from this browser?'))return;
-      if(currentRoom&&currentRoom.id===id){stopAllMedia();currentRoom=null;state.currentRoomId=null}
-      state.meetings=state.meetings.filter(m=>m.id!==id);saveState();renderAll();toast('Meeting deleted');
+      const room=state.meetings.find(m=>m.id===id);if(!room)return;if(!confirm('Delete “'+room.title+'” and its local room data from this browser?'))return;
+      if(currentMeeting()?.id===id){stopAllMedia({persist:false});currentRoom=null;state.currentRoomId=null}
+      state.meetings=state.meetings.filter(m=>m.id!==id);
+      state.history=state.history.filter(item=>item.roomId!==id);
+      state.inviteHistory=state.inviteHistory.filter(item=>item.roomCode!==room.code);
+      delete state.continuity[id];
+      saveState();renderAll();toast('Meeting and related local records deleted');
     }
     function leaveRoom(){
-      const room=currentMeeting();if(!room)return;stopAllMedia();room.status='ended';room.updatedAt=nowIso();state.history.unshift({id:uid('history'),roomId:room.id,title:room.title,code:room.code,endedAt:nowIso(),participants:room.participants.length});state.history=state.history.slice(0,100);currentRoom=null;state.currentRoomId=null;saveState();renderAll();toast('Left the meeting and stopped local media');
+      const room=currentMeeting();if(!room)return;
+      stopAllMedia({persist:true});room.status='ended';room.updatedAt=nowIso();
+      const recent=state.history[0];
+      if(!recent||recent.roomId!==room.id||Date.now()-new Date(recent.endedAt).getTime()>30000){state.history.unshift({id:uid('history'),roomId:room.id,title:room.title,code:room.code,endedAt:nowIso(),participants:room.participants.length})}
+      state.history=state.history.slice(0,250);currentRoom=null;state.currentRoomId=null;saveState();renderAll();toast('Left the meeting and stopped local media');
     }
 
     async function startPreview(){
       const room=currentMeeting();if(!room){toast('Open a room first');return}
       if(localStream){toast('Local preview is already active');return}
+      if(previewStarting)return;
       if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('This browser does not support camera and microphone preview');return}
+      previewStarting=true;updateMediaControls();
       try{
-        localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});audioMuted=false;cameraOff=false;localStream.getAudioTracks().forEach(t=>t.enabled=true);localStream.getVideoTracks().forEach(t=>t.enabled=true);
-        ensureLocalParticipant(room);syncLocalParticipant();$('#muteBtn').disabled=false;$('#cameraBtn').disabled=false;$('#shareBtn').disabled=false;$('#previewBtn').textContent='✓ Previewing';renderAll();toast('Camera and microphone preview started');
-      }catch(err){toast(mediaErrorMessage(err));}
+        try{localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}
+        catch(primaryError){
+          if(['NotAllowedError','SecurityError'].includes(primaryError?.name))throw primaryError;
+          try{localStream=await navigator.mediaDevices.getUserMedia({video:false,audio:true});toast('Audio-only preview started because no usable camera was available.')}
+          catch(audioError){localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});toast('Video-only preview started because no usable microphone was available.')}
+        }
+        audioMuted=false;cameraOff=false;localStream.getAudioTracks().forEach(t=>t.enabled=true);localStream.getVideoTracks().forEach(t=>t.enabled=true);
+        ensureLocalParticipant(room);syncLocalParticipant();renderAll();toast('Local media preview started');
+      }catch(err){localStream=null;toast(mediaErrorMessage(err));}
+      finally{previewStarting=false;updateMediaControls();}
     }
     function mediaErrorMessage(err){
-      const n=err&&err.name||'';if(n==='NotAllowedError'||n==='SecurityError')return 'Camera or microphone permission was denied. Use HTTPS or localhost and review browser permissions.';if(n==='NotFoundError')return 'No camera or microphone was found.';if(n==='NotReadableError')return 'A camera or microphone is already in use.';return 'KANSEE could not start the local media preview.';
+      const n=err&&err.name||'';if(n==='NotAllowedError'||n==='SecurityError')return 'Camera or microphone permission was denied. Use HTTPS or localhost and review browser permissions.';if(n==='NotFoundError')return 'No usable camera or microphone was found.';if(n==='NotReadableError')return 'A camera or microphone is already in use.';return 'KANSEE could not start the local media preview.';
     }
     function toggleMute(){
-      if(!localStream)return;audioMuted=!audioMuted;localStream.getAudioTracks().forEach(t=>t.enabled=!audioMuted);$('#muteBtn').classList.toggle('active',audioMuted);$('#muteBtn').textContent=audioMuted?'🔇 Unmute':'🎙 Mute';syncLocalParticipant();renderAll();
+      const tracks=localStream?.getAudioTracks()||[];if(!tracks.length){toast('No microphone track is active');return}audioMuted=!audioMuted;tracks.forEach(t=>t.enabled=!audioMuted);syncLocalParticipant();renderAll();
     }
     function toggleCamera(){
-      if(!localStream)return;cameraOff=!cameraOff;localStream.getVideoTracks().forEach(t=>t.enabled=!cameraOff);$('#cameraBtn').classList.toggle('active',cameraOff);$('#cameraBtn').textContent=cameraOff?'◼ Camera On':'📷 Camera';syncLocalParticipant();renderAll();
+      const tracks=localStream?.getVideoTracks()||[];if(!tracks.length){toast('No camera track is active');return}cameraOff=!cameraOff;tracks.forEach(t=>t.enabled=!cameraOff);syncLocalParticipant();renderAll();
     }
     async function toggleShare(){
+      const room=currentMeeting();if(!room){toast('Open a room before presenting');return}
       if(screenStream){stopScreenShare();return}
       if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia){toast('Screen sharing is not supported in this browser');return}
-      try{screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});const track=screenStream.getVideoTracks()[0];if(track)track.addEventListener('ended',stopScreenShare,{once:true});$('#shareBtn').classList.add('active');$('#shareBtn').textContent='■ Stop Share';renderStage();toast('Local screen preview started')}
-      catch(err){if(err&&err.name!=='NotAllowedError')toast('KANSEE could not start screen sharing')}
+      try{
+        screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});const track=screenStream.getVideoTracks()[0];if(track)track.addEventListener('ended',()=>stopScreenShare(),{once:true});ensureLocalParticipant(room);room.updatedAt=nowIso();saveState();renderAll();toast('Local screen presentation started');
+      }catch(err){if(err&&err.name!=='NotAllowedError')toast('KANSEE could not start screen sharing')}
     }
-    function stopScreenShare(){if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}$('#shareBtn').classList.remove('active');$('#shareBtn').textContent='▣ Share';renderStage()}
-    function stopAllMedia(){stopScreenShare();if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}audioMuted=false;cameraOff=false;$('#muteBtn').disabled=true;$('#cameraBtn').disabled=true;$('#shareBtn').disabled=true;$('#previewBtn').textContent='▶ Preview';$('#muteBtn').classList.remove('active');$('#cameraBtn').classList.remove('active');$('#muteBtn').textContent='🎙 Mute';$('#cameraBtn').textContent='📷 Camera'}
-    function syncLocalParticipant(){const room=currentMeeting();if(!room)return;ensureLocalParticipant(room);const p=room.participants.find(x=>x.id==='local');p.muted=audioMuted;p.camera=!!localStream&&!cameraOff;room.updatedAt=nowIso();saveState()}
+    function stopScreenShare(){
+      if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}
+      const room=currentMeeting();if(room){syncLocalParticipant()}updateMediaControls();renderStage();
+    }
+    function stopAllMedia(options={}){
+      if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}
+      if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}
+      audioMuted=false;cameraOff=false;
+      const room=currentMeeting();
+      if(room){const p=room.participants.find(x=>x.id==='local');if(p){p.muted=true;p.camera=false}room.updatedAt=nowIso();if(options.persist!==false)saveState()}
+      updateMediaControls();
+    }
+    function updateMediaControls(){
+      const room=currentMeeting();
+      const audioTracks=localStream?.getAudioTracks()||[];const videoTracks=localStream?.getVideoTracks()||[];
+      $('#previewBtn').disabled=!room||previewStarting||Boolean(localStream);$('#previewBtn').textContent=previewStarting?'… Starting':localStream?'✓ Previewing':'▶ Preview';
+      $('#muteBtn').disabled=!audioTracks.length;$('#muteBtn').classList.toggle('active',audioMuted);$('#muteBtn').textContent=audioMuted?'🔇 Unmute':'🎙 Mute';
+      $('#cameraBtn').disabled=!videoTracks.length;$('#cameraBtn').classList.toggle('active',cameraOff);$('#cameraBtn').textContent=cameraOff?'◼ Camera On':'📷 Camera';
+      const canShare=Boolean(room&&navigator.mediaDevices?.getDisplayMedia);$('#shareBtn').disabled=!canShare;$('#shareBtn').classList.toggle('active',Boolean(screenStream));$('#shareBtn').textContent=screenStream?'■ Stop Share':'▣ Share';
+      $('#startPresentBtn').disabled=!canShare;$('#startPresentBtn').textContent=screenStream?'Stop Presenting':'Present to Meeting';
+      let message='No room is open. Camera, microphone, and screen sharing are off.';
+      if(room){const parts=[];parts.push(localStream?(audioTracks.length&&videoTracks.length?'Camera and microphone preview active':audioTracks.length?'Microphone preview active':'Camera preview active'):'Camera and microphone off');parts.push(screenStream?'screen presentation active':'screen sharing off');message=parts.join(' · ')+'.'}
+      $('#mediaStatus').textContent=message;
+    }
+    function syncLocalParticipant(){const room=currentMeeting();if(!room)return;ensureLocalParticipant(room);const p=room.participants.find(x=>x.id==='local');p.muted=!localStream||!localStream.getAudioTracks().length||audioMuted;p.camera=Boolean(screenStream)||Boolean(localStream&&localStream.getVideoTracks().length&&!cameraOff);room.updatedAt=nowIso();saveState()}
 
     function simulateGuest(){
-      const room=currentMeeting();if(!room)return;const names=['Maya Light','Kai Sol','Luna Ray','Arella Hollo','Autumn Pearl'];const name=names[Math.floor(Math.random()*names.length)];
+      const room=currentMeeting();if(!room)return;if(room.participants.length+room.waiting.length>=16){toast('The local demonstration is limited to 16 people');return}const names=['Maya Light','Kai Sol','Luna Ray','Arella Hollo','Autumn Pearl'];const name=names[Math.floor(Math.random()*names.length)];
       const p=normalizeParticipant({id:uid('demo'),name,number:'333-'+String(Math.floor(1000000+Math.random()*8999999)),role:'participant',muted:true,camera:false,simulated:true});
       if(room.waitingRoom){room.waiting.push(p);toast(name+' entered the simulated reception lobby')}else{room.participants.push(p);toast(name+' joined as a demonstration participant')}
       addSystemMessage(room,name+' was added as a clearly labeled demonstration participant.');saveState();renderAll();
@@ -1713,32 +1976,43 @@
 
     function sendChat(text){
       const room=currentMeeting();text=String(text||'').trim();if(!room||!text)return;
-      room.chat.push({id:uid('msg'),who:state.profile.name,text:text.slice(0,1000),kind:'you',ts:nowIso()});room.updatedAt=nowIso();saveState();renderChat();
+      room.chat.push({id:uid('msg'),who:state.profile.name,text:text.slice(0,1000),kind:'you',ts:nowIso()});room.chat=room.chat.slice(-250);room.updatedAt=nowIso();saveState();renderChat();updateChatCounter();renderRoom();
       const adapter=backendAdapter();if(adapter&&typeof adapter.sendChat==='function'){Promise.resolve(adapter.sendChat({roomCode:room.code,text,profile:safeClone(state.profile)})).catch(()=>toast('The network adapter could not deliver the message'))}
     }
     function addSystemMessage(room,text){if(!room)return;const last=room.chat[room.chat.length-1];if(last&&last.kind==='system'&&last.text===text)return;room.chat.push({id:uid('msg'),who:'KANSEE',text,kind:'system',ts:nowIso()});room.chat=room.chat.slice(-250)}
 
     function sendInvite(){
-      const room=currentMeeting();if(!room)return;const target=$('#inviteNumberInput').value.trim();if(!target){toast('Enter a 333 number or handle');return}
-      const role=$('#inviteRoleSelect').value;const item={id:uid('invite'),target:target.slice(0,80),role,roomCode:room.code,roomTitle:room.title,status:backendAdapter()?'queued':'local draft',ts:nowIso()};state.inviteHistory.unshift(item);state.inviteHistory=state.inviteHistory.slice(0,100);saveState();renderInviteHistory();$('#inviteNumberInput').value='';
+      const room=currentMeeting();if(!room)return;const raw=$('#inviteNumberInput').value;const target=normalizeInviteTarget(raw);if(!target){toast('Enter a valid member number or HOLLO handle such as @member');$('#inviteNumberInput').focus();return}
+      const role=$('#inviteRoleSelect').value;const item={id:uid('invite'),target,role,roomCode:room.code,roomTitle:room.title,status:backendAdapter()?'queued':'local draft',ts:nowIso()};state.inviteHistory.unshift(item);state.inviteHistory=state.inviteHistory.slice(0,250);saveState();renderInviteHistory();$('#inviteNumberInput').value='';
       const adapter=backendAdapter();if(adapter&&typeof adapter.sendInvite==='function'){Promise.resolve(adapter.sendInvite(safeClone(item))).then(()=>{item.status='sent';saveState();renderInviteHistory();toast('Invitation sent through the configured adapter')}).catch(()=>{item.status='failed';saveState();renderInviteHistory();toast('The network adapter could not send the invitation')})}else toast('Invitation draft saved locally. Remote delivery is not connected.');
     }
 
     function copyInvite(){const room=currentMeeting();if(!room)return;const base=location.href.split(/[?#]/)[0];const text=room.title+'\nKANSEE room: '+room.code+'\nJoin: '+base+'?room='+encodeURIComponent(room.code);copyText(text,'Meeting invitation copied')}
-    async function copyText(text,message){try{await navigator.clipboard.writeText(text);toast(message)}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast(message)}}
+    async function copyText(text,message){
+      try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text)}else{throw new Error('Clipboard unavailable')}toast(message);return true}
+      catch(e){try{const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const copied=document.execCommand('copy');ta.remove();if(!copied)throw new Error('Copy failed');toast(message);return true}catch(copyError){toast('Copy is unavailable. Select and copy the text manually.');return false}}
+    }
+
+    function updateChatCounter(){const input=$('#chatInput');$('#chatCharacterCount').textContent=String(input.value.length)+' / 1000'}
+    function exportChat(){const room=currentMeeting();if(!room)return;const lines=room.chat.map(message=>'['+new Date(message.ts).toLocaleString()+'] '+message.who+': '+message.text);exportFile(fileSafe(room.title)+'_chat.txt',lines.join('\n\n')||'No chat messages.','text/plain')}
+    function clearChat(){const room=currentMeeting();if(!room||!room.chat.length)return;if(!confirm('Clear all local chat messages in this room?'))return;room.chat=[];room.updatedAt=nowIso();saveState();renderAll();toast('Room chat cleared')}
+    function fileSafe(value){return String(value||'KANSEE-room').replace(/[^a-z0-9._-]+/gi,'-').replace(/^-+|-+$/g,'')||'KANSEE-room'}
+    function exportCurrentRoom(){const room=currentMeeting();if(!room)return;exportFile(fileSafe(room.title)+'_'+room.code+'.json',JSON.stringify({product:'KANSEE Room Export',exportedAt:nowIso(),room:safeClone(room),continuity:safeClone(state.continuity[room.id]||{}),invitations:state.inviteHistory.filter(item=>item.roomCode===room.code),history:state.history.filter(item=>item.roomId===room.id)},null,2),'application/json');toast('Room package exported')}
+    function duplicateCurrentRoom(){const room=currentMeeting();if(!room)return;const copy=normalizeMeeting({...safeClone(room),id:uid('room'),code:makeRoomCode(),title:room.title+' Copy',status:'scheduled',participants:[],waiting:[],chat:[],createdAt:nowIso(),updatedAt:nowIso()});state.meetings.unshift(copy);state.continuity[copy.id]=safeClone(state.continuity[room.id]||{});saveState();renderAll();toast('Room duplicated with a new code')}
+    function editCurrentRoom(){const room=currentMeeting();if(!room)return;openMeetingModal(room)}
 
     function saveNotes(){const room=currentMeeting();if(!room)return;room.notes=$('#meetingNotes').value.slice(0,12000);room.updatedAt=nowIso();saveState();toast('Meeting notes saved')}
     function exportFile(name,content,mime){const blob=new Blob([content],{type:mime});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
     function exportWorkspace(){exportFile('KANSEE_333_workspace.json',JSON.stringify({product:'KANSEE 333 Meeting Rooms',exportedAt:nowIso(),workspace:state},null,2),'application/json')}
     function exportHistory(){exportFile('KANSEE_meeting_history.json',JSON.stringify({exportedAt:nowIso(),history:state.history,invites:state.inviteHistory},null,2),'application/json')}
     async function importWorkspace(file){
-      if(!file)return;try{const parsed=JSON.parse(await file.text());const raw=parsed&&parsed.workspace?parsed.workspace:parsed;if(!raw||typeof raw!=='object'||!Array.isArray(raw.meetings))throw new Error('Invalid workspace');if(!confirm('Replace the local KANSEE workspace with this backup?'))return;stopAllMedia();state=normalizeState(raw);currentRoom=null;saveState();renderAll();toast('KANSEE workspace restored')}
+      if(!file)return;try{const parsed=JSON.parse(await file.text());const raw=parsed&&parsed.workspace?parsed.workspace:parsed;if(!raw||typeof raw!=='object'||!Array.isArray(raw.meetings))throw new Error('Invalid workspace');if(!confirm('Replace the local KANSEE workspace with this backup?'))return;stopAllMedia();state=normalizeState(raw);currentRoom=state.currentRoomId?state.meetings.find(room=>room.id===state.currentRoomId)||null:null;saveState();renderAll();toast('KANSEE workspace restored')}
       catch(e){toast('This file is not a valid KANSEE workspace backup')}
     }
     function clearHistory(){if(!confirm('Clear local meeting and invitation history? Scheduled rooms will remain.'))return;state.history=[];state.inviteHistory=[];saveState();renderInviteHistory();toast('History cleared')}
 
-    function openDialog(backdrop,dialog){lastFocus=document.activeElement;backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');setTimeout(()=>dialog.focus(),0)}
-    function closeDialog(backdrop){backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');if(lastFocus&&typeof lastFocus.focus==='function')lastFocus.focus()}
+    function openDialog(backdrop,dialog){lastFocus=document.activeElement;backdrop.classList.add('open');backdrop.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');setTimeout(()=>dialog.focus(),0)}
+    function closeDialog(backdrop){backdrop.classList.remove('open');backdrop.setAttribute('aria-hidden','true');if(!document.querySelector('.modal-backdrop.open'))document.body.classList.remove('modal-open');if(lastFocus&&typeof lastFocus.focus==='function')lastFocus.focus()}
     function bindDialog(backdrop,dialog,closeButtons){
       closeButtons.forEach(btn=>btn&&btn.addEventListener('click',()=>closeDialog(backdrop)));
       backdrop.addEventListener('mousedown',e=>{if(e.target===backdrop)closeDialog(backdrop)});
@@ -1797,19 +2071,25 @@
     }
 
     function openCollabTool(name){
-      const room=currentMeeting();
-      if(!room){toast('Open a room first');return}
-      state.continuity[room.id]=state.continuity[room.id]||{};
-      const current=state.continuity[room.id][name]||'';
-      const value=prompt(name+' for '+room.title,current);
-      if(value===null)return;
-      state.continuity[room.id][name]=String(value).slice(0,12000);
-      saveState();
-      toast(name+' saved locally');
+      const room=currentMeeting();if(!room){toast('Open a room first');return}
+      currentCollabTool=name;state.continuity[room.id]=state.continuity[room.id]||{};
+      $('#collabModalTitle').textContent=name;
+      $('#collabModalLead').textContent='Save '+name.toLowerCase()+' for “'+room.title+'”. This material remains in this browser until a secure synchronization service is connected.';
+      $('#collabContentLabel').textContent=name+' content';
+      $('#collabContentInput').value=state.continuity[room.id][name]||'';
+      updateCollabCounter();openDialog($('#collabModalBackdrop'),$('#collabModal'));
     }
+    function updateCollabCounter(){$('#collabCharacterCount').textContent=$('#collabContentInput').value.length+' / 12000'}
+    function saveCollabTool(){const room=currentMeeting();if(!room||!currentCollabTool)return;state.continuity[room.id]=state.continuity[room.id]||{};state.continuity[room.id][currentCollabTool]=$('#collabContentInput').value.slice(0,12000);room.updatedAt=nowIso();saveState();closeDialog($('#collabModalBackdrop'));toast(currentCollabTool+' saved locally')}
 
 
-    function openMeetingModal(){const d=new Date(Date.now()+3600000);$('#meetingTitleInput').value='';$('#meetingDateInput').value=d.toISOString().slice(0,10);$('#meetingTimeInput').value=d.toTimeString().slice(0,5);openDialog($('#meetingModalBackdrop'),$('#meetingModal'))}
+    function openMeetingModal(room=null){
+      editingRoomId=room?.id||null;
+      const d=new Date(Date.now()+3600000);
+      $('#meetingModalTitle').textContent=room?'Edit KANSEE room':'Create a KANSEE meeting';
+      $('#saveMeetingBtn').textContent=room?'Save Changes':'Create Room';
+      $('#meetingTypeInput').value=room?.type||'meeting';$('#meetingTitleInput').value=room?.title||'';$('#meetingDateInput').value=room?(room.date||''):toLocalDateInput(d);$('#meetingTimeInput').value=room?(room.time||''):toLocalTimeInput(d);$('#meetingDurationInput').value=String(room?.duration||60);$('#meetingAccessInput').value=room?.access||'invite';$('#meetingWaitingInput').checked=room?room.waitingRoom:true;$('#meetingMuteInput').checked=room?room.muteOnEntry:true;openDialog($('#meetingModalBackdrop'),$('#meetingModal'))
+    }
     function openProfileModal(){
       $('#profileNameInput').value=state.profile.name;
       $('#profileNumberInput').value=state.profile.number;
@@ -1839,7 +2119,7 @@
       if(matchMedia('(min-width:781px)').matches)return;$$('.app-shell>.panel').forEach(p=>p.classList.toggle('mobile-active',p.id===id));$$('[data-mobile-panel]').forEach(b=>{const on=b.dataset.mobilePanel===id;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});window.scrollTo({top:document.querySelector('.mobile-tabs').offsetTop-8,behavior:'smooth'});
     }
 
-    $('#createMeetingBtn').addEventListener('click',openMeetingModal);$('#instantMeetingBtn').addEventListener('click',instantMeeting);$('#joinRoomBtn').addEventListener('click',joinByCode);$('#joinCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')joinByCode()});
+    $('#createMeetingBtn').addEventListener('click',()=>openMeetingModal());$('#instantMeetingBtn').addEventListener('click',instantMeeting);$('#joinRoomBtn').addEventListener('click',joinByCode);$('#joinCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')joinByCode()});
     $('#previewBtn').addEventListener('click',startPreview);$('#muteBtn').addEventListener('click',toggleMute);$('#cameraBtn').addEventListener('click',toggleCamera);$('#shareBtn').addEventListener('click',toggleShare);$('#simulateGuestBtn').addEventListener('click',simulateGuest);$('#leaveRoomBtn').addEventListener('click',leaveRoom);
 
     $('#copyConversationLinkBtn').addEventListener('click',copyConversationLink);
@@ -1850,7 +2130,7 @@
     $$('.collab-tool').forEach(button=>button.addEventListener('click',()=>openCollabTool(button.dataset.collabTool)));
 
     $('#copyInviteBtn').addEventListener('click',copyInvite);$('#roomDetailsBtn').addEventListener('click',openDetailsModal);$('#sendInviteBtn').addEventListener('click',sendInvite);$('#saveNotesBtn').addEventListener('click',saveNotes);
-    $('#exportWorkspaceBtn').addEventListener('click',exportWorkspace);$('#exportHistoryBtn').addEventListener('click',exportHistory);$('#clearHistoryBtn').addEventListener('click',clearHistory);$('#importWorkspaceBtn').addEventListener('click',()=>$('#workspaceFileInput').click());$('#workspaceFileInput').addEventListener('change',e=>{importWorkspace(e.target.files&&e.target.files[0]);e.target.value=''})
+    $('#editRoomBtn').addEventListener('click',editCurrentRoom);$('#duplicateRoomBtn').addEventListener('click',duplicateCurrentRoom);$('#exportRoomBtn').addEventListener('click',exportCurrentRoom);$('#detailsEditRoomBtn').addEventListener('click',()=>{closeDialog($('#detailsModalBackdrop'));editCurrentRoom()});$('#detailsDuplicateRoomBtn').addEventListener('click',duplicateCurrentRoom);$('#detailsExportRoomBtn').addEventListener('click',exportCurrentRoom);$('#exportWorkspaceBtn').addEventListener('click',exportWorkspace);$('#exportHistoryBtn').addEventListener('click',exportHistory);$('#clearHistoryBtn').addEventListener('click',clearHistory);$('#importWorkspaceBtn').addEventListener('click',()=>$('#workspaceFileInput').click());$('#workspaceFileInput').addEventListener('change',e=>{importWorkspace(e.target.files&&e.target.files[0]);e.target.value=''})
     $('#openProfileBtn').addEventListener('click',openProfileModal);
     $('#syncHolloProfileBtn').addEventListener('click',()=>applyHolloIdentity());
     $('#useHolloProfileBtn').addEventListener('click',()=>{
@@ -1859,6 +2139,8 @@
       }
     });
     $('#openSettingsBtn').addEventListener('click',openSettingsModal);
+    $('#resetWorkspaceBtn').addEventListener('click',()=>{if(!confirm('Reset all local KANSEE rooms, chat, invitations, notes, history, and settings on this device? Export a backup first if needed.'))return;stopAllMedia({persist:false});const preservedProfile=safeClone(state.profile);state=safeClone(DEFAULT_STATE);state.profile=preservedProfile;currentRoom=null;saveState();closeDialog($('#settingsModalBackdrop'));renderAll();toast('Local KANSEE workspace reset')});
+    $('#collabContentInput').addEventListener('input',updateCollabCounter);$('#saveCollabBtn').addEventListener('click',saveCollabTool);
     $$('[data-side-tab]').forEach(b=>b.addEventListener('click',()=>switchSideTab(b.dataset.sideTab)));
 
     $$('[data-side-tab]').forEach((button,index,buttons)=>{
@@ -1874,7 +2156,7 @@
         switchSideTab(buttons[next].dataset.sideTab);
       });
     });
-$$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobilePanel(b.dataset.mobilePanel)));
+$$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobilePanel(b.dataset.mobilePanel)));$('#roomSearchInput').addEventListener('input',event=>{roomSearchQuery=event.target.value;renderMeetings()});$('#clearRoomSearchBtn').addEventListener('click',()=>{roomSearchQuery='';$('#roomSearchInput').value='';renderMeetings();$('#roomSearchInput').focus()});
 
     $$('[data-mobile-panel]').forEach((button,index,buttons)=>{
       button.addEventListener('keydown',event=>{
@@ -1890,9 +2172,17 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
       });
     });
 
-    $('#chatForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#chatInput');sendChat(input.value);input.value=''});
+    $('#chatForm').addEventListener('submit',e=>{e.preventDefault();const input=$('#chatInput');sendChat(input.value);input.value='';updateChatCounter()});$('#chatInput').addEventListener('input',updateChatCounter);$('#exportChatBtn').addEventListener('click',exportChat);$('#clearChatBtn').addEventListener('click',clearChat);
 
-    $('#meetingForm').addEventListener('submit',e=>{e.preventDefault();const data={type:$('#meetingTypeInput').value,title:$('#meetingTitleInput').value.trim()||'KANSEE Meeting',date:$('#meetingDateInput').value,time:$('#meetingTimeInput').value,duration:$('#meetingDurationInput').value,access:$('#meetingAccessInput').value,waitingRoom:$('#meetingWaitingInput').checked,muteOnEntry:$('#meetingMuteInput').checked};createMeeting(data,false);closeDialog($('#meetingModalBackdrop'))});
+    $('#meetingForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const data={type:$('#meetingTypeInput').value,title:$('#meetingTitleInput').value.trim()||'KANSEE Meeting',date:$('#meetingDateInput').value,time:$('#meetingTimeInput').value,duration:$('#meetingDurationInput').value,access:$('#meetingAccessInput').value,waitingRoom:$('#meetingWaitingInput').checked,muteOnEntry:$('#meetingMuteInput').checked};
+      const stamp=scheduledTimestamp(data);if(Number.isNaN(stamp)){toast('Choose both a date and time, or clear both fields.');return}
+      if(stamp&&stamp<Date.now()-60000&&!editingRoomId){toast('Choose a future time for a newly scheduled room.');return}
+      if(editingRoomId){const room=state.meetings.find(item=>item.id===editingRoomId);if(!room)return;Object.assign(room,{type:data.type,title:data.title.slice(0,120),date:data.date,time:data.time,duration:Number(data.duration)||60,access:data.access,waitingRoom:data.waitingRoom,muteOnEntry:data.muteOnEntry,updatedAt:nowIso()});saveState();renderAll();toast('Room details updated')}
+      else createMeeting(data,false);
+      editingRoomId=null;closeDialog($('#meetingModalBackdrop'))
+    });
     $('#profileForm').addEventListener('submit',e=>{
       e.preventDefault();
       const number=normalizeMemberNumber($('#profileNumberInput').value);
@@ -1900,7 +2190,7 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
         ...state.profile,
         name:$('#profileNameInput').value.trim()||'KANSEE Member',
         number,
-        handle:$('#profileHandleInput').value.trim(),
+        handle:normalizeHandle($('#profileHandleInput').value),
         role:$('#profileRoleInput').value,
         source:'local',
         numberKind:number.startsWith('333')?'network':number?'existing':'none',
@@ -1916,12 +2206,13 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
     });
     $('#settingsForm').addEventListener('submit',e=>{e.preventDefault();state.settings={signalingUrl:$('#signalingUrlInput').value.trim(),turnUrl:$('#turnUrlInput').value.trim(),mediaUrl:$('#mediaUrlInput').value.trim()};saveState();closeDialog($('#settingsModalBackdrop'));toast('Network configuration saved locally. No connection was attempted.')});
 
-    bindDialog($('#meetingModalBackdrop'),$('#meetingModal'),[$('#cancelMeetingBtn')]);bindDialog($('#profileModalBackdrop'),$('#profileModal'),[$('#cancelProfileBtn')]);bindDialog($('#settingsModalBackdrop'),$('#settingsModal'),[$('#cancelSettingsBtn')]);bindDialog($('#detailsModalBackdrop'),$('#detailsModal'),[$('#closeDetailsBtn')]);
+    $('#cancelMeetingBtn').addEventListener('click',()=>{editingRoomId=null});bindDialog($('#meetingModalBackdrop'),$('#meetingModal'),[$('#cancelMeetingBtn')]);bindDialog($('#profileModalBackdrop'),$('#profileModal'),[$('#cancelProfileBtn')]);bindDialog($('#settingsModalBackdrop'),$('#settingsModal'),[$('#cancelSettingsBtn')]);bindDialog($('#detailsModalBackdrop'),$('#detailsModal'),[$('#closeDetailsBtn')]);bindDialog($('#collabModalBackdrop'),$('#collabModal'),[$('#cancelCollabBtn')]);
 
     window.addEventListener('pagehide',stopAllMedia);window.addEventListener('beforeunload',stopAllMedia);
     window.addEventListener('resize',()=>{if(matchMedia('(min-width:781px)').matches)$$('.app-shell>.panel').forEach(p=>p.classList.remove('mobile-active'))});
 
     window.addEventListener('storage',event=>{
+      if(event.key===STORAGE_KEY){state=loadState();currentRoom=currentMeeting();renderAll();toast('KANSEE refreshed changes from another tab.');return}
       if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){
         const imported=applyHolloIdentity({silent:true});
         if(imported){
@@ -1941,7 +2232,7 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
 
     const incomingCode=new URLSearchParams(location.search).get('room');
     if(incomingCode){$('#joinCodeInput').value=normalizeCode(incomingCode)||incomingCode}
-    renderAll();
+    updateChatCounter();updateCollabCounter();renderAll();
   })();
   </script>
 </body>
