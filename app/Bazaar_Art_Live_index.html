@@ -1047,6 +1047,89 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
   .story-nav{width:38px;height:38px}
 }
 
+
+
+/* ============================================================
+   Bazaar Art Live — professional systems and overflow pass
+   ============================================================ */
+html{overflow-x:hidden;scroll-padding-top:76px}
+body{overflow-x:hidden}
+button,a,input,textarea,select{max-width:100%}
+button{overflow-wrap:anywhere}
+.post-card,.section-card,.group-card,.event-card,.notification-card,.profile-header,
+.person-row,.trend-row,.event-mini,.comment-bubble,.modal-body,.modal-foot,.rail-card{min-width:0}
+.post-author,.post-meta,.post-location,.post-text,.profile-handle,.profile-bio,.group-card p,
+.event-card p,.rail-sub,.helper,.notification-card,.comment-bubble,.network-link,.site-footer{
+  overflow-wrap:anywhere;
+  word-break:break-word;
+}
+.search-clear{
+  position:absolute;right:42px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border:0;border-radius:7px;background:var(--panel-3);color:var(--muted);
+}
+.search-clear:hover{color:var(--text)}
+.support-link{border-color:color-mix(in srgb,var(--accent) 48%,var(--line));color:var(--accent)}
+.footer-support{display:inline-flex;margin-top:9px;padding:7px 10px;border:1px solid var(--line);border-radius:7px;color:var(--accent)}
+.footer-support:hover{background:var(--panel)}
+.mobile-nav{grid-template-columns:repeat(6,minmax(0,1fr))}
+.mobile-nav button{min-width:0;overflow:hidden}
+.mobile-nav button span:last-child{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mobile-nav button.more-active{color:var(--accent)}
+.post-action,.reaction-btn,.reel-action,.discover-actions button{touch-action:manipulation}
+.media-frame{border:0;padding:0;color:inherit;text-align:inherit}
+.media-count{
+  position:absolute;right:10px;bottom:10px;display:grid;place-items:center;min-width:36px;height:30px;
+  padding:0 8px;border-radius:7px;background:rgba(4,6,12,.76);color:white;font-size:.72rem;font-weight:700;
+}
+.post-edit-note{padding:10px 11px;border:1px solid var(--line);border-radius:7px;background:var(--panel-2);color:var(--muted);font-size:.68rem}
+.management-list{display:grid;gap:8px;margin-top:10px}
+.management-row{display:flex;align-items:center;gap:9px;padding:9px;border:1px solid var(--line);border-radius:7px;background:var(--panel-2)}
+.management-row .grow{overflow-wrap:anywhere}
+.management-actions{display:flex;gap:6px;flex-wrap:wrap}
+.moderation-section{padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2)}
+.moderation-section h3{margin:0 0 9px;font-family:var(--font-display);font-size:1rem}
+.moderation-list{display:grid;gap:7px}
+.moderation-item{display:flex;align-items:center;gap:9px;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel)}
+.moderation-item .soft-btn{margin-left:auto}
+.notification-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.event-status{display:inline-flex;margin-top:7px;padding:4px 7px;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.65rem}
+.event-status.past{color:var(--faint)}
+.profile-private-note{margin-top:12px;padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2);color:var(--muted)}
+.avatar-editor{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel-2)}
+.avatar-preview{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,var(--violet),var(--accent-2));color:#101426;font-weight:800}
+.avatar-preview img{width:100%;height:100%;object-fit:cover}
+.mobile-more-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.mobile-more-grid button,.mobile-more-grid a{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center}
+.search-dialog-results{max-height:45vh;overflow:auto;margin-top:12px}
+.no-scroll{overflow:hidden!important}
+
+@media(max-width:680px){
+  #searchBtn{display:grid!important}
+  #layoutBtn{display:none!important}
+  .top-actions{gap:5px}
+  .icon-btn{width:37px;height:37px}
+  .view-title{max-width:130px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .post-head{align-items:flex-start}
+  .post-menu{flex:0 0 auto}
+  .post-stats{gap:10px;flex-wrap:wrap}
+  .post-actions{gap:5px}
+  .reaction-bar{overflow-x:auto;scrollbar-width:none}
+  .reaction-btn{white-space:nowrap;flex:0 0 auto}
+  .modal-foot{display:grid;grid-template-columns:1fr;position:static}
+  .modal-foot>*{width:100%}
+  .management-row,.moderation-item{align-items:flex-start;flex-wrap:wrap}
+  .management-actions{width:100%}
+  .avatar-editor{grid-template-columns:1fr;justify-items:center;text-align:center}
+}
+@media(max-width:420px){
+  .mobile-nav button{font-size:.57rem}
+  .mobile-nav button span:first-child{font-size:1rem}
+  .mobile-more-grid{grid-template-columns:1fr}
+  .post-head{padding-inline:10px}
+  .post-text,.post-location{padding-inline:10px}
+  .profile-header,.group-card,.event-card,.section-card{padding:12px}
+}
+
 </style>
 </head>
 <body>
@@ -1079,6 +1162,7 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
       <a class="network-link" href="./EVen_mail_index.html">E=Ven Mail · Email Applications</a>
       <a class="network-link" href="./SIte_builder_index.html">SIte · Website Builder</a>
       <a class="network-link" href="./Bunya_digital_infrastructure_index.html">Bunya · Infrastructure</a>
+      <a class="network-link support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support the 333 Network</a>
     </div>
     <button type="button" class="profile-chip" id="profileChipBtn">
       <span class="avatar small-avatar" id="profileChipAvatar">JP</span>
@@ -1090,8 +1174,9 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
   <main class="main-column">
     <header class="topbar">
       <div class="view-heading"><span>333 Social Feed</span><strong class="view-title" id="viewTitle">Community Feed</strong></div>
-      <label class="top-search"><span class="sr-only">Search Bazaar Art</span><input id="globalSearch" type="search" placeholder="Search people, posts, tags, groups"><span class="search-shortcut">⌘ K</span></label>
+      <label class="top-search"><span class="sr-only">Search Bazaar Art</span><input id="globalSearch" type="search" placeholder="Search people, posts, tags, groups, and events"><button type="button" class="search-clear" id="clearSearchBtn" aria-label="Clear search" hidden>×</button><span class="search-shortcut">⌘ K</span></label>
       <div class="top-actions">
+        <button type="button" class="icon-btn" id="searchBtn" aria-label="Search Bazaar Art">⌕</button>
         <button type="button" class="icon-btn" id="layoutBtn" aria-label="Adjust display">▦</button>
         <button type="button" class="icon-btn" id="settingsBtn" aria-label="Settings and backup">⚙</button>
         <button type="button" class="icon-btn" id="topNotificationBtn" aria-label="Notifications">♢</button>
@@ -1105,7 +1190,8 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
 <footer class="site-footer">
   <strong>Bazaar Art Live · 333 Creative Community</strong><br>
   Verve N Veda · Khaemenes Academy · Jennifer Kay Pearl · All Rights Reserved 2026<br>
-  Posts, profiles, events, and uploaded media remain on this device until a connected service is deliberately configured.
+  Posts, profiles, events, and uploaded media remain on this device until a connected service is deliberately configured.<br>
+  <a class="footer-support" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Contribute to the 333 Network</a>
 </footer>
 
 <button type="button" class="mobile-create" id="mobileCreateBtn" aria-label="Create a post">✨</button>
@@ -1115,16 +1201,17 @@ button,.nav-btn,.create-main,.network-link,.profile-chip,.icon-btn,.soft-btn,.pr
   <button type="button" data-view="reels"><span>🎬</span><span>Reels</span></button>
   <button type="button" data-view="notifications"><span>🔔</span><span>Alerts</span></button>
   <button type="button" data-view="profile"><span>👤</span><span>Profile</span></button>
+  <button type="button" id="mobileMoreBtn"><span>•••</span><span>More</span></button>
 </nav>
 
 <div id="modalHost"></div>
 <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="true"></div>
-<input id="workspaceImportInput" type="file" accept="application/json" hidden>
+<input id="workspaceImportInput" type="file" accept="application/json,.json" hidden>
 
 <script>
 (()=>{
 'use strict';
-const APP_VERSION='1.2.0';
+const APP_VERSION='1.3.0';
 const STATE_KEY='bazaar_live_frontend_v1';
 const HOLLO_STORAGE_KEY='hollo_333_direct_connect_v1';
 const IDENTITY_HANDOFF_KEY='333_identity_handoff_v1';
@@ -1189,16 +1276,14 @@ function seedState(){
     {id:'e1',title:'Bazaar Night · Emerging Voices',description:'An evening for new work, open conversation, and community connection.',startAt:t+86400000*2+72000000,location:'Hope’s Haven Atrium',capacity:50,hostId:'u_founder',goingIds:['u_founder','u_arella','u_maya'],interestedIds:['u_kai'],groupId:'g_artists',visibility:'public'},
     {id:'e2',title:'Virtual Studio Circle',description:'Bring one unfinished piece and one honest question.',startAt:t+86400000*5+64800000,location:'KANSEE Room',capacity:24,hostId:'u_arella',goingIds:['u_arella'],interestedIds:['u_founder'],groupId:'g_artists',visibility:'public'}
   ];
-  return {version:APP_VERSION,currentUserId:null,users,posts,stories,groups,events,notifications:[],reports:[],blockedUserIds:[],mutedUserIds:[],ticker:['Bazaar Art Live · Creative Community Feed','Participation is always optional','Your work remains yours'],settings:{theme:'dark',density:'comfortable',fontScale:1,feedWidth:680,rail:'full',backendUrl:'',backendStatus:'disconnected',contentFilter:true,autoplay:false},activeView:'home',feedFilter:'all',profileTab:'posts'};
+  return {version:APP_VERSION,currentUserId:null,users,posts,stories,groups,events,notifications:[],reports:[],followRequests:[],blockedUserIds:[],mutedUserIds:[],ticker:['Bazaar Art Live · Creative Community Feed','Participation is always optional','Your work remains yours'],settings:{theme:'dark',density:'comfortable',fontScale:1,feedWidth:680,rail:'full',backendUrl:'',backendStatus:'disconnected',contentFilter:true,autoplay:false},activeView:'home',feedFilter:'all',profileTab:'posts'};
 }
 
 function normalizeState(raw){
   const base=seedState();
-  if(!raw||typeof raw!=='object'||!Array.isArray(raw.users))return base;
+  if(!raw||typeof raw!=="object"||!Array.isArray(raw.users))return base;
   const normalized={
-    ...base,
-    ...raw,
-    version:APP_VERSION,
+    ...base,...raw,version:APP_VERSION,
     users:Array.isArray(raw.users)?raw.users:base.users,
     posts:Array.isArray(raw.posts)?raw.posts:base.posts,
     stories:Array.isArray(raw.stories)?raw.stories:base.stories,
@@ -1206,15 +1291,37 @@ function normalizeState(raw){
     events:Array.isArray(raw.events)?raw.events:base.events,
     notifications:Array.isArray(raw.notifications)?raw.notifications:[],
     reports:Array.isArray(raw.reports)?raw.reports:[],
+    followRequests:Array.isArray(raw.followRequests)?raw.followRequests:[],
     blockedUserIds:Array.isArray(raw.blockedUserIds)?raw.blockedUserIds:[],
     mutedUserIds:Array.isArray(raw.mutedUserIds)?raw.mutedUserIds:[],
     ticker:Array.isArray(raw.ticker)?raw.ticker:base.ticker,
     settings:{...base.settings,...(raw.settings||{})}
   };
   normalized.users=normalized.users.map(user=>({
-    followers:[],following:[],participation:true,privateProfile:false,verified:false,
-    identitySource:'local',numberKind:'none',...user
+    followers:[],following:[],pendingFollowerIds:[],participation:true,privateProfile:false,
+    verified:false,identitySource:"local",numberKind:"none",avatarMediaId:null,...user,
+    followers:Array.isArray(user.followers)?Array.from(new Set(user.followers)):[],
+    following:Array.isArray(user.following)?Array.from(new Set(user.following)):[],
+    pendingFollowerIds:Array.isArray(user.pendingFollowerIds)?Array.from(new Set(user.pendingFollowerIds)):[]
   }));
+  const userIds=new Set(normalized.users.map(user=>user.id));
+  normalized.posts=normalized.posts.map(post=>({
+    id:post.id||uid("p"),authorId:userIds.has(post.authorId)?post.authorId:"unknown",type:post.type==="reel"?"reel":"post",
+    text:safeText(post.text).slice(0,5000),createdAt:Number(post.createdAt)||now(),audience:["public","followers","group","private"].includes(post.audience)?post.audience:"public",
+    groupId:post.groupId||null,location:safeText(post.location).slice(0,100),tags:Array.isArray(post.tags)?post.tags.slice(0,12):[],
+    media:Array.isArray(post.media)?post.media.slice(0,12):[],reactions:{like:[],love:[],fire:[],applause:[],...(post.reactions||{})},
+    comments:Array.isArray(post.comments)?post.comments:[],savedBy:Array.isArray(post.savedBy)?post.savedBy:[],hiddenBy:Array.isArray(post.hiddenBy)?post.hiddenBy:[],
+    reportedBy:Array.isArray(post.reportedBy)?post.reportedBy:[],shareCount:Number(post.shareCount)||0,editedAt:Number(post.editedAt)||null
+  }));
+  normalized.stories=normalized.stories.map(story=>({...story,items:Array.isArray(story.items)?story.items:[],viewedBy:Array.isArray(story.viewedBy)?story.viewedBy:[],expiresAt:Number(story.expiresAt)||0}));
+  normalized.groups=normalized.groups.map(group=>({...group,privacy:["public","private"].includes(group.privacy)?group.privacy:"public",memberIds:Array.isArray(group.memberIds)?Array.from(new Set(group.memberIds)):[],createdAt:Number(group.createdAt)||now()}));
+  normalized.events=normalized.events.map(event=>({...event,goingIds:Array.isArray(event.goingIds)?Array.from(new Set(event.goingIds)):[],interestedIds:Array.isArray(event.interestedIds)?Array.from(new Set(event.interestedIds)):[],capacity:Math.max(1,Number(event.capacity)||50),visibility:["public","followers","group","private"].includes(event.visibility)?event.visibility:"public",startAt:Number(event.startAt)||now()}));
+  normalized.followRequests=normalized.followRequests.filter(request=>request&&userIds.has(request.fromId)&&userIds.has(request.toId)&&request.status==="pending");
+  normalized.currentUserId=userIds.has(normalized.currentUserId)?normalized.currentUserId:null;
+  normalized.activeView=VIEWS[normalized.activeView]?normalized.activeView:"home";
+  normalized.feedFilter=["all","following","art"].includes(normalized.feedFilter)?normalized.feedFilter:"all";
+  normalized.profileTab=["posts","reels","saved"].includes(normalized.profileTab)?normalized.profileTab:"posts";
+  if(!normalized.settings.backendUrl)normalized.settings.backendStatus="disconnected";
   return normalized;
 }
 
@@ -1239,16 +1346,53 @@ function isBlocked(id){return state.blockedUserIds.includes(id)}
 function isMuted(id){return state.mutedUserIds.includes(id)}
 function visiblePosts(){
   const current=hasMember()?me():null;
-  if(!current)return state.posts.filter(p=>p.audience==='public').sort((a,b)=>b.createdAt-a.createdAt);
-  return state.posts.filter(p=>!p.hiddenBy?.includes(current.id)&&!isBlocked(p.authorId)&&!isMuted(p.authorId)).filter(p=>{
-    if(p.authorId===current.id)return true;
-    if(p.audience==='public')return true;
-    if(p.audience==='followers')return userById(p.authorId).followers?.includes(current.id);
-    if(p.audience==='group')return state.groups.find(g=>g.id===p.groupId)?.memberIds.includes(current.id);
+  if(!current)return state.posts.filter(post=>post.audience==="public"&&!isBlocked(post.authorId)).sort((a,b)=>b.createdAt-a.createdAt);
+  return state.posts.filter(post=>!post.hiddenBy?.includes(current.id)&&!isBlocked(post.authorId)&&!isMuted(post.authorId)).filter(post=>{
+    if(state.settings.contentFilter&&post.reportedBy?.includes(current.id))return false;
+    if(post.authorId===current.id)return true;
+    if(post.audience==="public")return true;
+    if(post.audience==="followers")return userById(post.authorId).followers?.includes(current.id);
+    if(post.audience==="group")return state.groups.find(group=>group.id===post.groupId)?.memberIds.includes(current.id);
     return false;
   }).sort((a,b)=>b.createdAt-a.createdAt);
 }
-function addNotification(text,type='activity',userId=state.currentUserId){state.notifications.unshift({id:uid('n'),userId,type,text,createdAt:now(),read:false});persist();updateBadges()}
+function requireParticipation(message="participate"){
+  const current=requireMe();
+  if(!current)return null;
+  if(!current.participation){toast(`Feed participation is turned off. Enable it in your profile before you ${message}.`,"error");return null}
+  return current;
+}
+function canViewPrivateProfile(user){
+  if(!user?.privateProfile)return true;
+  if(!hasMember())return false;
+  const current=me();
+  return user.id===current.id||user.followers?.includes(current.id);
+}
+function visibleUsers(){return state.users.filter(user=>user.id!==me().id&&!isBlocked(user.id)).filter(user=>!user.privateProfile||canViewPrivateProfile(user))}
+function visibleGroups(){
+  const current=hasMember()?me():null;
+  return state.groups.filter(group=>group.privacy==="public"||Boolean(current&&group.memberIds.includes(current.id)));
+}
+function visibleEvents(){
+  const current=hasMember()?me():null;
+  return state.events.filter(event=>{
+    if(event.visibility==="public")return true;
+    if(!current)return false;
+    if(event.hostId===current.id||event.goingIds.includes(current.id)||event.interestedIds.includes(current.id))return true;
+    if(event.visibility==="followers")return userById(event.hostId).followers?.includes(current.id);
+    if(event.visibility==="group")return state.groups.find(group=>group.id===event.groupId)?.memberIds.includes(current.id);
+    return false;
+  });
+}
+function localDateTimeValue(timestamp){
+  const date=new Date(timestamp);const offset=date.getTimezoneOffset()*60000;
+  return new Date(date.getTime()-offset).toISOString().slice(0,16);
+}
+function pendingFollowRequest(fromId,toId){return state.followRequests.find(request=>request.fromId===fromId&&request.toId===toId&&request.status==="pending")}
+function addNotification(text,type="activity",userId=state.currentUserId,meta={}){
+  if(!userId)return;
+  state.notifications.unshift({id:uid("n"),userId,type,text,createdAt:now(),read:false,...meta});persist();updateBadges();
+}
 function toast(message,kind='info'){const el=document.createElement('div');el.className='toast '+(kind==='error'?'error':kind==='success'?'success':'');el.textContent=message;$('#toastRegion').appendChild(el);setTimeout(()=>el.remove(),3200)}
 function avatarHTML(u,size=''){return `<span class="avatar ${size}" data-avatar-user="${esc(u.id)}">${esc(initials(u.name))}</span>`}
 function audienceLabel(p){return p.audience==='public'?'Public':p.audience==='followers'?'Followers':p.audience==='group'?'Group':'Private'}
@@ -1266,12 +1410,17 @@ function applySettings(){
   $('#appShell').dataset.rail=state.settings.rail||'full';
 }
 function setView(view){
-  if(!VIEWS[view])view='home';state.activeView=view;persist();
-  $('#viewTitle').textContent=VIEWS[view];
-  $$('[data-view]').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
-  renderView();renderRightRail();window.scrollTo({top:0,behavior:'smooth'});
+  if(!VIEWS[view])view="home";state.activeView=view;persist();
+  $("#viewTitle").textContent=VIEWS[view];
+  $$('[data-view]').forEach(button=>{const active=button.dataset.view===view;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));button.setAttribute("aria-current",active?"page":"false")});
+  $("#mobileMoreBtn")?.classList.toggle("more-active",["groups","events","saved"].includes(view));
+  renderView();renderRightRail();window.scrollTo({top:0,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
-function updateBadges(){const count=state.notifications.filter(n=>n.userId===state.currentUserId&&!n.read).length;const b=$('#desktopNotificationBadge');b.textContent=count;b.hidden=!count;$('#topNotificationBtn').textContent=count?`♢ ${count}`:'♢'}
+function updateBadges(){
+  const count=state.notifications.filter(notification=>notification.userId===state.currentUserId&&!notification.read).length;
+  const badge=$("#desktopNotificationBadge");badge.textContent=count;badge.hidden=!count;
+  const top=$("#topNotificationBtn");top.textContent=count?`♢ ${count}`:"♢";top.setAttribute("aria-label",count?`${count} unread notifications`:"Notifications");
+}
 function updateProfileChip(){
   if(!hasMember()){
     $('#profileChipName').textContent='Create or import profile';
@@ -1282,7 +1431,7 @@ function updateProfileChip(){
   const u=me();
   $('#profileChipName').textContent=u.name;
   $('#profileChipHandle').textContent='@'+u.handle;
-  $('#profileChipAvatar').textContent=initials(u.name);
+  const avatar=$('#profileChipAvatar');avatar.textContent=initials(u.name);if(u.avatarMediaId)MediaDB.get(u.avatarMediaId).then(item=>{if(item?.dataUrl){const image=document.createElement('img');image.src=item.dataUrl;image.alt='';avatar.replaceChildren(image)}});
 }
 
 
@@ -1336,7 +1485,7 @@ function importHolloProfile({silent=false}={}){
   }
 
   const identityKey=(identity.number||identity.handle||identity.name).toLowerCase();
-  let user=state.users.find(item=>item.identitySource==='hollo'&&item.identityKey===identityKey);
+  let user=state.users.find(item=>item.identitySource==='hollo'&&item.identityKey===identityKey)||state.users.find(item=>(identity.number&&item.number333===identity.number)||(identity.handle&&item.handle===identity.handle));
 
   if(!user){
     user={
@@ -1357,11 +1506,8 @@ function importHolloProfile({silent=false}={}){
       createdAt:now(),read:false
     });
   }else{
-    user.name=identity.name;
-    user.number333=identity.number;
-    user.numberKind=identity.numberKind;
-    user.identityUpdatedAt=identity.completedAt||now();
-    if(!user.handle)user.handle=uniqueLocalHandle(identity.handle||identity.name,user.id);
+    user.name=identity.name;user.number333=identity.number;user.numberKind=identity.numberKind;user.identitySource='hollo';user.identityKey=identityKey;user.identityUpdatedAt=identity.completedAt||now();
+    if(identity.handle&&user.handle!==identity.handle)user.handle=uniqueLocalHandle(identity.handle,user.id);
   }
 
   state.currentUserId=user.id;
@@ -1504,8 +1650,7 @@ function openSeparateArtProfile(){
       participation:true,
       privateProfile:false,
       avatarMediaId:null,
-      followers:[],
-      following:[],
+      followers:[],following:[],pendingFollowerIds:[],
       createdAt:now()
     };
 
@@ -1549,15 +1694,15 @@ function renderHome(){
   const u=me();const stories=state.stories.filter(s=>s.expiresAt>now()&&!isBlocked(s.userId));let posts=visiblePosts();
   if(state.feedFilter==='following'&&u)posts=posts.filter(p=>u.following.includes(p.authorId)||p.authorId===u.id);
   if(state.feedFilter==='art')posts=posts.filter(p=>p.tags?.some(t=>/art|studio|color|photo|poetry|motion/i.test(t)));
-  return `<section class="feed-welcome"><div><span class="feed-eyebrow">Art · Ideas · Events · Community</span><h1>Bazaar Art Live</h1><p>Share creative work, discover artists, join groups, and gather around events in the 333 Network. This edition begins as a private, local-first studio.</p></div><span class="status-pill"><span class="status-dot ${state.settings.backendStatus==='online'?'online':''}"></span>${state.settings.backendStatus==='online'?'Connected service':'Saved on this device'}</span></section><div class="stories"><button class="story add-story" data-action="create-story"><span class="story-ring">＋</span><span>Your story</span></button>${stories.map(s=>{const a=userById(s.userId);return `<button class="story" data-action="open-story" data-id="${esc(s.id)}"><span class="story-ring ${s.viewedBy?.includes(u.id)?'viewed':''}">${avatarHTML(a)}</span><span>${esc(a.name.split(' ')[0])}</span></button>`}).join('')}</div>
+  return `<section class="feed-welcome"><div><span class="feed-eyebrow">Art · Ideas · Events · Community</span><h1>Bazaar Art Live</h1><p>Share creative work, discover artists, join groups, and gather around events in the 333 Network. This edition begins as a private, local-first studio.</p></div><span class="status-pill"><span class="status-dot ${state.settings.backendStatus==='online'?'online':''}"></span>${state.settings.backendStatus==='online'?'Connected service':'Saved on this device'}</span></section><div class="stories"><button type="button" class="story add-story" data-action="create-story"><span class="story-ring">＋</span><span>Your story</span></button>${stories.map(s=>{const a=userById(s.userId);return `<button type="button" class="story" data-action="open-story" data-id="${esc(s.id)}"><span class="story-ring ${s.viewedBy?.includes(u.id)?'viewed':''}">${avatarHTML(a)}</span><span>${esc(a.name.split(' ')[0])}</span></button>`}).join('')}</div>
   <section class="composer-card"><div class="composer-row">${u?avatarHTML(u):'<span class="avatar">✨</span>'}<button class="composer-launch" data-action="create-post">Share artwork, an idea, an event, or an announcement…</button></div><div class="composer-tools"><button class="tool-btn" data-action="create-post" data-kind="post">▧ Photo / Post</button><button class="tool-btn" data-action="create-post" data-kind="reel">▶ Reel</button><button class="tool-btn" data-action="create-event">□ Event</button><button class="tool-btn" data-action="create-story">◉ Story</button></div></section>
-  <div class="feed-filter">${[['all','Community'],['following','Following'],['art','Art & Ideas']].map(([k,l])=>`<button class="filter-chip ${state.feedFilter===k?'active':''}" data-action="feed-filter" data-filter="${k}">${l}</button>`).join('')}</div>
+  <div class="feed-filter">${[['all','Community'],['following','Following'],['art','Art & Ideas']].map(([k,l])=>`<button type="button" class="filter-chip ${state.feedFilter===k?'active':''}" data-action="feed-filter" data-filter="${k}">${l}</button>`).join('')}</div>
   <div id="feedList">${posts.length?posts.map(renderPostCard).join(''):`<div class="empty">Your feed is quiet. Follow artists, join groups, or create the first post.</div>`}</div>`;
 }
 function renderPostCard(p){
   const a=userById(p.authorId),mine=a.id===me().id,reacted=Object.entries(p.reactions||{}).find(([,ids])=>ids.includes(me().id))?.[0]||'';const saved=p.savedBy?.includes(me().id);
   return `<article class="post-card" data-post-id="${esc(p.id)}">
-    <header class="post-head"><button class="menu-btn" data-action="open-profile" data-user-id="${esc(a.id)}" aria-label="Open ${esc(a.name)} profile">${avatarHTML(a,'small-avatar')}</button><div class="grow"><button class="post-author author-link" data-action="open-profile" data-user-id="${esc(a.id)}">${esc(a.name)} ${a.verified?'<span class="verified" title="Verified">◆</span>':''}</button><div class="post-meta">@${esc(a.handle)} · ${formatTime(p.createdAt)} · ${esc(audienceLabel(p))}</div></div><button class="menu-btn post-menu" data-action="post-menu" data-id="${esc(p.id)}" aria-label="Post options">•••</button></header>
+    <header class="post-head"><button class="menu-btn" data-action="open-profile" data-user-id="${esc(a.id)}" aria-label="Open ${esc(a.name)} profile">${avatarHTML(a,'small-avatar')}</button><div class="grow"><button class="post-author author-link" data-action="open-profile" data-user-id="${esc(a.id)}">${esc(a.name)} ${a.verified?'<span class="verified" title="Verified">◆</span>':''}</button><div class="post-meta">@${esc(a.handle)} · ${formatTime(p.createdAt)}${p.editedAt?' · edited':''} · ${esc(audienceLabel(p))}</div></div><button class="menu-btn post-menu" data-action="post-menu" data-id="${esc(p.id)}" aria-label="Post options">•••</button></header>
     ${p.location?`<div class="post-location">⌖ ${esc(p.location)}</div>`:''}
     ${p.text?`<div class="post-text">${textWithTags(p.text)}</div>`:''}
     ${p.media?.length?renderMediaGrid(p.media):''}
@@ -1566,17 +1711,25 @@ function renderPostCard(p){
     <div class="reaction-bar">${[['like','👍'],['love','❤️'],['fire','🔥'],['applause','👏']].map(([k,e])=>`<button class="reaction-btn ${(p.reactions?.[k]||[]).includes(me().id)?'active':''}" data-action="reaction" data-reaction="${k}" data-id="${esc(p.id)}">${e} ${(p.reactions?.[k]||[]).length||''}</button>`).join('')}</div>
   </article>`;
 }
-function renderMediaGrid(media){const m=media.slice(0,3);return `<div class="media-grid" data-count="${m.length}">${m.map(x=>`<button class="media-frame" data-action="open-media" data-media-id="${esc(x.id)}" aria-label="Open media"><span class="media-loading">Loading media…</span></button>`).join('')}</div>`}
+function renderMediaGrid(media){const items=media.slice(0,3);return `<div class="media-grid" data-count="${items.length}">${items.map((item,index)=>`<button type="button" class="media-frame" data-action="open-media" data-media-id="${esc(item.id)}" aria-label="Open media ${index+1} of ${media.length}"><span class="media-loading">Loading media…</span>${index===items.length-1&&media.length>items.length?`<span class="media-count">+${media.length-items.length}</span>`:''}</button>`).join('')}</div>`}
 
 function renderDiscover(){
-  const q=safeText($('#globalSearch')?.value).trim().toLowerCase();
-  const posts=visiblePosts().filter(p=>!q||safeText(p.text).toLowerCase().includes(q)||p.tags?.some(t=>safeText(t).toLowerCase().includes(q))||userById(p.authorId).name.toLowerCase().includes(q));
-  const people=state.users.filter(u=>u.id!==me().id&&!isBlocked(u.id)).filter(u=>!q||`${u.name} ${u.handle} ${u.bio}`.toLowerCase().includes(q));
-  return `<div class="section-head"><div><span class="section-kicker">Creative discovery</span><h2>Explore Bazaar Art</h2></div><button class="soft-btn" data-action="search-focus">Search</button></div>
-    ${people.length?`<section class="section-card" style="margin-bottom:14px"><h3 style="margin-top:0">Artists</h3><div class="grid-2">${people.slice(0,6).map(renderPersonCard).join('')}</div></section>`:''}
-    <div class="discover-grid">${posts.length?posts.map(renderDiscoverTile).join(''):`<div class="empty">No discoveries match your search.</div>`}</div>`;
+  const rawQuery=safeText($("#globalSearch")?.value).trim();
+  const query=rawQuery.toLowerCase();const tagQuery=query.replace(/^#/,"");
+  const posts=visiblePosts().filter(post=>!query||safeText(post.text).toLowerCase().includes(query)||post.tags?.some(tag=>safeText(tag).toLowerCase().includes(tagQuery))||userById(post.authorId).name.toLowerCase().includes(query));
+  const people=visibleUsers().filter(user=>!query||`${user.name} ${user.handle} ${user.bio}`.toLowerCase().includes(query));
+  const groups=visibleGroups().filter(group=>!query||`${group.name} ${group.description}`.toLowerCase().includes(query));
+  const events=visibleEvents().filter(event=>!query||`${event.title} ${event.description} ${event.location}`.toLowerCase().includes(query));
+  return `<div class="section-head"><div><span class="section-kicker">Creative discovery</span><h2>Explore Bazaar Art</h2></div><button class="soft-btn" data-action="search-focus">${rawQuery?"Refine search":"Search"}</button></div>
+    ${people.length?`<section class="section-card" style="margin-bottom:14px"><h3 style="margin-top:0">Artists</h3><div class="grid-2">${people.slice(0,6).map(renderPersonCard).join("")}</div></section>`:""}
+    ${groups.length?`<section class="section-card" style="margin-bottom:14px"><h3 style="margin-top:0">Groups</h3><div class="grid-2">${groups.slice(0,4).map(group=>`<button class="soft-btn" data-action="group-feed" data-id="${esc(group.id)}">${esc(group.name)} · ${group.memberIds.length} members</button>`).join("")}</div></section>`:""}
+    ${events.length?`<section class="section-card" style="margin-bottom:14px"><h3 style="margin-top:0">Events</h3><div class="management-list">${events.slice(0,4).map(event=>`<button class="soft-btn" data-action="open-event" data-id="${esc(event.id)}">${esc(event.title)} · ${formatDate(event.startAt)}</button>`).join("")}</div></section>`:""}
+    <div class="discover-grid">${posts.length?posts.map(renderDiscoverTile).join(""):`<div class="empty">No discoveries match your search.</div>`}</div>`;
 }
-function renderPersonCard(u){const current=me();const following=current?current.following.includes(u.id):false;return `<div class="person-row"><button class="profile-open" data-action="open-profile" data-user-id="${esc(u.id)}">${avatarHTML(u)}</button><div class="grow"><button class="author-link" data-action="open-profile" data-user-id="${esc(u.id)}"><strong>${esc(u.name)} ${u.verified?'<span class="verified">◆</span>':''}</strong></button><div class="small muted">@${esc(u.handle)}</div></div><button class="soft-btn" data-action="follow" data-user-id="${esc(u.id)}">${following?'Following':'Follow'}</button></div>`}
+function renderPersonCard(user){
+  const current=hasMember()?me():null;const following=Boolean(current?.following.includes(user.id));const requested=Boolean(current&&pendingFollowRequest(current.id,user.id));
+  return `<div class="person-row"><button type="button" class="profile-open" data-action="open-profile" data-user-id="${esc(user.id)}" aria-label="Open ${esc(user.name)} profile">${avatarHTML(user)}</button><div class="grow"><button type="button" class="author-link" data-action="open-profile" data-user-id="${esc(user.id)}"><strong>${esc(user.name)} ${user.verified?'<span class="verified">◆</span>':""}</strong></button><div class="small muted">@${esc(user.handle)}${user.privateProfile?" · Private":""}</div></div><button type="button" class="soft-btn" data-action="follow" data-user-id="${esc(user.id)}">${following?"Following":requested?"Requested":"Follow"}</button></div>`;
+}
 function renderDiscoverTile(p){const media=p.media?.[0];return `<article class="discover-tile" data-post-id="${esc(p.id)}">${media?`<button style="border:0;padding:0;width:100%;background:transparent" data-action="open-media" data-media-id="${esc(media.id)}"><span class="media-frame" style="display:block;min-height:150px" data-inline-media="${esc(media.id)}"><span class="media-loading">Loading…</span></span></button>`:`<div class="discover-copy">${textWithTags(p.text.slice(0,220))}</div>`}<div class="discover-overlay">
       <button class="discover-author" data-action="open-profile" data-user-id="${esc(p.authorId)}">${esc(userById(p.authorId).name)}</button>
       <div class="discover-actions">
@@ -1588,13 +1741,24 @@ function renderDiscoverTile(p){const media=p.media?.[0];return `<article class="
     </div></article>`}
 
 function renderReels(){const reels=visiblePosts().filter(p=>p.type==='reel'||p.media?.some(m=>safeText(m.type).startsWith('video/')));return `<div class="section-head"><h2>Reels</h2><button class="primary-btn" data-action="create-post" data-kind="reel">Create reel</button></div><div class="reels-list">${reels.length?reels.map(renderReel).join(''):`<div class="empty">No reels yet. Upload a short video or publish a visual motion study.</div>`}</div>`}
-function renderReel(p){const a=userById(p.authorId),media=(p.media||[]).find(m=>m.type.startsWith('video/')||m.type==='image/gif')||p.media?.[0];return `<article class="reel-card" data-post-id="${esc(p.id)}"><div class="reel-media">${media?`<div data-inline-media="${esc(media.id)}" style="height:100%"><span class="media-loading">Loading reel…</span></div>`:`<div class="reel-fallback">${esc(p.text||'Bazaar Art Reel')}</div>`}</div><div class="reel-gradient"></div><div class="reel-info"><strong>${esc(a.name)}</strong><p>${textWithTags(p.text)}</p><span class="small">${esc(p.location||'333 Network')}</span></div><div class="reel-actions"><button class="reel-action" data-action="quick-like" data-id="${esc(p.id)}">♡<small>${reactionTotal(p)}</small></button><button class="reel-action" data-action="comments" data-id="${esc(p.id)}">◌<small>${commentTotal(p)}</small></button><button class="reel-action" data-action="share" data-id="${esc(p.id)}">↗</button><button class="reel-action" data-action="save-post" data-id="${esc(p.id)}">◇</button></div></article>`}
+function renderReel(p){const author=userById(p.authorId),media=(p.media||[]).find(item=>safeText(item.type).startsWith('video/')||item.type==='image/gif')||p.media?.[0];const liked=(p.reactions?.like||[]).includes(me().id);const saved=p.savedBy?.includes(me().id);return `<article class="reel-card" data-post-id="${esc(p.id)}"><div class="reel-media">${media?`<div data-inline-media="${esc(media.id)}" style="height:100%"><span class="media-loading">Loading reel…</span></div>`:`<div class="reel-fallback">${esc(p.text||'Bazaar Art Reel')}</div>`}</div><div class="reel-gradient"></div><div class="reel-info"><button type="button" class="discover-author" data-action="open-profile" data-user-id="${esc(author.id)}">${esc(author.name)}</button><p>${textWithTags(p.text)}</p><span class="small">${esc(p.location||'333 Network')}</span></div><div class="reel-actions"><button type="button" class="reel-action ${liked?'active':''}" data-action="quick-like" data-id="${esc(p.id)}" aria-label="React to reel">${liked?'♥':'♡'}<small>${reactionTotal(p)}</small></button><button type="button" class="reel-action" data-action="comments" data-id="${esc(p.id)}" aria-label="Open comments">◌<small>${commentTotal(p)}</small></button><button type="button" class="reel-action" data-action="share" data-id="${esc(p.id)}" aria-label="Share reel">↗</button><button type="button" class="reel-action ${saved?'active':''}" data-action="save-post" data-id="${esc(p.id)}" aria-label="${saved?'Remove from saved':'Save reel'}">${saved?'◆':'◇'}</button></div></article>`}
 
-function renderGroups(){return `<div class="section-head"><h2>Groups</h2><button class="primary-btn" data-action="create-group">Create group</button></div><div class="grid-2">${state.groups.map(g=>{const joined=g.memberIds.includes(me().id),owner=g.ownerId===me().id;return `<article class="group-card"><div class="group-cover"></div>${avatarHTML(userById(g.ownerId),'large')}<h3>${esc(g.name)}</h3><div class="small muted">${esc(g.privacy)} · ${g.memberIds.length} members</div><p>${esc(g.description)}</p><div class="card-actions"><button class="${joined?'soft-btn':'primary-btn'}" data-action="group-membership" data-id="${esc(g.id)}">${owner?'Manage':joined?'Leave group':'Join group'}</button><button class="soft-btn" data-action="group-feed" data-id="${esc(g.id)}">View posts</button></div></article>`}).join('')}</div>`}
-function renderEvents(){const sorted=state.events.slice().sort((a,b)=>a.startAt-b.startAt);return `<div class="section-head"><h2>Events</h2><button class="primary-btn" data-action="create-event">Create event</button></div><div class="form-grid">${sorted.map(e=>{const d=new Date(e.startAt),going=e.goingIds.includes(me().id),interested=e.interestedIds.includes(me().id);return `<article class="event-card"><div class="event-row"><div class="event-date"><span class="tiny">${d.toLocaleDateString(undefined,{month:'short'}).toUpperCase()}</span><strong>${d.getDate()}</strong></div><div class="grow"><strong>${esc(e.title)}</strong><div class="small muted">${formatDate(e.startAt)} · ${esc(e.location)}</div><p>${esc(e.description)}</p><div class="small muted">Hosted by ${esc(userById(e.hostId).name)} · ${e.goingIds.length} going</div></div></div><div class="card-actions"><button class="${going?'primary-btn':'soft-btn'}" data-action="rsvp" data-status="going" data-id="${esc(e.id)}">${going?'Going ✓':'Going'}</button><button class="${interested?'primary-btn':'soft-btn'}" data-action="rsvp" data-status="interested" data-id="${esc(e.id)}">${interested?'Interested ✓':'Interested'}</button><button class="soft-btn" data-action="share-event" data-id="${esc(e.id)}">Share</button></div></article>`}).join('')}</div>`}
+function renderGroups(){
+  const groups=visibleGroups();
+  return `<div class="section-head"><div><span class="section-kicker">Creative circles</span><h2>Groups</h2></div><button class="primary-btn" data-action="create-group">Create group</button></div><div class="grid-2">${groups.length?groups.map(group=>{const joined=hasMember()&&group.memberIds.includes(me().id),owner=hasMember()&&group.ownerId===me().id;return `<article class="group-card"><div class="group-cover"></div>${avatarHTML(userById(group.ownerId),"large")}<h3>${esc(group.name)}</h3><div class="small muted">${esc(group.privacy)} · ${group.memberIds.length} members</div><p>${esc(group.description)}</p><div class="card-actions"><button class="${joined?'soft-btn':'primary-btn'}" data-action="group-membership" data-id="${esc(group.id)}">${owner?'Manage':joined?'Leave group':'Join group'}</button><button class="soft-btn" data-action="group-feed" data-id="${esc(group.id)}">View group</button></div></article>`}).join(""):`<div class="empty">No groups are available in this workspace yet.</div>`}</div>`;
+}
+function renderEventCard(event){
+  const date=new Date(event.startAt),going=hasMember()&&event.goingIds.includes(me().id),interested=hasMember()&&event.interestedIds.includes(me().id),owner=hasMember()&&event.hostId===me().id,past=event.startAt<now();
+  return `<article class="event-card"><div class="event-row"><div class="event-date"><span class="tiny">${date.toLocaleDateString(undefined,{month:"short"}).toUpperCase()}</span><strong>${date.getDate()}</strong></div><div class="grow"><strong>${esc(event.title)}</strong><div class="small muted">${formatDate(event.startAt)} · ${esc(event.location||"Location to be announced")}</div><p>${esc(event.description)}</p><div class="small muted">Hosted by ${esc(userById(event.hostId).name)} · ${event.goingIds.length}/${event.capacity} going · ${esc(event.visibility)}</div><span class="event-status ${past?'past':''}">${past?"Past event":"Upcoming"}</span></div></div><div class="card-actions">${!past?`<button class="${going?'primary-btn':'soft-btn'}" data-action="rsvp" data-status="going" data-id="${esc(event.id)}">${going?'Going ✓':'Going'}</button><button class="${interested?'primary-btn':'soft-btn'}" data-action="rsvp" data-status="interested" data-id="${esc(event.id)}">${interested?'Interested ✓':'Interested'}</button>`:""}<button class="soft-btn" data-action="open-event" data-id="${esc(event.id)}">Details</button><button class="soft-btn" data-action="share-event" data-id="${esc(event.id)}">Share</button>${owner?`<button class="soft-btn" data-action="edit-event" data-id="${esc(event.id)}">Edit</button>`:""}</div></article>`;
+}
+function renderEvents(){
+  const events=visibleEvents().slice().sort((a,b)=>a.startAt-b.startAt);const upcoming=events.filter(event=>event.startAt>=now()),past=events.filter(event=>event.startAt<now()).reverse();
+  return `<div class="section-head"><div><span class="section-kicker">Gatherings</span><h2>Events</h2></div><button class="primary-btn" data-action="create-event">Create event</button></div>${upcoming.length?`<div class="form-grid">${upcoming.map(renderEventCard).join("")}</div>`:`<div class="empty">No upcoming events yet.</div>`}${past.length?`<div class="section-head" style="margin-top:22px"><h2>Past events</h2></div><div class="form-grid">${past.slice(0,12).map(renderEventCard).join("")}</div>`:""}`;
+}
+
 function renderNotifications(){
-  const items=state.notifications.filter(n=>n.userId===me().id).sort((a,b)=>b.createdAt-a.createdAt);
-  return `<div class="section-head"><h2>Notifications</h2><button class="soft-btn" data-action="mark-all-read">Mark all read</button></div>${items.length?items.map(n=>`<article class="notification-card ${n.read?'':'unread'}" data-id="${esc(n.id)}"><span class="avatar small-avatar">♢</span><div class="grow"><div>${esc(n.text)}</div><div class="small muted">${formatTime(n.createdAt)}</div></div><button class="menu-btn" data-action="delete-notification" data-id="${esc(n.id)}">×</button></article>`).join(''):`<div class="empty">No notifications yet.</div>`}`;
+  const items=state.notifications.filter(notification=>notification.userId===me().id).sort((a,b)=>b.createdAt-a.createdAt);
+  return `<div class="section-head"><div><span class="section-kicker">Activity</span><h2>Notifications</h2></div><div class="card-actions"><button class="soft-btn" data-action="mark-all-read">Mark all read</button><button class="soft-btn" data-action="clear-read-notifications">Clear read</button></div></div>${items.length?items.map(notification=>{const request=notification.requestId?state.followRequests.find(item=>item.id===notification.requestId&&item.status==="pending"):null;return `<article class="notification-card ${notification.read?'':'unread'}" data-id="${esc(notification.id)}"><span class="avatar small-avatar">♢</span><div class="grow"><div>${esc(notification.text)}</div><div class="small muted">${formatTime(notification.createdAt)}</div>${request?`<div class="notification-actions"><button class="primary-btn" data-action="approve-follow" data-id="${esc(request.id)}">Approve</button><button class="soft-btn" data-action="decline-follow" data-id="${esc(request.id)}">Decline</button></div>`:""}</div>${notification.read?'':`<button class="menu-btn" data-action="read-notification" data-id="${esc(notification.id)}" aria-label="Mark notification read">✓</button>`}<button class="menu-btn" data-action="delete-notification" data-id="${esc(notification.id)}" aria-label="Delete notification">×</button></article>`}).join(""):`<div class="empty">No notifications yet.</div>`}`;
 }
 function renderSaved(){
   const posts=visiblePosts().filter(p=>p.savedBy?.includes(me().id));
@@ -1602,44 +1766,42 @@ function renderSaved(){
 }
 function renderProfile(){
   if(!hasMember())return `<div class="empty"><div style="font-size:2.5rem">🎨</div><h2>Create or import your Bazaar Art Live profile</h2><p>Use HOLLO enrollment for a shared identity, or create a separate local art profile.</p><button class="primary-btn" data-action="create-profile">Create or Import Profile</button></div>`;
-  const u=me();
-  let posts=visiblePosts().filter(p=>p.authorId===u.id);
-  if(state.profileTab==='reels')posts=posts.filter(p=>p.type==='reel');
-  if(state.profileTab==='saved')posts=visiblePosts().filter(p=>p.savedBy?.includes(u.id));
-  return `<div class="profile-cover"></div><section class="profile-header"><div class="profile-top">${avatarHTML(u,'large')}<div class="profile-actions"><button class="soft-btn" data-action="edit-profile">Edit profile</button><button class="soft-btn" data-action="profile-menu">Settings</button></div></div><h2>${esc(u.name)} ${u.verified?'<span class="verified">◆</span>':''}</h2><div class="profile-handle">@${esc(u.handle)} · ${esc(u.number333)}</div><div class="profile-bio">${esc(u.bio)}</div><div class="small muted">${esc(u.location||'')} ${u.website?`· <a href="${esc(validHttpUrl(u.website))}" target="_blank" rel="noopener">${esc(u.website)}</a>`:''}</div><div class="profile-stats"><button><strong>${state.posts.filter(p=>p.authorId===u.id).length}</strong> posts</button><button><strong>${u.followers.length}</strong> followers</button><button><strong>${u.following.length}</strong> following</button><span class="badge">${u.participation?'Feed participation on':'Browse-only mode'}</span></div></section><div class="profile-tabs">${[['posts','Posts'],['reels','Reels'],['saved','Saved']].map(([k,l])=>`<button class="profile-tab ${state.profileTab===k?'active':''}" data-action="profile-tab" data-tab="${k}">${l}</button>`).join('')}</div>${posts.length?posts.map(renderPostCard).join(''):`<div class="empty">Nothing in this section yet.</div>`}`;
+  const user=me();let posts=visiblePosts().filter(post=>post.authorId===user.id);
+  if(state.profileTab==="reels")posts=posts.filter(post=>post.type==="reel");
+  if(state.profileTab==="saved")posts=visiblePosts().filter(post=>post.savedBy?.includes(user.id));
+  return `<div class="profile-cover"></div><section class="profile-header"><div class="profile-top">${avatarHTML(user,"large")}<div class="profile-actions"><button class="soft-btn" data-action="edit-profile">Edit profile</button><button class="soft-btn" data-action="profile-menu">Settings</button></div></div><h2>${esc(user.name)} ${user.verified?'<span class="verified">◆</span>':""}</h2><div class="profile-handle">@${esc(user.handle)}${user.number333?` · ${esc(user.number333)}`:""}</div><div class="profile-bio">${esc(user.bio)}</div><div class="small muted">${esc(user.location||"")} ${user.website?`· <a href="${esc(validHttpUrl(user.website))}" target="_blank" rel="noopener noreferrer">${esc(user.website)}</a>`:""}</div><div class="profile-stats"><span><strong>${state.posts.filter(post=>post.authorId===user.id).length}</strong> posts</span><button data-action="show-followers" data-user-id="${esc(user.id)}"><strong>${user.followers.length}</strong> followers</button><button data-action="show-following" data-user-id="${esc(user.id)}"><strong>${user.following.length}</strong> following</button><span class="badge">${user.participation?"Feed participation on":"Browse-only mode"}</span>${user.privateProfile?'<span class="badge">Private profile</span>':""}</div></section><div class="profile-tabs">${[["posts","Posts"],["reels","Reels"],["saved","Saved"]].map(([key,label])=>`<button class="profile-tab ${state.profileTab===key?'active':''}" data-action="profile-tab" data-tab="${key}">${label}</button>`).join("")}</div>${posts.length?posts.map(renderPostCard).join(""):`<div class="empty">Nothing in this section yet.</div>`}`;
 }
 
-function renderRightRail(){const rail=$('#rightRail'),tags={};visiblePosts().forEach(p=>(p.tags||[]).forEach(t=>tags[t]=(tags[t]||0)+1));const trends=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,5);const suggestions=state.users.filter(u=>u.id!==me().id&&!me().following.includes(u.id)&&!isBlocked(u.id)).slice(0,4);const soon=state.events.filter(e=>e.startAt>now()).sort((a,b)=>a.startAt-b.startAt).slice(0,3);rail.innerHTML=`<section class="rail-card network-card"><span class="section-kicker">Connected tools</span><h3>333 Network</h3><div class="rail-sub">Bazaar Art Live is the community feed. HOLLO supports direct contact, while KANSEE supports meeting rooms.</div><div class="status-pill"><span class="status-dot ${state.settings.backendStatus==='online'?'online':''}"></span>${state.settings.backendStatus==='online'?'Connected service':'Local-first studio'}</div><div class="card-actions"><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Open HOLLO</a><a class="soft-btn" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><a class="soft-btn" href="./EVen_mail_index.html">E=Ven Mail</a></div></section><section class="rail-card"><h3>Trending</h3>${trends.length?trends.map(([t,n])=>`<button class="trend-row" data-action="search-tag" data-tag="${esc(t)}" style="width:100%;border:0;background:transparent;color:inherit;text-align:left"><div class="grow"><strong>#${esc(t)}</strong><div class="small muted">${n} posts</div></div><span>›</span></button>`).join(''):'<div class="small muted">Trends will grow with the feed.</div>'}</section><section class="rail-card"><h3>Artists to discover</h3>${suggestions.map(renderPersonCard).join('')}</section><section class="rail-card"><h3>Coming up</h3>${soon.map(e=>`<div class="event-mini"><div class="grow"><strong>${esc(e.title)}</strong><div class="small muted">${formatDate(e.startAt)}</div></div></div>`).join('')}</section>`;hydrateAvatars(rail)}
+function renderRightRail(){
+  const rail=$("#rightRail"),tags={};visiblePosts().forEach(post=>(post.tags||[]).forEach(tag=>tags[tag]=(tags[tag]||0)+1));
+  const trends=Object.entries(tags).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const suggestions=visibleUsers().filter(user=>!me().following.includes(user.id)).slice(0,4);
+  const soon=visibleEvents().filter(event=>event.startAt>now()).sort((a,b)=>a.startAt-b.startAt).slice(0,3);
+  rail.innerHTML=`<section class="rail-card network-card"><span class="section-kicker">Connected tools</span><h3>333 Network</h3><div class="rail-sub">Bazaar Art Live is the community feed. HOLLO supports direct contact, while KANSEE supports meeting rooms.</div><div class="status-pill"><span class="status-dot"></span>Local-first studio</div><div class="card-actions"><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Open HOLLO</a><a class="soft-btn" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><a class="soft-btn" href="./EVen_mail_index.html">E=Ven Mail</a><a class="soft-btn" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support 333</a></div></section><section class="rail-card"><h3>Trending</h3>${trends.length?trends.map(([tag,count])=>`<button class="trend-row" data-action="search-tag" data-tag="${esc(tag)}" style="width:100%;border:0;background:transparent;color:inherit;text-align:left"><div class="grow"><strong>#${esc(tag)}</strong><div class="small muted">${count} posts</div></div><span>›</span></button>`).join(""):'<div class="small muted">Trends will grow with the feed.</div>'}</section><section class="rail-card"><h3>Artists to discover</h3>${suggestions.length?suggestions.map(renderPersonCard).join(""):'<div class="small muted">You have discovered everyone in this local workspace.</div>'}</section><section class="rail-card"><h3>Coming up</h3>${soon.length?soon.map(event=>`<button class="event-mini" data-action="open-event" data-id="${esc(event.id)}" style="width:100%;border:0;background:transparent;color:inherit;text-align:left"><div class="grow"><strong>${esc(event.title)}</strong><div class="small muted">${formatDate(event.startAt)}</div></div></button>`).join(""):'<div class="small muted">No upcoming events.</div>'}</section>`;hydrateAvatars(rail);
+}
 
-
+let reelObserver=null;
 async function hydrateMedia(root=document){
+  reelObserver?.disconnect?.();
+  if("IntersectionObserver" in window&&state.settings.autoplay){
+    reelObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{const video=entry.target;if(entry.isIntersecting&&entry.intersectionRatio>.55)video.play().catch(()=>{});else video.pause()}),{threshold:[0,.55,1]});
+  }
   const nodes=$$('[data-media-id],[data-inline-media]',root);
   await Promise.all(nodes.map(async node=>{
-    const id=node.dataset.mediaId||node.dataset.inlineMedia;
-    const item=await MediaDB.get(id);
+    const id=node.dataset.mediaId||node.dataset.inlineMedia;const item=await MediaDB.get(id);
     if(!item){node.innerHTML='<span class="media-loading">Media unavailable on this device</span>';return}
     let media;
-    if(item.type.startsWith('video/')){
-      media=document.createElement('video');
-      media.controls=true;
-      media.playsInline=true;
-      media.preload='auto';
-      media.src=item.dataUrl;
-      if(node.closest('.reel-card')){
-        media.loop=true;
-        media.muted=true;
-        media.autoplay=!!state.settings.autoplay;
-        media.setAttribute('webkit-playsinline','');
-      }
-      media.addEventListener('loadeddata',()=>{if(state.settings.autoplay&&node.closest('.reel-card'))media.play().catch(()=>{})},{once:true});
-      media.addEventListener('error',()=>{node.innerHTML='<div class="reel-fallback">🎬 This video format could not be played by this browser.<br><small>Try MP4/H.264 or WebM.</small></div>'},{once:true});
+    if(safeText(item.type).startsWith("video/")){
+      media=document.createElement("video");media.playsInline=true;media.preload="metadata";media.src=item.dataUrl;
+      const inButton=node.tagName==="BUTTON";const inReel=Boolean(node.closest(".reel-card"));
+      media.controls=!inButton;media.muted=inButton||inReel;media.loop=inReel;
+      if(inButton){media.tabIndex=-1;media.setAttribute("aria-hidden","true")}
+      if(inReel&&state.settings.autoplay)reelObserver?.observe(media);
+      media.addEventListener("error",()=>{node.innerHTML='<div class="reel-fallback">🎬 This video format could not be played by this browser.<br><small>Try MP4/H.264 or WebM.</small></div>'},{once:true});
     }else{
-      media=document.createElement('img');
-      media.alt=item.alt||item.name||'Bazaar Art media';
-      media.src=item.dataUrl;
-      if(item.type==='image/gif')media.decoding='async';
+      media=document.createElement("img");media.alt=item.alt||item.name||"Bazaar Art media";media.src=item.dataUrl;media.loading="lazy";media.decoding="async";
     }
-    node.replaceChildren(media);
+    const count=node.querySelector(".media-count");node.replaceChildren(media);if(count)node.appendChild(count);
   }));
 }
 
@@ -1655,57 +1817,68 @@ function modal(title,body,footer='',wide=false,variant=''){
   const eyebrow=isEntry?'<span class="entry-eyebrow">Welcome to Bazaar Art Live</span>':'';
   host.innerHTML=`<div class="modal-layer" id="activeModalLayer"><section class="modal ${modalClass}" role="dialog" aria-modal="true" aria-labelledby="activeModalTitle"><header class="${headClass}">${eyebrow}<h2 id="activeModalTitle">${esc(title)}</h2><button type="button" class="icon-btn modal-close" data-action="close-modal" aria-label="Close">×</button></header><div class="modal-body">${body}</div>${footer?`<footer class="modal-foot">${footer}</footer>`:''}</section></div>`;
   const layer=$('#activeModalLayer');
+  document.body.classList.add('no-scroll');
   layer.addEventListener('click',event=>{if(event.target===layer)closeModal()});
-  setTimeout(()=>layer.querySelector('input,textarea,select,button,a[href]')?.focus(),0);
+  setTimeout(()=>layer.querySelector('[autofocus],input:not([type="hidden"]),textarea,select,button,a[href]')?.focus(),0);
 }
-function closeModal(){const host=$('#modalHost');host.innerHTML='';modalReturnFocus?.focus?.();modalReturnFocus=null}
+function closeModal(){const host=$('#modalHost');host.innerHTML='';document.body.classList.remove('no-scroll');modalReturnFocus?.focus?.();modalReturnFocus=null}
 
 let pendingMedia=[];
-function openComposer(kind='post'){
-  const current=requireMe();if(!current)return;
-  if(!current.participation){toast('Feed participation is turned off. Enable it in profile settings to publish.','error');return}
-  pendingMedia=[];const groupOptions=state.groups.filter(g=>g.memberIds.includes(me().id)).map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('');
-  modal(kind==='reel'?'Create reel':'Create post',`<div class="form-grid"><div class="field"><label for="postText">Caption or post</label><textarea id="postText" maxlength="5000" placeholder="What would you like to share?"></textarea><div class="helper"><span id="postCount">0</span>/5000</div></div><div class="form-grid two"><div class="field"><label for="postAudience">Audience</label><select id="postAudience"><option value="public">Public</option><option value="followers">Followers</option><option value="group">A group</option><option value="private">Only me</option></select></div><div class="field" id="postGroupField" hidden><label for="postGroup">Group</label><select id="postGroup">${groupOptions}</select></div></div><div class="form-grid two"><div class="field"><label for="postLocation">Location (optional)</label><input id="postLocation" maxlength="100"></div><div class="field"><label for="postTags">Tags</label><input id="postTags" placeholder="art, studio, community"></div></div><div class="field"><label for="postMedia">${kind==='reel'?'Video, GIF, or image':'Photos or short videos'}</label><input id="postMedia" type="file" accept="image/*,video/*" multiple><div class="helper">Images are resized. Videos are limited to 25 MB each and stored on this device until the backend is connected.</div><div class="preview-strip" id="postMediaPreview"></div></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="publishPostBtn">Publish</button>`);
-  $('#postText').addEventListener('input',e=>$('#postCount').textContent=e.target.value.length);
-  $('#postAudience').addEventListener('change',e=>$('#postGroupField').hidden=e.target.value!=='group');
-  $('#postMedia').addEventListener('change',e=>prepareMediaFiles(Array.from(e.target.files),kind));
-  $('#publishPostBtn').addEventListener('click',()=>publishPost(kind));
+function openComposer(kind="post",options={}){
+  const current=requireParticipation("publish");if(!current)return;
+  pendingMedia=[];const groups=state.groups.filter(group=>group.memberIds.includes(current.id));
+  const groupOptions=groups.map(group=>`<option value="${esc(group.id)}">${esc(group.name)}</option>`).join("");
+  modal(kind==="reel"?"Create reel":"Create post",`<div class="form-grid"><div class="field"><label for="postText">Caption or post</label><textarea id="postText" maxlength="5000" placeholder="What would you like to share?"></textarea><div class="helper"><span id="postCount">0</span>/5000</div></div><div class="form-grid two"><div class="field"><label for="postAudience">Audience</label><select id="postAudience"><option value="public">Public</option><option value="followers">Followers</option>${groups.length?'<option value="group">A group</option>':""}<option value="private">Only me</option></select></div><div class="field" id="postGroupField" hidden><label for="postGroup">Group</label><select id="postGroup">${groupOptions}</select></div></div><div class="form-grid two"><div class="field"><label for="postLocation">Location (optional)</label><input id="postLocation" maxlength="100"></div><div class="field"><label for="postTags">Tags</label><input id="postTags" maxlength="240" placeholder="art, studio, community"></div></div><div class="field"><label for="postMedia">${kind==="reel"?"Video, GIF, or image":"Up to three photos or short videos"}</label><input id="postMedia" type="file" accept="image/*,video/*" multiple><div class="helper">Images are resized when appropriate. Videos are limited to 25 MB each and remain on this device until a backend is connected.</div><div class="preview-strip" id="postMediaPreview"></div></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="publishPostBtn" type="button">Publish</button>`);
+  $("#postText").addEventListener("input",event=>$("#postCount").textContent=event.target.value.length);
+  $("#postAudience").addEventListener("change",event=>$("#postGroupField").hidden=event.target.value!=="group");
+  $("#postMedia").addEventListener("change",event=>prepareMediaFiles(Array.from(event.target.files),kind));
+  if(options.audience){$("#postAudience").value=options.audience;$("#postGroupField").hidden=options.audience!=="group"}
+  if(options.groupId&&$("#postGroup"))$("#postGroup").value=options.groupId;
+  $("#publishPostBtn").addEventListener("click",()=>publishPost(kind));
 }
-async function prepareMediaFiles(files,kind){const accepted=[];for(const file of files.slice(0,kind==='reel'?3:3)){if(file.size>25*1024*1024){toast(`${file.name} is larger than 25 MB.`,'error');continue}try{const dataUrl=file.type==='image/gif'?await fileToDataUrl(file):file.type.startsWith('image/')?await downscaleImage(file,1800,.86):await fileToDataUrl(file);accepted.push({id:uid('m'),type:file.type||'application/octet-stream',name:file.name,dataUrl,createdAt:now()})}catch{toast(`Could not read ${file.name}.`,'error')}}pendingMedia=accepted;renderPendingMedia()}
+async function prepareMediaFiles(files,kind){
+  const accepted=[];
+  for(const file of files.slice(0,3)){
+    if(!file.type.startsWith("image/")&&!file.type.startsWith("video/")){toast(`${file.name} is not a supported image or video.`,"error");continue}
+    if(file.size>25*1024*1024){toast(`${file.name} is larger than 25 MB.`,"error");continue}
+    try{const dataUrl=file.type==="image/gif"?await fileToDataUrl(file):file.type.startsWith("image/")?await downscaleImage(file,1800,.86):await fileToDataUrl(file);accepted.push({id:uid("m"),type:file.type||"application/octet-stream",name:file.name,dataUrl,createdAt:now()})}catch{toast(`Could not read ${file.name}.`,"error")}
+  }
+  pendingMedia=accepted;renderPendingMedia();
+}
 function renderPendingMedia(){const wrap=$('#postMediaPreview');if(!wrap)return;wrap.innerHTML=pendingMedia.map((m,i)=>`<div class="preview-item">${m.type.startsWith('video/')?`<video src="${m.dataUrl}" muted></video>`:`<img src="${m.dataUrl}" alt="">`}<button class="remove-media" data-index="${i}" aria-label="Remove media">×</button></div>`).join('');$$('.remove-media',wrap).forEach(b=>b.addEventListener('click',()=>{pendingMedia.splice(Number(b.dataset.index),1);renderPendingMedia()}))}
 function fileToDataUrl(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.readAsDataURL(file)})}
-function downscaleImage(file,maxSide=1800,quality=.86){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>{const img=new Image();img.onload=()=>{let w=img.width,h=img.height,scale=Math.min(1,maxSide/Math.max(w,h));w=Math.max(1,Math.round(w*scale));h=Math.max(1,Math.round(h*scale));const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.drawImage(img,0,0,w,h);resolve(c.toDataURL('image/jpeg',quality))};img.onerror=reject;img.src=r.result};r.onerror=reject;r.readAsDataURL(file)})}
-async function publishPost(kind){const text=$('#postText').value.trim();if(!text&&!pendingMedia.length){toast('Add a caption or media before publishing.','error');return}const btn=$('#publishPostBtn');btn.disabled=true;btn.textContent='Publishing…';const media=[];try{for(const m of pendingMedia){await MediaDB.put(m);media.push({id:m.id,type:m.type,name:m.name})}const audience=$('#postAudience').value,groupId=audience==='group'?$('#postGroup').value:null;const typedTags=$('#postTags').value.split(',').map(x=>x.trim().replace(/^#/,'')).filter(Boolean);const p={id:uid('p'),authorId:me().id,type:kind,text,createdAt:now(),audience,groupId,location:$('#postLocation').value.trim(),tags:Array.from(new Set([...tagsFromText(text),...typedTags])).slice(0,12),media,reactions:{like:[],love:[],fire:[],applause:[]},comments:[],savedBy:[],hiddenBy:[],reportedBy:[],shareCount:0};state.posts.unshift(p);persist();addNotification('Your new post was published.','post');closeModal();setView(kind==='reel'?'reels':'home');toast('Published successfully.','success')}catch(e){btn.disabled=false;btn.textContent='Publish';toast('The post could not be saved. Browser storage may be full.','error')}}
+function downscaleImage(file,maxSide=1800,quality=.86){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>{const image=new Image();image.onload=()=>{let width=image.width,height=image.height,scale=Math.min(1,maxSide/Math.max(width,height));width=Math.max(1,Math.round(width*scale));height=Math.max(1,Math.round(height*scale));const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const context=canvas.getContext('2d');context.drawImage(image,0,0,width,height);const outputType=file.type==='image/png'?'image/png':file.type==='image/webp'?'image/webp':'image/jpeg';resolve(canvas.toDataURL(outputType,quality))};image.onerror=reject;image.src=reader.result};reader.onerror=reject;reader.readAsDataURL(file)})}
+async function publishPost(kind){
+  const current=requireParticipation("publish");if(!current)return;
+  const text=$("#postText").value.trim();if(!text&&!pendingMedia.length){toast("Add a caption or media before publishing.","error");return}
+  const audience=$("#postAudience").value;const groupId=audience==="group"?$("#postGroup")?.value:null;
+  if(audience==="group"&&!state.groups.some(group=>group.id===groupId&&group.memberIds.includes(current.id))){toast("Choose a group you belong to.","error");return}
+  const button=$("#publishPostBtn");button.disabled=true;button.textContent="Publishing…";const media=[];const savedIds=[];
+  try{
+    for(const item of pendingMedia){await MediaDB.put(item);savedIds.push(item.id);media.push({id:item.id,type:item.type,name:item.name})}
+    const typedTags=$("#postTags").value.split(",").map(tag=>tag.trim().replace(/^#/,"").replace(/[^\p{L}\p{N}_-]/gu,"")).filter(Boolean);
+    const post={id:uid("p"),authorId:current.id,type:kind,text,createdAt:now(),editedAt:null,audience,groupId,location:$("#postLocation").value.trim(),tags:Array.from(new Set([...tagsFromText(text),...typedTags])).slice(0,12),media,reactions:{like:[],love:[],fire:[],applause:[]},comments:[],savedBy:[],hiddenBy:[],reportedBy:[],shareCount:0};
+    state.posts.unshift(post);persist();closeModal();setView(kind==="reel"?"reels":"home");toast("Published successfully.","success");
+  }catch(error){for(const id of savedIds)await MediaDB.delete(id);button.disabled=false;button.textContent="Publish";toast("The post could not be saved. Browser storage may be full.","error")}
+}
 
-function openComments(id){const p=postById(id);if(!p)return;const body=`<div class="comment-list" id="commentList">${renderComments(p)}</div><div class="comment-compose"><input id="commentInput" maxlength="1000" placeholder="Write a comment"><button class="primary-btn" id="commentSendBtn">Post</button></div>`;modal('Comments',body);$('#commentSendBtn').addEventListener('click',()=>addComment(id));$('#commentInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addComment(id)}})}
-function renderComments(p){return p.comments?.length?p.comments.slice().sort((a,b)=>a.createdAt-b.createdAt).map(c=>{const u=userById(c.authorId);return `<div class="comment">${avatarHTML(u,'small-avatar')}<div class="comment-bubble"><strong>${esc(u.name)}</strong><p>${esc(c.text)}</p><div class="tiny muted">${formatTime(c.createdAt)} ${c.authorId===me().id?`· <button class="menu-btn" data-action="delete-comment" data-post-id="${esc(p.id)}" data-id="${esc(c.id)}">Delete</button>`:''}</div></div></div>`}).join(''):'<div class="empty">No comments yet. Begin the conversation.</div>'}
-function addComment(id){const input=$('#commentInput'),text=input.value.trim();if(!text)return;const p=postById(id);p.comments=p.comments||[];p.comments.push({id:uid('c'),authorId:me().id,text,createdAt:now()});persist();if(p.authorId!==me().id)addNotification(`${me().name} commented on a post.`,`comment`,p.authorId);$('#commentList').innerHTML=renderComments(p);hydrateAvatars($('#commentList'));input.value='';renderView();renderRightRail()}
+function openComments(id){const p=postById(id);if(!p)return;const body=`<div class="comment-list" id="commentList">${renderComments(p)}</div><div class="comment-compose"><input id="commentInput" maxlength="1000" placeholder="Write a comment"><button type="button" class="primary-btn" id="commentSendBtn">Post</button></div>`;modal('Comments',body);$('#commentSendBtn').addEventListener('click',()=>addComment(id));$('#commentInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addComment(id)}})}
+function renderComments(post){return post.comments?.length?post.comments.slice().sort((a,b)=>a.createdAt-b.createdAt).map(comment=>{const user=userById(comment.authorId);const canDelete=hasMember()&&(comment.authorId===me().id||post.authorId===me().id);return `<div class="comment">${avatarHTML(user,'small-avatar')}<div class="comment-bubble"><strong>${esc(user.name)}</strong><p>${esc(comment.text)}</p><div class="tiny muted">${formatTime(comment.createdAt)} ${canDelete?`· <button type="button" class="menu-btn" data-action="delete-comment" data-post-id="${esc(post.id)}" data-id="${esc(comment.id)}">Delete</button>`:''}</div></div></div>`}).join(''):'<div class="empty">No comments yet. Begin the conversation.</div>'}
+function addComment(id){const current=requireParticipation('comment');if(!current)return;const input=$('#commentInput'),text=input.value.trim();if(!text)return;const post=postById(id);if(!post)return;post.comments=post.comments||[];post.comments.push({id:uid('c'),authorId:current.id,text,createdAt:now()});persist();if(post.authorId!==current.id)addNotification(`${current.name} commented on your post.`,'comment',post.authorId,{postId:post.id});$('#commentList').innerHTML=renderComments(post);hydrateAvatars($('#commentList'));input.value='';renderView();renderRightRail()}
 
 function openStory(id){
-  const story=state.stories.find(x=>x.id===id);if(!story)return;
-  const u=userById(story.userId);
-  story.viewedBy=Array.isArray(story.viewedBy)?story.viewedBy:[];
-  if(hasMember()&&!story.viewedBy.includes(me().id))story.viewedBy.push(me().id);
-  persist();
-  const items=(story.items&&story.items.length)?story.items:[{id:uid('legacyStory'),title:story.title,mediaId:story.mediaId,createdAt:story.createdAt}];
-  let index=0;
-  modal(`${u.name} · Story`,`<div class="story-viewer"><button class="story-nav story-prev" type="button">‹</button><div id="storySlide"></div><button class="story-nav story-next" type="button">›</button><div class="story-dots" id="storyDots"></div></div>`,'',true);
-  async function renderSlide(){
-    const item=items[index];
-    const host=$('#storySlide');
-    host.innerHTML=`<div class="story-slide"><div class="story-caption">${esc(item.title||story.title||'Story')}</div>${item.mediaId?`<div data-inline-media="${esc(item.mediaId)}"><span class="media-loading">Loading story…</span></div>`:`<div class="story-text-fallback">✨ ${esc(item.title||story.title||'Story')}</div>`}</div>`;
-    $('#storyDots').innerHTML=items.map((_,i)=>`<span class="${i===index?'active':''}"></span>`).join('');
-    await hydrateMedia(host);
-  }
-  $('.story-prev').onclick=()=>{index=(index-1+items.length)%items.length;renderSlide()};
-  $('.story-next').onclick=()=>{index=(index+1)%items.length;renderSlide()};
-  renderSlide();
+  const story=state.stories.find(item=>item.id===id);if(!story)return;
+  const user=userById(story.userId);story.viewedBy=Array.isArray(story.viewedBy)?story.viewedBy:[];if(hasMember()&&!story.viewedBy.includes(me().id))story.viewedBy.push(me().id);persist();
+  const items=story.items?.length?story.items:[{id:uid("legacyStory"),title:story.title,mediaId:story.mediaId,createdAt:story.createdAt}];let index=0;
+  modal(`${user.name} · Story`,`<div class="story-viewer"><button class="story-nav story-prev" type="button" aria-label="Previous story slide">‹</button><div id="storySlide"></div><button class="story-nav story-next" type="button" aria-label="Next story slide">›</button><div class="story-dots" id="storyDots"></div></div>`,hasMember()&&story.userId===me().id?`<button class="danger-btn" data-action="delete-story" data-id="${esc(story.id)}">Delete My Story</button>`:"",true);
+  async function renderSlide(){const item=items[index],host=$("#storySlide");host.innerHTML=`<div class="story-slide"><div class="story-caption">${esc(item.title||story.title||"Story")}</div>${item.mediaId?`<div data-inline-media="${esc(item.mediaId)}"><span class="media-loading">Loading story…</span></div>`:`<div class="story-text-fallback">✨ ${esc(item.title||story.title||"Story")}</div>`}</div>`;$("#storyDots").innerHTML=items.map((_,itemIndex)=>`<span class="${itemIndex===index?'active':''}"></span>`).join("");await hydrateMedia(host)}
+  $(".story-prev").onclick=()=>{index=(index-1+items.length)%items.length;renderSlide()};$(".story-next").onclick=()=>{index=(index+1)%items.length;renderSlide()};renderSlide();
 }
-function openCreateStory(){if(!requireMe())return;pendingMedia=[];modal('Create story',`<div class="form-grid"><div class="field"><label for="storyTitle">Story caption</label><input id="storyTitle" maxlength="160" placeholder="What is happening?"></div><div class="field"><label for="storyMedia">Photo or short video</label><input id="storyMedia" type="file" accept="image/*,video/*" multiple><div class="preview-strip" id="postMediaPreview"></div></div><div class="field"><label for="storyHours">Visible for</label><select id="storyHours"><option value="24">24 hours</option><option value="12">12 hours</option><option value="6">6 hours</option></select></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="publishStoryBtn">Share story</button>`);$('#storyMedia').addEventListener('change',e=>prepareStoryMedia(Array.from(e.target.files)));$('#publishStoryBtn').addEventListener('click',publishStory)}
+function openCreateStory(){if(!requireParticipation("share a story"))return;pendingMedia=[];modal('Create story',`<div class="form-grid"><div class="field"><label for="storyTitle">Story caption</label><input id="storyTitle" maxlength="160" placeholder="What is happening?"></div><div class="field"><label for="storyMedia">Photo or short video</label><input id="storyMedia" type="file" accept="image/*,video/*" multiple><div class="preview-strip" id="postMediaPreview"></div></div><div class="field"><label for="storyHours">Visible for</label><select id="storyHours"><option value="24">24 hours</option><option value="12">12 hours</option><option value="6">6 hours</option></select></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="publishStoryBtn" type="button">Share story</button>`);$('#storyMedia').addEventListener('change',e=>prepareStoryMedia(Array.from(e.target.files)));$('#publishStoryBtn').addEventListener('click',publishStory)}
 
 async function prepareStoryMedia(files){
   const accepted=[];
-  for(const file of files.slice(0,10)){
+  for(const file of files.slice(0,6)){
     if(file.size>25*1024*1024){toast(`${file.name} is larger than 25 MB.`,'error');continue}
     try{
       const dataUrl=file.type.startsWith('image/')?await preserveAnimatedImage(file):await fileToDataUrl(file);
@@ -1721,35 +1894,36 @@ async function preserveAnimatedImage(file){
 }
 
 async function publishStory(){
-  const current=requireMe();if(!current)return;
-  const title=$('#storyTitle').value.trim();
-  if(!title&&!pendingMedia.length){toast('Add a caption or media.','error');return}
-  const items=[];
-  for(const media of pendingMedia){
-    await MediaDB.put(media);
-    items.push({id:uid('si'),title:title||media.name||'Story',mediaId:media.id,createdAt:now()});
-  }
-  if(!items.length)items.push({id:uid('si'),title:title||'New story',mediaId:null,createdAt:now()});
-  const hours=Number($('#storyHours').value);
-  const existing=state.stories.find(s=>s.userId===current.id&&s.expiresAt>now());
-  if(existing){
-    existing.items=Array.isArray(existing.items)?existing.items:[];
-    existing.items.push(...items);
-    existing.title=title||existing.title;
-    existing.createdAt=now();
-    existing.expiresAt=now()+hours*3600000;
-    existing.viewedBy=[];
-  }else{
-    state.stories.unshift({id:uid('s'),userId:current.id,title:title||'New story',createdAt:now(),expiresAt:now()+hours*3600000,items,viewedBy:[]});
-  }
-  persist();closeModal();setView('home');toast(existing?'Story updated with new slides.':'Story shared.','success')
+  const current=requireParticipation("share a story");if(!current)return;const title=$("#storyTitle").value.trim();if(!title&&!pendingMedia.length){toast("Add a caption or media.","error");return}
+  const button=$("#publishStoryBtn");button.disabled=true;button.textContent="Sharing…";const items=[];const stored=[];
+  try{
+    for(const media of pendingMedia){await MediaDB.put(media);stored.push(media.id);items.push({id:uid("si"),title:title||media.name||"Story",mediaId:media.id,createdAt:now()})}
+    if(!items.length)items.push({id:uid("si"),title:title||"New story",mediaId:null,createdAt:now()});const hours=Number($("#storyHours").value)||24;
+    const existing=state.stories.find(story=>story.userId===current.id&&story.expiresAt>now());
+    if(existing){existing.items=Array.isArray(existing.items)?existing.items:[];existing.items.push(...items);existing.title=title||existing.title;existing.createdAt=now();existing.expiresAt=now()+hours*3600000;existing.viewedBy=[]}
+    else state.stories.unshift({id:uid("s"),userId:current.id,title:title||"New story",createdAt:now(),expiresAt:now()+hours*3600000,items,viewedBy:[]});
+    persist();closeModal();setView("home");toast(existing?"Story updated with new slides.":"Story shared.","success");
+  }catch(error){for(const id of stored)await MediaDB.delete(id);button.disabled=false;button.textContent="Share story";toast("The story could not be saved.","error")}
 }
-function react(id,type){const current=requireMe();if(!current)return;const p=postById(id);if(!p)return;p.reactions=p.reactions||{like:[],love:[],fire:[],applause:[]};for(const key of Object.keys(p.reactions))p.reactions[key]=p.reactions[key].filter(x=>x!==me().id);if(type&&!(p.reactions[type]||[]).includes(me().id))p.reactions[type]=[...(p.reactions[type]||[]),me().id];persist();if(p.authorId!==me().id)addNotification(`${me().name} reacted to your post.`,`reaction`,p.authorId);renderView();renderRightRail()}
-function toggleSave(id){const current=requireMe();if(!current)return;const p=postById(id);if(!p)return;p.savedBy=p.savedBy||[];p.savedBy=p.savedBy.includes(me().id)?p.savedBy.filter(x=>x!==me().id):[...p.savedBy,me().id];persist();renderView();toast(p.savedBy.includes(me().id)?'Saved privately.':'Removed from saved.','success')}
-function hidePost(id){const p=postById(id);p.hiddenBy=p.hiddenBy||[];p.hiddenBy.push(me().id);persist();closeModal();renderView();toast('Post hidden.','success')}
-function muteUser(id){if(!state.mutedUserIds.includes(id))state.mutedUserIds.push(id);persist();closeModal();renderView();renderRightRail();toast(`${userById(id).name} muted. You can restore them from a future moderation dashboard.`,'success')}
-function reportPost(id){const p=postById(id);if(!p)return;state.reports.push({id:uid('r'),postId:id,reporterId:me().id,reason:'User report',createdAt:now()});p.reportedBy=p.reportedBy||[];p.reportedBy.push(me().id);persist();closeModal();toast('Report saved for moderator review.','success')}
-
+async function deleteStory(id){
+  const current=requireMe();if(!current)return;const story=state.stories.find(item=>item.id===id);if(!story||story.userId!==current.id)return;if(!confirm("Delete this local story and its media?"))return;
+  for(const item of story.items||[])if(item.mediaId)await MediaDB.delete(item.mediaId);state.stories=state.stories.filter(item=>item.id!==id);persist();closeModal();renderView();toast("Story deleted.","success");
+}
+function react(id,type){const current=requireParticipation("react");if(!current)return;const post=postById(id);if(!post)return;post.reactions=post.reactions||{like:[],love:[],fire:[],applause:[]};for(const key of Object.keys(post.reactions))post.reactions[key]=post.reactions[key].filter(userId=>userId!==current.id);if(type&&!(post.reactions[type]||[]).includes(current.id))post.reactions[type]=[...(post.reactions[type]||[]),current.id];persist();if(post.authorId!==current.id)addNotification(`${current.name} reacted to your post.`,"reaction",post.authorId,{postId:post.id});renderView();renderRightRail()}
+function toggleSave(id){const current=requireMe();if(!current)return;const post=postById(id);if(!post)return;post.savedBy=post.savedBy||[];post.savedBy=post.savedBy.includes(current.id)?post.savedBy.filter(userId=>userId!==current.id):[...post.savedBy,current.id];persist();renderView();toast(post.savedBy.includes(current.id)?"Saved privately.":"Removed from saved.","success")}
+function hidePost(id){const current=requireMe();if(!current)return;const post=postById(id);if(!post)return;post.hiddenBy=Array.from(new Set([...(post.hiddenBy||[]),current.id]));persist();closeModal();renderView();toast("Post hidden. Restore it from Settings › Moderation.","success")}
+function muteUser(id){const current=requireMe();if(!current||id===current.id)return;if(!state.mutedUserIds.includes(id))state.mutedUserIds.push(id);persist();closeModal();renderView();renderRightRail();toast(`${userById(id).name} muted. Restore them from Settings › Moderation.`,"success")}
+function blockUser(id){const current=requireMe();if(!current||id===current.id)return;if(!confirm(`Block ${userById(id).name} in this local workspace?`))return;state.blockedUserIds=Array.from(new Set([...state.blockedUserIds,id]));state.mutedUserIds=state.mutedUserIds.filter(userId=>userId!==id);current.following=current.following.filter(userId=>userId!==id);current.followers=current.followers.filter(userId=>userId!==id);const target=userById(id);target.followers=(target.followers||[]).filter(userId=>userId!==current.id);target.following=(target.following||[]).filter(userId=>userId!==current.id);persist();closeModal();renderView();renderRightRail();toast(`${target.name} blocked locally.`,"success")}
+function openReportPost(id){
+  const post=postById(id);if(!post||!requireMe())return;
+  modal("Report post",`<div class="form-grid"><div class="field"><label for="reportReason">Reason</label><select id="reportReason"><option value="Harassment or bullying">Harassment or bullying</option><option value="Hate or discrimination">Hate or discrimination</option><option value="Spam or deception">Spam or deception</option><option value="Unsafe or illegal content">Unsafe or illegal content</option><option value="Intellectual property concern">Intellectual property concern</option><option value="Other concern">Other concern</option></select></div><div class="field"><label for="reportDetails">Additional details</label><textarea id="reportDetails" maxlength="1000"></textarea></div><label class="form-check"><input id="hideAfterReport" type="checkbox" checked><span>Hide this post from my local feed after reporting.</span></label></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="danger-btn" id="submitReportBtn" type="button">Save Report</button>`);
+  $("#submitReportBtn").onclick=()=>reportPost(id,$("#reportReason").value,$("#reportDetails").value.trim(),$("#hideAfterReport").checked);
+}
+function reportPost(id,reason,details,hideAfter){
+  const current=requireMe();if(!current)return;const post=postById(id);if(!post)return;
+  if(state.reports.some(report=>report.postId===id&&report.reporterId===current.id)){toast("You already reported this post locally.","error");return}
+  state.reports.push({id:uid("r"),postId:id,reporterId:current.id,reason:safeText(reason).slice(0,120),details:safeText(details).slice(0,1000),createdAt:now(),status:"local-review"});post.reportedBy=Array.from(new Set([...(post.reportedBy||[]),current.id]));if(hideAfter)post.hiddenBy=Array.from(new Set([...(post.hiddenBy||[]),current.id]));persist();closeModal();renderView();toast("Report saved for moderator review.","success");
+}
 
 function copyText(text,message='Copied'){
   return (async()=>{
@@ -1780,34 +1954,24 @@ function openMedia(id){
 }
 
 function openPublicProfile(userId){
-  const user=userById(userId);
-  const current=hasMember()?me():null;
-  const following=Boolean(current?.following?.includes(user.id));
-  const posts=visiblePosts().filter(post=>post.authorId===user.id);
-  modal(user.name,`
-    <section class="profile-header" style="margin:0">
-      <div class="profile-top">${avatarHTML(user,'large')}<div class="grow"><h2>${esc(user.name)} ${user.verified?'<span class="verified">◆</span>':''}</h2><div class="profile-handle">@${esc(user.handle)} · ${esc(user.number333||'No public member number')}</div></div></div>
-      <div class="profile-bio">${esc(user.bio||'No biography yet.')}</div>
-      <div class="small muted">${esc(user.location||'')}</div>
-      <div class="profile-stats"><span><strong>${posts.length}</strong> posts</span><span><strong>${user.followers?.length||0}</strong> followers</span><span><strong>${user.following?.length||0}</strong> following</span></div>
-      ${user.id!==current?.id?`<div class="card-actions"><button class="${following?'soft-btn':'primary-btn'}" data-action="follow" data-user-id="${esc(user.id)}">${following?'Following':'Follow'}</button><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Continue in HOLLO</a></div>`:''}
-    </section>
-    <div style="margin-top:14px">${posts.length?posts.slice(0,4).map(renderPostCard).join(''):'<div class="empty">No visible posts yet.</div>'}</div>
-  `,'',true);
-  hydrateAvatars($('#activeModalLayer'));hydrateMedia($('#activeModalLayer'));
+  const user=userById(userId);if(user.id==="unknown")return;const current=hasMember()?me():null;const following=Boolean(current?.following?.includes(user.id));const requested=Boolean(current&&pendingFollowRequest(current.id,user.id));const allowed=canViewPrivateProfile(user);
+  const posts=allowed?visiblePosts().filter(post=>post.authorId===user.id):[];
+  modal(user.name,`<section class="profile-header" style="margin:0"><div class="profile-top">${avatarHTML(user,"large")}<div class="grow"><h2>${esc(user.name)} ${user.verified?'<span class="verified">◆</span>':""}</h2><div class="profile-handle">@${esc(user.handle)}${allowed&&user.number333?` · ${esc(user.number333)}`:""}</div></div></div>${allowed?`<div class="profile-bio">${esc(user.bio||"No biography yet.")}</div><div class="small muted">${esc(user.location||"")}</div><div class="profile-stats"><span><strong>${posts.length}</strong> posts</span><button data-action="show-followers" data-user-id="${esc(user.id)}"><strong>${user.followers?.length||0}</strong> followers</button><button data-action="show-following" data-user-id="${esc(user.id)}"><strong>${user.following?.length||0}</strong> following</button></div>`:`<div class="profile-private-note">This profile is private. Approved followers can view the full profile and follower-only posts.</div>`}${user.id!==current?.id?`<div class="card-actions"><button class="${following?'soft-btn':'primary-btn'}" data-action="follow" data-user-id="${esc(user.id)}">${following?'Following':requested?'Request sent':user.privateProfile?'Request follow':'Follow'}</button><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">Continue in HOLLO</a></div>`:""}</section>${allowed?`<div style="margin-top:14px">${posts.length?posts.slice(0,4).map(renderPostCard).join(""):'<div class="empty">No visible posts yet.</div>'}</div>`:""}`,"",true);hydrateAvatars($("#activeModalLayer"));hydrateMedia($("#activeModalLayer"));
 }
-
 function toggleFollow(userId){
-  const current=requireMe();if(!current)return;
-  if(userId===current.id)return;
-  const target=userById(userId);
-  current.following=current.following||[];target.followers=target.followers||[];
-  const following=current.following.includes(userId);
-  current.following=following?current.following.filter(id=>id!==userId):[...current.following,userId];
-  target.followers=following?target.followers.filter(id=>id!==current.id):[...target.followers,current.id];
-  persist();
-  if(!following)addNotification(`${current.name} followed your Bazaar Art profile.`,'follow',target.id);
-  closeModal();renderView();renderRightRail();toast(following?'Artist unfollowed.':'Artist followed.','success');
+  const current=requireParticipation("follow artists");if(!current||userId===current.id)return;const target=userById(userId);if(target.id==="unknown")return;
+  current.following=current.following||[];target.followers=target.followers||[];const following=current.following.includes(userId);
+  if(following){current.following=current.following.filter(id=>id!==userId);target.followers=target.followers.filter(id=>id!==current.id);persist();closeModal();renderView();renderRightRail();toast("Artist unfollowed.","success");return}
+  if(target.privateProfile){const existing=pendingFollowRequest(current.id,target.id);if(existing){state.followRequests=state.followRequests.filter(request=>request.id!==existing.id);target.pendingFollowerIds=(target.pendingFollowerIds||[]).filter(id=>id!==current.id);persist();closeModal();renderView();renderRightRail();toast("Follow request cancelled.","success");return}const request={id:uid("fr"),fromId:current.id,toId:target.id,status:"pending",createdAt:now()};state.followRequests.push(request);target.pendingFollowerIds=Array.from(new Set([...(target.pendingFollowerIds||[]),current.id]));addNotification(`${current.name} requested to follow your private profile.`,"follow-request",target.id,{actorId:current.id,requestId:request.id});persist();closeModal();renderView();renderRightRail();toast("Follow request sent.","success");return}
+  current.following.push(userId);target.followers.push(current.id);persist();addNotification(`${current.name} followed your Bazaar Art profile.`,"follow",target.id,{actorId:current.id});closeModal();renderView();renderRightRail();toast("Artist followed.","success");
+}
+function resolveFollowRequest(requestId,approve){
+  const current=requireMe();if(!current)return;const request=state.followRequests.find(item=>item.id===requestId&&item.toId===current.id);if(!request)return;const from=userById(request.fromId);current.pendingFollowerIds=(current.pendingFollowerIds||[]).filter(id=>id!==from.id);
+  if(approve){current.followers=Array.from(new Set([...(current.followers||[]),from.id]));from.following=Array.from(new Set([...(from.following||[]),current.id]));addNotification(`${current.name} approved your follow request.`,"follow-approved",from.id,{actorId:current.id})}
+  state.followRequests=state.followRequests.filter(item=>item.id!==requestId);state.notifications=state.notifications.filter(notification=>notification.requestId!==requestId);persist();updateBadges();renderView();renderRightRail();toast(approve?"Follow request approved.":"Follow request declined.","success");
+}
+function openPeopleList(title,userIds){
+  const users=userIds.map(userById).filter(user=>user.id!=="unknown"&&!isBlocked(user.id));modal(title,users.length?`<div class="management-list">${users.map(user=>renderPersonCard(user)).join("")}</div>`:'<div class="empty">No people to show.</div>',"",false);hydrateAvatars($("#activeModalLayer"));
 }
 
 function sharePost(id){
@@ -1820,13 +1984,14 @@ function sharePost(id){
 }
 
 function openPostMenu(id){
-  const current=requireMe();if(!current)return;
-  const post=postById(id);if(!post)return;
-  const own=post.authorId===current.id;
-  modal('Post options',`<div class="form-grid">
-    ${own?`<button class="danger-btn" data-action="delete-post" data-id="${esc(id)}">Delete My Post</button>`:`<button class="soft-btn" data-action="hide-post" data-id="${esc(id)}">Hide This Post</button><button class="soft-btn" data-action="mute-user" data-user-id="${esc(post.authorId)}">Mute ${esc(userById(post.authorId).name)}</button><button class="danger-btn" data-action="report-post" data-id="${esc(id)}">Report for Review</button>`}
-    <button class="soft-btn" data-action="share" data-id="${esc(id)}">Share Post</button>
-  </div>`);
+  const current=requireMe();if(!current)return;const post=postById(id);if(!post)return;const own=post.authorId===current.id;
+  modal("Post options",`<div class="form-grid">${own?`<button class="soft-btn" data-action="edit-post" data-id="${esc(id)}">Edit My Post</button><button class="danger-btn" data-action="delete-post" data-id="${esc(id)}">Delete My Post</button>`:`<button class="soft-btn" data-action="hide-post" data-id="${esc(id)}">Hide This Post</button><button class="soft-btn" data-action="mute-user" data-user-id="${esc(post.authorId)}">Mute ${esc(userById(post.authorId).name)}</button><button class="danger-btn" data-action="block-user" data-user-id="${esc(post.authorId)}">Block ${esc(userById(post.authorId).name)}</button><button class="danger-btn" data-action="report-post" data-id="${esc(id)}">Report for Review</button>`}<button class="soft-btn" data-action="share" data-id="${esc(id)}">Share Post</button></div>`);
+}
+function openEditPost(id){
+  const current=requireMe();if(!current)return;const post=postById(id);if(!post||post.authorId!==current.id)return;const groups=state.groups.filter(group=>group.memberIds.includes(current.id));
+  modal("Edit post",`<div class="form-grid"><div class="field"><label for="editPostText">Caption or post</label><textarea id="editPostText" maxlength="5000">${esc(post.text)}</textarea></div><div class="form-grid two"><div class="field"><label for="editPostAudience">Audience</label><select id="editPostAudience"><option value="public">Public</option><option value="followers">Followers</option>${groups.length?'<option value="group">A group</option>':""}<option value="private">Only me</option></select></div><div class="field" id="editPostGroupField"><label for="editPostGroup">Group</label><select id="editPostGroup">${groups.map(group=>`<option value="${esc(group.id)}">${esc(group.name)}</option>`).join("")}</select></div></div><div class="form-grid two"><div class="field"><label for="editPostLocation">Location</label><input id="editPostLocation" maxlength="100" value="${esc(post.location||"")}"></div><div class="field"><label for="editPostTags">Tags</label><input id="editPostTags" maxlength="240" value="${esc((post.tags||[]).join(", "))}"></div></div><div class="post-edit-note">Existing media remains attached. Delete and republish the post to replace its local media.</div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="savePostEditsBtn" type="button">Save Changes</button>`);
+  $("#editPostAudience").value=post.audience;$("#editPostGroup").value=post.groupId||groups[0]?.id||"";const updateGroup=()=>$("#editPostGroupField").hidden=$("#editPostAudience").value!=="group";updateGroup();$("#editPostAudience").onchange=updateGroup;
+  $("#savePostEditsBtn").onclick=()=>{const text=$("#editPostText").value.trim();if(!text&&!post.media.length)return toast("A post needs text or media.","error");const audience=$("#editPostAudience").value,groupId=audience==="group"?$("#editPostGroup").value:null;if(audience==="group"&&!groups.some(group=>group.id===groupId))return toast("Choose a group you belong to.","error");post.text=text;post.audience=audience;post.groupId=groupId;post.location=$("#editPostLocation").value.trim();post.tags=Array.from(new Set([...tagsFromText(text),...$("#editPostTags").value.split(",").map(tag=>tag.trim().replace(/^#/,"").replace(/[^\p{L}\p{N}_-]/gu,"")).filter(Boolean)])).slice(0,12);post.editedAt=now();persist();closeModal();renderView();renderRightRail();toast("Post updated.","success")};
 }
 
 function deletePost(id){
@@ -1838,76 +2003,70 @@ function deletePost(id){
   });
 }
 
-function deleteComment(postId,commentId){
-  const current=requireMe();if(!current)return;
-  const post=postById(postId);if(!post)return;
-  post.comments=(post.comments||[]).filter(comment=>!(comment.id===commentId&&comment.authorId===current.id));
-  persist();openComments(postId);renderView();
-}
+function deleteComment(postId,commentId){const current=requireMe();if(!current)return;const post=postById(postId);if(!post)return;const comment=(post.comments||[]).find(item=>item.id===commentId);if(!comment||!(comment.authorId===current.id||post.authorId===current.id))return;if(!confirm('Delete this local comment?'))return;post.comments=(post.comments||[]).filter(item=>item.id!==commentId);persist();openComments(postId);renderView()}
 
 function openCreateGroup(){
-  if(!requireMe())return;
-  modal('Create Bazaar Art Group',`<div class="form-grid"><div class="field"><label for="groupName">Group name</label><input id="groupName" maxlength="100"></div><div class="field"><label for="groupDescription">Description</label><textarea id="groupDescription" maxlength="700"></textarea></div><div class="field"><label for="groupPrivacy">Privacy</label><select id="groupPrivacy"><option value="public">Public</option><option value="private">Private</option></select></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveGroupBtn" type="button">Create Group</button>`);
-  $('#saveGroupBtn').onclick=()=>{
-    const name=$('#groupName').value.trim();if(!name)return toast('Add a group name.','error');
-    state.groups.unshift({id:uid('g'),name,description:$('#groupDescription').value.trim(),privacy:$('#groupPrivacy').value,ownerId:me().id,memberIds:[me().id],createdAt:now()});persist();closeModal();setView('groups');toast('Group created locally.','success');
-  };
+  if(!requireParticipation("create a group"))return;
+  modal("Create Bazaar Art Group",`<div class="form-grid"><div class="field"><label for="groupName">Group name</label><input id="groupName" maxlength="100"></div><div class="field"><label for="groupDescription">Description</label><textarea id="groupDescription" maxlength="700"></textarea></div><div class="field"><label for="groupPrivacy">Privacy</label><select id="groupPrivacy"><option value="public">Public</option><option value="private">Private · members only</option></select></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveGroupBtn" type="button">Create Group</button>`);
+  $("#saveGroupBtn").onclick=()=>{const name=$("#groupName").value.trim();if(!name)return toast("Add a group name.","error");state.groups.unshift({id:uid("g"),name,description:$("#groupDescription").value.trim(),privacy:$("#groupPrivacy").value,ownerId:me().id,memberIds:[me().id],createdAt:now()});persist();closeModal();setView("groups");toast("Group created locally.","success")};
 }
-
 function toggleGroupMembership(id){
-  const current=requireMe();if(!current)return;
-  const group=state.groups.find(item=>item.id===id);if(!group)return;
-  if(group.ownerId===current.id)return openGroup(id);
-  const joined=group.memberIds.includes(current.id);
-  group.memberIds=joined?group.memberIds.filter(userId=>userId!==current.id):[...group.memberIds,current.id];
-  persist();renderView();toast(joined?'You left the group.':'You joined the group.','success');
+  const current=requireParticipation("join groups");if(!current)return;const group=state.groups.find(item=>item.id===id);if(!group)return;if(group.ownerId===current.id)return openGroupManager(id);
+  const joined=group.memberIds.includes(current.id);if(group.privacy==="private"&&!joined){toast("Private groups are joined by invitation from the group owner.","error");return}
+  group.memberIds=joined?group.memberIds.filter(userId=>userId!==current.id):[...group.memberIds,current.id];persist();renderView();toast(joined?"You left the group.":"You joined the group.","success");
 }
-
 function openGroup(id){
-  const group=state.groups.find(item=>item.id===id);if(!group)return;
-  const posts=visiblePosts().filter(post=>post.groupId===id);
-  modal(group.name,`<div class="section-card"><div class="small muted">${esc(group.privacy)} · ${group.memberIds.length} members</div><p>${esc(group.description)}</p><div class="group-member-list">${group.memberIds.map(userId=>{const user=userById(userId);return `<div class="person-row">${avatarHTML(user,'small-avatar')}<div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div></div>`}).join('')}</div></div><div style="margin-top:14px">${posts.length?posts.map(renderPostCard).join(''):'<div class="empty">No visible group posts yet.</div>'}</div>`,'',true);
-  hydrateAvatars($('#activeModalLayer'));hydrateMedia($('#activeModalLayer'));
+  const group=state.groups.find(item=>item.id===id);if(!group)return;const member=hasMember()&&group.memberIds.includes(me().id);if(group.privacy==="private"&&!member){toast("This private group is available only to its members.","error");return}
+  const posts=visiblePosts().filter(post=>post.groupId===id);const owner=hasMember()&&group.ownerId===me().id;
+  modal(group.name,`<div class="section-card"><div class="small muted">${esc(group.privacy)} · ${group.memberIds.length} members</div><p>${esc(group.description)}</p><div class="card-actions">${member?`<button class="primary-btn" data-action="create-group-post" data-id="${esc(group.id)}">Create Group Post</button>`:""}${owner?`<button class="soft-btn" data-action="manage-group" data-id="${esc(group.id)}">Manage Group</button>`:member?`<button class="soft-btn" data-action="group-membership" data-id="${esc(group.id)}">Leave Group</button>`:`<button class="primary-btn" data-action="group-membership" data-id="${esc(group.id)}">Join Group</button>`}</div><div class="section-kicker" style="margin-top:14px">Members</div><div class="group-member-list">${group.memberIds.map(userId=>{const user=userById(userId);return `<div class="person-row">${avatarHTML(user,"small-avatar")}<div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div></div>`}).join("")}</div></div><div style="margin-top:14px">${posts.length?posts.map(renderPostCard).join(""):'<div class="empty">No visible group posts yet.</div>'}</div>`,"",true);hydrateAvatars($("#activeModalLayer"));hydrateMedia($("#activeModalLayer"));
 }
+function openGroupManager(id){
+  const current=requireMe();const group=state.groups.find(item=>item.id===id);if(!current||!group||group.ownerId!==current.id)return;
+  modal(`Manage ${group.name}`,`<div class="form-grid"><div class="field"><label for="manageGroupName">Group name</label><input id="manageGroupName" maxlength="100" value="${esc(group.name)}"></div><div class="field"><label for="manageGroupDescription">Description</label><textarea id="manageGroupDescription" maxlength="700">${esc(group.description)}</textarea></div><div class="field"><label for="manageGroupPrivacy">Privacy</label><select id="manageGroupPrivacy"><option value="public">Public</option><option value="private">Private · members only</option></select></div><div class="section-card"><span class="section-kicker">Add member</span><div class="form-grid two" style="margin-top:9px"><div class="field"><label for="groupMemberLookup">Local handle or member number</label><input id="groupMemberLookup" placeholder="@handle or 333 number"></div><button class="soft-btn" id="addGroupMemberBtn" type="button">Add Member</button></div></div><div class="section-card"><span class="section-kicker">Current members</span><div class="management-list">${group.memberIds.map(userId=>{const user=userById(userId);return `<div class="management-row">${avatarHTML(user,"small-avatar")}<div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div>${user.id!==current.id?`<button class="danger-btn" data-action="remove-group-member" data-group-id="${esc(group.id)}" data-user-id="${esc(user.id)}">Remove</button>`:'<span class="badge">Owner</span>'}</div>`}).join("")}</div></div></div>`,`<button class="danger-btn" data-action="delete-group" data-id="${esc(group.id)}">Delete Group</button><button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveGroupChangesBtn" type="button">Save Group</button>`,true);
+  $("#manageGroupPrivacy").value=group.privacy;$("#addGroupMemberBtn").onclick=()=>addGroupMember(group.id,$("#groupMemberLookup").value);$("#saveGroupChangesBtn").onclick=()=>{const name=$("#manageGroupName").value.trim();if(!name)return toast("Add a group name.","error");group.name=name;group.description=$("#manageGroupDescription").value.trim();group.privacy=$("#manageGroupPrivacy").value;persist();closeModal();setView("groups");toast("Group updated.","success")};hydrateAvatars($("#activeModalLayer"));
+}
+function addGroupMember(groupId,value){const group=state.groups.find(item=>item.id===groupId),query=safeText(value).trim().replace(/^@/,"").toLowerCase(),digits=normalizeMemberNumber(value);if(!group)return;const user=state.users.find(item=>item.handle.toLowerCase()===query||(digits&&item.number333===digits));if(!user)return toast("No local Bazaar profile matches that handle or number.","error");if(group.memberIds.includes(user.id))return toast("That person is already a member.","error");group.memberIds.push(user.id);persist();addNotification(`${me().name} added you to ${group.name}.`,"group",user.id,{groupId:group.id,actorId:me().id});openGroupManager(group.id);toast("Member added.","success")}
+function removeGroupMember(groupId,userId){const group=state.groups.find(item=>item.id===groupId);if(!group||group.ownerId!==me().id||userId===me().id)return;group.memberIds=group.memberIds.filter(id=>id!==userId);persist();openGroupManager(group.id);toast("Member removed.","success")}
+function deleteGroup(id){const group=state.groups.find(item=>item.id===id);if(!group||group.ownerId!==me().id)return;if(!confirm(`Delete ${group.name}? Existing group posts will become private posts for their authors.`))return;state.posts.forEach(post=>{if(post.groupId===id){post.groupId=null;post.audience="private"}});state.groups=state.groups.filter(item=>item.id!==id);state.events.forEach(event=>{if(event.groupId===id){event.groupId=null;event.visibility="private"}});persist();closeModal();setView("groups");toast("Group deleted. Its posts were preserved privately.","success")}
 
-function openCreateEvent(){
-  if(!requireMe())return;
-  const start=new Date(now()+86400000).toISOString().slice(0,16);
-  modal('Create Bazaar Art Event',`<div class="form-grid"><div class="field"><label for="eventTitle">Event title</label><input id="eventTitle" maxlength="120"></div><div class="field"><label for="eventDescription">Description</label><textarea id="eventDescription" maxlength="1200"></textarea></div><div class="form-grid two"><div class="field"><label for="eventStart">Starts</label><input id="eventStart" type="datetime-local" value="${start}"></div><div class="field"><label for="eventCapacity">Capacity</label><input id="eventCapacity" type="number" min="1" max="10000" value="50"></div></div><div class="field"><label for="eventLocation">Location or KANSEE room</label><input id="eventLocation" maxlength="160"></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveEventBtn" type="button">Create Event</button>`);
-  $('#saveEventBtn').onclick=()=>{
-    const title=$('#eventTitle').value.trim();const startAt=new Date($('#eventStart').value).getTime();
-    if(!title||!Number.isFinite(startAt))return toast('Add an event title and start time.','error');
-    state.events.unshift({id:uid('e'),title,description:$('#eventDescription').value.trim(),startAt,location:$('#eventLocation').value.trim(),capacity:Math.max(1,Number($('#eventCapacity').value)||50),hostId:me().id,goingIds:[me().id],interestedIds:[],groupId:null,visibility:'public'});persist();closeModal();setView('events');toast('Event created locally.','success');
-  };
+function openCreateEvent(eventId=null){
+  if(!requireParticipation(eventId?"edit events":"create an event"))return;const existing=eventId?state.events.find(item=>item.id===eventId):null;if(eventId&&(!existing||existing.hostId!==me().id))return;
+  const start=localDateTimeValue(existing?.startAt||now()+86400000);const groups=state.groups.filter(group=>group.memberIds.includes(me().id));
+  modal(existing?"Edit Bazaar Art Event":"Create Bazaar Art Event",`<div class="form-grid"><div class="field"><label for="eventTitle">Event title</label><input id="eventTitle" maxlength="120" value="${esc(existing?.title||"")}"></div><div class="field"><label for="eventDescription">Description</label><textarea id="eventDescription" maxlength="1200">${esc(existing?.description||"")}</textarea></div><div class="form-grid two"><div class="field"><label for="eventStart">Starts</label><input id="eventStart" type="datetime-local" value="${start}"></div><div class="field"><label for="eventCapacity">Capacity</label><input id="eventCapacity" type="number" min="1" max="10000" value="${existing?.capacity||50}"></div></div><div class="field"><label for="eventLocation">Location or KANSEE room</label><input id="eventLocation" maxlength="160" value="${esc(existing?.location||"")}"></div><div class="form-grid two"><div class="field"><label for="eventVisibility">Visibility</label><select id="eventVisibility"><option value="public">Public</option><option value="followers">Followers</option>${groups.length?'<option value="group">A group</option>':""}<option value="private">Only me</option></select></div><div class="field" id="eventGroupField"><label for="eventGroup">Group</label><select id="eventGroup">${groups.map(group=>`<option value="${esc(group.id)}">${esc(group.name)}</option>`).join("")}</select></div></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveEventBtn" type="button">${existing?"Save Event":"Create Event"}</button>`);
+  $("#eventVisibility").value=existing?.visibility||"public";if(existing?.groupId&&$("#eventGroup"))$("#eventGroup").value=existing.groupId;const updateGroup=()=>$("#eventGroupField").hidden=$("#eventVisibility").value!=="group";updateGroup();$("#eventVisibility").onchange=updateGroup;
+  $("#saveEventBtn").onclick=()=>{const title=$("#eventTitle").value.trim(),startAt=new Date($("#eventStart").value).getTime(),capacity=Math.max(1,Number($("#eventCapacity").value)||50),visibility=$("#eventVisibility").value,groupId=visibility==="group"?$("#eventGroup")?.value:null;if(!title||!Number.isFinite(startAt))return toast("Add an event title and start time.","error");if(!existing&&startAt<=now())return toast("New events must begin in the future.","error");if(existing&&capacity<existing.goingIds.length)return toast(`Capacity cannot be lower than the ${existing.goingIds.length} people already going.`,"error");if(visibility==="group"&&!groups.some(group=>group.id===groupId))return toast("Choose a group you belong to.","error");const data={title,description:$("#eventDescription").value.trim(),startAt,location:$("#eventLocation").value.trim(),capacity,visibility,groupId};if(existing)Object.assign(existing,data,{updatedAt:now()});else state.events.unshift({id:uid("e"),...data,hostId:me().id,goingIds:[me().id],interestedIds:[],createdAt:now()});persist();closeModal();setView("events");toast(existing?"Event updated.":"Event created locally.","success")};
 }
+function openEvent(id){const event=state.events.find(item=>item.id===id);if(!event||!visibleEvents().some(item=>item.id===id))return;const owner=hasMember()&&event.hostId===me().id;modal(event.title,`<div class="section-card"><div class="small muted">${formatDate(event.startAt)} · ${esc(event.location||"Location to be announced")}</div><p>${esc(event.description||"No description yet.")}</p><div class="small muted">Hosted by ${esc(userById(event.hostId).name)} · ${event.goingIds.length}/${event.capacity} going · ${esc(event.visibility)}</div><div class="card-actions"><a class="soft-btn" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><button class="soft-btn" data-action="share-event" data-id="${esc(event.id)}">Share Event</button>${owner?`<button class="primary-btn" data-action="edit-event" data-id="${esc(event.id)}">Edit Event</button><button class="danger-btn" data-action="delete-event" data-id="${esc(event.id)}">Delete Event</button>`:""}</div></div><div class="section-card" style="margin-top:12px"><span class="section-kicker">Going</span><div class="management-list">${event.goingIds.map(userId=>{const user=userById(userId);return `<div class="management-row">${avatarHTML(user,"small-avatar")}<div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div></div>`}).join("")}</div></div>`,"",true);hydrateAvatars($("#activeModalLayer"))}
+function toggleRsvp(id,status){const current=requireParticipation("respond to events");if(!current)return;const event=state.events.find(item=>item.id===id);if(!event||event.startAt<now())return;const primary=status==="going"?"goingIds":"interestedIds",other=status==="going"?"interestedIds":"goingIds";event[primary]=event[primary]||[];event[other]=event[other]||[];const active=event[primary].includes(current.id);if(!active&&status==="going"&&event.goingIds.length>=event.capacity)return toast("This event has reached its local capacity.","error");event[primary]=active?event[primary].filter(userId=>userId!==current.id):[...event[primary],current.id];if(!active)event[other]=event[other].filter(userId=>userId!==current.id);persist();if(!active&&event.hostId!==current.id)addNotification(`${current.name} marked ${status} for ${event.title}.`,"event",event.hostId,{eventId:event.id,actorId:current.id});renderView();renderRightRail()}
+function deleteEvent(id){const event=state.events.find(item=>item.id===id);if(!event||event.hostId!==me().id)return;if(!confirm(`Delete ${event.title}?`))return;state.events=state.events.filter(item=>item.id!==id);state.notifications=state.notifications.filter(notification=>notification.eventId!==id);persist();closeModal();setView("events");toast("Event deleted.","success")}
+function shareEvent(id){const event=state.events.find(item=>item.id===id);if(!event)return;const text=`${event.title}\n${formatDate(event.startAt)} · ${event.location||"Location to be announced"}\nBazaar Art Live event reference: ${event.id}`;shareData({title:event.title,text},text)}
 
-function toggleRsvp(id,status){
-  const current=requireMe();if(!current)return;
-  const event=state.events.find(item=>item.id===id);if(!event)return;
-  const primary=status==='going'?'goingIds':'interestedIds';const other=status==='going'?'interestedIds':'goingIds';
-  event[primary]=event[primary]||[];event[other]=event[other]||[];
-  const active=event[primary].includes(current.id);
-  event[primary]=active?event[primary].filter(userId=>userId!==current.id):[...event[primary],current.id];
-  if(!active)event[other]=event[other].filter(userId=>userId!==current.id);
-  persist();renderView();renderRightRail();
-}
-
-function shareEvent(id){
-  const event=state.events.find(item=>item.id===id);if(!event)return;
-  const text=`${event.title}\n${formatDate(event.startAt)} · ${event.location||'Location to be announced'}\nBazaar Art Live event reference: ${event.id}`;
-  shareData({title:event.title,text},text);
-}
 
 function editProfile(){
-  const current=requireMe();if(!current)return;
-  modal('Edit Bazaar Art Profile',`<div class="form-grid"><div class="form-grid two"><div class="field"><label for="editName">Display name</label><input id="editName" maxlength="80" value="${esc(current.name)}"></div><div class="field"><label for="editHandle">Handle</label><input id="editHandle" maxlength="30" value="${esc(current.handle)}"></div></div><div class="field"><label for="editNumber">Member or 333 number</label><input id="editNumber" maxlength="20" value="${esc(current.number333||'')}"></div><div class="field"><label for="editBio">Bio</label><textarea id="editBio" maxlength="320">${esc(current.bio||'')}</textarea></div><div class="form-grid two"><div class="field"><label for="editLocation">Location</label><input id="editLocation" maxlength="100" value="${esc(current.location||'')}"></div><div class="field"><label for="editWebsite">Website</label><input id="editWebsite" maxlength="240" value="${esc(current.website||'')}"></div></div><label class="form-check"><input id="editParticipation" type="checkbox" ${current.participation?'checked':''}><span>Allow posting and community participation from this local profile.</span></label></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveProfileBtn" type="button">Save Profile</button>`);
-  $('#saveProfileBtn').onclick=()=>{
-    const name=$('#editName').value.trim();const handle=normalizeHandle($('#editHandle').value);
-    if(!name||!handle)return toast('Add a display name and handle.','error');
-    if(state.users.some(user=>user.id!==current.id&&user.handle===handle))return toast('That handle is already used locally.','error');
-    current.name=name;current.handle=handle;current.number333=normalizeMemberNumber($('#editNumber').value);current.numberKind=current.number333.startsWith('333')?'network':current.number333?'existing':'none';current.bio=$('#editBio').value.trim();current.location=$('#editLocation').value.trim();current.website=validHttpUrl($('#editWebsite').value.trim());current.participation=$('#editParticipation').checked;current.identitySource=current.identitySource==='hollo'?'hollo':'bazaar-local';persist();closeModal();updateProfileChip();setView('profile');toast('Profile saved locally.','success');
-  };
+  const current=requireMe();if(!current)return;let pendingAvatar=null;let removeAvatar=false;
+  modal("Edit Bazaar Art Profile",`<div class="form-grid"><div class="avatar-editor"><div class="avatar-preview" id="avatarEditPreview">${initials(current.name)}</div><div><div class="field"><label for="editAvatar">Profile image</label><input id="editAvatar" type="file" accept="image/*"></div><button class="soft-btn" id="removeAvatarBtn" type="button" ${current.avatarMediaId?'':'disabled'}>Remove Current Image</button></div></div><div class="form-grid two"><div class="field"><label for="editName">Display name</label><input id="editName" maxlength="80" value="${esc(current.name)}"></div><div class="field"><label for="editHandle">Handle</label><input id="editHandle" maxlength="30" value="${esc(current.handle)}"></div></div><div class="field"><label for="editNumber">Member or 333 number</label><input id="editNumber" maxlength="20" value="${esc(current.number333||"")}"></div><div class="field"><label for="editBio">Bio</label><textarea id="editBio" maxlength="320">${esc(current.bio||"")}</textarea></div><div class="form-grid two"><div class="field"><label for="editLocation">Location</label><input id="editLocation" maxlength="100" value="${esc(current.location||"")}"></div><div class="field"><label for="editWebsite">Website</label><input id="editWebsite" maxlength="240" value="${esc(current.website||"")}"></div></div><label class="form-check"><input id="editParticipation" type="checkbox" ${current.participation?'checked':''}><span>Allow posting and community participation from this local profile.</span></label><label class="form-check"><input id="editPrivateProfile" type="checkbox" ${current.privateProfile?'checked':''}><span>Private profile · only approved followers can view the full profile.</span></label></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveProfileBtn" type="button">Save Profile</button>`);
+  if(current.avatarMediaId)MediaDB.get(current.avatarMediaId).then(item=>{if(item?.dataUrl)$("#avatarEditPreview").innerHTML=`<img src="${esc(item.dataUrl)}" alt="">`});
+  $("#editAvatar").onchange=async event=>{const file=event.target.files?.[0];if(!file)return;if(!file.type.startsWith("image/"))return toast("Choose an image file.","error");if(file.size>12*1024*1024)return toast("Profile images must be 12 MB or smaller.","error");try{const dataUrl=file.type==="image/gif"?await fileToDataUrl(file):await downscaleImage(file,900,.88);pendingAvatar={id:uid("m"),type:file.type,name:file.name,dataUrl,createdAt:now()};removeAvatar=false;$("#avatarEditPreview").innerHTML=`<img src="${esc(dataUrl)}" alt="">`}catch{toast("The profile image could not be prepared.","error")}};
+  $("#removeAvatarBtn").onclick=()=>{removeAvatar=true;pendingAvatar=null;$("#avatarEditPreview").textContent=initials($("#editName").value||current.name)};
+  $("#saveProfileBtn").onclick=async()=>{const name=$("#editName").value.trim(),handle=normalizeHandle($("#editHandle").value);if(!name||!handle)return toast("Add a display name and handle.","error");if(state.users.some(user=>user.id!==current.id&&user.handle===handle))return toast("That handle is already used locally.","error");const oldAvatar=current.avatarMediaId;if(pendingAvatar){await MediaDB.put(pendingAvatar);current.avatarMediaId=pendingAvatar.id}else if(removeAvatar)current.avatarMediaId=null;current.name=name;current.handle=handle;current.number333=normalizeMemberNumber($("#editNumber").value);current.numberKind=current.number333.startsWith("333")?"network":current.number333?"existing":"none";current.bio=$("#editBio").value.trim();current.location=$("#editLocation").value.trim();const websiteInput=$("#editWebsite").value.trim();if(websiteInput&&!validHttpUrl(websiteInput))return toast("Enter a complete http:// or https:// website address.","error");current.website=validHttpUrl(websiteInput);current.participation=$("#editParticipation").checked;current.privateProfile=$("#editPrivateProfile").checked;current.identitySource=current.identitySource==="hollo"?"hollo":"bazaar-local";persist();if(oldAvatar&&oldAvatar!==current.avatarMediaId)await MediaDB.delete(oldAvatar);closeModal();updateProfileChip();setView("profile");toast("Profile saved locally.","success")};
 }
+
+function openSearchDialog(){
+  modal("Search Bazaar Art",`<div class="field"><label for="mobileSearchInput">People, posts, tags, groups, and events</label><input id="mobileSearchInput" type="search" value="${esc($("#globalSearch").value)}" placeholder="Search Bazaar Art" autofocus></div><div class="search-dialog-results" id="mobileSearchResults"></div>`,`<button class="soft-btn" id="clearMobileSearchBtn" type="button">Clear</button><button class="primary-btn" id="applyMobileSearchBtn" type="button">Show Results</button>`);
+  const input=$("#mobileSearchInput"),results=$("#mobileSearchResults");const preview=()=>{const query=input.value.trim().toLowerCase(),tag=query.replace(/^#/,"");const postCount=visiblePosts().filter(post=>!query||post.text.toLowerCase().includes(query)||post.tags.some(item=>item.toLowerCase().includes(tag))).length,peopleCount=visibleUsers().filter(user=>!query||`${user.name} ${user.handle} ${user.bio}`.toLowerCase().includes(query)).length;results.innerHTML=`<div class="section-card"><strong>${postCount}</strong> posts · <strong>${peopleCount}</strong> artists may match.</div>`};input.oninput=preview;preview();$("#clearMobileSearchBtn").onclick=()=>{input.value="";preview()};$("#applyMobileSearchBtn").onclick=()=>{$("#globalSearch").value=input.value;updateSearchClear();closeModal();setView("discover")};
+}
+function openMobileMore(){
+  modal("More Bazaar Art",`<div class="mobile-more-grid"><button class="soft-btn" data-action="mobile-view" data-view-target="groups">Groups</button><button class="soft-btn" data-action="mobile-view" data-view-target="events">Events</button><button class="soft-btn" data-action="mobile-view" data-view-target="saved">Saved Posts</button><button class="soft-btn" data-action="mobile-view" data-view-target="notifications">Notifications</button><button class="soft-btn" data-action="profile-menu">Settings & Backup</button><button class="soft-btn" data-action="open-moderation">Moderation</button><a class="soft-btn" href="../index.html">333 Network</a><a class="soft-btn" href="./HOLLO_333_direct_connect_index.html">HOLLO</a><a class="soft-btn" href="./KANSEE_333_meeting_rooms_index.html">KANSEE</a><a class="soft-btn" href="./EVen_mail_index.html">E=Ven Mail</a><a class="soft-btn" href="./SIte_builder_index.html">SIte</a><a class="soft-btn" href="./Bunya_digital_infrastructure_index.html">Bunya</a><a class="primary-btn" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support 333</a></div>`,"",true);
+}
+function updateSearchClear(){const clear=$("#clearSearchBtn");if(clear)clear.hidden=!$("#globalSearch").value}
+function openModerationCenter(){
+  const current=requireMe();if(!current)return;const hidden=state.posts.filter(post=>post.hiddenBy?.includes(current.id));
+  modal("Moderation & Visibility",`<div class="form-grid"><section class="moderation-section"><h3>Muted profiles</h3><div class="moderation-list">${state.mutedUserIds.length?state.mutedUserIds.map(userId=>{const user=userById(userId);return `<div class="moderation-item"><div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div><button class="soft-btn" data-action="unmute-user" data-user-id="${esc(user.id)}">Restore</button></div>`}).join(""):'<div class="small muted">No muted profiles.</div>'}</div></section><section class="moderation-section"><h3>Blocked profiles</h3><div class="moderation-list">${state.blockedUserIds.length?state.blockedUserIds.map(userId=>{const user=userById(userId);return `<div class="moderation-item"><div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div><button class="soft-btn" data-action="unblock-user" data-user-id="${esc(user.id)}">Unblock</button></div>`}).join(""):'<div class="small muted">No blocked profiles.</div>'}</div></section><section class="moderation-section"><h3>Hidden posts</h3><div class="moderation-list">${hidden.length?hidden.map(post=>`<div class="moderation-item"><div class="grow"><strong>${esc(userById(post.authorId).name)}</strong><div class="tiny muted">${esc((post.text||"Media post").slice(0,90))}</div></div><button class="soft-btn" data-action="unhide-post" data-id="${esc(post.id)}">Restore</button></div>`).join(""):'<div class="small muted">No hidden posts.</div>'}</div></section><section class="moderation-section"><h3>Local reports</h3><div class="small muted">${state.reports.filter(report=>report.reporterId===current.id).length} report record(s) are stored in this browser for future moderator review.</div></section></div>`,`<button class="soft-btn" data-action="close-modal">Close</button>`,true);
+}
+async function cleanOrphanMedia({silent=false}={}){
+  const referenced=new Set();state.users.forEach(user=>{if(user.avatarMediaId)referenced.add(user.avatarMediaId)});state.posts.forEach(post=>(post.media||[]).forEach(media=>referenced.add(media.id)));state.stories.forEach(story=>(story.items||[]).forEach(item=>{if(item.mediaId)referenced.add(item.mediaId)}));const all=await MediaDB.all();let removed=0;for(const item of all)if(!referenced.has(item.id)){await MediaDB.delete(item.id);removed++}if(!silent)toast(removed?`${removed} unused media item(s) removed.`:"No unused media was found.","success")
+}
+async function pruneExpiredStories(){const expired=state.stories.filter(story=>story.expiresAt<=now());if(!expired.length)return;for(const story of expired)for(const item of story.items||[])if(item.mediaId)await MediaDB.delete(item.mediaId);state.stories=state.stories.filter(story=>story.expiresAt>now());persist()}
 
 function layoutQuick(){
   state.settings.rail=state.settings.rail==='compact'?'full':'compact';persist();applySettings();toast(state.settings.rail==='compact'?'Navigation rail compacted.':'Navigation rail expanded.');
@@ -1915,13 +2074,9 @@ function layoutQuick(){
 
 function openSettings(){
   const current=hasMember()?me():null;
-  modal('Bazaar Art Live Settings & Backup',`<div class="form-grid"><div class="form-grid two"><div class="field"><label for="settingTheme">Theme</label><select id="settingTheme"><option value="dark">Dark</option><option value="light">Light</option></select></div><div class="field"><label for="settingDensity">Density</label><select id="settingDensity"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></div></div><div class="form-grid two"><div class="field"><label for="settingFont">Font scale</label><input id="settingFont" type="number" min="0.85" max="1.25" step="0.05" value="${Number(state.settings.fontScale)||1}"></div><div class="field"><label for="settingWidth">Feed width</label><input id="settingWidth" type="number" min="520" max="900" step="20" value="${Number(state.settings.feedWidth)||680}"></div></div><label class="form-check"><input id="settingAutoplay" type="checkbox" ${state.settings.autoplay?'checked':''}><span>Autoplay local reels when supported.</span></label><div class="section-card"><span class="section-kicker">Shared Identity</span><p class="small muted">${current?`${esc(current.name)} · ${esc(current.identitySource||'local profile')} · ${esc(current.number333||'no number')}`:'No participating profile selected.'}</p><div class="card-actions"><button class="soft-btn" id="settingsImportHolloBtn" type="button">Refresh from HOLLO</button><a class="soft-btn" href="./EVen_mail_index.html#apply">Apply for E=Ven Email</a></div></div><div class="section-card"><span class="section-kicker">Portable Workspace</span><div class="card-actions"><button class="soft-btn" id="exportWorkspaceNowBtn" type="button">Export JSON + Media</button><button class="soft-btn" id="importWorkspaceNowBtn" type="button">Import Workspace</button><button class="danger-btn" id="resetWorkspaceBtn" type="button">Reset Local Bazaar</button></div></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveSettingsBtn" type="button">Save Settings</button>`,true);
-  $('#settingTheme').value=state.settings.theme||'dark';$('#settingDensity').value=state.settings.density||'comfortable';
-  $('#settingsImportHolloBtn').onclick=()=>importHolloProfile();
-  $('#exportWorkspaceNowBtn').onclick=exportWorkspaceFile;
-  $('#importWorkspaceNowBtn').onclick=()=>$('#workspaceImportInput').click();
-  $('#resetWorkspaceBtn').onclick=resetWorkspace;
-  $('#saveSettingsBtn').onclick=()=>{state.settings.theme=$('#settingTheme').value;state.settings.density=$('#settingDensity').value;state.settings.fontScale=clamp(Number($('#settingFont').value)||1,.85,1.25);state.settings.feedWidth=clamp(Number($('#settingWidth').value)||680,520,900);state.settings.autoplay=$('#settingAutoplay').checked;persist();applySettings();closeModal();renderView();renderRightRail();toast('Settings saved.','success')};
+  modal("Bazaar Art Live Settings & Backup",`<div class="form-grid"><div class="form-grid two"><div class="field"><label for="settingTheme">Theme</label><select id="settingTheme"><option value="dark">Dark</option><option value="light">Light</option></select></div><div class="field"><label for="settingDensity">Density</label><select id="settingDensity"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></div></div><div class="form-grid two"><div class="field"><label for="settingFont">Font scale</label><input id="settingFont" type="number" min="0.85" max="1.25" step="0.05" value="${Number(state.settings.fontScale)||1}"></div><div class="field"><label for="settingWidth">Feed width</label><input id="settingWidth" type="number" min="520" max="900" step="20" value="${Number(state.settings.feedWidth)||680}"></div></div><label class="form-check"><input id="settingAutoplay" type="checkbox" ${state.settings.autoplay?'checked':''}><span>Autoplay a local reel only while it is mostly visible.</span></label><label class="form-check"><input id="settingContentFilter" type="checkbox" ${state.settings.contentFilter?'checked':''}><span>Hide posts I have locally reported.</span></label><div class="section-card"><span class="section-kicker">Shared Identity</span><p class="small muted">${current?`${esc(current.name)} · ${esc(current.identitySource||'local profile')} · ${esc(current.number333||'no number')}`:'No participating profile selected.'}</p><div class="card-actions"><button class="soft-btn" id="settingsImportHolloBtn" type="button">Refresh from HOLLO</button><a class="soft-btn" href="./EVen_mail_index.html#apply">Apply for E=Ven Email</a><button class="soft-btn" id="moderationCenterBtn" type="button">Moderation & Visibility</button></div></div><div class="section-card"><span class="section-kicker">Portable Workspace</span><div class="card-actions"><button class="soft-btn" id="exportWorkspaceNowBtn" type="button">Export JSON + Media</button><button class="soft-btn" id="importWorkspaceNowBtn" type="button">Import Workspace</button><button class="soft-btn" id="cleanMediaBtn" type="button">Clean Unused Media</button><button class="danger-btn" id="resetWorkspaceBtn" type="button">Reset Local Bazaar</button></div></div><div class="section-card"><span class="section-kicker">Service Status</span><p class="small muted">This build is local-first. Public accounts, synchronized feeds, moderation queues, notifications, and remote media delivery require authenticated backend services.</p><a class="primary-btn" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support the 333 Network</a></div></div>`,`<button class="soft-btn" data-action="close-modal">Cancel</button><button class="primary-btn" id="saveSettingsBtn" type="button">Save Settings</button>`,true);
+  $("#settingTheme").value=state.settings.theme||"dark";$("#settingDensity").value=state.settings.density||"comfortable";$("#settingsImportHolloBtn").onclick=()=>importHolloProfile();$("#exportWorkspaceNowBtn").onclick=exportWorkspaceFile;$("#importWorkspaceNowBtn").onclick=()=>$("#workspaceImportInput").click();$("#cleanMediaBtn").onclick=cleanOrphanMedia;$("#moderationCenterBtn").onclick=openModerationCenter;$("#resetWorkspaceBtn").onclick=resetWorkspace;
+  $("#saveSettingsBtn").onclick=()=>{state.settings.theme=$("#settingTheme").value;state.settings.density=$("#settingDensity").value;state.settings.fontScale=clamp(Number($("#settingFont").value)||1,.85,1.25);state.settings.feedWidth=clamp(Number($("#settingWidth").value)||680,520,900);state.settings.autoplay=$("#settingAutoplay").checked;state.settings.contentFilter=$("#settingContentFilter").checked;persist();applySettings();closeModal();renderView();renderRightRail();toast("Settings saved.","success")};
 }
 
 async function exportWorkspaceFile(){
@@ -1932,12 +2087,10 @@ async function exportWorkspaceFile(){
 
 async function importWorkspaceFile(file){
   try{
-    const parsed=JSON.parse(await file.text());
-    const raw=parsed?.schema==='bazaar-art-live-workspace'?parsed.state:parsed;
-    if(!raw||!Array.isArray(raw.users)||!Array.isArray(raw.posts))throw new Error('Invalid Bazaar workspace');
-    if(!confirm('Replace this device’s current Bazaar Art workspace with the imported file?'))return;
-    state=normalizeState(raw);await MediaDB.clear();for(const item of parsed.media||[])await MediaDB.put(item);persist();applySettings();updateProfileChip();updateBadges();closeModal();setView(state.activeView||'home');toast('Bazaar workspace imported.','success');
-  }catch(error){console.warn(error);toast('This is not a valid Bazaar Art Live workspace file.','error')}
+    if(file.size>150*1024*1024)throw new Error("Backup is larger than 150 MB");const parsed=JSON.parse(await file.text());const raw=parsed?.schema==="bazaar-art-live-workspace"?parsed.state:parsed;
+    if(!raw||!Array.isArray(raw.users)||!Array.isArray(raw.posts))throw new Error("Invalid Bazaar workspace");if(!confirm("Replace this device’s current Bazaar Art workspace with the imported file? Export the current workspace first when needed."))return;
+    const incoming=normalizeState(raw);await MediaDB.clear();for(const item of Array.isArray(parsed.media)?parsed.media:[]){if(item?.id&&typeof item.dataUrl==="string"&&safeText(item.type).match(/^(image|video)\//))await MediaDB.put(item)}state=incoming;persist();applySettings();updateProfileChip();updateBadges();closeModal();setView(state.activeView||"home");toast("Bazaar workspace imported.","success");
+  }catch(error){console.warn(error);toast("This is not a valid Bazaar Art Live workspace file.","error")}
 }
 
 function resetWorkspace(){
@@ -1949,69 +2102,47 @@ function markAllRead(){
   const current=requireMe();if(!current)return;state.notifications.forEach(item=>{if(item.userId===current.id)item.read=true});persist();updateBadges();renderView();
 }
 
+function readNotification(id){const item=state.notifications.find(notification=>notification.id===id);if(!item)return;item.read=true;persist();updateBadges();renderView()}
+function clearReadNotifications(){const current=requireMe();if(!current)return;state.notifications=state.notifications.filter(notification=>notification.userId!==current.id||!notification.read);persist();updateBadges();renderView();toast('Read notifications cleared.','success')}
 function deleteNotification(id){state.notifications=state.notifications.filter(item=>item.id!==id);persist();updateBadges();renderView()}
 
-function handleAction(action,el){
-  const id=el.dataset.id;
+function handleAction(action,element){
+  const id=element.dataset.id;
   const actions={
-    'close-modal':()=>closeModal(),
-    'create-profile':()=>openFirstRunProfile(),
-    'create-post':()=>openComposer(el.dataset.kind||'post'),
-    'create-story':()=>openCreateStory(),
-    'open-story':()=>openStory(id),
-    'feed-filter':()=>{state.feedFilter=el.dataset.filter||'all';persist();renderView()},
-    'quick-like':()=>{const post=postById(id);const active=(post?.reactions?.like||[]).includes(me().id);react(id,active?'':'like')},
-    'reaction':()=>react(id,el.dataset.reaction),
-    'comments':()=>{if(requireMe())openComments(id)},
-    'share':()=>sharePost(id),
-    'save-post':()=>toggleSave(id),
-    'open-media':()=>openMedia(el.dataset.mediaId),
-    'open-profile':()=>openPublicProfile(el.dataset.userId),
-    'follow':()=>toggleFollow(el.dataset.userId),
-    'post-menu':()=>openPostMenu(id),
-    'hide-post':()=>hidePost(id),
-    'mute-user':()=>muteUser(el.dataset.userId),
-    'report-post':()=>reportPost(id),
-    'delete-post':()=>deletePost(id),
-    'delete-comment':()=>deleteComment(el.dataset.postId,id),
-    'search-focus':()=>$('#globalSearch').focus(),
-    'search-tag':()=>{$('#globalSearch').value='#'+el.dataset.tag;setView('discover')},
-    'create-group':()=>openCreateGroup(),
-    'group-membership':()=>toggleGroupMembership(id),
-    'group-feed':()=>openGroup(id),
-    'create-event':()=>openCreateEvent(),
-    'rsvp':()=>toggleRsvp(id,el.dataset.status),
-    'share-event':()=>shareEvent(id),
-    'mark-all-read':()=>markAllRead(),
-    'delete-notification':()=>deleteNotification(id),
-    'edit-profile':()=>editProfile(),
-    'profile-menu':()=>openSettings(),
-    'profile-tab':()=>{state.profileTab=el.dataset.tab||'posts';persist();renderView()}
-  };
-  actions[action]?.();
+    "close-modal":()=>closeModal(),"create-profile":()=>openFirstRunProfile(),"create-post":()=>openComposer(element.dataset.kind||"post"),"create-story":()=>openCreateStory(),"open-story":()=>openStory(id),"delete-story":()=>deleteStory(id),
+    "feed-filter":()=>{state.feedFilter=element.dataset.filter||"all";persist();renderView()},"quick-like":()=>{const post=postById(id);const active=(post?.reactions?.like||[]).includes(me().id);react(id,active?"":"like")},"reaction":()=>react(id,element.dataset.reaction),"comments":()=>{if(requireMe())openComments(id)},"share":()=>sharePost(id),"save-post":()=>toggleSave(id),"open-media":()=>openMedia(element.dataset.mediaId),"open-profile":()=>openPublicProfile(element.dataset.userId),"follow":()=>toggleFollow(element.dataset.userId),
+    "post-menu":()=>openPostMenu(id),"edit-post":()=>openEditPost(id),"hide-post":()=>hidePost(id),"mute-user":()=>muteUser(element.dataset.userId),"block-user":()=>blockUser(element.dataset.userId),"report-post":()=>openReportPost(id),"delete-post":()=>deletePost(id),"delete-comment":()=>deleteComment(element.dataset.postId,id),
+    "search-focus":()=>matchMedia("(max-width: 680px)").matches?openSearchDialog():$("#globalSearch").focus(),"search-tag":()=>{$("#globalSearch").value="#"+element.dataset.tag;updateSearchClear();setView("discover")},
+    "create-group":()=>openCreateGroup(),"group-membership":()=>toggleGroupMembership(id),"group-feed":()=>openGroup(id),"manage-group":()=>openGroupManager(id),"create-group-post":()=>{closeModal();openComposer("post",{audience:"group",groupId:id})},"remove-group-member":()=>removeGroupMember(element.dataset.groupId,element.dataset.userId),"delete-group":()=>deleteGroup(id),
+    "create-event":()=>openCreateEvent(),"open-event":()=>openEvent(id),"edit-event":()=>openCreateEvent(id),"delete-event":()=>deleteEvent(id),"rsvp":()=>toggleRsvp(id,element.dataset.status),"share-event":()=>shareEvent(id),
+    "mark-all-read":()=>markAllRead(),"clear-read-notifications":()=>clearReadNotifications(),"read-notification":()=>readNotification(id),"delete-notification":()=>deleteNotification(id),"approve-follow":()=>resolveFollowRequest(id,true),"decline-follow":()=>resolveFollowRequest(id,false),
+    "edit-profile":()=>editProfile(),"profile-menu":()=>openSettings(),"profile-tab":()=>{state.profileTab=element.dataset.tab||"posts";persist();renderView()},"show-followers":()=>openPeopleList("Followers",userById(element.dataset.userId).followers||[]),"show-following":()=>openPeopleList("Following",userById(element.dataset.userId).following||[]),
+    "mobile-view":()=>{closeModal();setView(element.dataset.viewTarget)},"open-moderation":()=>openModerationCenter(),"unmute-user":()=>{state.mutedUserIds=state.mutedUserIds.filter(userId=>userId!==element.dataset.userId);persist();openModerationCenter();renderRightRail()},"unblock-user":()=>{state.blockedUserIds=state.blockedUserIds.filter(userId=>userId!==element.dataset.userId);persist();openModerationCenter();renderRightRail()},"unhide-post":()=>{const post=postById(id);if(post)post.hiddenBy=(post.hiddenBy||[]).filter(userId=>userId!==me().id);persist();openModerationCenter();renderView()}
+  };actions[action]?.();
 }
 
 function bind(){
-  document.addEventListener('click',e=>{const el=e.target.closest('[data-action]');if(el)handleAction(el.dataset.action,el)});
-  $$('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
-  [$('#desktopNav'),$('#mobileNav')].forEach(nav=>{if(!nav)return;const buttons=$$('[data-view]',nav);buttons.forEach((button,index)=>button.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();let next=index;if(['ArrowRight','ArrowDown'].includes(event.key))next=(index+1)%buttons.length;if(['ArrowLeft','ArrowUp'].includes(event.key))next=(index-1+buttons.length)%buttons.length;if(event.key==='Home')next=0;if(event.key==='End')next=buttons.length-1;buttons[next].focus();setView(buttons[next].dataset.view)}))});
-  $('#desktopCreateBtn').addEventListener('click',()=>openComposer('post'));$('#mobileCreateBtn').addEventListener('click',()=>openComposer('post'));
-  $('#settingsBtn').addEventListener('click',openSettings);$('#layoutBtn').addEventListener('click',layoutQuick);$('#profileChipBtn').addEventListener('click',()=>{if(hasMember())setView('profile');else openFirstRunProfile()});$('#topNotificationBtn').addEventListener('click',()=>setView('notifications'));
-  $('#globalSearch').addEventListener('input',()=>{if(state.activeView!=='discover')setView('discover');else renderView()});
-  $('#globalSearch').addEventListener('keydown',e=>{if(e.key==='Escape'){e.target.value='';renderView()}});
-  document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#globalSearch').focus()}const layer=$('#activeModalLayer');if(e.key==='Escape'&&layer){closeModal();return}if(e.key==='Tab'&&layer){const focusable=$$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',layer).filter(node=>!node.hidden&&node.offsetParent!==null);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
-  $('#workspaceImportInput').addEventListener('change',e=>{const f=e.target.files[0];if(f)importWorkspaceFile(f);e.target.value=''})
+  document.addEventListener("click",event=>{const element=event.target.closest("[data-action]");if(element)handleAction(element.dataset.action,element)});
+  $$('[data-view]').forEach(button=>button.addEventListener("click",()=>setView(button.dataset.view)));
+  [$("#desktopNav"),$("#mobileNav")].forEach(nav=>{if(!nav)return;const buttons=$$('[data-view]',nav);buttons.forEach((button,index)=>button.addEventListener("keydown",event=>{if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Home","End"].includes(event.key))return;event.preventDefault();let next=index;if(["ArrowRight","ArrowDown"].includes(event.key))next=(index+1)%buttons.length;if(["ArrowLeft","ArrowUp"].includes(event.key))next=(index-1+buttons.length)%buttons.length;if(event.key==="Home")next=0;if(event.key==="End")next=buttons.length-1;buttons[next].focus();setView(buttons[next].dataset.view)}))});
+  $("#desktopCreateBtn").addEventListener("click",()=>openComposer("post"));$("#mobileCreateBtn").addEventListener("click",()=>openComposer("post"));$("#settingsBtn").addEventListener("click",openSettings);$("#layoutBtn").addEventListener("click",layoutQuick);$("#searchBtn").addEventListener("click",()=>matchMedia("(max-width: 680px)").matches?openSearchDialog():$("#globalSearch").focus());$("#mobileMoreBtn").addEventListener("click",openMobileMore);$("#profileChipBtn").addEventListener("click",()=>{if(hasMember())setView("profile");else openFirstRunProfile()});$("#topNotificationBtn").addEventListener("click",()=>setView("notifications"));
+  $("#globalSearch").addEventListener("input",()=>{updateSearchClear();if(state.activeView!=="discover")setView("discover");else renderView()});$("#globalSearch").addEventListener("keydown",event=>{if(event.key==="Escape"){event.target.value="";updateSearchClear();renderView()}});$("#clearSearchBtn").addEventListener("click",()=>{$("#globalSearch").value="";updateSearchClear();renderView();$("#globalSearch").focus()});
+  document.addEventListener("keydown",event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){event.preventDefault();matchMedia("(max-width: 680px)").matches?openSearchDialog():$("#globalSearch").focus()}const layer=$("#activeModalLayer");if(event.key==="Escape"&&layer){closeModal();return}if(event.key==="Tab"&&layer){const focusable=$$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',layer).filter(node=>!node.hidden&&node.offsetParent!==null);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}});
+  $("#workspaceImportInput").addEventListener("change",event=>{const file=event.target.files[0];if(file)importWorkspaceFile(file);event.target.value=""});updateSearchClear();
 }
 
-window.addEventListener('storage',event=>{
-  if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){
-    if(importHolloProfile({silent:true})){updateProfileChip();updateBadges();renderView();renderRightRail();toast('Bazaar Art refreshed the shared HOLLO profile.','success')}
-  }
+window.addEventListener("storage",event=>{
+  if(event.key===STATE_KEY&&event.newValue){try{state=normalizeState(JSON.parse(event.newValue));applySettings();updateProfileChip();updateBadges();renderView();renderRightRail();toast("Bazaar Art refreshed changes from another tab.","success")}catch{}return}
+  if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){if(importHolloProfile({silent:true})){updateProfileChip();updateBadges();renderView();renderRightRail();toast("Bazaar Art refreshed the shared HOLLO profile.","success")}}
 });
-document.addEventListener('333-hollo-profile-created',()=>{if(importHolloProfile({silent:true})){updateProfileChip();renderView();renderRightRail()}});
-adoptHolloIdentityOnLoad();
-applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||'home');if(!hasMember())setTimeout(openFirstRunProfile,120);
+document.addEventListener("333-hollo-profile-created",()=>{if(importHolloProfile({silent:true})){updateProfileChip();renderView();renderRightRail()}});
+adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||"home");pruneExpiredStories();cleanOrphanMedia({silent:true}).catch(()=>{});if(!hasMember())setTimeout(openFirstRunProfile,120);
+
 })();
 </script>
 </body>
 </html>
+Bazaar_Art_Live_index.html
+HTML
+Bazaar_Art_Live_UPDATE_NOTES.md
+Document
