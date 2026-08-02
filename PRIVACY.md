@@ -1,121 +1,79 @@
-# Privacy Framework
+# Privacy Notice
 
-## Purpose
+**Polyglot — Khaemenes Academy Linguistics Hall**  
+**Effective date:** August 2, 2026
 
-The 333 Network should collect only the information required to provide a requested service, explain why it is collected, restrict who can access it, and provide a practical method to correct or delete it.
+Polyglot is currently a static educational website designed to work without a learner account, advertising profile, or central progress database. This notice describes the behavior of the present public landing page. Future courses or portals must publish updated privacy information before they introduce additional data practices.
 
-This framework must be adapted to the jurisdictions, age groups, and services actually offered before public launch.
+## 1. Information Polyglot currently stores
 
-## Data categories
+The current page may save two small preference records in the learner's browser:
 
-The backend may eventually process:
+- `polyglot_theme_v1` — the selected light or dark appearance.
+- `polyglot_shelf_v1` — the names of language collections saved to **My Shelf**.
 
-### Account and identity data
-- Display name
-- HOLLO handle
-- Email address
-- Password hash
-- Existing or provisional member number
-- Verification status
-- Account and recovery history
-- Device and session metadata
+These records remain in the browser's local storage on that device. Polyglot does not presently transmit them to a Khaemenes Academy server.
 
-### Communication data
-- Contact relationships
-- Message content and metadata
-- Meeting invitations
-- Room participation and moderation records
-- Email application correspondence
+A learner can remove these preferences by clearing site data in the browser. Clearing browser data, using private browsing, or changing devices may erase the saved shelf and appearance choice.
 
-### Community data
-- Bazaar profiles
-- Posts, comments, reactions, groups, and events
-- Reports, blocks, moderation actions, and appeals
-- Images, audio, and video voluntarily uploaded by members
+## 2. Speech playback
 
-### Creation and infrastructure data
-- SIte projects, pages, assets, versions, and deployment requests
-- Bunya plans, domains, DNS drafts, environments, and audit records
+The **Hear phrase** feature uses the browser's Web Speech API when available. The device or browser chooses the installed or network-based speech voice. Depending on the browser, operating system, and selected voice, phrase text may be processed by the device vendor's speech service.
 
-### Technical and security data
-- IP address
-- Request time
-- User agent
-- Authentication events
-- Rate-limit events
-- Error and security logs
+Polyglot does not control those third-party speech systems. Learners may use the written phrase and translation without activating speech playback.
 
-## Data-minimization rules
+## 3. Fonts and external requests
 
-- Do not collect a birth date unless a specific legal or service requirement exists.
-- Do not collect a telephone number merely because a profile has a 333 member number.
-- Do not retain raw verification codes after they expire.
-- Do not store camera or microphone streams by default.
-- Do not place provider credentials in member-visible records.
-- Do not use private messages for advertising or unrelated profiling.
-- Do not collect precise location unless a feature clearly requires it and the user consents.
+The current landing page requests typefaces from Google Fonts. When the page loads those files, the browser may send ordinary technical request information—such as an IP address, browser type, and requested resource—to Google's font-delivery infrastructure.
 
-## Purposes of processing
+A future privacy-enhanced release may self-host approved font files. Any bundled fonts must retain their required license notices.
 
-Data should be used only for documented purposes, including:
+## 4. Links to other sites
 
-- Creating and protecting accounts
-- Completing HOLLO enrollment
-- Reserving handles and provisional network numbers
-- Reviewing E=Ven email applications
-- Delivering requested communication and community features
-- Operating SIte projects and authorized publishing
-- Managing Bunya infrastructure tasks
-- Preventing abuse and investigating security incidents
-- Meeting legal obligations
+Polyglot contains verified links to Khaemenes Academy and Verve N Veda pages. A destination site may have its own privacy practices. Review the notice provided by that destination before submitting personal information.
 
-## Sharing
+Planned Polyglot modules are intentionally displayed as notices rather than links to unfinished or unknown destinations.
 
-Personal data should not be sold.
+## 5. Analytics, advertising, and tracking
 
-Information may be shared only with:
+The current repository does not intentionally include:
 
-- Authorized service providers under appropriate contracts
-- Administrators who need access for a defined operational purpose
-- Other members when the user intentionally publishes or sends information
-- Authorities when legally required and appropriately reviewed
+- advertising networks;
+- behavioral advertising;
+- social-media tracking pixels;
+- third-party audience analytics;
+- account-based learner tracking; or
+- sale of personal information.
 
-## Member controls
+A contributor must not add analytics, advertising, fingerprinting, cookies, remote logging, or other tracking without documented approval and a corresponding update to this notice.
 
-Provide mechanisms to:
+## 6. Children and family learning
 
-- View account information
-- Correct profile information
-- Export appropriate account data
-- Delete or deactivate an account
-- Withdraw an E=Ven application
-- Control profile visibility
-- Block or report other members
-- Remove uploaded content where legally and operationally permitted
-- Revoke active sessions
+Polyglot is intended to support learners of many ages, including family and homeschool use. The current static page does not ask children to provide a name, email address, birth date, school, location, photograph, or other identifying information.
 
-## Children and education
+Future student or parent portals must use privacy-by-design practices, collect only information necessary for the educational purpose, and publish age-appropriate notices and guardian controls before launch.
 
-Before allowing accounts for children:
+## 7. Security and sensitive information
 
-- Define the minimum account age
-- Establish parent or guardian consent where required
-- Separate school records from public community profiles
-- Limit public discovery by default
-- Provide child-safety reporting and escalation
-- Minimize collection and retention
-- Review applicable education and child-privacy laws
+Do not enter personal, educational, medical, financial, immigration, or other sensitive information into source-code issues, public contribution discussions, search fields, or planned-module notices. The current search field filters cards locally and is not designed as a private message form.
 
-## International access
+Security concerns should be reported according to [SECURITY.md](SECURITY.md).
 
-If the service accepts members from multiple countries, document:
+## 8. Offline use and service-worker storage
 
-- The responsible organization
-- Data-storage regions
-- International transfer safeguards
-- Regional privacy rights
-- Contact methods for privacy requests
+When the service worker is enabled, Polyglot may store public site files in the browser's Cache Storage so the application shell can load during a network interruption. Cached files may include the home page, offline page, error page, manifest, and registration script.
 
-## Privacy contact
+Users can remove cached files through their browser's site-data controls. The service worker does not create a hidden learner profile.
 
-Publish a monitored privacy contact before public registration begins. Privacy requests should be logged, identity-verified, and completed within applicable legal deadlines.
+## 9. Changes to this notice
+
+Material privacy changes should be recorded in [CHANGELOG.md](CHANGELOG.md) and dated at the top of this notice. New data-collecting features must not be released with an outdated privacy description.
+
+## 10. Contact
+
+Questions about this notice may be sent to:
+
+**Khaemenes Academy**  
+**Email:** KhaemenesAcademy@protonmail.com
+
+This repository notice is informational and is not a substitute for jurisdiction-specific legal advice.

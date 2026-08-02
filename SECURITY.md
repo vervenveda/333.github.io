@@ -1,111 +1,85 @@
 # Security Policy
 
-## Scope
+Polyglot is presently a static GitHub Pages project. It has no public authentication system, central learner database, payment processor, or production API. Security reports are still important because unsafe links, script injection, dependency changes, and accidental disclosure can affect visitors.
 
-This policy applies to the 333 Network backend, its administrative interfaces, APIs, databases, background workers, object storage, and integrations supporting HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya.
+## Supported versions
 
-## Security principles
+| Version | Security updates |
+|---|---|
+| Current `main` branch | Supported |
+| Older copied or forked releases | Best effort only |
+| Unofficial mirrors | Not controlled by Khaemenes Academy |
 
-1. **Least privilege:** users, services, workers, and administrators receive only the permissions needed for their current role.
-2. **Server-side secrets:** credentials, signing keys, provider tokens, database passwords, TURN secrets, and mail passwords never enter frontend code.
-3. **Explicit boundaries:** local browser records are not treated as verified server identities.
-4. **Defense in depth:** authentication, authorization, validation, rate limiting, logging, encryption, and backups work together.
-5. **Safe failure:** errors must not expose stack traces, secrets, database details, or private user data.
-6. **Auditable administration:** sensitive administrative actions create immutable audit records.
+## Report a vulnerability privately
 
-## Minimum production controls
+Please do not publish an unredacted vulnerability in a public issue.
 
-- HTTPS everywhere
-- Secure, HttpOnly, SameSite cookies when cookie sessions are used
-- Strong password hashing with Argon2id
-- Short-lived access tokens and revocable refresh sessions
-- Email verification and controlled account recovery
-- Multi-factor authentication for privileged administrators
-- Role- and resource-based authorization
-- Rate limits for sign-in, enrollment, password reset, messaging, uploads, applications, and moderation
-- File-type allowlists, size limits, generated storage names, and malware scanning
-- Database encryption at rest where supported
-- Encrypted backups
-- Centralized logs with restricted access
-- Dependency scanning and routine security updates
-- Separate development, staging, and production environments
+Send reports to:
 
-## Identity and number safeguards
+**KhaemenesAcademy@protonmail.com**  
+**Suggested subject:** `Private Polyglot Security Report`
 
-- Unique handles and 333 numbers must be reserved through database uniqueness constraints.
-- Number allocation must occur inside a transaction.
-- Browser-generated numbers remain provisional until server confirmation.
-- Existing telephone numbers must not be described as verified until a verification challenge succeeds.
-- The four established service routes must be protected from member allocation.
-- Identity changes, number reassignment, and recovery actions must be audited.
+Include only the information needed to reproduce the problem:
 
-## KANSEE safeguards
+- affected page or file;
+- browser and operating system;
+- clear reproduction steps;
+- expected and observed behavior;
+- potential impact;
+- a minimal proof of concept, when safe; and
+- whether the issue has already been disclosed elsewhere.
 
-- Meeting tokens must be short-lived and room-specific.
-- Host and moderator permissions must be checked server-side.
-- TURN credentials should be temporary.
-- Camera, microphone, and screen capture require user action.
-- Recording requires explicit notice and authorization.
-- Meeting metadata retention should be minimized.
-- Media streams should not be stored by default.
+Do not send real student records, passwords, private keys, access tokens, or unnecessary personal information. Use fictional test data.
 
-## Bazaar safeguards
+## In-scope concerns
 
-- Provide block, mute, report, moderation, and appeal mechanisms.
-- Restrict dangerous file types and executable uploads.
-- Strip unnecessary image metadata where appropriate.
-- Protect private profiles and restricted groups from unauthorized access.
-- Require server-side ownership checks for all edits and deletions.
-- Preserve moderation and audit records according to retention policy.
+Examples include:
 
-## SIte and Embed Studio safeguards
+- cross-site scripting or unsafe HTML injection;
+- malicious or compromised external resources;
+- service-worker cache poisoning or incorrect scope;
+- open redirects or deceptive links;
+- exposed secrets or private data committed to the repository;
+- unsafe future form handling;
+- dependency or build-pipeline compromise;
+- content that impersonates an Academy portal; and
+- a repository configuration that permits unauthorized modification.
 
-- Embedded code must run in a sandboxed frame.
-- Project previews must not receive backend secrets.
-- Publishing jobs must validate filenames and prevent path traversal.
-- Uploaded archives must be inspected before extraction.
-- Build workers should run with limited privileges and isolated storage.
-- Provider deployment tokens remain server-side.
+## Usually out of scope
 
-## Bunya safeguards
+The following are generally not vulnerabilities in the current static release:
 
-- Provider credentials belong in a secret manager.
-- DNS, registrar, deployment, and backup operations require explicit authorization.
-- Destructive actions require confirmation and audit logging.
-- Secrets must be redacted from logs and API responses.
-- Infrastructure administrators should use multi-factor authentication.
+- missing features or planned modules;
+- lack of an account system;
+- browser speech voices that pronounce a language imperfectly;
+- denial-of-service tests against GitHub Pages or third-party providers;
+- reports that require social engineering, physical access, or compromised user devices; and
+- scanner output without a reproducible security impact.
 
-## Vulnerability reporting
+## Maintainer handling
 
-Report suspected vulnerabilities privately to the project security contact. Include:
+The maintainers will aim to:
 
-- A description of the issue
-- Affected endpoint or component
-- Reproduction steps
-- Potential impact
-- Suggested remediation when known
+1. acknowledge a responsible report privately;
+2. reproduce and evaluate the issue;
+3. limit disclosure while a practical correction is prepared;
+4. record public-facing fixes in [CHANGELOG.md](CHANGELOG.md); and
+5. credit the reporter when requested and appropriate.
 
-Do not include real user secrets or unnecessary personal data in reports.
+No bounty or payment program is promised.
 
-## Response targets
+## Repository safeguards
 
-Suggested initial targets:
+Contributors must:
 
-- Critical: acknowledge within 24 hours
-- High: acknowledge within 2 business days
-- Medium: acknowledge within 5 business days
-- Low: acknowledge within 10 business days
+- never commit `.env` files, private keys, tokens, passwords, student records, or unpublished answer keys;
+- review every external script, font, API, iframe, and link before addition;
+- use HTTPS resources;
+- avoid inline collection of sensitive information;
+- keep service-worker caches limited to public site resources;
+- use dependency lockfiles if a build system is introduced; and
+- document third-party components in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Actual remediation time depends on severity, exploitability, and operational risk.
+## Coordinated disclosure
 
-## Prohibited repository content
-
-Never commit:
-
-- Real `.env` files
-- Passwords or API tokens
-- Database dumps containing personal data
-- Private keys or certificates
-- Production backup archives
-- User-uploaded private media
-- Incident evidence containing unredacted personal data
+Please allow maintainers a reasonable opportunity to investigate and correct a confirmed issue before public disclosure. This request does not prevent good-faith reporting to an appropriate platform or authority when immediate harm requires it.
