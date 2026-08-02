@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="description" content="E=Ven Mail — local-first email application, drafting, and mailbox planning for HOLLO members in the 333 Network.">
   <meta name="theme-color" content="#0b1628">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="referrer" content="same-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' data: blob:; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self';">
   <title>E=Ven Mail | Email Application & Draft Workspace</title>
@@ -381,6 +381,7 @@
       color:#315b43;
       background:#e4f1e8;
     }
+    .application-status.withdrawn-local{color:#7d3f49;background:#f4dfe3}
     .application-actions{
       display:grid;
       gap:6px;
@@ -835,6 +836,188 @@
         animation:none!important;
       }
     }
+
+    /* =========================================================
+       E=Ven Mail — streamlined professional refinement
+       ========================================================= */
+    :root{
+      --max:1366px;
+      --r2:14px;
+      --shadow:0 16px 42px rgba(7,18,34,.10);
+      --shadow-soft:0 7px 22px rgba(7,18,34,.07);
+    }
+
+    html,body{max-width:100%;overflow-x:hidden}
+    body{font-size:14px;line-height:1.55;background:#f3efe6}
+    body.modal-open,body.drawer-open{overflow:hidden}
+    button,a,input,textarea,select{min-width:0}
+    button,.button,.compose-button,.apply-button,.folder-button,.account-button{
+      max-width:100%;
+      overflow-wrap:anywhere;
+    }
+    input,textarea,select{max-width:100%}
+
+    .utility-inner{min-height:32px;font-size:.66rem}
+    .header-inner{min-height:64px;display:grid;grid-template-columns:auto auto minmax(220px,560px) auto;gap:12px}
+    .brand{min-width:190px}
+    .brand strong{font-size:.92rem;white-space:nowrap}
+    .brand small{font-size:.52rem;white-space:nowrap}
+    .brand-mark{width:42px;height:38px;flex-basis:42px}
+    .search-wrap{width:100%;max-width:none}
+    .search-wrap input{min-height:40px;padding-right:40px}
+    .search-clear{
+      position:absolute;right:6px;top:50%;transform:translateY(-50%);
+      width:30px;height:30px;border:0;border-radius:7px;color:#dce4ec;background:transparent;font-size:1.1rem;
+    }
+    .search-clear:hover{background:rgba(255,255,255,.08)}
+    .header-actions{justify-content:flex-end}
+    .icon-button,.header-button{min-height:40px}
+    .icon-button{width:40px;flex:0 0 40px}
+    .header-button{white-space:nowrap}
+
+    .identity-strip-inner{min-height:44px;padding:6px 0;gap:8px 14px;font-size:.7rem}
+    .identity-chip{font-size:.61rem}
+
+    .workspace{
+      grid-template-columns:232px minmax(330px,.9fr) minmax(390px,1.1fr);
+      min-height:calc(100vh - 140px);
+      border-inline:0;
+      box-shadow:0 0 0 1px var(--line);
+    }
+    .sidebar{padding:12px 10px;background:#efeae0}
+    .sidebar-mobile-head{display:none}
+    .compose-button,.apply-button{min-height:43px;font-size:.75rem;box-shadow:none}
+    .folder-list,.account-list{margin-top:12px;gap:3px}
+    .folder-button,.account-button{min-height:38px;padding:7px 8px;gap:7px}
+    .folder-button>span:nth-child(2),.account-button>span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .sidebar-label{margin:17px 8px 7px;font-size:.59rem}
+    .application-card,.storage-card{margin-top:12px;padding:11px;border-radius:12px;box-shadow:none}
+    .application-card strong,.storage-card strong{font-size:1rem;overflow-wrap:anywhere}
+    .application-card p,.storage-card small{font-size:.66rem;line-height:1.5}
+    .application-actions{gap:5px}
+    .application-status{max-width:100%;white-space:normal;text-align:center}
+    .account-button span:nth-child(2){overflow-wrap:anywhere;white-space:normal;line-height:1.25}
+    .account-button span:last-child{font-size:.58rem!important;white-space:nowrap}
+    .account-button.withdrawn{opacity:.7}
+
+    .mail-list-head{min-height:64px;padding:11px 13px}
+    .mail-list-head h2{font-size:1.55rem}
+    .mail-list-head p{font-size:.68rem}
+    .mail-list{max-height:calc(100vh - 208px)}
+    .mail-row{padding:11px 13px;gap:8px;outline-offset:-3px}
+    .mail-row[role="button"]{cursor:pointer}
+    .mail-row:focus-visible{outline:3px solid var(--gold)}
+    .mail-check{width:9px;height:9px;margin:8px 4px 0;border:0;border-radius:50%;background:#c8c4bb}
+    .mail-row.unread .mail-check{background:var(--blue);box-shadow:0 0 0 4px rgba(79,120,168,.12)}
+    .sender{font-size:.75rem}.subject{font-size:.77rem}.preview{font-size:.68rem}
+    .mail-star{width:30px;height:30px;margin-top:3px;border-radius:7px}
+    .mail-star:hover{background:#f0ece3}
+
+    .reader{min-width:0}
+    .reader-empty{padding:28px}
+    .reader-empty .symbol{font-size:3rem}
+    .reader-empty h2{font-size:clamp(1.8rem,3vw,2.2rem)}
+    .reader-empty p{max-width:560px;margin-inline:auto}
+    .reader-head{padding:15px 18px}
+    .reader-title{align-items:center}
+    .reader-title h2,.reader-from strong,.reader-from small{overflow-wrap:anywhere;word-break:break-word}
+    .reader-title h2{font-size:clamp(1.55rem,2.5vw,2.2rem)}
+    .reader-body{padding:22px 24px 34px}
+    .reader-body p{overflow-wrap:anywhere;white-space:pre-wrap}
+    .reader-close{display:none}
+    .reply-bar{padding:11px 16px;gap:6px}
+
+    .architecture-strip{grid-template-columns:minmax(0,1.4fr) minmax(320px,.6fr);gap:12px;padding:14px 18px}
+    .architecture-strip h3{font-size:1.35rem}
+    .architecture-strip p{font-size:.7rem;line-height:1.55}
+    .status-grid{gap:5px}
+    .status-item{min-height:52px;padding:7px 9px}
+    .status-item strong{font-size:.58rem}.status-item span{font-size:.62rem}
+
+    .modal{width:min(100%,720px);border-radius:14px}
+    .modal-head{position:sticky;top:0;z-index:2;padding:13px 15px;background:var(--paper-2)}
+    .modal-head h2{font-size:1.65rem}
+    .modal-body{padding:15px}
+    .modal-foot{position:sticky;bottom:0;z-index:2;padding:11px 15px;background:var(--paper-2)}
+    .field{margin-bottom:10px}
+    .field label{font-size:.63rem}
+    .field input,.field select{min-height:40px}
+    .field textarea{min-height:120px}
+    .application-preview strong,.application-summary span{overflow-wrap:anywhere;word-break:break-word}
+    .modal-note-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+    .compose-counter{margin:-5px 0 10px;color:var(--muted);font-size:.65rem;text-align:right}
+
+    .drawer-backdrop{position:fixed;inset:0;z-index:1450;border:0;background:rgba(5,11,20,.52);backdrop-filter:blur(2px)}
+    .app-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(18px,calc((100% - var(--max))/2));color:#aeb9c6;background:#050b14;font-size:.65rem}
+    .app-footer nav{display:flex;gap:14px;flex-wrap:wrap}.app-footer a:hover{color:var(--gold-soft)}
+
+    @media(max-width:1120px){
+      .header-inner{grid-template-columns:auto auto minmax(180px,1fr) auto}
+      .workspace{grid-template-columns:220px minmax(0,1fr)}
+      .reader{position:fixed;inset:0;z-index:1600;display:none;overflow:auto;background:var(--paper-2)}
+      .reader.mobile-open{display:block}
+      .reader-close{display:inline-flex}
+      .reader-content{min-height:100vh;height:auto}
+      .reader-head{padding-top:max(15px,env(safe-area-inset-top))}
+      .architecture-strip{grid-column:1/-1}
+    }
+
+    @media(max-width:860px){
+      .utility-inner{justify-content:center;padding:5px 0}.utility-inner>span{display:none}
+      .header-inner{grid-template-columns:auto minmax(0,1fr) auto}
+      .search-wrap{display:none}
+      .brand{min-width:0}.brand small{display:none}
+      .header-button span{display:none}
+      .workspace{grid-template-columns:1fr;min-height:calc(100vh - 108px)}
+      .sidebar{
+        position:fixed;inset:0 auto 0 0;z-index:1500;width:min(88vw,320px);overflow:auto;
+        padding:12px;transform:translateX(-102%);transition:transform .2s ease;box-shadow:var(--shadow);
+      }
+      .sidebar.open{transform:none}
+      .sidebar-mobile-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+      .sidebar-mobile-head strong{font-family:var(--serif);font-size:1.1rem;font-weight:var(--weight-text)}
+      .sidebar-close{color:var(--ink);border-color:var(--line);background:#fff}
+      .mail-list-panel{border-right:0}
+      .mail-list{max-height:none;min-height:420px}
+      .architecture-strip{grid-template-columns:1fr}
+      .app-footer{flex-direction:column;text-align:center}
+    }
+
+    @media(max-width:560px){
+      .header-inner{width:calc(100% - 16px);gap:7px;min-height:60px}
+      .brand-mark{width:38px;height:36px;flex-basis:38px}
+      .brand strong{font-size:.78rem;letter-spacing:.045em}
+      .header-actions{gap:4px}
+      .header-actions .icon-button,.header-actions .header-button{width:36px;min-height:36px;padding:0;flex-basis:36px}
+      .header-actions #syncButton{display:none}
+      .identity-strip-inner{width:calc(100% - 20px);padding:8px 0}
+      .mail-list-head{padding:10px 11px}
+      .mail-list-head h2{font-size:1.4rem}
+      .mail-row{padding-inline:11px}
+      .reader-title{align-items:flex-start;flex-direction:column}
+      .reader-tools{width:100%}.reader-tools .button{flex:1 1 auto}
+      .reader-from{align-items:flex-start}.reader-from>div{min-width:0}
+      .reply-bar{display:grid}.reply-bar>*{width:100%}
+      .architecture-strip{padding:14px 12px}
+      .architecture-strip>div:first-child{text-align:center}
+      .architecture-strip p{display:none}
+      .modal-layer{padding:8px}
+      .modal{max-height:calc(100vh - 16px)}
+      .modal-head h2{font-size:1.4rem}
+      .modal-foot{display:grid}.modal-foot>*{width:100%}
+      .form-row,.application-summary{grid-template-columns:1fr}
+      .toast{max-width:calc(100vw - 24px);width:max-content;text-align:center}
+    }
+
+    @media(max-width:340px){
+      body{min-width:0}
+      .header-inner{width:calc(100% - 10px)}
+      .brand strong{font-size:.7rem}.brand-mark{width:34px;flex-basis:34px}
+      .header-actions .icon-button,.header-actions .header-button{width:33px;min-height:34px;flex-basis:33px}
+      .mail-list-head{align-items:flex-start;flex-direction:column}.list-actions{width:100%}.list-actions .button{width:100%}
+      .status-grid{grid-template-columns:1fr}
+    }
+
   </style>
 </head>
 
@@ -856,7 +1039,7 @@
 
     <header class="header">
       <div class="header-inner">
-        <button class="icon-button" id="sidebarToggle" type="button" aria-label="Open folders">☰</button>
+        <button class="icon-button" id="sidebarToggle" type="button" aria-label="Open folders" aria-controls="sidebar" aria-expanded="false" title="Open folders">☰</button>
 
         <a class="brand" href="../index.html" aria-label="Return to the 333 Network gateway">
           <span class="brand-mark">E=V</span>
@@ -868,14 +1051,15 @@
 
         <label class="search-wrap">
           <span class="sr-only">Search mail</span>
-          <input id="mailSearch" type="search" placeholder="Search local messages, people, or requested addresses">
+          <input id="mailSearch" type="search" placeholder="Search local messages, people, or requested addresses" autocomplete="off">
+          <button class="search-clear" id="clearSearchButton" type="button" aria-label="Clear search" title="Clear search" hidden>×</button>
         </label>
 
         <div class="header-actions">
           <button class="header-button primary" id="applyEmailButton" type="button">✦ <span>Apply for Email</span></button>
-          <button class="icon-button" id="syncButton" type="button" aria-label="Check synchronization">↻</button>
-          <button class="icon-button" id="settingsButton" type="button" aria-label="Open settings">⚙</button>
-          <button class="icon-button" id="profileButton" type="button" aria-label="Open member profile">ID</button>
+          <button class="icon-button" id="syncButton" type="button" aria-label="Check synchronization" title="Check synchronization">↻</button>
+          <button class="icon-button" id="settingsButton" type="button" aria-label="Open settings" title="Settings and backup">⚙</button>
+          <button class="icon-button" id="profileButton" type="button" aria-label="Open member profile" title="Member identity">ID</button>
         </div>
       </div>
     </header>
@@ -888,8 +1072,14 @@
       </div>
     </section>
 
+    <button class="drawer-backdrop" id="drawerBackdrop" type="button" aria-label="Close folders" hidden></button>
+
     <main class="workspace">
-      <aside class="sidebar" id="sidebar">
+      <aside class="sidebar" id="sidebar" aria-label="Mail folders and application tools">
+        <div class="sidebar-mobile-head">
+          <strong>Mail Navigation</strong>
+          <button class="icon-button sidebar-close" id="sidebarClose" type="button" aria-label="Close folders" title="Close folders">×</button>
+        </div>
         <button class="compose-button" id="composeButton" type="button">✉ Compose Local Draft</button>
         <button class="apply-button" id="sidebarApplyButton" type="button">✦ Apply for E=Ven Email</button>
 
@@ -966,6 +1156,15 @@
         </div>
       </section>
     </main>
+
+    <footer class="app-footer">
+      <span>E=Ven Mail · Local-first application and draft workspace</span>
+      <nav aria-label="Footer links">
+        <a href="../index.html">333 Network</a>
+        <a href="./HOLLO_333_direct_connect_index.html">HOLLO</a>
+        <a href="./Bunya_digital_infrastructure_index.html">Bunya</a>
+      </nav>
+    </footer>
   </div>
 
   <div class="modal-layer" id="modalLayer" aria-hidden="true">
@@ -989,9 +1188,10 @@
       const LEGACY_STORAGE_KEY = "even_mail_workspace_v1";
       const HOLLO_STORAGE_KEY = "hollo_333_direct_connect_v1";
       const HANDOFF_STORAGE_KEY = "333_identity_handoff_v1";
-      const APP_VERSION = "1.0.0";
+      const APP_VERSION = "1.1.0";
       const MAIL_DOMAIN = "vervenveda.com";
       const MAX_MESSAGES = 500;
+      const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
 
       const EVEN_MAIL_BACKEND = Object.freeze({
         mode: "local",
@@ -1062,7 +1262,7 @@
       }
 
       function uid(prefix = "item"){
-        if (crypto?.randomUUID) return `${prefix}-${crypto.randomUUID()}`;
+        if (window.crypto?.randomUUID) return `${prefix}-${window.crypto.randomUUID()}`;
         return `${prefix}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
       }
 
@@ -1165,7 +1365,7 @@
           applicationId: safeText(mailbox.applicationId, 100),
           address: safeText(mailbox.address, 180),
           label: safeText(mailbox.label, 80) || "Requested Address",
-          status: ["application-draft", "application-pending", "legacy-local", "provisioned"].includes(mailbox.status)
+          status: ["application-draft", "application-pending", "application-withdrawn", "legacy-local", "provisioned"].includes(mailbox.status)
             ? mailbox.status
             : "application-pending",
           createdAt: safeText(mailbox.createdAt, 40) || new Date().toISOString()
@@ -1349,8 +1549,11 @@
         return holloProfile.holloEnrolled;
       }
 
-      function latestApplication(){
-        return state.applications
+      function latestApplication({includeWithdrawn = true} = {}){
+        const applications = includeWithdrawn
+          ? state.applications
+          : state.applications.filter(application => application.status !== "withdrawn-local");
+        return applications
           .slice()
           .sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt))[0] || null;
       }
@@ -1413,8 +1616,16 @@
           trash: state.messages.filter(message => message.folder === "trash").length
         };
 
+        const countIds = {
+          inbox:"inboxCount",
+          starred:"starredCount",
+          sent:"sentCount",
+          drafts:"draftCount",
+          archive:"archiveCount",
+          trash:"trashCount"
+        };
         Object.entries(counts).forEach(([folder, count]) => {
-          const element = $(`#${folder}Count`);
+          const element = $(`#${countIds[folder]}`);
           if (element) element.textContent = count;
         });
       }
@@ -1434,7 +1645,9 @@
           return;
         }
 
-        const requestedAddress = `${application.requestedLocalPart}@${application.domain}`;
+        const requestedAddress = application.requestedLocalPart
+          ? `${application.requestedLocalPart}@${application.domain}`
+          : "Application draft";
         $("#applicationCardTitle").textContent = requestedAddress;
         $("#applicationCardText").textContent = `${application.reference} · ${application.accountType}`;
         $("#applicationCardStatus").textContent = statusLabel(application.status);
@@ -1455,27 +1668,37 @@
           return;
         }
 
-        state.mailboxes.forEach(mailbox => {
-          const row = document.createElement("button");
-          row.type = "button";
-          row.className = "account-button";
+        const labels = {
+          "application-draft":"Draft",
+          "application-pending":"Pending",
+          "application-withdrawn":"Withdrawn",
+          "legacy-local":"Legacy",
+          "provisioned":"Active"
+        };
 
-          const dot = document.createElement("span");
-          dot.className = "account-dot";
-          dot.textContent = mailbox.status === "provisioned" ? "✓" : "…";
+        state.mailboxes
+          .slice()
+          .sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .forEach(mailbox => {
+            const row = document.createElement("button");
+            row.type = "button";
+            row.className = `account-button${mailbox.status === "application-withdrawn" ? " withdrawn" : ""}`;
+            row.title = mailbox.address || "Requested address record";
 
-          const copy = document.createElement("span");
-          copy.textContent = mailbox.address;
+            const dot = document.createElement("span");
+            dot.className = "account-dot";
+            dot.textContent = mailbox.status === "provisioned" ? "✓" : mailbox.status === "application-withdrawn" ? "×" : "…";
 
-          const status = document.createElement("span");
-          status.textContent = mailbox.status === "provisioned" ? "Active" : "Pending";
-          status.style.fontSize = ".61rem";
-          status.style.color = "var(--muted)";
+            const copy = document.createElement("span");
+            copy.textContent = mailbox.address || "Unfinished application";
 
-          row.append(dot, copy, status);
-          row.addEventListener("click", openLatestApplication);
-          list.appendChild(row);
-        });
+            const status = document.createElement("span");
+            status.textContent = labels[mailbox.status] || "Pending";
+
+            row.append(dot, copy, status);
+            row.addEventListener("click", () => openApplicationById(mailbox.applicationId));
+            list.appendChild(row);
+          });
       }
 
       function renderStorage(){
@@ -1491,7 +1714,7 @@
         const folder = state.activeFolder;
 
         if (folder === "starred") {
-          messages = messages.filter(message => message.starred);
+          messages = messages.filter(message => message.starred && message.folder !== "trash");
         } else {
           messages = messages.filter(message => message.folder === folder);
         }
@@ -1536,7 +1759,7 @@
         if (!messages.length) {
           const empty = document.createElement("div");
           empty.className = "reader-empty";
-          empty.style.minHeight = "320px";
+          empty.style.minHeight = "300px";
           empty.innerHTML = '<div><div class="symbol">◇</div><h2>No local messages</h2><p>This folder is ready for application notices and draft correspondence.</p></div>';
           list.appendChild(empty);
           return;
@@ -1546,6 +1769,9 @@
           const row = document.createElement("article");
           row.className = `mail-row${message.unread ? " unread" : ""}${message.id === state.selectedMessageId ? " active" : ""}`;
           row.dataset.messageId = message.id;
+          row.setAttribute("role", "button");
+          row.setAttribute("tabindex", "0");
+          row.setAttribute("aria-label", `${message.unread ? "Unread. " : ""}${message.from.name}. ${message.subject}.`);
 
           const check = document.createElement("span");
           check.className = "mail-check";
@@ -1583,7 +1809,8 @@
           star.type = "button";
           star.className = `mail-star${message.starred ? " active" : ""}`;
           star.dataset.starId = message.id;
-          star.setAttribute("aria-label", "Toggle star");
+          star.setAttribute("aria-label", message.starred ? "Remove star" : "Add star");
+          star.title = message.starred ? "Remove star" : "Add star";
           star.textContent = "★";
 
           meta.append(time, star);
@@ -1613,13 +1840,35 @@
         const reader = $("#readerContent");
         reader.hidden = false;
 
+        const readerActions = [];
+        if (message.folder === "drafts") {
+          readerActions.push('<button class="button primary" type="button" data-reader-action="edit-draft">Edit Draft</button>');
+          readerActions.push('<button class="button" type="button" data-reader-action="delete">Move to Trash</button>');
+        } else if (message.folder === "trash") {
+          readerActions.push('<button class="button primary" type="button" data-reader-action="restore">Restore to Inbox</button>');
+          readerActions.push('<button class="button danger" type="button" data-reader-action="delete-permanent">Delete Permanently</button>');
+        } else {
+          if (message.folder === "archive") {
+            readerActions.push('<button class="button" type="button" data-reader-action="restore">Move to Inbox</button>');
+          } else {
+            readerActions.push('<button class="button" type="button" data-reader-action="archive">Archive</button>');
+          }
+          readerActions.push('<button class="button" type="button" data-reader-action="delete">Move to Trash</button>');
+        }
+
+        const replyActions = message.folder === "drafts" || message.folder === "trash"
+          ? ""
+          : `
+            <button class="button primary" type="button" data-reply="reply">Reply Draft</button>
+            <button class="button" type="button" data-reply="forward">Forward Draft</button>`;
+
         reader.innerHTML = `
           <header class="reader-head">
             <div class="reader-title">
               <h2>${esc(message.subject || "(No subject)")}</h2>
               <div class="reader-tools">
-                <button class="button" type="button" data-reader-action="archive">Archive</button>
-                <button class="button" type="button" data-reader-action="delete">Delete</button>
+                ${readerActions.join("")}
+                <button class="button reader-close" type="button" data-reader-action="close">Close</button>
               </div>
             </div>
             <div class="reader-from">
@@ -1636,8 +1885,7 @@
           </div>
 
           <footer class="reply-bar">
-            <button class="button primary" type="button" data-reply="reply">Reply Draft</button>
-            <button class="button" type="button" data-reply="forward">Forward Draft</button>
+            ${replyActions}
             <a class="button" href="./HOLLO_333_direct_connect_index.html">Continue in HOLLO</a>
             <a class="button" href="./KANSEE_333_meeting_rooms_index.html">Open KANSEE</a>
           </footer>
@@ -1657,6 +1905,7 @@
         $("#modalFoot").innerHTML = footer;
         $("#modalLayer").classList.add("active");
         $("#modalLayer").setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
         activeModal = true;
         setTimeout(() => {
           const focusable = $("#modalLayer").querySelector("input,select,textarea,button:not([disabled]),a[href]");
@@ -1665,8 +1914,10 @@
       }
 
       function closeModal(){
+        if (!activeModal) return;
         $("#modalLayer").classList.remove("active");
         $("#modalLayer").setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
         activeModal = false;
         lastFocusedElement?.focus?.();
       }
@@ -1681,15 +1932,17 @@
 
         return `
           <div class="privacy-note">
-            E=Ven Mail applications are stored locally in this build. Submitting here does not reserve an address,
-            send the application to an administrator, or create a functioning mailbox. A future authenticated service
-            must verify identity, check global address availability, review the request, and provision the account.
+            E=Ven Mail applications are stored locally in this build. Saving a draft is available before enrollment,
+            but local submission requires a completed HOLLO identity. No address is reserved or provisioned here.
+            <div class="modal-note-actions">
+              <a class="button" href="./HOLLO_333_direct_connect_index.html">Open HOLLO Enrollment</a>
+            </div>
           </div>
 
           <div class="form-row" style="margin-top:14px">
             <div class="field">
               <label>Applicant name</label>
-              <input id="applicationName" maxlength="80" value="${esc(application?.applicantName || profile.name || "")}">
+              <input id="applicationName" maxlength="80" autocomplete="name" value="${esc(application?.applicantName || profile.name || "")}">
             </div>
             <div class="field">
               <label>HOLLO handle</label>
@@ -1743,7 +1996,7 @@
 
           <div class="field" style="margin-top:14px">
             <label>Recovery email, optional</label>
-            <input id="applicationRecovery" type="email" maxlength="160" value="${esc(application?.recoveryEmail || "")}" placeholder="An existing address used only for future recovery review">
+            <input id="applicationRecovery" type="email" maxlength="160" autocomplete="email" inputmode="email" value="${esc(application?.recoveryEmail || "")}" placeholder="An existing address used only for future recovery review">
           </div>
 
           <div class="field">
@@ -1775,10 +2028,11 @@
         update();
       }
 
-      function openApplication(){
+      function openApplication(applicationOverride = undefined){
         syncHolloProfile();
 
-        const application = latestApplication();
+        const latest = latestApplication();
+        const application = applicationOverride === undefined ? latest : applicationOverride;
         const editable = application && application.status !== "withdrawn-local"
           ? application
           : null;
@@ -1795,6 +2049,77 @@
         wireApplicationPreview();
         $("#saveApplicationDraftButton").addEventListener("click", () => saveApplication("draft-local", editable?.id));
         $("#submitApplicationButton").addEventListener("click", () => saveApplication("submitted-local", editable?.id));
+      }
+
+      function isPlausibleEmail(value){
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+      }
+
+      function parseRecipients(value){
+        return String(value || "")
+          .split(/[;,]/)
+          .map(item => item.trim())
+          .filter(Boolean)
+          .slice(0,20);
+      }
+
+      function openApplicationById(applicationId){
+        const application = state.applications.find(item => item.id === applicationId) || latestApplication();
+        if (!application) return openApplication();
+        openApplicationRecord(application);
+      }
+
+      function openApplicationRecord(application){
+        const address = application.requestedLocalPart
+          ? `${application.requestedLocalPart}@${application.domain}`
+          : "Unfinished application";
+        const canWithdraw = application.status !== "withdrawn-local";
+
+        openModal(
+          "E=Ven Mail Application",
+          `
+            <div class="privacy-note">
+              This record exists only in this browser. Its status does not indicate administrative receipt, approval, reservation, or mailbox provisioning.
+            </div>
+            <div class="application-summary">
+              <div><strong>Reference</strong><span>${esc(application.reference)}</span></div>
+              <div><strong>Status</strong><span>${esc(statusLabel(application.status))}</span></div>
+              <div><strong>Requested address</strong><span>${esc(address)}</span></div>
+              <div><strong>Alternate</strong><span>${esc(application.alternateLocalPart ? `${application.alternateLocalPart}@${application.domain}` : "None")}</span></div>
+              <div><strong>Applicant</strong><span>${esc(application.applicantName || "Not entered")}</span></div>
+              <div><strong>HOLLO identity</strong><span>${esc(application.handle || formatNumber(application.memberNumber) || "Not linked")}</span></div>
+              <div><strong>Account type</strong><span>${esc(application.accountType)}</span></div>
+              <div><strong>Submitted</strong><span>${esc(application.submittedAt ? new Date(application.submittedAt).toLocaleString() : "Not submitted")}</span></div>
+            </div>
+            <div class="field" style="margin-top:14px">
+              <label>Intended use</label>
+              <textarea readonly>${esc(application.purpose || "Not entered")}</textarea>
+            </div>
+          `,
+          `
+            <button class="button" id="editApplicationButton" type="button">${application.status === "withdrawn-local" ? "Start New Application" : "Edit"}</button>
+            ${canWithdraw ? '<button class="button danger" id="withdrawApplicationButton" type="button">Withdraw Local Record</button>' : ""}
+            <button class="button" id="closeApplicationButton" type="button">Close</button>
+          `
+        );
+
+        $("#editApplicationButton").addEventListener("click", () => {
+          closeModal();
+          openApplication(application.status === "withdrawn-local" ? null : application);
+        });
+        $("#closeApplicationButton").addEventListener("click", closeModal);
+
+        $("#withdrawApplicationButton")?.addEventListener("click", () => {
+          if (!window.confirm("Withdraw this local application record? This does not contact an administrator because no backend is connected.")) return;
+          application.status = "withdrawn-local";
+          application.updatedAt = new Date().toISOString();
+          const mailbox = state.mailboxes.find(item => item.applicationId === application.id);
+          if (mailbox) mailbox.status = "application-withdrawn";
+          saveState();
+          closeModal();
+          renderAll();
+          showToast("Local application record withdrawn.");
+        });
       }
 
       function readApplicationForm(){
@@ -1815,18 +2140,11 @@
       function saveApplication(status, existingId = null){
         const values = readApplicationForm();
         const consent = $("#applicationConsent").checked;
+        const submitting = status === "submitted-local";
 
-        if (!state.profile.holloEnrolled) {
-          showToast("Complete HOLLO enrollment before submitting an email application.");
-          return;
-        }
         if (!values.applicantName) {
           showToast("Add the applicant name.");
           $("#applicationName").focus();
-          return;
-        }
-        if (!values.memberNumber) {
-          showToast("A HOLLO member number is required.");
           return;
         }
         if (!isValidLocalPart(values.requestedLocalPart)) {
@@ -1839,12 +2157,25 @@
           $("#applicationAlternate").focus();
           return;
         }
-        if (status === "submitted-local" && !values.purpose) {
+        if (values.recoveryEmail && !isPlausibleEmail(values.recoveryEmail)) {
+          showToast("Enter a valid recovery email address or leave it blank.");
+          $("#applicationRecovery").focus();
+          return;
+        }
+        if (submitting && !state.profile.holloEnrolled) {
+          showToast("Complete HOLLO enrollment before submitting. You may save this application as a draft now.");
+          return;
+        }
+        if (submitting && !values.memberNumber) {
+          showToast("A HOLLO member number is required for local submission.");
+          return;
+        }
+        if (submitting && !values.purpose) {
           showToast("Describe the intended use before submitting.");
           $("#applicationPurpose").focus();
           return;
         }
-        if (status === "submitted-local" && !consent) {
+        if (submitting && !consent) {
           showToast("Confirm the application notice before submitting.");
           $("#applicationConsent").focus();
           return;
@@ -1878,7 +2209,7 @@
         Object.assign(application, values, {
           status,
           updatedAt: new Date().toISOString(),
-          submittedAt: status === "submitted-local"
+          submittedAt: submitting
             ? (application.submittedAt || new Date().toISOString())
             : null,
           localOnly: true
@@ -1893,19 +2224,15 @@
             applicationId: application.id,
             address,
             label: "Requested Address",
-            status: status === "submitted-local" ? "application-pending" : "application-draft"
+            status: submitting ? "application-pending" : "application-draft"
           });
           state.mailboxes.push(mailbox);
         } else {
           mailbox.address = address;
-          mailbox.status = status === "submitted-local"
-            ? "application-pending"
-            : "application-draft";
+          mailbox.status = submitting ? "application-pending" : "application-draft";
         }
 
-        if (status === "submitted-local") {
-          addApplicationNotice(application);
-        }
+        if (submitting) addApplicationNotice(application);
 
         saveState();
         closeModal();
@@ -1922,7 +2249,7 @@
           })
         );
 
-        showToast(status === "submitted-local"
+        showToast(submitting
           ? "Email application recorded locally for future review."
           : "Email application draft saved locally.");
       }
@@ -1969,59 +2296,8 @@
 
       function openLatestApplication(){
         const application = latestApplication();
-        if (!application) {
-          openApplication();
-          return;
-        }
-
-        const address = `${application.requestedLocalPart}@${application.domain}`;
-        const canWithdraw = application.status !== "withdrawn-local";
-
-        openModal(
-          "E=Ven Mail Application",
-          `
-            <div class="privacy-note">
-              This record exists only in this browser. Its status does not indicate administrative receipt, approval, reservation, or mailbox provisioning.
-            </div>
-            <div class="application-summary">
-              <div><strong>Reference</strong><span>${esc(application.reference)}</span></div>
-              <div><strong>Status</strong><span>${esc(statusLabel(application.status))}</span></div>
-              <div><strong>Requested address</strong><span>${esc(address)}</span></div>
-              <div><strong>Alternate</strong><span>${esc(application.alternateLocalPart ? `${application.alternateLocalPart}@${application.domain}` : "None")}</span></div>
-              <div><strong>Applicant</strong><span>${esc(application.applicantName)}</span></div>
-              <div><strong>HOLLO identity</strong><span>${esc(application.handle || formatNumber(application.memberNumber))}</span></div>
-              <div><strong>Account type</strong><span>${esc(application.accountType)}</span></div>
-              <div><strong>Submitted</strong><span>${esc(application.submittedAt ? new Date(application.submittedAt).toLocaleString() : "Not submitted")}</span></div>
-            </div>
-            <div class="field" style="margin-top:14px">
-              <label>Intended use</label>
-              <textarea readonly>${esc(application.purpose || "Not entered")}</textarea>
-            </div>
-          `,
-          `
-            <button class="button" id="editApplicationButton" type="button">Edit</button>
-            ${canWithdraw ? '<button class="button danger" id="withdrawApplicationButton" type="button">Withdraw Local Record</button>' : ""}
-            <button class="button" id="closeApplicationButton" type="button">Close</button>
-          `
-        );
-
-        $("#editApplicationButton").addEventListener("click", () => {
-          closeModal();
-          openApplication();
-        });
-        $("#closeApplicationButton").addEventListener("click", closeModal);
-
-        $("#withdrawApplicationButton")?.addEventListener("click", () => {
-          if (!window.confirm("Withdraw this local application record? This does not contact an administrator because no backend is connected.")) return;
-          application.status = "withdrawn-local";
-          application.updatedAt = new Date().toISOString();
-          const mailbox = state.mailboxes.find(item => item.applicationId === application.id);
-          if (mailbox) mailbox.status = "application-draft";
-          saveState();
-          closeModal();
-          renderAll();
-          showToast("Local application record withdrawn.");
-        });
+        if (!application) return openApplication();
+        openApplicationRecord(application);
       }
 
       function exportApplication(){
@@ -2057,34 +2333,35 @@
         const latestMailbox = state.mailboxes
           .slice()
           .reverse()
-          .find(mailbox => mailbox.status !== "legacy-local") || state.mailboxes[0];
+          .find(mailbox => !["legacy-local","application-withdrawn"].includes(mailbox.status)) || null;
 
         const fromLabel = latestMailbox
           ? `${latestMailbox.address} · ${latestMailbox.status.replace(/-/g, " ")}`
-          : "Local draft workspace · no requested address";
+          : "Local draft workspace · no active requested address";
 
         openModal(
-          "Compose Local E=Ven Draft",
+          draft ? "Edit Local E=Ven Draft" : "Compose Local E=Ven Draft",
           `
             <div class="privacy-note">
               Messages created in local mode are not delivered. They are saved as drafts or local Sent records only.
             </div>
             <div class="field" style="margin-top:14px">
-              <label>From</label>
+              <label for="composeFrom">From</label>
               <input id="composeFrom" value="${esc(fromLabel)}" readonly>
             </div>
             <div class="field">
-              <label>To</label>
-              <input id="composeTo" value="${esc(options.to || draft?.to?.join(", ") || "")}" placeholder="recipient@example.com">
+              <label for="composeTo">To</label>
+              <input id="composeTo" value="${esc(options.to || draft?.to?.join(", ") || "")}" placeholder="recipient@example.com" autocomplete="email" inputmode="email">
             </div>
             <div class="field">
-              <label>Subject</label>
-              <input id="composeSubject" value="${esc(options.subject || draft?.subject || "")}">
+              <label for="composeSubject">Subject</label>
+              <input id="composeSubject" maxlength="240" value="${esc(options.subject || draft?.subject || "")}">
             </div>
             <div class="field">
-              <label>Message</label>
-              <textarea id="composeBody">${esc(options.body || draft?.body?.join("\n\n") || "")}</textarea>
+              <label for="composeBody">Message</label>
+              <textarea id="composeBody" maxlength="5000">${esc(options.body || draft?.body?.join("\n\n") || "")}</textarea>
             </div>
+            <div class="compose-counter" id="composeCounter">0 / 5000</div>
           `,
           `
             <button class="button" id="saveDraftButton" type="button">Save Draft</button>
@@ -2092,8 +2369,13 @@
           `
         );
 
+        const updateCounter = () => {
+          $("#composeCounter").textContent = `${$("#composeBody").value.length} / 5000`;
+        };
+        $("#composeBody").addEventListener("input", updateCounter);
+        updateCounter();
         $("#saveDraftButton").addEventListener("click", () => saveDraft(draft?.id));
-        $("#sendMessageButton").addEventListener("click", saveSentLocal);
+        $("#sendMessageButton").addEventListener("click", () => saveSentLocal(draft?.id));
       }
 
       function composeValues(){
@@ -2107,7 +2389,7 @@
       function saveDraft(existingId = null){
         const values = composeValues();
         let draft = existingId
-          ? state.messages.find(message => message.id === existingId)
+          ? state.messages.find(message => message.id === existingId && message.folder === "drafts")
           : null;
 
         if (!draft) {
@@ -2120,7 +2402,7 @@
               name: state.profile.name,
               address: "local-draft@even-mail"
             },
-            to: [values.to],
+            to: parseRecipients(values.to),
             subject: values.subject || "(No subject)",
             preview: values.body.slice(0, 100),
             body: [values.body],
@@ -2128,7 +2410,7 @@
           });
           state.messages.push(draft);
         } else {
-          draft.to = [values.to];
+          draft.to = parseRecipients(values.to);
           draft.subject = values.subject || "(No subject)";
           draft.preview = values.body.slice(0, 100);
           draft.body = [values.body];
@@ -2137,16 +2419,26 @@
 
         saveState();
         closeModal();
-        renderAll();
+        handleFolder("drafts");
         showToast("Draft saved locally.");
       }
 
-      function saveSentLocal(){
+      function saveSentLocal(existingDraftId = null){
         const values = composeValues();
-        if (!values.to) {
-          showToast("Add a recipient.");
+        const recipients = parseRecipients(values.to);
+        if (!recipients.length) {
+          showToast("Add at least one recipient.");
           $("#composeTo").focus();
           return;
+        }
+        if (recipients.some(address => !isPlausibleEmail(address))) {
+          showToast("Check the recipient address. Separate multiple addresses with commas or semicolons.");
+          $("#composeTo").focus();
+          return;
+        }
+
+        if (existingDraftId) {
+          state.messages = state.messages.filter(message => message.id !== existingDraftId);
         }
 
         state.messages.push(normalizeMessage({
@@ -2156,9 +2448,12 @@
           starred: false,
           from: {
             name: state.profile.name,
-            address: state.mailboxes.slice().reverse()[0]?.address || "local-draft@even-mail"
+            address: state.mailboxes
+              .slice()
+              .reverse()
+              .find(mailbox => !["legacy-local","application-withdrawn"].includes(mailbox.status))?.address || "local-draft@even-mail"
           },
-          to: [values.to],
+          to: recipients,
           subject: values.subject || "(No subject)",
           preview: values.body.slice(0, 100),
           body: [values.body],
@@ -2167,7 +2462,7 @@
 
         saveState();
         closeModal();
-        renderAll();
+        handleFolder("sent");
         showToast("Saved to Sent Local. External delivery is not active.");
       }
 
@@ -2205,6 +2500,27 @@
         $("#closeProfileButton").addEventListener("click", closeModal);
       }
 
+      async function importWorkspace(file){
+        if (!file) return;
+        if (file.size > MAX_IMPORT_BYTES) {
+          showToast("That backup is too large. Maximum import size is 5 MB.");
+          return;
+        }
+        try {
+          const parsed = JSON.parse(await file.text());
+          if (parsed?.schema !== "even-mail-workspace") throw new Error("schema");
+          if (!window.confirm("Replace the current local E=Ven Mail workspace with this backup? Export the current workspace first when needed.")) return;
+          state = normalizeState(parsed);
+          saveState();
+          closeModal();
+          renderAll();
+          showToast("E=Ven Mail workspace restored.");
+        } catch (error) {
+          console.warn("E=Ven Mail import failed:", error);
+          showToast("The selected file is not a valid E=Ven Mail backup.");
+        }
+      }
+
       function openSettings(){
         const bytes = new Blob([JSON.stringify(state)]).size;
 
@@ -2221,9 +2537,11 @@
               <div><strong>Applications</strong><span>${state.applications.length}</span></div>
               <div><strong>Messages</strong><span>${state.messages.length}</span></div>
             </div>
+            <input id="importWorkspaceInput" type="file" accept="application/json,.json" hidden>
           `,
           `
             <button class="button" id="exportWorkspaceButton" type="button">Export Workspace</button>
+            <button class="button" id="importWorkspaceButton" type="button">Import Workspace</button>
             <button class="button danger" id="resetWorkspaceButton" type="button">Reset Local Data</button>
             <button class="button" id="closeSettingsButton" type="button">Close</button>
           `
@@ -2240,6 +2558,9 @@
           showToast("E=Ven Mail workspace exported.");
         });
 
+        $("#importWorkspaceButton").addEventListener("click", () => $("#importWorkspaceInput").click());
+        $("#importWorkspaceInput").addEventListener("change", event => importWorkspace(event.target.files?.[0]));
+
         $("#resetWorkspaceButton").addEventListener("click", () => {
           if (!window.confirm("Reset all local E=Ven Mail applications, requested addresses, drafts, and messages? Export first when needed.")) return;
           state = emptyState();
@@ -2253,6 +2574,21 @@
         $("#closeSettingsButton").addEventListener("click", closeModal);
       }
 
+      function openSidebar(){
+        $("#sidebar").classList.add("open");
+        $("#drawerBackdrop").hidden = false;
+        $("#sidebarToggle").setAttribute("aria-expanded", "true");
+        document.body.classList.add("drawer-open");
+        $("#sidebarClose").focus();
+      }
+
+      function closeSidebar(){
+        $("#sidebar").classList.remove("open");
+        $("#drawerBackdrop").hidden = true;
+        $("#sidebarToggle").setAttribute("aria-expanded", "false");
+        document.body.classList.remove("drawer-open");
+      }
+
       function handleFolder(folder){
         state.activeFolder = folder;
         state.selectedMessageId = null;
@@ -2261,6 +2597,7 @@
         $("#readerContent").hidden = true;
         $("#readerEmpty").hidden = false;
         closeReader();
+        closeSidebar();
       }
 
       function trapModalFocus(event){
@@ -2291,8 +2628,22 @@
       });
       $("#settingsButton").addEventListener("click", openSettings);
       $("#profileButton").addEventListener("click", openProfile);
-      $("#sidebarToggle").addEventListener("click", () => $("#sidebar").classList.toggle("open"));
-      $("#mailSearch").addEventListener("input", renderList);
+      $("#sidebarToggle").addEventListener("click", () => {
+        if ($("#sidebar").classList.contains("open")) closeSidebar();
+        else openSidebar();
+      });
+      $("#sidebarClose").addEventListener("click", closeSidebar);
+      $("#drawerBackdrop").addEventListener("click", closeSidebar);
+      $("#mailSearch").addEventListener("input", () => {
+        $("#clearSearchButton").hidden = !$("#mailSearch").value;
+        renderList();
+      });
+      $("#clearSearchButton").addEventListener("click", () => {
+        $("#mailSearch").value = "";
+        $("#clearSearchButton").hidden = true;
+        renderList();
+        $("#mailSearch").focus();
+      });
       $("#refreshList").addEventListener("click", () => {
         syncHolloProfile();
         renderAll();
@@ -2325,24 +2676,54 @@
         if (row) openMessage(row.dataset.messageId);
       });
 
+      $("#mailList").addEventListener("keydown", event => {
+        if (!["Enter", " "].includes(event.key)) return;
+        const row = event.target.closest("[data-message-id]");
+        if (!row || event.target.closest("button")) return;
+        event.preventDefault();
+        openMessage(row.dataset.messageId);
+      });
+
       $("#reader").addEventListener("click", event => {
         const readerAction = event.target.closest("[data-reader-action]");
         if (readerAction && state.selectedMessageId) {
           const message = state.messages.find(item => item.id === state.selectedMessageId);
           if (!message) return;
 
-          if (readerAction.dataset.readerAction === "archive") {
+          const action = readerAction.dataset.readerAction;
+          if (action === "close") {
+            closeReader();
+            return;
+          }
+          if (action === "edit-draft") {
+            closeReader();
+            openCompose({draft:message});
+            return;
+          }
+          if (action === "archive") {
             message.folder = "archive";
             saveState();
-            handleFolder("inbox");
+            handleFolder("archive");
             showToast("Message archived locally.");
           }
-
-          if (readerAction.dataset.readerAction === "delete") {
+          if (action === "delete") {
             message.folder = "trash";
             saveState();
-            handleFolder("inbox");
+            handleFolder("trash");
             showToast("Message moved to local Trash.");
+          }
+          if (action === "restore") {
+            message.folder = "inbox";
+            saveState();
+            handleFolder("inbox");
+            showToast("Message restored to Inbox.");
+          }
+          if (action === "delete-permanent") {
+            if (!window.confirm("Permanently delete this local message? This cannot be undone without a backup.")) return;
+            state.messages = state.messages.filter(item => item.id !== message.id);
+            saveState();
+            handleFolder("trash");
+            showToast("Message permanently deleted.");
           }
           return;
         }
@@ -2370,6 +2751,11 @@
       });
 
       window.addEventListener("storage", event => {
+        if (event.key === STORAGE_KEY) {
+          state = loadState();
+          renderAll();
+          return;
+        }
         if ([HOLLO_STORAGE_KEY, HANDOFF_STORAGE_KEY].includes(event.key)) {
           syncHolloProfile();
           renderAll();
@@ -2380,7 +2766,7 @@
         if (event.key === "Escape") {
           closeModal();
           closeReader();
-          $("#sidebar").classList.remove("open");
+          closeSidebar();
         }
         trapModalFocus(event);
       });
