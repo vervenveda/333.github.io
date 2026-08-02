@@ -1,37 +1,30 @@
 {
-  "id": "./",
-  "name": "Polyglot — Khaemenes Academy Linguistics Hall",
-  "short_name": "Polyglot",
-  "description": "An international language and linguistics hall for reading, writing, speaking, listening, translation, culture, and literature.",
+  "id": "./?app=333-network",
+  "name": "333 Network",
+  "short_name": "333",
+  "description": "The local-first 333 Network gateway for HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, Bunya, and future communication and infrastructure services.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#f5f0e4",
-  "theme_color": "#102238",
-  "lang": "en",
+  "background_color": "#0b1324",
+  "theme_color": "#0b1324",
+  "categories": ["social", "productivity", "education", "utilities"],
+  "lang": "en-US",
   "dir": "ltr",
-  "categories": [
-    "education",
-    "books",
-    "productivity"
-  ],
   "prefer_related_applications": false,
+  "icons": [
+    {"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "./assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
   "shortcuts": [
-    {
-      "name": "Language Collections",
-      "short_name": "Languages",
-      "url": "./#languages"
-    },
-    {
-      "name": "Learning Paths",
-      "short_name": "Pathways",
-      "url": "./#pathways"
-    },
-    {
-      "name": "Skill Studios",
-      "short_name": "Studios",
-      "url": "./#studios"
-    }
+    {"name": "HOLLO Direct Connect", "short_name": "HOLLO", "description": "Open member enrollment, trusted contacts, private messages, and consent-based invitations.", "url": "./app/HOLLO_333_direct_connect_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]},
+    {"name": "KANSEE Meeting Rooms", "short_name": "KANSEE", "description": "Open private rooms, scheduled meetings, invitations, chat, and local media previews.", "url": "./app/KANSEE_333_meeting_rooms_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]},
+    {"name": "E=Ven Mail", "short_name": "E=Ven Mail", "description": "Open the local-first email application and correspondence workspace.", "url": "./app/EVen_mail_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]},
+    {"name": "Bazaar Art Live", "short_name": "Bazaar Live", "description": "Open the creative community feed, groups, events, posts, and reels.", "url": "./app/Bazaar_Art_Live_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]},
+    {"name": "SIte Website Builder", "short_name": "SIte", "description": "Open the local website and application builder with Embed Studio.", "url": "./app/SIte_builder_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]},
+    {"name": "Bunya Digital Infrastructure", "short_name": "Bunya", "description": "Open domain, DNS, deployment, hosting, monitoring, and infrastructure planning.", "url": "./app/Bunya_digital_infrastructure_index.html", "icons": [{"src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"}]}
   ]
 }
