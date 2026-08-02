@@ -171,3 +171,51 @@ Before accepting real public registrations, review and adapt:
 - `DEPLOYMENT.md`
 
 These files are operational starting points, not substitutes for legal advice or a jurisdiction-specific privacy review.
+
+
+## Identity foundation endpoints
+
+The first working API surface is now included:
+
+```text
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/refresh
+POST /api/auth/logout
+GET  /api/auth/me
+
+POST /api/hollo/enroll
+GET  /api/hollo/profile
+GET  /api/hollo/numbers
+POST /api/hollo/numbers
+
+GET   /api/profiles/me
+PATCH /api/profiles/me
+
+POST /api/even-mail/applications
+GET  /api/even-mail/applications/me
+POST /api/even-mail/applications/{id}/withdraw
+
+GET  /api/admin/even-mail/applications
+POST /api/admin/even-mail/applications/{id}/review
+```
+
+The first database migration is:
+
+```text
+migrations/versions/0001_create_identity_foundation.py
+```
+
+Apply it with:
+
+```bash
+alembic upgrade head
+```
+
+Create the first administrator without placing a password in source code:
+
+```bash
+python scripts/create_admin.py --email administrator@example.com
+```
+
+The script asks for the password through a hidden prompt.

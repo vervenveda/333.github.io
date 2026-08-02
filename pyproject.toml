@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "network333-backend"
-version = "0.2.0"
+version = "0.3.0"
 description = "Shared backend foundation for HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -29,6 +29,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
+  "aiosqlite>=0.20,<1.0",
   "pytest>=8,<9",
   "pytest-asyncio>=0.23,<1.0",
   "pytest-cov>=5,<7",
