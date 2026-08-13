@@ -1,78 +1,94 @@
-# Accessibility Statement
+# 333 Network Accessibility Statement
 
-**Polyglot — Khaemenes Academy Linguistics Hall**  
-**Last reviewed:** August 2, 2026
+**Last reviewed:** August 13, 2026
 
-Polyglot is being designed as an inclusive international learning space. The project aims toward the principles of WCAG 2.2 Level AA, but this statement does not claim formal certification or complete conformance.
+The 333 Network is being developed as an inclusive communication, community, creation, and infrastructure environment. The project aims toward WCAG 2.2 Level AA principles, but this statement does not claim formal certification or complete conformance.
 
-## Current accessibility features
+## Scope
 
-The present landing page includes:
+This statement applies to the public 333 gateway and its principal applications:
 
-- a **Skip to main content** link;
-- semantic headings, sections, navigation, cards, buttons, and dialog markup;
-- visible keyboard focus styling;
+- HOLLO / 333 Direct Connect
+- KANSEE meeting rooms
+- E=Ven Mail
+- Bazaar Art Live
+- SIte website and application builder
+- Bunya infrastructure console
+
+Some capabilities are local-first prototypes while shared backend services are completed. Accessibility requirements apply to both local and networked versions.
+
+## Current design requirements
+
+333 interfaces should provide:
+
+- semantic page structure and landmarks;
 - keyboard-operable navigation and controls;
-- descriptive labels for primary controls;
-- responsive layouts for narrow and enlarged displays;
-- light and dark appearance modes;
-- support for the user's `prefers-reduced-motion` setting;
-- readable text alternatives for the visual language compass;
-- written translations alongside optional speech playback;
-- `lang` attributes for multilingual sample phrases;
-- right-to-left direction support for Arabic samples;
-- status messages for shelf changes and unsupported speech playback; and
-- an offline page that does not depend on external fonts.
+- visible keyboard focus;
+- persistent labels for form controls;
+- understandable validation and status messages;
+- responsive layouts that reflow on narrow screens and at high zoom;
+- reduced-motion support where animation is used;
+- text alternatives for meaningful images and icons;
+- sufficient contrast in supported themes;
+- controls that do not depend on hover alone;
+- readable fallbacks when optional media or browser APIs are unavailable;
+- offline and error states that remain understandable and navigable.
+
+## Application-specific requirements
+
+### HOLLO
+
+Identity, enrollment, contacts, and communication controls should remain usable by keyboard and assistive technology. Network numbers must be presented in text, not by visual styling alone.
+
+### KANSEE
+
+Meeting rooms must provide accessible labels for camera, microphone, participant, chat, invitation, presentation, and moderation controls. Live conferencing work should include keyboard access, captions/transcripts where available, visible speaking/connection status that is not color-only, and alternatives to drag-only interactions.
+
+### E=Ven Mail
+
+Mail application and future mailbox interfaces should use programmatic field labels, clear error messages, keyboard navigation, readable message structure, and accessible status notifications.
+
+### Bazaar Art Live
+
+Posts, reactions, comments, groups, events, and media should expose meaningful accessible names and reading order. User-provided images should support alternative text or an equivalent descriptive workflow.
+
+### SIte
+
+The builder should help creators produce accessible sites, not merely make the editor itself accessible. Components should encourage semantic headings, labels, alternative text, focus order, contrast, responsive reflow, and keyboard-operable interactions. Drag-and-drop actions require a keyboard-accessible alternative.
+
+### Bunya
+
+Infrastructure status must not rely on color alone. Tables, health indicators, deployment controls, and warnings should have text equivalents and predictable keyboard order.
+
+## Media and conferencing
+
+Future live audio/video features should support captions, transcripts, or equivalent communication accommodations where technically and operationally appropriate. Users must be able to understand media controls without sound, hover, or precise pointer movement.
+
+## Creator-hosted content
+
+OHMIC/SIte-hosted websites may contain creator-authored content. The platform should provide accessibility guidance and automated checks where practical, but creators remain responsible for reviewing their published content. Automated checks cannot prove complete accessibility.
+
+## Testing expectations
+
+Before major releases, test representative flows with:
+
+- keyboard-only navigation;
+- browser zoom and reflow;
+- reduced-motion settings;
+- high-contrast or forced-color settings where supported;
+- representative screen readers;
+- mobile touch input;
+- validation and error states;
+- offline and degraded-network conditions.
 
 ## Known limitations
 
-Current limitations include:
+The network is under active development. Several services are not yet fully connected to their shared backend, and comprehensive assistive-technology testing has not yet been completed for every application state.
 
-1. **Speech voices vary.** Pronunciation quality and language availability depend on the browser, operating system, and installed speech voices. Written text remains the authoritative fallback.
-2. **No audio transcript library yet.** The current phrase feature uses short visible phrases rather than recorded lessons. Future audio must include transcripts and non-audio equivalents.
-3. **External fonts may fail or be blocked.** The design falls back to common system fonts, but script rendering can vary by device.
-4. **Future modules are placeholders.** Planned course collections, portals, and studios are announced in an accessible dialog but are not yet full learning destinations.
-5. **Formal assistive-technology testing is ongoing.** Contributors should test with keyboard-only navigation, zoom, high-contrast settings, and representative screen readers before major releases.
-
-## Language and script accessibility
-
-Language education requires more than visual translation. New Polyglot material should:
-
-- identify the language and, when relevant, dialect or regional variety;
-- declare text direction correctly;
-- avoid encoding information through color alone;
-- provide text for images of writing systems;
-- explain transliteration conventions;
-- pair pronunciation audio with visible wording and meaning;
-- allow users to pause or stop moving and spoken content;
-- preserve zoom and reflow without horizontal scrolling; and
-- avoid decorative fonts for long instructional passages.
-
-## Contributor requirements
-
-Before submitting a new interactive feature or learning module, contributors should verify:
-
-- all functions can be reached and used by keyboard;
-- focus order follows the visual and reading order;
-- buttons and links have meaningful accessible names;
-- form inputs have persistent labels and useful error messages;
-- text contrast remains sufficient in all supported themes;
-- images have appropriate alternative text or are marked decorative;
-- media includes captions, transcripts, or equivalent instruction;
-- motion respects reduced-motion preferences; and
-- content remains understandable without sound, color, hover, or precise pointer movement.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full submission checklist.
+A local prototype that appears usable is not considered complete until its networked states, errors, authentication flows, loading states, and recovery behavior have also been reviewed.
 
 ## Reporting an accessibility barrier
 
-Please report the page, device, browser, assistive technology, and a brief description of the barrier. Do not include private student information.
+Accessibility reports should identify the application or page, browser/device, assistive technology if relevant, and a concise description of the barrier. Do not include passwords, private messages, sensitive account information, or other private user data in a public issue.
 
-**Email:** KhaemenesAcademy@protonmail.com  
-**Suggested subject:** `Polyglot Accessibility Report`
-
-Accessibility reports may also be submitted through a public issue only when they contain no sensitive information.
-
-## Continuing work
-
-Accessibility is part of curriculum quality, not a final decoration. Planned priorities are listed in [ROADMAP.md](ROADMAP.md), and material changes should be recorded in [CHANGELOG.md](CHANGELOG.md).
+Accessibility improvements should be tracked alongside functional changes rather than postponed until the end of development.
