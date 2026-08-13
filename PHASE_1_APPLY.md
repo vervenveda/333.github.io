@@ -1,26 +1,14 @@
-# 333 Network — Phase 1 v2 Reconciliation
+# 333 Network — Phase 1 Integrity Patch
 
-This package is intentionally **root-ready**. Unlike the earlier package, the ZIP has no enclosing patch directory.
-
-## Target branch
-
-Apply only to:
-
-`agent/333-integrity-foundation-v2`
-
-Do not apply these files directly to `main` while Phase 1 remains under verification.
+This package contains only the Phase 1 files that were blocked from direct connector writes or that benefit from being uploaded together.
 
 ## Replace at repository root
 
-- `SECURITY.md`
-- `ACCESSIBILITY.md`
-- `PRIVACY.md`
-- `ROADMAP.md`
-- `CHANGELOG.md`
-- `BUILD_LOG.md`
 - `register-service-worker.js`
 - `service-worker.js`
 - `Dockerfile`
+- `CHANGELOG.md`
+- `PRIVACY.md`
 
 ## Add at repository root
 
@@ -28,38 +16,37 @@ Do not apply these files directly to `main` while Phase 1 remains under verifica
 - `requirements-runtime.txt`
 - `.github/workflows/backend-ci.yml`
 
-## Deliberate removals on v2 only
+## Deliberate removals
 
-After the replacements are present, remove only:
+Follow `DELETE_THESE_FILES.txt` after replacements are in place.
 
-1. `env.py`
-2. `app/_pychache_/__init__.cpython-313.pyc`
-3. `app/_pychache_/main.cpython-313.pyc`
+## Already updated on working branch
 
-Keep:
+The working branch `agent/333-integrity-foundation-v1` already contains accepted updates for:
 
-- `migrations/env.py`
-- `app/__init__.py`
-- `app/main.py`
+- `SECURITY.md`
+- `ACCESSIBILITY.md`
+- `ROADMAP.md`
 
-## Misplaced folder on main
+`BUILD_LOG.md` was added to `main` as the sanitized architecture/change baseline before the working branch was created.
 
-The current `main` contains a literal folder:
+## PWA validation
 
-`agent/333-integrity-foundation-v1/`
+The replacement registration script emits the events already consumed by the gateway:
 
-That folder came from the first web upload. Do not delete it until the useful patch contents are confirmed in v2. Once v2 is fully validated, the literal folder can be removed from `main` as a cleanup-only change.
+- `333-app-update-ready`
+- `333-service-worker-controller-changed`
 
-## Validation after application
+The replacement service worker advances the cache generation to `v6` and retains the existing offline-first behavior.
 
-1. Confirm `register-service-worker.js` contains 333-native events and no `PolyglotPWA`/`polyglot:pwa-*` names.
-2. Confirm `service-worker.js` uses cache generation `v6` and no longer deletes `polyglot-*` caches.
-3. Confirm `Dockerfile` installs `requirements-runtime.txt`.
-4. Confirm the three deliberate cleanup targets are absent.
-5. Allow `.github/workflows/backend-ci.yml` to run.
-6. Inspect Ruff, MyPy, pytest, and coverage results; repair genuine failures rather than weakening the checks.
-7. Compare v2 with `main` before merge.
+## Docker validation intent
 
-## Security rule
+The replacement Dockerfile installs only runtime packages through `requirements-runtime.txt`. The existing `requirements.txt` may continue to serve development/testing environments.
 
-Never add `.env`, credentials, database passwords, JWT/session secrets, deployment/provider tokens, private keys, or production account data to this repository.
+## CI validation intent
+
+`backend-ci.yml` checks repository hygiene first, then runs Ruff, MyPy, and the existing pytest coverage gate on Python 3.12. The first run is expected to tell us whether any pre-existing lint, typing, or coverage debt remains; we will repair real failures rather than weakening the checks.
+
+## Do not include secrets
+
+Do not add `.env`, credentials, database passwords, JWT/session secrets, provider tokens, private keys, or production account data to this repository.
