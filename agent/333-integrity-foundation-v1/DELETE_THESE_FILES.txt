@@ -1,0 +1,15 @@
+333 Network Phase 1 deliberate cleanup
+======================================
+
+Remove these committed files after confirming the patch has been applied:
+
+1. env.py
+   Reason: exact duplicate of migrations/env.py. Alembic should use migrations/env.py.
+   Verified duplicate blob SHA during audit: 222f0e26073a5ac0783a66a2ba82d218fc29ee4a
+
+2. app/_pychache_/__init__.cpython-313.pyc
+3. app/_pychache_/main.cpython-313.pyc
+   Reason: generated Python bytecode was accidentally committed. The repository .gitignore already excludes normal __pycache__/ and *.py[cod] files.
+
+Do NOT delete migrations/env.py.
+Do NOT delete app/__init__.py or app/main.py.
