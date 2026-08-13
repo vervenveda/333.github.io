@@ -1,85 +1,110 @@
-# Security Policy
+# 333 Network Security Policy
 
-Polyglot is presently a static GitHub Pages project. It has no public authentication system, central learner database, payment processor, or production API. Security reports are still important because unsafe links, script injection, dependency changes, and accidental disclosure can affect visitors.
+## Purpose
 
-## Supported versions
+This document describes the security posture and operating rules for the 333 Network repository. It is an engineering and incident-response reference, not a guarantee that every planned network service is already deployed.
 
-| Version | Security updates |
-|---|---|
-| Current `main` branch | Supported |
-| Older copied or forked releases | Best effort only |
-| Unofficial mirrors | Not controlled by Khaemenes Academy |
+The 333 Network combines public browser applications with a developing shared backend. Some applications remain local-first while authenticated server features are introduced progressively.
 
-## Report a vulnerability privately
+## Current trust boundaries
 
-Please do not publish an unredacted vulnerability in a public issue.
+### Public frontend
 
-Send reports to:
+The public HTML, CSS, JavaScript, manifest, icons, and service worker are inspectable client code. **No database password, SMTP password, deployment token, DNS/registrar credential, TURN secret, private signing key, administrative bearer token, or equivalent infrastructure secret may be embedded in these files.**
 
-**KhaemenesAcademy@protonmail.com**  
-**Suggested subject:** `Private Polyglot Security Report`
+### Shared backend
 
-Include only the information needed to reproduce the problem:
+The backend foundation uses FastAPI, PostgreSQL/SQLAlchemy, Alembic, Redis-backed rate limiting, authentication/session services, and audit records. Backend configuration must come from deployment environment variables or a secret manager, never committed production credentials.
 
-- affected page or file;
-- browser and operating system;
-- clear reproduction steps;
-- expected and observed behavior;
+### Local-first applications
+
+HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya contain browser-local capabilities. Local browser state is not equivalent to a verified server account, server-side authorization, live mailbox, live conferencing service, or completed deployment.
+
+### OHMIC / Bunya infrastructure boundary
+
+Future hosting, build, deployment, DNS, certificate, object-storage, backup, and provider operations must run behind authenticated server-side controls. Provider credentials must never be returned to public browser code.
+
+## Security requirements
+
+1. Production secrets stay outside Git.
+2. Development, staging, and production use separate secrets and data stores.
+3. Exact frontend origins are used for credentialed CORS; wildcard credentialed CORS is prohibited.
+4. Authentication tokens and cookies use secure production settings.
+5. Passwords are stored only through approved password-hashing functions.
+6. Refresh/session credentials are revocable and rotated according to the authentication design.
+7. Sensitive operations are rate limited and audited.
+8. User-supplied HTML/applications are treated as untrusted unless explicitly reviewed and must be sandboxed or isolated appropriately.
+9. Uploads must be type-, size-, and content-validated before public serving.
+10. Deployment, DNS, registrar, mail, and conferencing credentials use narrowly scoped service permissions.
+11. Backups are encrypted where practical and restoration is tested.
+12. Logs redact secrets and avoid storing private message contents unless a documented service requirement requires them.
+13. Forwarded client-IP headers are trusted only behind a configured trusted proxy boundary.
+14. Destructive migrations or deployment changes require a recovery/rollback plan.
+
+## Authentication and account safety
+
+The backend authentication foundation includes hashed passwords, access/refresh session handling, account status controls, role checks, and audit logging. Browser-local profile/login simulations must not be presented as equivalent to this server-backed identity layer.
+
+Administrator accounts should use strong unique credentials and multi-factor authentication when the deployed identity stack supports it. Administrative interfaces must not rely on secrecy of a public URL as their only access control.
+
+## Network services still requiring production security review
+
+Before public production enablement, each of the following must receive a service-specific threat review:
+
+- KANSEE signaling, WebRTC, STUN/TURN, rooms, invitations, recordings, and files;
+- Bazaar Art Live posts, media, moderation, reporting, groups, and events;
+- E=Ven mailbox provisioning, SMTP/JMAP/IMAP or chosen mail interfaces, abuse controls, SPF, DKIM, and DMARC;
+- SIte/OHMIC builds, user code isolation, static hosting, domains, certificates, and rollback;
+- Bunya provider operations, DNS, deployment credentials, monitoring, and backups;
+- upload/object-storage services;
+- notifications and outbound messaging;
+- any bridge to external telephone or carrier/SIP infrastructure.
+
+## Dependency and release security
+
+Production images should contain runtime dependencies only. Development/test tooling should remain outside the production image unless explicitly required.
+
+Every production release should verify at minimum:
+
+- automated tests;
+- lint/type checks appropriate to the codebase;
+- secret scanning;
+- dependency review;
+- migration review;
+- exact environment configuration;
+- health checks;
+- rollback readiness.
+
+## Vulnerability reporting
+
+Please do not disclose a suspected vulnerability publicly before maintainers have had a reasonable opportunity to assess it.
+
+When reporting, include:
+
+- affected component or route;
+- reproducible steps;
+- observed and expected behavior;
 - potential impact;
-- a minimal proof of concept, when safe; and
-- whether the issue has already been disclosed elsewhere.
+- relevant browser/runtime information;
+- a suggested mitigation if known.
 
-Do not send real student records, passwords, private keys, access tokens, or unnecessary personal information. Use fictional test data.
+**Never include real credentials, access tokens, private user messages, or sensitive personal information in a public issue.**
 
-## In-scope concerns
+If no private reporting channel is configured yet, provide only a minimal public notice asking maintainers for a secure disclosure channel rather than publishing exploit details.
 
-Examples include:
+## Incident principles
 
-- cross-site scripting or unsafe HTML injection;
-- malicious or compromised external resources;
-- service-worker cache poisoning or incorrect scope;
-- open redirects or deceptive links;
-- exposed secrets or private data committed to the repository;
-- unsafe future form handling;
-- dependency or build-pipeline compromise;
-- content that impersonates an Academy portal; and
-- a repository configuration that permits unauthorized modification.
+If a credential or secret may have been exposed:
 
-## Usually out of scope
+1. revoke or rotate it first;
+2. contain the affected service;
+3. preserve relevant logs/evidence without spreading the secret;
+4. assess data and account impact;
+5. restore from a known-good state when necessary;
+6. document remediation and prevention steps.
 
-The following are generally not vulnerabilities in the current static release:
+The repository's `INCIDENT_RESPONSE.md`, `DATA_RETENTION.md`, and `DEPLOYMENT.md` provide companion operational guidance.
 
-- missing features or planned modules;
-- lack of an account system;
-- browser speech voices that pronounce a language imperfectly;
-- denial-of-service tests against GitHub Pages or third-party providers;
-- reports that require social engineering, physical access, or compromised user devices; and
-- scanner output without a reproducible security impact.
+## Current status
 
-## Maintainer handling
-
-The maintainers will aim to:
-
-1. acknowledge a responsible report privately;
-2. reproduce and evaluate the issue;
-3. limit disclosure while a practical correction is prepared;
-4. record public-facing fixes in [CHANGELOG.md](CHANGELOG.md); and
-5. credit the reporter when requested and appropriate.
-
-No bounty or payment program is promised.
-
-## Repository safeguards
-
-Contributors must:
-
-- never commit `.env` files, private keys, tokens, passwords, student records, or unpublished answer keys;
-- review every external script, font, API, iframe, and link before addition;
-- use HTTPS resources;
-- avoid inline collection of sensitive information;
-- keep service-worker caches limited to public site resources;
-- use dependency lockfiles if a build system is introduced; and
-- document third-party components in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-## Coordinated disclosure
-
-Please allow maintainers a reasonable opportunity to investigate and correct a confirmed issue before public disclosure. This request does not prevent good-faith reporting to an appropriate platform or authority when immediate harm requires it.
+The 333 Network is under active development. A feature appearing in a frontend application does not by itself mean the corresponding server-side service is production-enabled. Public-facing copy and documentation should continue distinguishing local previews, application/request flows, and genuinely provisioned live services.
