@@ -75,10 +75,11 @@ Status: **PREPARED — WORKING BRANCH + VERIFIED UPLOAD PATCH; NOT MERGED**
 4. [x] Replace stale `SECURITY.md`, `ACCESSIBILITY.md`, and `ROADMAP.md` on the working branch.
 5. [x] Prepare 333-specific `PRIVACY.md` and `CHANGELOG.md` replacements.
 6. [x] Prepare production dependency separation and `.dockerignore` hardening.
-7. [ ] Apply the blocked runtime/build files from the verified upload patch.
-8. [ ] Remove the three deliberately identified stale/generated files.
-9. [ ] Add and validate CI after the repository is clean.
-10. [ ] Verify the complete Phase 1 diff before merge.
+7. [x] Prepare initial CI for integrity, Ruff, MyPy, tests, and coverage.
+8. [ ] Apply the blocked runtime/build files from the verified upload patch.
+9. [ ] Remove the three deliberately identified stale/generated files.
+10. [ ] Run and repair the first CI result if it reveals pre-existing quality debt.
+11. [ ] Verify the complete Phase 1 diff before merge.
 
 ### Phase 2 — Shared identity circuit
 
@@ -140,8 +141,10 @@ Feed safe structured 333 operational events into the protected administrative re
 
 **Prepared production hardening:** `.dockerignore`, `requirements-runtime.txt`, and a Dockerfile using runtime-only dependencies are packaged for application. The existing development/test dependency set remains available separately.
 
+**Prepared CI:** `.github/workflows/backend-ci.yml` checks for the duplicate root `env.py` and committed `.pyc` artifacts before running Ruff, MyPy, and the repository's existing pytest coverage gate on Python 3.12. The first run is intentionally allowed to reveal real pre-existing quality debt; failures will be repaired rather than hidden by weakening the gate.
+
 **Connector boundary:** executable/build-control writes and deletions were blocked by the connected GitHub safety layer. Those changes were not forced. They were packaged as a non-destructive upload patch instead.
 
-**Patch checksum:** `333_Phase_1_Integrity_Patch.zip` SHA-256 `193dc1b29112210d51149a9e9f4b68d01708eabc462e511688bdc7ffbc741e45`.
+**Patch checksum:** `333_Phase_1_Integrity_Patch.zip` SHA-256 `f8239b3cd2390f6522d923d21a4366339dd6c77c0e06b2d82fa13aee50caa30f`.
 
-**Next verified target:** apply and verify the Phase 1 patch, then add CI and close Phase 1 before beginning the shared identity circuit.
+**Next verified target:** apply and verify the Phase 1 patch, remove the three explicit stale/generated files, inspect the first CI run, and close Phase 1 before beginning the shared identity circuit.
