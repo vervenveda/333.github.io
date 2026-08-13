@@ -1,79 +1,77 @@
-# Privacy Notice
+# 333 Network Privacy Notice — Development Foundation
 
-**Polyglot — Khaemenes Academy Linguistics Hall**  
-**Effective date:** August 2, 2026
+**Last reviewed:** August 13, 2026
 
-Polyglot is currently a static educational website designed to work without a learner account, advertising profile, or central progress database. This notice describes the behavior of the present public landing page. Future courses or portals must publish updated privacy information before they introduce additional data practices.
+The 333 Network is under active development. This notice describes the repository's current architecture at a high level and does not claim that every planned network service is publicly operational. Before broad public registration or production hosting, the final production deployment must receive a jurisdiction-specific privacy and legal review.
 
-## 1. Information Polyglot currently stores
+## Current data boundaries
 
-The current page may save two small preference records in the learner's browser:
+The project intentionally distinguishes between:
 
-- `polyglot_theme_v1` — the selected light or dark appearance.
-- `polyglot_shelf_v1` — the names of language collections saved to **My Shelf**.
+- information stored only in a browser for local-first/offline use;
+- information submitted to the shared backend when a backend feature is enabled;
+- public community content a member deliberately publishes;
+- administrative/audit information used to protect the service; and
+- future services that are planned but not yet operational.
 
-These records remain in the browser's local storage on that device. Polyglot does not presently transmit them to a Khaemenes Academy server.
+Local browser data is not automatically the same thing as a verified server account. Clearing browser storage or changing devices may remove local-only state unless a feature has been synchronized through an enabled backend service.
 
-A learner can remove these preferences by clearing site data in the browser. Clearing browser data, using private browsing, or changing devices may erase the saved shelf and appearance choice.
+## Shared backend foundation
 
-## 2. Speech playback
+The current backend foundation can support account authentication, member/profile records, HOLLO enrollment and internal 333-number records, E=Ven Mail applications, refresh/session security records, and audit records. The exact production collection and retention behavior must follow the repository's data-retention policy and the configuration of the deployed service.
 
-The **Hear phrase** feature uses the browser's Web Speech API when available. The device or browser chooses the installed or network-based speech voice. Depending on the browser, operating system, and selected voice, phrase text may be processed by the device vendor's speech service.
+The project should collect only information needed for the requested service and should avoid placing credentials, provider secrets, private administrative topology, or sensitive user content in public repository files or browser source code.
 
-Polyglot does not control those third-party speech systems. Learners may use the written phrase and translation without activating speech playback.
+## Application-specific status
 
-## 3. Fonts and external requests
+### HOLLO
 
-The current landing page requests typefaces from Google Fonts. When the page loads those files, the browser may send ordinary technical request information—such as an IP address, browser type, and requested resource—to Google's font-delivery infrastructure.
+HOLLO is intended to provide shared identity, profiles, contacts, and direct communication. Browser-local identity and a verified backend identity must remain clearly distinguishable until synchronization is enabled and verified.
 
-A future privacy-enhanced release may self-host approved font files. Any bundled fonts must retain their required license notices.
+### KANSEE
 
-## 4. Links to other sites
+KANSEE currently contains substantial local meeting and collaboration functionality. Live network conferencing, signaling, and hosted meeting synchronization must not be described as operational until those services are deployed and verified. Camera and microphone access should remain permission-based and user initiated.
 
-Polyglot contains verified links to Khaemenes Academy and Verve N Veda pages. A destination site may have its own privacy practices. Review the notice provided by that destination before submitting personal information.
+### E=Ven Mail
 
-Planned Polyglot modules are intentionally displayed as notices rather than links to unfinished or unknown destinations.
+An E=Ven Mail application is not the same as a provisioned mailbox. Mailbox provisioning, mail transport, mailbox storage, spam/abuse controls, and related retention rules require separate production services and policies.
 
-## 5. Analytics, advertising, and tracking
+### Bazaar Art Live
 
-The current repository does not intentionally include:
+Bazaar Art Live is intended for community and public/discoverable content. Publishing to a public feed or sharing a hosted SIte should remain an explicit user action rather than an automatic consequence of creating local content.
 
-- advertising networks;
-- behavioral advertising;
-- social-media tracking pixels;
-- third-party audience analytics;
-- account-based learner tracking; or
-- sale of personal information.
+### SIte and OHMIC Foundry
 
-A contributor must not add analytics, advertising, fingerprinting, cookies, remote logging, or other tracking without documented approval and a corresponding update to this notice.
+SIte projects should remain portable and exportable. OHMIC Foundry hosting must clearly distinguish draft/private project material from files included in a public build. Private data must never be silently included in a public release.
 
-## 6. Children and family learning
+### Bunya
 
-Polyglot is intended to support learners of many ages, including family and homeschool use. The current static page does not ask children to provide a name, email address, birth date, school, location, photograph, or other identifying information.
+Bunya is an infrastructure control surface. DNS, registrar, hosting-provider, storage, deployment, TLS, mail, and other provider credentials must remain server-side and must never be exposed to public browser code.
 
-Future student or parent portals must use privacy-by-design practices, collect only information necessary for the educational purpose, and publish age-appropriate notices and guardian controls before launch.
+## Security and operational records
 
-## 7. Security and sensitive information
+The backend may maintain security and audit records needed for account protection, abuse prevention, rate limiting, incident investigation, and system reliability. Logs should avoid recording secrets or unnecessary message/content bodies. Where practical, identifiers used for security telemetry should be minimized or pseudonymized.
 
-Do not enter personal, educational, medical, financial, immigration, or other sensitive information into source-code issues, public contribution discussions, search fields, or planned-module notices. The current search field filters cards locally and is not designed as a private message form.
+## Children and families
 
-Security concerns should be reported according to [SECURITY.md](SECURITY.md).
+Some Verve N Veda and Khaemenes experiences serve children and families. The 333 Network should not assume that a general network account design is automatically suitable for minors. Age-appropriate experiences, guardian controls, consent requirements, educational records, communication safety, and applicable child-privacy rules require separate review before a child-facing hosted account system is enabled.
 
-## 8. Offline use and service-worker storage
+## External infrastructure
 
-When the service worker is enabled, Polyglot may store public site files in the browser's Cache Storage so the application shell can load during a network interruption. Cached files may include the home page, offline page, error page, manifest, and registration script.
+A production deployment may require infrastructure providers for hosting, databases, object storage, mail delivery, DNS, TURN/STUN, monitoring, backups, or other operations. Provider use and data processing must be documented before production deployment. Frontend applications must never receive provider administrative secrets.
 
-Users can remove cached files through their browser's site-data controls. The service worker does not create a hidden learner profile.
+## User control and portability
 
-## 9. Changes to this notice
+The project should preserve practical paths for users to export their work, remove local browser data, request account/data actions supported by the deployed service, and move published websites away from OHMIC Foundry without losing the site they created.
 
-Material privacy changes should be recorded in [CHANGELOG.md](CHANGELOG.md) and dated at the top of this notice. New data-collecting features must not be released with an outdated privacy description.
+## Retention and deletion
 
-## 10. Contact
+See `DATA_RETENTION.md` for the repository's current retention framework. Final retention periods must match the deployed service, legal obligations, backup model, abuse-prevention requirements, and published user notice.
 
-Questions about this notice may be sent to:
+## Changes
 
-**Khaemenes Academy**  
-**Email:** KhaemenesAcademy@protonmail.com
+Material privacy changes should be recorded in `CHANGELOG.md`. A data-collecting feature should not be publicly launched with documentation that still describes an earlier or unrelated application.
 
-This repository notice is informational and is not a substitute for jurisdiction-specific legal advice.
+## Security reports
+
+Use the process in `SECURITY.md` for security concerns. Do not post credentials, private account data, security tokens, or sensitive personal information in public issues.

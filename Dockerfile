@@ -14,9 +14,9 @@ RUN addgroup --system network333 \
     && mkdir -p /data/uploads \
     && chown -R network333:network333 /app /data
 
-COPY requirements.txt ./
+COPY requirements-runtime.txt ./
 RUN python -m pip install --upgrade pip \
-    && python -m pip install -r requirements.txt
+    && python -m pip install -r requirements-runtime.txt
 
 COPY . .
 

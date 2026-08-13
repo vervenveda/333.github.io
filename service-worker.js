@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "333-333-network-pwa-";
-const CACHE_VERSION = `${CACHE_PREFIX}v5`;
+const CACHE_VERSION = `${CACHE_PREFIX}v6`;
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const MAX_RUNTIME_ENTRIES = 60;
@@ -54,12 +54,24 @@ async function precacheFiles() {
     await cache.put(request, response);
   }));
 
-  const failed = results.map((result, index) => ({ result, url: PRECACHE_URLS[index] })).filter(({ result }) => result.status === "rejected");
-  if (failed.length) console.warn("[333 Network] Some files were not precached:", failed.map(({ url, result }) => ({ url, reason: String(result.reason) })));
+  const failed = results
+    .map((result, index) => ({ result, url: PRECACHE_URLS[index] }))
+    .filter(({ result }) => result.status === "rejected");
+
+  if (failed.length) {
+    console.warn(
+      "[333 Network] Some files were not precached:",
+      failed.map(({ url, result }) => ({ url, reason: String(result.reason) }))
+    );
+  }
 
   const requiredMissing = [];
-  for (const url of ["./index.html", "./offline.html"]) if (!(await cache.match(url))) requiredMissing.push(url);
-  if (requiredMissing.length) throw new Error(`Required offline files were not cached: ${requiredMissing.join(", ")}`);
+  for (const url of ["./index.html", "./offline.html"]) {
+    if (!(await cache.match(url))) requiredMissing.push(url);
+  }
+  if (requiredMissing.length) {
+    throw new Error(`Required offline files were not cached: ${requiredMissing.join(", ")}`);
+  }
 }
 
 async function handleNavigation(request) {
@@ -75,7 +87,14 @@ async function handleNavigation(request) {
     if (cachedPage) return cachedPage;
     const offlinePage = await caches.match("./offline.html");
     if (offlinePage) return offlinePage;
-    return new Response("333 Network is offline and the requested page is not cached.", { status: 503, statusText: "Offline", headers: { "Content-Type": "text/plain; charset=utf-8" } });
+    return new Response(
+      "333 Network is offline and the requested page is not cached.",
+      {
+        status: 503,
+        statusText: "Offline",
+        headers: { "Content-Type": "text/plain; charset=utf-8" }
+      }
+    );
   }
 }
 
@@ -88,12 +107,20 @@ async function handleSameOriginAsset(request) {
     }
     return response;
   });
+
   if (cached) {
     networkUpdate.catch(() => {});
     return cached;
   }
-  try { return await networkUpdate; }
-  catch { return new Response("", { status: 504, statusText: "Asset unavailable while offline" }); }
+
+  try {
+    return await networkUpdate;
+  } catch {
+    return new Response("", {
+      status: 504,
+      statusText: "Asset unavailable while offline"
+    });
+  }
 }
 
 self.addEventListener("install", event => {
@@ -103,7 +130,11 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(key => (key.startsWith(CACHE_PREFIX) || key.startsWith("polyglot-")) && key !== STATIC_CACHE && key !== RUNTIME_CACHE).map(key => caches.delete(key)));
+    await Promise.all(
+      keys
+        .filter(key => key.startsWith(CACHE_PREFIX) && key !== STATIC_CACHE && key !== RUNTIME_CACHE)
+        .map(key => caches.delete(key))
+    );
     await self.clients.claim();
   })());
 });
@@ -111,15 +142,22 @@ self.addEventListener("activate", event => {
 self.addEventListener("fetch", event => {
   const request = event.request;
   if (request.method !== "GET" || request.headers.has("range")) return;
+
   const url = new URL(request.url);
+
   if (request.mode === "navigate") {
     event.respondWith(handleNavigation(request));
     return;
   }
-  if (url.origin === self.location.origin) event.respondWith(handleSameOriginAsset(request));
+
+  if (url.origin === self.location.origin) {
+    event.respondWith(handleSameOriginAsset(request));
+  }
 });
 
 self.addEventListener("message", event => {
   if (event.data?.type === "SKIP_WAITING") self.skipWaiting();
-  if (event.data?.type === "CLEAR_333_RUNTIME_CACHE") event.waitUntil(caches.delete(RUNTIME_CACHE));
+  if (event.data?.type === "CLEAR_333_RUNTIME_CACHE") {
+    event.waitUntil(caches.delete(RUNTIME_CACHE));
+  }
 });

@@ -2,93 +2,88 @@
 
 **Purpose:** Preserve implementation decisions and verified milestones while the 333 Network is completed systematically.
 
-> This repository is public. This log records only non-sensitive implementation facts. Credentials, private server topology, security secrets, internal administrative routes, and other restricted architecture belong in the private Sovereign Build Codex and are intentionally excluded here.
+> This repository is public. This log records only non-sensitive implementation facts. Credentials, private server topology, security secrets, internal administrative routes, and other restricted architecture are intentionally excluded.
 
 ## Operating discipline
 
 1. Work in small, reviewable phases.
 2. Verify each major change before beginning the next.
-3. Update this log after every major public-repository change.
+3. Update this log at regular checkpoints and after substantial repository milestones.
 4. Preserve existing user-facing applications unless a migration is deliberate and reversible.
-5. Do not expose secrets or administrative bearer credentials in browser code.
-6. Keep local-first/offline behavior as a fallback where practical.
-7. Keep 333 services specialized rather than duplicating the same system in multiple applications.
+5. Never expose infrastructure or administrative secrets in browser code.
+6. Preserve local-first/offline fallback where practical.
+7. Keep 333 services specialized instead of duplicating the same system in several applications.
 
 ## Responsibility map
 
 - **333 Network** — network experience and discovery.
 - **HOLLO** — shared member identity and network identity.
-- **E=Ven Mail** — network mail application/provisioning surface.
-- **KANSEE** — meetings and video-conferencing experience.
+- **E=Ven Mail** — mail application/provisioning surface.
+- **KANSEE** — meetings and video conferencing.
 - **Bazaar Art Live** — community/social/discovery feed.
-- **SIte** — accessible website and application creation.
-- **OHMIC Foundry** — build, deployment, hosting, releases, portable site publication, and future URL/domain hosting engine.
+- **SIte** — accessible website/application creation.
+- **OHMIC Foundry** — build, deployment, hosting, releases, portable publication, and future URL/domain hosting.
 - **Bunya** — infrastructure control and operational visibility for deployment, domains, DNS, certificates, monitoring, backups, and provider operations.
 
 ## Verified audit baseline — 2026-08-13
 
-The current repository already contains a substantial network foundation rather than an empty prototype.
+The repository already contains a substantial network foundation:
 
-### Implemented backend foundation
-
-- FastAPI application entry point.
-- Asynchronous SQLAlchemy/PostgreSQL foundation.
-- Alembic migration environment.
-- Redis-backed rate-limit foundation.
-- Authentication, profiles, HOLLO, E=Ven application, and administration routers.
-- Password hashing, token/session foundation, audit logging, and role checks.
-- Docker deployment foundation.
-- PWA/offline shell.
-
-### Major frontend applications present
-
-- HOLLO / 333 Direct Connect.
-- KANSEE meeting rooms.
-- E=Ven Mail.
-- Bazaar Art Live.
-- SIte website/application builder.
-- Bunya infrastructure console.
+- FastAPI entry point;
+- async SQLAlchemy/PostgreSQL foundation;
+- Alembic migration environment;
+- Redis-backed rate-limit foundation;
+- authentication, profiles, HOLLO, E=Ven application, and administration routers;
+- password hashing, token/session foundation, audit logging, and role checks;
+- Docker deployment foundation;
+- PWA/offline shell;
+- HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya browser applications.
 
 ### Confirmed service gaps
 
-The FastAPI application declares future router families for KANSEE, Bazaar, SIte, Bunya, uploads, and notifications, but those router implementations are not yet present. The associated frontend applications therefore still depend heavily on local-first browser state.
+The FastAPI application declares KANSEE, Bazaar, SIte, Bunya, uploads, and notifications as service families, but those router implementations are not all present yet. Their browser applications therefore remain substantially local-first.
 
-### Confirmed integrity/maintenance findings
+### Confirmed integrity findings
 
-- PWA service-worker registration contains legacy Polyglot event naming that does not match the 333 gateway's update events.
-- Several governance documents contain stale Polyglot project text and must be replaced with genuine 333 documents.
-- Python bytecode/cache artifacts are present in the repository and should be removed.
-- A duplicate root `env.py` exists alongside the Alembic migration environment and should be reviewed/removed if redundant.
-- No GitHub Actions CI workflow was found protecting the committed backend tests.
-- Production and development Python dependencies should be separated in the Docker build.
-- Some environment variables anticipated by `.env.example` are not yet represented by runtime settings and should be wired only when their services are implemented.
+- The service-worker registration shim contains copied Polyglot naming and does not emit the update events already expected by the 333 gateway.
+- Several governance files contain stale Polyglot text.
+- `env.py` at repository root is an exact duplicate of `migrations/env.py`.
+- Two generated `.pyc` files are committed under `app/_pychache_/`.
+- CI was not present to protect tests/lint/type/config checks.
+- The production Docker image currently installs development/test dependencies from the combined requirements file.
 
 ## Phase plan
 
 ### Phase 1 — Repository integrity and baseline protection
 
-Status: **IN PROGRESS**
+**Status: RECONCILIATION PACKAGE PREPARED; NOT YET CLOSED**
 
-Planned sequence:
-
-1. Establish this build log.
-2. Repair 333 PWA registration/update event contract.
-3. Remove stale repository artifacts after verification.
-4. Replace stale copied governance files with 333-specific versions.
-5. Add CI for tests/lint/type/config validation.
-6. Verify the complete Phase 1 diff before any broader architecture work.
+- [x] Audit current repository/backend structure.
+- [x] Establish sanitized build log.
+- [x] Prepare genuine 333 governance documents.
+- [x] Validate PWA event-contract repair and next cache generation.
+- [x] Verify duplicate/generated cleanup targets.
+- [x] Prepare runtime-only dependency file and Docker hardening.
+- [x] Prepare first CI workflow.
+- [x] Create protected branch `agent/333-integrity-foundation-v2` from current `main` after an upload-path mistake was detected.
+- [x] Rebuild Phase 1 as a root-ready package with no enclosing patch directory.
+- [ ] Apply root-ready package to v2.
+- [ ] Remove the three verified stale/generated root artifacts on v2.
+- [ ] Run and repair CI.
+- [ ] Verify complete Phase 1 diff.
+- [ ] Merge only after verification.
 
 ### Phase 2 — Shared identity circuit
 
-Wire the public applications to one shared authenticated 333 client while retaining bounded offline/local fallback.
+Wire the public applications to one shared authenticated 333 client while retaining bounded local/offline fallback.
 
 ### Phase 3 — E=Ven application circuit
 
-Connect the existing E=Ven frontend to the working backend application/review API and establish canonical mail-domain configuration. Mailbox delivery/provisioning remains a later infrastructure phase.
+Connect the E=Ven frontend to the existing application/review API and establish canonical mail-domain configuration. Mail delivery/provisioning remains a later infrastructure phase.
 
 ### Phase 4 — KANSEE live conferencing
 
-Implement room API, ACLs, invitations, signaling, presence, STUN/TURN integration, WebRTC/SFU strategy, synchronized chat, and meeting event records.
+Implement room API, ACLs, invitations, signaling, presence, STUN/TURN integration, WebRTC/SFU strategy, synchronized collaboration data, and meeting records.
 
 ### Phase 5 — Bazaar Art Live service
 
@@ -100,7 +95,7 @@ Implement project/build/release/deployment contracts, static hosting, stable fre
 
 ### Phase 7 — Bunya infrastructure control plane
 
-Connect deployment state, domain/DNS operations, certificates, monitoring, backup status, and narrowly scoped provider operations without placing infrastructure secrets in frontend JavaScript.
+Connect deployment state, domains/DNS, certificates, monitoring, backup status, and narrowly scoped provider operations without placing provider secrets in frontend JavaScript.
 
 ### Phase 8 — Communications infrastructure
 
@@ -114,14 +109,34 @@ Feed safe structured 333 operational events into the protected administrative re
 
 ## Change records
 
-### 2026-08-13 — Log 001 — Baseline protection
+### Log 001 — Baseline protection — 2026-08-13
 
-**Decision:** All substantial 333 changes will be developed and verified in small, reviewable steps.
+**Decision:** All substantial 333 work proceeds in small, verified phases.
 
-**Decision:** Public technical history and private architectural history are intentionally separated. This log is safe for the public repository; the Sovereign Build Codex remains the fuller private continuity record.
+**Decision:** OHMIC Foundry is the deployment/hosting engine rather than a duplicate hosting stack inside the 333 frontend repository.
 
-**Decision:** OHMIC Foundry will be developed as the deployment/hosting engine rather than duplicating a second hosting stack inside the 333 frontend repository.
+**Decision:** Roles remain: 333 = network; HOLLO = identity; SIte = creation; OHMIC = hosting/deployment; Bunya = infrastructure control; Bazaar = discovery/community; KANSEE = meetings; E=Ven = mail.
 
-**Decision:** Existing application roles are preserved: 333 = network, HOLLO = identity, SIte = creation, OHMIC = hosting/deployment, Bunya = infrastructure control, Bazaar = discovery/community, KANSEE = meetings, E=Ven = mail.
+### Log 002 — Phase 1 integrity preparation — 2026-08-13
 
-**Next verified target:** repair the PWA registration/update event contract before touching broader backend behavior.
+Prepared and syntax-checked the corrected service-worker registration bridge and service worker. Verified that the gateway expects `333-app-update-ready` and `333-service-worker-controller-changed`. Prepared genuine 333 privacy/changelog/security/accessibility/roadmap documents, runtime-only Docker requirements, `.dockerignore`, and CI.
+
+Verified deliberate cleanup targets:
+
+- root `env.py` — exact duplicate of `migrations/env.py`;
+- `app/_pychache_/__init__.cpython-313.pyc`;
+- `app/_pychache_/main.cpython-313.pyc`.
+
+`migrations/env.py`, `app/__init__.py`, and `app/main.py` must remain.
+
+### Log 003 — Upload-path reconciliation — 2026-08-13
+
+The first Phase 1 ZIP contained a top-level `333_Phase_1_Integrity_Patch/` directory. When uploaded through GitHub's web interface, its contents were preserved under a literal `agent/333-integrity-foundation-v1/` repository folder instead of replacing root files.
+
+**Impact:** no intended root runtime file was overwritten. The mistake created additional files/folders only, so recovery is non-destructive.
+
+**Recovery:** created fresh protected branch `agent/333-integrity-foundation-v2` from the latest `main`. Rebuilt the Phase 1 package so files exist directly at ZIP root, eliminating the enclosing-folder ambiguity.
+
+**Scope guard:** this Phase 1 work does not modify the separate Admin security architecture.
+
+**Next gate:** apply the root-ready package to v2, remove only the three verified stale/generated files, run CI, inspect every resulting diff, and close Phase 1 before beginning shared identity integration.

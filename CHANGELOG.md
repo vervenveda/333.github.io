@@ -1,57 +1,45 @@
-# Polyglot Changelog
+# 333 Network Changelog
 
-This file records meaningful public changes to Polyglot. Dates use the `YYYY-MM-DD` format.
+Meaningful public repository changes are recorded here. Dates use `YYYY-MM-DD`.
 
 ## Unreleased
 
-### Planned
+### Integrity and governance
 
-- Connect the web-app manifest and service-worker registration to `index.html`.
-- Add approved application icons.
-- Introduce structured language and phrase data files.
-- Begin human-reviewed foundation course development.
+- Added `BUILD_LOG.md` as a sanitized record of major technical and architectural milestones.
+- Replaced stale Polyglot governance text with 333-specific security, accessibility, and roadmap documentation.
+- Prepared replacement privacy and changelog documents for the 333 Network.
+- Identified accidental Python bytecode and a duplicate root Alembic environment file for removal.
+- Prepared production dependency separation and `.dockerignore` hardening.
 
-## 1.1.0 — 2026-08-02
+### PWA
 
-### Added
+- Corrected the service-worker registration contract to use 333-native update events.
+- Added update-ready detection for waiting/installing service workers.
+- Added one-time controller-change signaling so the gateway can reload after an accepted update.
+- Advanced the 333 PWA cache version and removed obsolete Polyglot cache-name cleanup.
 
-- Custom `404.html` with verified recovery links.
-- Offline fallback page.
-- Web-app manifest.
-- Same-origin service worker and registration script.
-- Privacy notice.
-- Accessibility statement.
-- Security policy.
-- Contribution guide.
-- Community code of conduct.
-- Project roadmap.
-- Third-party notices.
-- Repository `.gitignore` and `.nojekyll` files.
+### Backend audit
 
-### Security
+- Confirmed the shared FastAPI foundation for authentication, profiles, HOLLO, E=Ven Mail applications, administration, PostgreSQL/Alembic, Redis-backed rate limiting, Docker deployment, and structured logging.
+- Confirmed KANSEE, Bazaar, SIte, Bunya, uploads, and notifications are intended service families but are not all implemented yet.
+- Confirmed the browser applications remain substantially local-first and must be integrated with the shared backend deliberately.
 
-- Limited runtime caching to same-origin `GET` requests.
-- Added cache-version cleanup.
-- Added private vulnerability-reporting guidance.
+## 0.3.0 — 2026-08
 
-## 1.0.0 — 2026-08-02
+### Backend foundation
 
-### Added
+- Shared FastAPI application entry point and optional-router model.
+- Asynchronous PostgreSQL/SQLAlchemy and Alembic foundation.
+- Authentication, profiles, HOLLO, E=Ven Mail application, and administrative API foundations.
+- Argon2 password hashing, token support, refresh rotation, audit logging, and role checks.
+- Docker, Redis, deployment, retention, incident-response, and operational documentation foundations.
 
-- Initial Polyglot landing page.
-- International scholarly visual system using parchment, navy, gold, oxblood, and teal.
-- Multilingual welcome ribbon.
-- Responsive Academy navigation.
-- Language Compass and rotating phrase feature.
-- Optional browser speech playback.
-- Nine organized language collections.
-- Searchable language cards.
-- Local **My Shelf** preferences.
-- Learner pathways and skill-studio map.
-- Culture, literature, identity, and language-history sections.
-- Student, parent, educator, and Academy portal area.
-- Accessible planned-module dialog in place of dead links.
-- Light and dark themes.
-- Reduced-motion handling.
-- Right-to-left language samples.
-- Initial `README.md` and `LICENSE.md`.
+### Applications
+
+- Continued development of HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, SIte, and Bunya as local-first browser applications.
+- 333 Network PWA shell, manifest, install helper, offline fallback, and service-worker caching.
+
+## Documentation rule
+
+This changelog distinguishes implemented backend services, local-first browser capabilities, and planned hosted services. A local interface or planning console is not labeled as a live network service until its backend contract is implemented and verified.
