@@ -131,6 +131,7 @@ ROUTER_DEFINITIONS: tuple[RouterDefinition, ...] = (
     RouterDefinition("app.routers.kansee", "/kansee", ("KANSEE",)),
     RouterDefinition("app.routers.even_mail", "/even-mail", ("E=Ven Mail",)),
     RouterDefinition("app.routers.bazaar", "/bazaar", ("Bazaar Art Live",)),
+    RouterDefinition("app.routers.fleapit", "/fleapit", ("FleaPit",)),
     RouterDefinition("app.routers.site", "/site", ("SIte",)),
     RouterDefinition("app.routers.bunya", "/bunya", ("Bunya",)),
     RouterDefinition("app.routers.uploads", "/uploads", ("Uploads",)),
@@ -223,7 +224,7 @@ def create_app(application_settings: Settings = settings) -> FastAPI:
         title=application_settings.app_name,
         description=(
             "Shared backend for HOLLO, KANSEE, E=Ven Mail, Bazaar Art Live, "
-            "SIte, and Bunya."
+            "FleaPit, SIte, and Bunya."
         ),
         version=APP_VERSION,
         debug=application_settings.app_debug,
@@ -366,6 +367,7 @@ def create_app(application_settings: Settings = settings) -> FastAPI:
                 "KANSEE",
                 "E=Ven Mail",
                 "Bazaar Art Live",
+                "FleaPit",
                 "SIte",
                 "Bunya",
             ],
