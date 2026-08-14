@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "333-333-network-pwa-";
-const CACHE_VERSION = `${CACHE_PREFIX}v6`;
+const CACHE_VERSION = `${CACHE_PREFIX}v7`;
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const MAX_RUNTIME_ENTRIES = 60;
@@ -22,6 +22,8 @@ const APP_PAGES = [
   "./app/KANSEE_333_meeting_rooms_index.html",
   "./app/EVen_mail_index.html",
   "./app/Bazaar_Art_Live_index.html",
+  "./app/FleaPit™_media_gate_Index.html",
+  "./app/FleaPit™ _media_hub_index.html",
   "./app/SIte_builder_index.html",
   "./app/Bunya_digital_infrastructure_index.html"
 ];
