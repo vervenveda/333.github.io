@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<meta name="description" content="FleaPit™ is the Verve N Veda gateway to free movies, public-domain films, documentaries, family videos, lectures, music, archives, and official free media sources.">
-<title>FleaPit™ — Free Movies & Videos</title>
+<meta name="description" content="FleaPit™ is the 333 Network gateway to free movies, public-domain films, documentaries, family videos, lectures, music, archives, and official free media sources.">
+<title>FleaPit™ Media Gate — 333 Network</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
 :root{--bg:#07111f;--bg2:#0d1b31;--panel:#0f2036;--panel2:#132942;--ink:#f4f8ff;--muted:#aec0d3;--accent:#57dcc9;--accent2:#9b83f4;--gold:#f2c879;--line:rgba(188,220,242,.18);--shadow:0 22px 60px rgba(0,0,0,.3);--radius:20px;--display:"Gaspacho","Cormorant Garamond",Georgia,serif;--ceremonial:"Cinzel","Aboreto",serif;--ui:"Brandon Grotesque","Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -15,20 +15,20 @@
 <body>
 <div class="shell">
   <header class="topline">
-    <a class="brand" href="https://vervenveda.github.io/">Verve N Veda</a>
-    <nav class="toplinks" aria-label="Primary navigation"><a href="https://vervenveda.github.io/">Home</a><a href="https://vervenveda.github.io/proresource_hub.github.io/">ProReSources</a></nav>
+    <a class="brand" href="../index.html">333 Network</a>
+    <nav class="toplinks" aria-label="Primary navigation"><a href="../index.html">Home</a><a href="https://vervenveda.com/">Verve N Veda</a></nav>
   </header>
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <div class="eyebrow">Verve N Veda Free Media</div>
+        <div class="eyebrow">333 Network · FleaPit Media</div>
         <h1>FleaPit™</h1>
         <h2>Free Movies & Videos</h2>
         <p class="lead">FleaPit is a simple place to discover public-domain films, free and ad-supported movies, documentaries, lectures, family videos, music, archives, and official free media sources.</p>
         <p class="plain-note"><strong>The name is playful; the purpose is clear:</strong> find something worthwhile to watch, keep your own library, and decide when the page may connect to an outside source.</p>
         <div class="actions">
-          <a class="btn primary" href="FleaPit™ Protected Media Hub_index.html">Enter the Free Media Hub →</a>
-          <a class="btn gold" href="FleaPit™ Protected Media Hub_index.html?view=library">Open My Saved Library</a>
+          <a class="btn primary" href="FleaPit™ _media_hub_index.html">Enter the Free Media Hub →</a>
+          <a class="btn gold" href="FleaPit™ _media_hub_index.html?view=library">Open My Saved Library</a>
           <button class="btn" id="importLandingBtn" type="button">Import Backup</button>
           <input class="hidden" id="landingImport" type="file" accept="application/json,.json">
           <button class="btn" id="guideBtn" type="button">How FleaPit Works</button>
@@ -65,13 +65,13 @@
       <div class="notice"><strong>FleaPit does not host commercial movies.</strong> It organizes links to public-domain, official, free-access, ad-supported, educational, and user-added media. Availability, ads, accounts, regions, and optional paid content can vary by source.</div>
     </section>
   </main>
-  <footer><div class="footer-main">FleaPit™ at ProReSources · Verve N Veda · Khaemenes Academy · Jennifer Kay Pearl · All Rights Reserved 2026</div><div class="footer-note">External media remains under the ownership, licensing, privacy terms, and content rules of its source.</div></footer>
+  <footer><div class="footer-main">FleaPit™ on 333 Network · Verve N Veda · Khaemenes Academy · Jennifer Kay Pearl · All Rights Reserved 2026</div><div class="footer-note">External media remains under the ownership, licensing, privacy terms, and content rules of its source.</div></footer>
 </div>
 <div class="modal" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
   <div class="modal-card"><div class="modal-head"><h2 id="guideTitle">How FleaPit Works</h2><button class="btn" data-close="guideModal" type="button">Close</button></div><ul><li>FleaPit is a free-media guide and personal library, not a movie-hosting service.</li><li>The hub begins disconnected. Choose <strong>Connect to Watch</strong> before opening an external source.</li><li>Use Movies, Documentaries, Family, Learning, Archives, and other categories to narrow the library.</li><li>Family Controls can hide Teen, Mature, or Unrated items behind a local PIN.</li><li>Local video and audio files remain in memory for the current tab and are not uploaded.</li><li>Export your saved library regularly because browser storage can be cleared.</li></ul></div>
 </div>
 <script>
-(()=>{"use strict";const $=id=>document.getElementById(id),status=$("landingStatus"),modal=$("guideModal"),DB="FleaPitProtectedDB",STORE="records";let lastFocus=null;function openModal(){lastFocus=document.activeElement;modal.classList.add("open");modal.setAttribute("aria-hidden","false");modal.querySelector("button")?.focus()}function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");lastFocus?.focus?.()}$("guideBtn").addEventListener("click",openModal);document.querySelectorAll('[data-close="guideModal"]').forEach(b=>b.addEventListener("click",closeModal));modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeModal()});$("importLandingBtn").addEventListener("click",()=>$("landingImport").click());$("landingImport").addEventListener("change",async e=>{const file=e.target.files[0];e.target.value="";if(!file)return;if(file.size>2*1024*1024){status.textContent="Backup is larger than the 2 MB staging limit.";return}try{const text=await file.text();JSON.parse(text);sessionStorage.setItem("fleapit_staged_import_v3",text);status.textContent="Backup staged. Opening the media hub…";location.href="FleaPit™ Protected Media Hub_index.html?import=staged"}catch{status.textContent="That file is not valid JSON or browser session storage is unavailable."}});async function readLocalSummary(){const fallback=()=>{try{const raw=localStorage.getItem("fleapit_protected_state_v3");return raw?JSON.parse(raw):null}catch{return null}};let state=null;if("indexedDB" in window){try{state=await new Promise((resolve,reject)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE)};req.onerror=()=>reject(req.error);req.onsuccess=()=>{const db=req.result,tx=db.transaction(STORE,"readonly"),get=tx.objectStore(STORE).get("state");get.onsuccess=()=>resolve(get.result||null);get.onerror=()=>reject(get.error)}})}catch{state=fallback()}}else state=fallback();$("localMediaCount").textContent=String(state?.media?.length||0);$("localFavoriteCount").textContent=String(state?.favorites?.length||0);$("localQueueCount").textContent=String(state?.queue?.length||0)}readLocalSummary();modal.setAttribute("aria-hidden","true")})();
+(()=>{"use strict";const $=id=>document.getElementById(id),status=$("landingStatus"),modal=$("guideModal"),DB="FleaPitProtectedDB",STORE="records";let lastFocus=null;function openModal(){lastFocus=document.activeElement;modal.classList.add("open");modal.setAttribute("aria-hidden","false");modal.querySelector("button")?.focus()}function closeModal(){modal.classList.remove("open");modal.setAttribute("aria-hidden","true");lastFocus?.focus?.()}$("guideBtn").addEventListener("click",openModal);document.querySelectorAll('[data-close="guideModal"]').forEach(b=>b.addEventListener("click",closeModal));modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modal.classList.contains("open"))closeModal()});$("importLandingBtn").addEventListener("click",()=>$("landingImport").click());$("landingImport").addEventListener("change",async e=>{const file=e.target.files[0];e.target.value="";if(!file)return;if(file.size>2*1024*1024){status.textContent="Backup is larger than the 2 MB staging limit.";return}try{const text=await file.text();JSON.parse(text);sessionStorage.setItem("fleapit_staged_import_v3",text);status.textContent="Backup staged. Opening the media hub…";location.href="FleaPit™ _media_hub_index.html?import=staged"}catch{status.textContent="That file is not valid JSON or browser session storage is unavailable."}});async function readLocalSummary(){const fallback=()=>{try{const raw=localStorage.getItem("fleapit_protected_state_v3");return raw?JSON.parse(raw):null}catch{return null}};let state=null;if("indexedDB" in window){try{state=await new Promise((resolve,reject)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE)};req.onerror=()=>reject(req.error);req.onsuccess=()=>{const db=req.result,tx=db.transaction(STORE,"readonly"),get=tx.objectStore(STORE).get("state");get.onsuccess=()=>resolve(get.result||null);get.onerror=()=>reject(get.error)}})}catch{state=fallback()}}else state=fallback();$("localMediaCount").textContent=String(state?.media?.length||0);$("localFavoriteCount").textContent=String(state?.favorites?.length||0);$("localQueueCount").textContent=String(state?.queue?.length||0)}readLocalSummary();modal.setAttribute("aria-hidden","true")})();
 </script>
 </body>
 </html>
