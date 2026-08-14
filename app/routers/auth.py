@@ -47,6 +47,27 @@ def _token_response(tokens) -> TokenPairResponse:
     )
 
 
+def _set_access_cookie(response: Response, access_token: str) -> None:
+    response.set_cookie(
+        key=settings.cookie_name,
+        value=access_token,
+        max_age=settings.access_token_minutes * 60,
+        httponly=True,
+        secure=settings.cookie_secure,
+        samesite=settings.cookie_samesite,
+        domain=settings.cookie_domain or None,
+        path="/",
+    )
+
+
+def _clear_access_cookie(response: Response) -> None:
+    response.delete_cookie(
+        key=settings.cookie_name,
+        domain=settings.cookie_domain or None,
+        path="/",
+    )
+
+
 @router.post(
     "/register",
     response_model=UserResponse,
@@ -76,6 +97,7 @@ async def register(
 async def login(
     payload: LoginRequest,
     request: Request,
+    response: Response,
     session: AsyncSession = Depends(get_database_session),
 ) -> TokenPairResponse:
     ip = _request_ip(request)
@@ -99,6 +121,7 @@ async def login(
         ip_address=ip,
         request_id=getattr(request.state, "request_id", None),
     )
+    _set_access_cookie(response, tokens.access_token)
     return _token_response(tokens)
 
 
@@ -106,6 +129,7 @@ async def login(
 async def refresh(
     payload: RefreshRequest,
     request: Request,
+    response: Response,
     session: AsyncSession = Depends(get_database_session),
 ) -> TokenPairResponse:
     ip = _request_ip(request)
@@ -122,6 +146,7 @@ async def refresh(
         ip_address=ip,
         request_id=getattr(request.state, "request_id", None),
     )
+    _set_access_cookie(response, tokens.access_token)
     return _token_response(tokens)
 
 
@@ -129,6 +154,7 @@ async def refresh(
 async def logout(
     payload: LogoutRequest,
     request: Request,
+    response: Response,
     session: AsyncSession = Depends(get_database_session),
 ) -> MessageResponse:
     await revoke_refresh_token(
@@ -136,6 +162,7 @@ async def logout(
         refresh_token=payload.refresh_token.get_secret_value(),
         request_id=getattr(request.state, "request_id", None),
     )
+    _clear_access_cookie(response)
     return MessageResponse(message="The refresh session has been revoked.")
 
 
