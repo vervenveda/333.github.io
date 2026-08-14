@@ -1,0 +1,14 @@
+# 333/Bunya -> OHMIC/Next.js server-to-server connection.
+# These values belong in the deployed 333 backend environment, never in browser HTML.
+OHMIC_UPSTREAM_URL=https://YOUR-TRUSTED-NEXTJS-HOST
+OHMIC_GATEWAY_TOKEN=REPLACE_WITH_A_SEPARATE_HIGH_ENTROPY_GATEWAY_TOKEN
+
+# For same-site deployment under vervenveda.com:
+COOKIE_SECURE=true
+COOKIE_SAMESITE=lax
+# COOKIE_DOMAIN can usually stay empty so the cookie is host-only.
+
+# If OHMIC is temporarily hosted on a truly cross-site origin and cookie auth is used,
+# modern browser third-party-cookie policy may interfere. Prefer serving OHMIC and the
+# 333 API beneath the same registrable domain (for example cloud.vervenveda.com and
+# api.vervenveda.com) instead of weakening cookie security.
