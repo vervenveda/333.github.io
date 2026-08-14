@@ -1,15 +1,19 @@
-"""Account registration, login, refresh, logout, and current user."""
+"""Sovereign 333 account registration, login, refresh, logout, and current member."""
 
 from __future__ import annotations
 
+from datetime import datetime
+from uuid import UUID
+
 from fastapi import APIRouter, Depends, Request, Response, status
-from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
-from app.core.database import get_database_session
 from app.core.rate_limits import rate_limiter
-from app.dependencies.authentication import get_current_user
-from app.models.user import User
+from app.core.security import create_access_token, validate_password_strength
+from app.dependencies.sovereign_authentication import (
+    SovereignMember,
+    get_current_sovereign_member,
+)
 from app.schemas.auth import (
     LoginRequest,
     LogoutRequest,
@@ -19,12 +23,12 @@ from app.schemas.auth import (
     UserResponse,
 )
 from app.schemas.common import MessageResponse
-from app.services.authentication_service import (
-    authenticate_user,
-    issue_token_pair,
-    register_user,
-    revoke_refresh_token,
-    rotate_refresh_token,
+from app.services.ohmic_account_service import (
+    get_account,
+    login_account,
+    logout_account,
+    refresh_account,
+    register_account,
 )
 
 router = APIRouter()
@@ -37,13 +41,38 @@ def _request_ip(request: Request) -> str | None:
     return request.client.host if request.client else None
 
 
-def _token_response(tokens) -> TokenPairResponse:
+def _parse_datetime(value: object) -> datetime:
+    text = str(value or "").strip()
+    if text.endswith("Z"):
+        text = text[:-1] + "+00:00"
+    return datetime.fromisoformat(text)
+
+
+def _member_response(member: dict[str, object]) -> UserResponse:
+    return UserResponse(
+        id=UUID(str(member["id"])),
+        email=str(member["email"]),
+        status=str(member.get("status") or "active"),
+        role=str(member.get("role") or "member"),
+        email_verified=bool(member.get("emailVerified")),
+        is_active=bool(member.get("isActive")),
+        created_at=_parse_datetime(member.get("createdAt")),
+        updated_at=_parse_datetime(member.get("updatedAt")),
+    )
+
+
+def _token_response(authority_payload: dict[str, object]) -> TokenPairResponse:
+    member = _member_response(dict(authority_payload["member"]))
+    access_token, access_expires_at = create_access_token(
+        user_id=member.id,
+        role=member.role,
+    )
     return TokenPairResponse(
-        access_token=tokens.access_token,
-        refresh_token=tokens.refresh_token,
-        access_expires_at=tokens.access_expires_at,
-        refresh_expires_at=tokens.refresh_expires_at,
-        user=UserResponse.model_validate(tokens.user),
+        access_token=access_token,
+        refresh_token=str(authority_payload["refreshToken"]),
+        access_expires_at=access_expires_at,
+        refresh_expires_at=_parse_datetime(authority_payload["refreshExpiresAt"]),
+        user=member,
     )
 
 
@@ -73,24 +102,17 @@ def _clear_access_cookie(response: Response) -> None:
     response_model=UserResponse,
     status_code=status.HTTP_201_CREATED,
 )
-async def register(
-    payload: RegisterRequest,
-    request: Request,
-    session: AsyncSession = Depends(get_database_session),
-) -> User:
+async def register(payload: RegisterRequest, request: Request) -> UserResponse:
     ip = _request_ip(request)
     await rate_limiter.enforce(
         key=f"register:{ip or 'unknown'}",
         limit=settings.registration_rate_limit,
         window_seconds=3600,
     )
-    return await register_user(
-        session,
-        email=str(payload.email),
-        password=payload.password.get_secret_value(),
-        request_id=getattr(request.state, "request_id", None),
-        ip_address=ip,
-    )
+    password = payload.password.get_secret_value()
+    validate_password_strength(password)
+    member = await register_account(email=str(payload.email), password=password)
+    return _member_response(member)
 
 
 @router.post("/login", response_model=TokenPairResponse)
@@ -98,7 +120,6 @@ async def login(
     payload: LoginRequest,
     request: Request,
     response: Response,
-    session: AsyncSession = Depends(get_database_session),
 ) -> TokenPairResponse:
     ip = _request_ip(request)
     await rate_limiter.enforce(
@@ -106,23 +127,13 @@ async def login(
         limit=settings.login_rate_limit,
         window_seconds=900,
     )
-    user = await authenticate_user(
-        session,
+    authority = await login_account(
         email=str(payload.email),
         password=payload.password.get_secret_value(),
-        request_id=getattr(request.state, "request_id", None),
-        ip_address=ip,
     )
-    tokens = await issue_token_pair(
-        session,
-        user=user,
-        device_name=payload.device_name,
-        user_agent=request.headers.get("user-agent"),
-        ip_address=ip,
-        request_id=getattr(request.state, "request_id", None),
-    )
+    tokens = _token_response(authority)
     _set_access_cookie(response, tokens.access_token)
-    return _token_response(tokens)
+    return tokens
 
 
 @router.post("/refresh", response_model=TokenPairResponse)
@@ -130,7 +141,6 @@ async def refresh(
     payload: RefreshRequest,
     request: Request,
     response: Response,
-    session: AsyncSession = Depends(get_database_session),
 ) -> TokenPairResponse:
     ip = _request_ip(request)
     await rate_limiter.enforce(
@@ -138,34 +148,27 @@ async def refresh(
         limit=settings.refresh_rate_limit,
         window_seconds=900,
     )
-    tokens = await rotate_refresh_token(
-        session,
-        refresh_token=payload.refresh_token.get_secret_value(),
-        device_name=payload.device_name,
-        user_agent=request.headers.get("user-agent"),
-        ip_address=ip,
-        request_id=getattr(request.state, "request_id", None),
+    authority = await refresh_account(
+        refresh_token=payload.refresh_token.get_secret_value()
     )
+    tokens = _token_response(authority)
     _set_access_cookie(response, tokens.access_token)
-    return _token_response(tokens)
+    return tokens
 
 
 @router.post("/logout", response_model=MessageResponse)
 async def logout(
     payload: LogoutRequest,
-    request: Request,
     response: Response,
-    session: AsyncSession = Depends(get_database_session),
 ) -> MessageResponse:
-    await revoke_refresh_token(
-        session,
-        refresh_token=payload.refresh_token.get_secret_value(),
-        request_id=getattr(request.state, "request_id", None),
-    )
+    await logout_account(refresh_token=payload.refresh_token.get_secret_value())
     _clear_access_cookie(response)
-    return MessageResponse(message="The refresh session has been revoked.")
+    return MessageResponse(message="The OHMIC refresh session has been revoked.")
 
 
 @router.get("/me", response_model=UserResponse)
-async def me(user: User = Depends(get_current_user)) -> User:
-    return user
+async def me(
+    member: SovereignMember = Depends(get_current_sovereign_member),
+) -> UserResponse:
+    account = await get_account(member_id=member.id)
+    return _member_response(account)

@@ -1,17 +1,16 @@
-"""Redis-backed fixed-window rate limiting for sensitive endpoints."""
+"""Process-local fixed-window rate limiting for the sovereign 333 runtime.
+
+Rate-limit counters are intentionally ephemeral operational state, not member
+records. Persistent identity and session authority remain in OHMIC Foundry.
+"""
 
 from __future__ import annotations
 
-import logging
+import asyncio
+import time
 from dataclasses import dataclass
 
-from redis.asyncio import Redis
-from redis.exceptions import RedisError
-
-from app.core.config import settings
 from app.core.exceptions import RateLimitError
-
-LOGGER = logging.getLogger("network333.rate_limits")
 
 
 @dataclass(frozen=True, slots=True)
@@ -21,15 +20,18 @@ class RateLimitResult:
     retry_after: int
 
 
-class RateLimiter:
-    """Small fixed-window limiter using atomic Redis increments."""
+@dataclass(slots=True)
+class _Bucket:
+    started_at: float
+    count: int
 
-    def __init__(self, redis_url: str | None = None):
-        self._redis = Redis.from_url(
-            redis_url or settings.redis_url,
-            encoding="utf-8",
-            decode_responses=True,
-        )
+
+class RateLimiter:
+    """Dependency-free in-process fixed-window limiter."""
+
+    def __init__(self) -> None:
+        self._buckets: dict[str, _Bucket] = {}
+        self._lock = asyncio.Lock()
 
     async def check(
         self,
@@ -39,34 +41,35 @@ class RateLimiter:
         window_seconds: int,
         fail_closed: bool | None = None,
     ) -> RateLimitResult:
-        close_on_error = (
-            settings.rate_limit_fail_closed
-            if fail_closed is None
-            else fail_closed
-        )
-        redis_key = f"network333:rate:{key}"
+        del fail_closed  # retained for call compatibility with the previous API
+        if limit <= 0 or window_seconds <= 0:
+            return RateLimitResult(allowed=True, remaining=max(limit, 0), retry_after=0)
 
-        try:
-            value = await self._redis.incr(redis_key)
-            if value == 1:
-                await self._redis.expire(redis_key, window_seconds)
-            ttl = await self._redis.ttl(redis_key)
-        except RedisError as exc:
-            LOGGER.exception("rate_limit_redis_failed")
-            if close_on_error:
-                raise RateLimitError(
-                    "This action is temporarily unavailable."
-                ) from exc
-            return RateLimitResult(
-                allowed=True,
-                remaining=limit,
-                retry_after=0,
-            )
+        current = time.monotonic()
+        async with self._lock:
+            bucket = self._buckets.get(key)
+            if bucket is None or current - bucket.started_at >= window_seconds:
+                bucket = _Bucket(started_at=current, count=1)
+                self._buckets[key] = bucket
+            else:
+                bucket.count += 1
 
-        remaining = max(limit - int(value), 0)
-        retry_after = max(int(ttl), 1)
+            elapsed = current - bucket.started_at
+            retry_after = max(int(window_seconds - elapsed), 1)
+            remaining = max(limit - bucket.count, 0)
+            allowed = bucket.count <= limit
+
+            # Opportunistic cleanup prevents unbounded growth without a worker.
+            if len(self._buckets) > 10000:
+                cutoff = current - max(window_seconds * 2, 120)
+                self._buckets = {
+                    item_key: item
+                    for item_key, item in self._buckets.items()
+                    if item.started_at >= cutoff
+                }
+
         return RateLimitResult(
-            allowed=int(value) <= limit,
+            allowed=allowed,
             remaining=remaining,
             retry_after=retry_after,
         )
@@ -93,7 +96,8 @@ class RateLimiter:
         return result
 
     async def close(self) -> None:
-        await self._redis.aclose()
+        async with self._lock:
+            self._buckets.clear()
 
 
 rate_limiter = RateLimiter()
