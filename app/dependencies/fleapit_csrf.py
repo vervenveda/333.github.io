@@ -7,7 +7,8 @@ is unavailable or its exported dependency cannot be resolved.
 from __future__ import annotations
 
 from importlib import import_module
-from typing import Any, Awaitable, Callable
+from inspect import isawaitable
+from typing import Any, Callable
 
 from fastapi import HTTPException, Request, status
 
@@ -46,5 +47,5 @@ async def require_fleapit_csrf(request: Request) -> None:
         )
 
     result = verifier(request)
-    if isinstance(result, Awaitable):
+    if isawaitable(result):
         await result
