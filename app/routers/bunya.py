@@ -12,9 +12,11 @@ from typing import Any
 import httpx
 from fastapi import APIRouter, Depends, Request, status
 
-from app.core.exceptions import ServiceError, ValidationServiceError
-from app.dependencies.authentication import get_current_user
-from app.models.user import User
+from app.core.exceptions import PermissionDeniedError, ServiceError, ValidationServiceError
+from app.dependencies.sovereign_authentication import (
+    SovereignMember,
+    get_current_sovereign_member,
+)
 
 router = APIRouter()
 
@@ -53,6 +55,7 @@ async def bunya_status() -> dict[str, Any]:
         "role": "infrastructure-root",
         "network": "333 Network",
         "ohmic_cloud_gateway_configured": _gateway_ready(),
+        "member_authority": "OHMIC Foundry",
         "applications": [
             {"id": "bazaar-art", "label": "Bazaar Art", "role": "social-media-feed"},
             {"id": "even-mail", "label": "E=mail", "role": "mail"},
@@ -75,6 +78,7 @@ async def service_registry() -> dict[str, Any]:
     return {
         "root": "Bunya",
         "network": "333 Network",
+        "member_authority": "OHMIC Foundry",
         "services": [
             {
                 "id": "bazaar-art",
@@ -125,13 +129,18 @@ async def service_registry() -> dict[str, Any]:
 @router.post("/cloud")
 async def sync_ohmic_cloud(
     request: Request,
-    user: User = Depends(get_current_user),
+    member: SovereignMember = Depends(get_current_sovereign_member),
 ) -> dict[str, Any]:
-    """Pass an authenticated member project to the trusted OHMIC/Next.js seam."""
+    """Pass a sovereignly authenticated member project to OHMIC Foundry."""
     if not _gateway_ready():
         raise GatewayUnavailableError(
             "The OHMIC member-cloud gateway is not configured.",
             details={"state": "gateway_unavailable"},
+        )
+
+    if "ohmic:cloud:sync" not in member.permissions:
+        raise PermissionDeniedError(
+            "This member is not permitted to sync OHMIC cloud projects."
         )
 
     content_length = request.headers.get("content-length")
@@ -161,7 +170,7 @@ async def sync_ohmic_cloud(
         "Authorization": f"Bearer {_gateway_token()}",
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "X-333-User-Id": str(user.id),
+        "X-333-User-Id": str(member.id),
     }
     if request_id:
         headers["X-Request-Id"] = str(request_id)[:128]
@@ -196,5 +205,6 @@ async def sync_ohmic_cloud(
         "storedAt": body.get("storedAt"),
         "gateway": "Bunya",
         "cloud": "OHMIC Foundry",
+        "memberAuthority": "OHMIC Foundry",
         "requestId": request_id or None,
     }
