@@ -1129,6 +1129,156 @@ button{overflow-wrap:anywhere}
   .post-text,.post-location{padding-inline:10px}
   .profile-header,.group-card,.event-card,.section-card{padding:12px}
 }
+  /* ============================================================
+   BAZAAR ART LIVE v1.4
+   LIVE FEED EXPERIENCE
+   ============================================================ */
+
+.live-feed-bar{
+  width:100%;
+  margin:0 0 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.live-feed-update{
+  width:min(100%,420px);
+  min-height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:8px 14px;
+  border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));
+  border-radius:7px;
+  color:var(--text);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb,var(--accent) 10%,var(--panel)),
+      var(--panel)
+    );
+  box-shadow:0 8px 24px rgba(0,0,0,.12);
+  font-size:.7rem;
+  font-weight:600;
+}
+
+.live-feed-update:hover{
+  border-color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 8%,var(--panel-2));
+}
+
+.live-feed-update .live-dot{
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:var(--success);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--success) 12%,transparent);
+}
+
+.feed-status-stack{
+  display:grid;
+  justify-items:center;
+  gap:4px;
+}
+
+.feed-status-detail{
+  color:var(--faint);
+  font-size:.58rem;
+  line-height:1.3;
+}
+
+.status-dot.live{
+  background:var(--success);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--success) 12%,transparent);
+}
+
+.status-dot.offline{
+  background:var(--warning);
+}
+
+.status-dot.connecting{
+  background:var(--accent);
+}
+
+.feed-load-more{
+  display:flex;
+  justify-content:center;
+  margin:18px 0 4px;
+}
+
+.feed-load-more .soft-btn{
+  min-width:180px;
+}
+
+.happening-row{
+  width:100%;
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  padding:9px 0;
+  border:0;
+  border-top:1px solid color-mix(in srgb,var(--line) 66%,transparent);
+  color:inherit;
+  background:transparent;
+  text-align:left;
+}
+
+.happening-row:first-of-type{
+  border-top:0;
+}
+
+.happening-pulse{
+  width:8px;
+  height:8px;
+  flex:0 0 8px;
+  margin-top:5px;
+  border-radius:50%;
+  background:var(--success);
+}
+
+.happening-copy{
+  min-width:0;
+  flex:1;
+}
+
+.happening-copy strong{
+  display:block;
+  overflow-wrap:anywhere;
+  font-size:.7rem;
+  line-height:1.35;
+}
+
+.happening-copy span{
+  display:block;
+  margin-top:2px;
+  color:var(--muted);
+  font-size:.61rem;
+  line-height:1.45;
+}
+
+.feed-count-note{
+  margin:8px 0 12px;
+  color:var(--faint);
+  font-size:.6rem;
+  text-align:center;
+}
+
+@media(max-width:680px){
+  .live-feed-update{
+    width:100%;
+  }
+
+  .feed-status-stack{
+    justify-items:start;
+  }
+
+  .feed-welcome .status-pill{
+    justify-self:center;
+  }
+}
 
 </style>
 </head>
@@ -2130,7 +2280,603 @@ function bind(){
   document.addEventListener("keydown",event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){event.preventDefault();matchMedia("(max-width: 680px)").matches?openSearchDialog():$("#globalSearch").focus()}const layer=$("#activeModalLayer");if(event.key==="Escape"&&layer){closeModal();return}if(event.key==="Tab"&&layer){const focusable=$$('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])',layer).filter(node=>!node.hidden&&node.offsetParent!==null);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}});
   $("#workspaceImportInput").addEventListener("change",event=>{const file=event.target.files[0];if(file)importWorkspaceFile(file);event.target.value=""});updateSearchClear();
 }
+/* ============================================================
+   BAZAAR ART LIVE v1.4
+   LIVE FEED CONTROLLER
+   ============================================================ */
 
+const FEED_BATCH_SIZE = 20;
+
+let feedVisibleCount = FEED_BATCH_SIZE;
+let pendingFeedUpdates = 0;
+let lastFeedRefreshAt = now();
+
+function latestPostTimestamp(source = state){
+  return Math.max(
+    0,
+    ...(Array.isArray(source.posts)
+      ? source.posts.map(post => Number(post.createdAt) || 0)
+      : [])
+  );
+}
+
+function liveConnectionState(){
+  if(!navigator.onLine){
+    return {
+      key:'offline',
+      label:'Offline · local cache',
+      detail:'Changes remain available on this device.'
+    };
+  }
+
+  if(state.settings.backendStatus === 'online'){
+    return {
+      key:'live',
+      label:'Live',
+      detail:`Updated ${formatTime(lastFeedRefreshAt)}`
+    };
+  }
+
+  if(state.settings.backendStatus === 'connecting'){
+    return {
+      key:'connecting',
+      label:'Connecting…',
+      detail:'Local workspace remains available.'
+    };
+  }
+
+  return {
+    key:'connecting',
+    label:'333 feed ready',
+    detail:'Local cache active while service connection initializes.'
+  };
+}
+
+function currentFeedPosts(){
+  const u = hasMember() ? me() : null;
+  let posts = visiblePosts();
+
+  if(state.feedFilter === 'following' && u){
+    posts = posts.filter(
+      post =>
+        post.authorId === u.id ||
+        u.following.includes(post.authorId)
+    );
+  }
+
+  if(state.feedFilter === 'art'){
+    posts = posts.filter(post =>
+      post.tags?.some(tag =>
+        /art|studio|color|photo|photography|painting|drawing|poetry|motion|music|design|sculpture/i.test(tag)
+      )
+    );
+  }
+
+  return posts;
+}
+
+function renderLiveFeedNotice(){
+  if(!pendingFeedUpdates) return '';
+
+  const label =
+    pendingFeedUpdates === 1
+      ? '1 new post'
+      : `${pendingFeedUpdates} new posts`;
+
+  return `
+    <div class="live-feed-bar">
+      <button
+        type="button"
+        class="live-feed-update"
+        data-action="show-new-posts"
+      >
+        <span class="live-dot" aria-hidden="true"></span>
+        ${label} · View updates
+      </button>
+    </div>
+  `;
+}
+
+/* Override only the home-feed presentation.
+   All existing post/profile/group/event logic stays intact. */
+renderHome = function(){
+  const u = me();
+  const stories = state.stories.filter(
+    story => story.expiresAt > now() && !isBlocked(story.userId)
+  );
+
+  const allPosts = currentFeedPosts();
+  const displayedPosts = allPosts.slice(0, feedVisibleCount);
+  const connection = liveConnectionState();
+
+  return `
+    <section class="feed-welcome">
+      <div>
+        <span class="feed-eyebrow">
+          Live · Art · Ideas · Events · Community
+        </span>
+
+        <h1>Bazaar Art Live</h1>
+
+        <p>
+          Creative life across the 333 Network. Share work,
+          discover artists, join conversations, gather around
+          events, and follow the people and ideas that matter to you.
+        </p>
+      </div>
+
+      <div class="feed-status-stack">
+        <span class="status-pill">
+          <span
+            class="status-dot ${connection.key}"
+            aria-hidden="true"
+          ></span>
+          ${esc(connection.label)}
+        </span>
+
+        <span class="feed-status-detail">
+          ${esc(connection.detail)}
+        </span>
+      </div>
+    </section>
+
+    ${renderLiveFeedNotice()}
+
+    <div class="stories">
+      <button
+        type="button"
+        class="story add-story"
+        data-action="create-story"
+      >
+        <span class="story-ring">＋</span>
+        <span>Your story</span>
+      </button>
+
+      ${stories.map(story => {
+        const author = userById(story.userId);
+
+        return `
+          <button
+            type="button"
+            class="story"
+            data-action="open-story"
+            data-id="${esc(story.id)}"
+          >
+            <span class="story-ring ${
+              story.viewedBy?.includes(u.id) ? 'viewed' : ''
+            }">
+              ${avatarHTML(author)}
+            </span>
+
+            <span>
+              ${esc(author.name.split(' ')[0])}
+            </span>
+          </button>
+        `;
+      }).join('')}
+    </div>
+
+    <section class="composer-card">
+      <div class="composer-row">
+        ${hasMember()
+          ? avatarHTML(u)
+          : '<span class="avatar">✨</span>'
+        }
+
+        <button
+          class="composer-launch"
+          data-action="create-post"
+        >
+          Share artwork, an idea, an event, or an announcement…
+        </button>
+      </div>
+
+      <div class="composer-tools">
+        <button
+          class="tool-btn"
+          data-action="create-post"
+          data-kind="post"
+        >
+          ▧ Photo / Post
+        </button>
+
+        <button
+          class="tool-btn"
+          data-action="create-post"
+          data-kind="reel"
+        >
+          ▶ Reel
+        </button>
+
+        <button
+          class="tool-btn"
+          data-action="create-event"
+        >
+          □ Event
+        </button>
+
+        <button
+          class="tool-btn"
+          data-action="create-story"
+        >
+          ◉ Story
+        </button>
+      </div>
+    </section>
+
+    <div class="feed-filter">
+      ${[
+        ['all','Community'],
+        ['following','Following'],
+        ['art','Art & Ideas']
+      ].map(([key,label]) => `
+        <button
+          type="button"
+          class="filter-chip ${
+            state.feedFilter === key ? 'active' : ''
+          }"
+          data-action="feed-filter"
+          data-filter="${key}"
+        >
+          ${label}
+        </button>
+      `).join('')}
+    </div>
+
+    ${
+      allPosts.length
+        ? `<div class="feed-count-note">
+             Showing ${Math.min(displayedPosts.length, allPosts.length)}
+             of ${allPosts.length} visible posts
+           </div>`
+        : ''
+    }
+
+    <div id="feedList">
+      ${
+        displayedPosts.length
+          ? displayedPosts.map(renderPostCard).join('')
+          : `<div class="empty">
+               Your feed is quiet. Follow artists, join groups,
+               or create the first post.
+             </div>`
+      }
+    </div>
+
+    ${
+      displayedPosts.length < allPosts.length
+        ? `<div class="feed-load-more">
+             <button
+               type="button"
+               class="soft-btn"
+               data-action="load-more-feed"
+             >
+               Show more posts
+             </button>
+           </div>`
+        : ''
+    }
+  `;
+};
+
+
+/* Preserve every existing action and add only the new live-feed actions. */
+const bazaarLegacyHandleAction = handleAction;
+
+handleAction = function(action, element){
+
+  if(action === 'show-new-posts'){
+    pendingFeedUpdates = 0;
+    feedVisibleCount = FEED_BATCH_SIZE;
+    lastFeedRefreshAt = now();
+
+    renderView();
+    renderRightRail();
+
+    window.scrollTo({
+      top:0,
+      behavior:matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches ? 'auto' : 'smooth'
+    });
+
+    return;
+  }
+
+  if(action === 'load-more-feed'){
+    feedVisibleCount += FEED_BATCH_SIZE;
+    renderView();
+    return;
+  }
+
+  if(action === 'feed-filter'){
+    feedVisibleCount = FEED_BATCH_SIZE;
+  }
+
+  bazaarLegacyHandleAction(action, element);
+};
+
+
+/* Upgrade the contextual rail with live community activity. */
+renderRightRail = function(){
+  const rail = $('#rightRail');
+  const tags = {};
+
+  const posts = visiblePosts();
+
+  posts.forEach(post =>
+    (post.tags || []).forEach(tag => {
+      tags[tag] = (tags[tag] || 0) + 1;
+    })
+  );
+
+  const trends = Object.entries(tags)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0,5);
+
+  const suggestions = visibleUsers()
+    .filter(user => !me().following.includes(user.id))
+    .slice(0,4);
+
+  const soon = visibleEvents()
+    .filter(event => event.startAt > now())
+    .sort((a,b) => a.startAt - b.startAt)
+    .slice(0,3);
+
+  const recentPosts = posts
+    .filter(post => now() - post.createdAt < 90 * 60 * 1000)
+    .slice(0,3);
+
+  const nearEvents = soon.filter(
+    event => event.startAt - now() < 24 * 60 * 60 * 1000
+  );
+
+  const connection = liveConnectionState();
+
+  const happening = [
+    ...recentPosts.map(post => ({
+      type:'post',
+      id:post.id,
+      title:`${userById(post.authorId).name} shared new work`,
+      detail:formatTime(post.createdAt)
+    })),
+
+    ...nearEvents.map(event => ({
+      type:'event',
+      id:event.id,
+      title:event.title,
+      detail:`Begins ${formatTime(event.startAt)}`
+    }))
+  ].slice(0,4);
+
+  rail.innerHTML = `
+    <section class="rail-card network-card">
+      <span class="section-kicker">333 Network</span>
+      <h3>Bazaar Art Live</h3>
+
+      <div class="rail-sub">
+        Community art, conversation, events, and creative discovery
+        across the 333 Network.
+      </div>
+
+      <div class="status-pill">
+        <span
+          class="status-dot ${connection.key}"
+          aria-hidden="true"
+        ></span>
+        ${esc(connection.label)}
+      </div>
+
+      <div class="card-actions">
+        <a class="soft-btn"
+           href="./HOLLO_333_direct_connect_index.html">
+          HOLLO
+        </a>
+
+        <a class="soft-btn"
+           href="./KANSEE_333_meeting_rooms_index.html">
+          KANSEE
+        </a>
+
+        <a class="soft-btn"
+           href="./EVen_mail_index.html">
+          E=Ven Mail
+        </a>
+      </div>
+    </section>
+
+    <section class="rail-card">
+      <span class="section-kicker">Live activity</span>
+      <h3>Happening Now</h3>
+
+      ${
+        happening.length
+          ? happening.map(item => `
+              <button
+                type="button"
+                class="happening-row"
+                data-action="${
+                  item.type === 'event'
+                    ? 'open-event'
+                    : 'comments'
+                }"
+                data-id="${esc(item.id)}"
+              >
+                <span
+                  class="happening-pulse"
+                  aria-hidden="true"
+                ></span>
+
+                <span class="happening-copy">
+                  <strong>${esc(item.title)}</strong>
+                  <span>${esc(item.detail)}</span>
+                </span>
+              </button>
+            `).join('')
+          : `<div class="small muted">
+               New creative activity will appear here as it happens.
+             </div>`
+      }
+    </section>
+
+    <section class="rail-card">
+      <h3>Trending</h3>
+
+      ${
+        trends.length
+          ? trends.map(([tag,count]) => `
+              <button
+                class="trend-row"
+                data-action="search-tag"
+                data-tag="${esc(tag)}"
+                style="
+                  width:100%;
+                  border:0;
+                  background:transparent;
+                  color:inherit;
+                  text-align:left
+                "
+              >
+                <div class="grow">
+                  <strong>#${esc(tag)}</strong>
+                  <div class="small muted">
+                    ${count} ${count === 1 ? 'post' : 'posts'}
+                  </div>
+                </div>
+                <span>›</span>
+              </button>
+            `).join('')
+          : `<div class="small muted">
+               Trends will grow with the feed.
+             </div>`
+      }
+    </section>
+
+    <section class="rail-card">
+      <h3>Artists to discover</h3>
+
+      ${
+        suggestions.length
+          ? suggestions.map(renderPersonCard).join('')
+          : `<div class="small muted">
+               You have discovered everyone currently visible.
+             </div>`
+      }
+    </section>
+
+    <section class="rail-card">
+      <h3>Coming up</h3>
+
+      ${
+        soon.length
+          ? soon.map(event => `
+              <button
+                class="event-mini"
+                data-action="open-event"
+                data-id="${esc(event.id)}"
+                style="
+                  width:100%;
+                  border:0;
+                  background:transparent;
+                  color:inherit;
+                  text-align:left
+                "
+              >
+                <div class="grow">
+                  <strong>${esc(event.title)}</strong>
+                  <div class="small muted">
+                    ${formatDate(event.startAt)}
+                  </div>
+                </div>
+              </button>
+            `).join('')
+          : `<div class="small muted">
+               No upcoming events.
+             </div>`
+      }
+    </section>
+  `;
+
+  hydrateAvatars(rail);
+};
+
+
+/* Detect new posts arriving from another active Bazaar tab. */
+window.addEventListener('storage', event => {
+
+  if(event.key !== STATE_KEY || !event.newValue) return;
+
+  try{
+    const incoming = normalizeState(
+      JSON.parse(event.newValue)
+    );
+
+    const latestCurrent = latestPostTimestamp(state);
+
+    const freshPosts = incoming.posts.filter(post =>
+      Number(post.createdAt) > latestCurrent
+    );
+
+    if(freshPosts.length){
+      pendingFeedUpdates += freshPosts.length;
+      lastFeedRefreshAt = now();
+    }
+
+  }catch{}
+});
+
+
+/* Keep network state visually accurate. */
+window.addEventListener('online', () => {
+  lastFeedRefreshAt = now();
+
+  if(state.activeView === 'home'){
+    renderView();
+  }
+
+  renderRightRail();
+  toast('Bazaar Art is back online.','success');
+});
+
+
+window.addEventListener('offline', () => {
+
+  if(state.activeView === 'home'){
+    renderView();
+  }
+
+  renderRightRail();
+  toast(
+    'Bazaar Art is offline. Your local workspace remains available.'
+  );
+});
+
+
+/* Refresh freshness indicators whenever the member returns. */
+document.addEventListener('visibilitychange', () => {
+
+  if(document.visibilityState !== 'visible') return;
+
+  lastFeedRefreshAt = now();
+
+  if(state.activeView === 'home'){
+    renderView();
+    renderRightRail();
+  }
+});
+
+
+/* Relative timestamps should continue to age naturally. */
+setInterval(() => {
+
+  if(document.visibilityState !== 'visible') return;
+
+  if(state.activeView === 'home'){
+    renderView();
+    renderRightRail();
+  }
+
+}, 60000);
 window.addEventListener("storage",event=>{
   if(event.key===STATE_KEY&&event.newValue){try{state=normalizeState(JSON.parse(event.newValue));applySettings();updateProfileChip();updateBadges();renderView();renderRightRail();toast("Bazaar Art refreshed changes from another tab.","success")}catch{}return}
   if(event.key===HOLLO_STORAGE_KEY||event.key===IDENTITY_HANDOFF_KEY){if(importHolloProfile({silent:true})){updateProfileChip();updateBadges();renderView();renderRightRail();toast("Bazaar Art refreshed the shared HOLLO profile.","success")}}
