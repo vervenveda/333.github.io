@@ -1,0 +1,123 @@
+name: Beta index coverage
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: beta-index-coverage-main
+  cancel-in-progress: true
+
+jobs:
+  ensure-beta-indexes:
+    if: ${{ !contains(github.event.head_commit.message || '', '[skip beta-rollout]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Beta Program doorway to visible index pages
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          TAG = '<script src="/assets/vnv-beta-link.js" defer></script>'
+          EXCLUDED_PARTS = {
+              '.git', '.github', 'node_modules', 'vendor',
+              'archive', 'archives', 'backup', 'backups',
+              'deprecated', 'private', 'admin', 'beta'
+          }
+
+          changed = []
+          already = []
+          skipped = []
+
+          def is_index_surface(path: Path) -> bool:
+              return bool(re.search(r'in+dex\.html$', path.name.lower()))
+
+          for path in sorted(Path('.').rglob('*.html')):
+              if not is_index_surface(path):
+                  continue
+              lowered_parts = {part.lower() for part in path.parts}
+              if lowered_parts & EXCLUDED_PARTS:
+                  skipped.append((str(path), 'excluded-path'))
+                  continue
+
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  skipped.append((str(path), 'non-utf8'))
+                  continue
+
+              if 'vnv-beta-link.js' in text:
+                  already.append(str(path))
+                  continue
+
+              csp = re.search(
+                  r'<meta[^>]+http-equiv=["\']Content-Security-Policy["\'][^>]+content=["\']([^"\']*)',
+                  text,
+                  flags=re.I,
+              )
+              if csp and re.search(r"(?:^|;)\s*script-src\s+'none'\s*(?:;|$)", csp.group(1), flags=re.I):
+                  skipped.append((str(path), 'csp-script-none'))
+                  continue
+
+              body = list(re.finditer(r'</body\s*>', text, flags=re.I))
+              html = list(re.finditer(r'</html\s*>', text, flags=re.I))
+              if body:
+                  pos = body[-1].start()
+                  updated = text[:pos].rstrip() + '\n' + TAG + '\n' + text[pos:]
+              elif html:
+                  pos = html[-1].start()
+                  updated = text[:pos].rstrip() + '\n' + TAG + '\n' + text[pos:]
+              else:
+                  updated = text.rstrip() + '\n' + TAG + '\n'
+
+              path.write_text(updated, encoding='utf-8')
+              changed.append(str(path))
+
+          report = Path('BETA_INDEX_COVERAGE.md')
+          lines = [
+              '# Beta Index Coverage',
+              '',
+              'Generated automatically by `.github/workflows/beta-index-coverage.yml`.',
+              '',
+              f'- Added in this run: **{len(changed)}**',
+              f'- Already covered: **{len(already)}**',
+              f'- Skipped for an explicit reason: **{len(skipped)}**',
+              '',
+              '## Coverage rule',
+              '',
+              'Visible public HTML surfaces whose filenames end in `index.html` (including `_index.html` and common `inndex.html` typos) receive the canonical `/assets/vnv-beta-link.js` doorway unless they are archived, private, administrative, the Beta destination itself, or explicitly forbid all scripts.',
+              '',
+              'The Beta widget sends only the public hostname and pathname as source metadata. It does not send learner IDs, family IDs, grades, answers, form values, query strings, hashes, localStorage contents, report text, or credentials.',
+          ]
+          if changed:
+              lines += ['', '## Added in this run', ''] + [f'- `{p}`' for p in changed]
+          if skipped:
+              lines += ['', '## Skipped', ''] + [f'- `{p}` — {why}' for p, why in skipped]
+          report.write_text('\n'.join(lines) + '\n', encoding='utf-8')
+
+          print(f'Beta coverage: {len(changed)} added, {len(already)} already covered, {len(skipped)} skipped.')
+          PY
+
+      - name: Commit generated coverage
+        shell: bash
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No Beta coverage changes required."
+            exit 0
+          fi
+          git config user.name "Verve N Veda Beta Coverage"
+          git config user.email "actions@users.noreply.github.com"
+          git add --all
+          git commit -m "chore(beta): ensure visible index coverage [skip beta-rollout]"
+          git push
