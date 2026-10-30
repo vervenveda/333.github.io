@@ -1280,6 +1280,16 @@ button{overflow-wrap:anywhere}
   }
 }
 
+
+/* Bazaar typography authority — Live feed and Explore, 2026-10-30. */
+:root{--font-display:"Cinzel",Georgia,serif;--font-brand:"Brandon Grotesque","Nunito","Avenir Next",Arial,sans-serif;--font-ui:"Brandon Grotesque","Nunito","Avenir Next",Arial,sans-serif}
+body,button,input,textarea,select{font-family:var(--font-ui);font-weight:400}
+h1,h2,h3,h4,h5,h6,.section-head h2,.section-kicker{font-family:var(--font-display);font-weight:444}
+.app-shell :is(strong,b,.brand-copy strong,.nav-btn,.post-author,.post-action,.primary-btn,.soft-btn,.section-kicker,.discover-tile,.discover-tile strong,.card-title,.profile-chip strong){font-weight:400}
+.app-shell :is(h1,h2,h3,h4,h5,h6){font-weight:444}
+:root[data-theme="girls"] .app-shell{color:var(--text)}
+:root[data-theme="girls"] .app-shell :is(.section-kicker,.section-head,.section-head h2,.nav-btn,.nav-label,.post-author,.post-action,.discover-tile,.discover-tile strong,.card-title,.profile-chip,.soft-btn){color:var(--text)}
+:root[data-theme="girls"] .app-shell :is(.muted,.post-meta,.section-subtitle,.discover-tile p,.section-head p){color:var(--muted)}
 </style>
 <style id="vnv-bazaar-live-chrome">
 .vnv-live-ticker{height:33px;display:flex;align-items:center;background:#171d1c;color:#f4ead8;border-bottom:1px solid #796d52;position:relative;z-index:80;font:400 11px/1.3 Nunito,system-ui,sans-serif}
