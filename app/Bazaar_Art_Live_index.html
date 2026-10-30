@@ -1417,6 +1417,25 @@ html,body{width:100%;min-width:0}
 .feed-welcome > div,.feed-welcome :is(.feed-eyebrow,h1,p,.feed-status-detail){text-align:center}
 .feed-welcome .feed-status-stack{margin-inline:auto;justify-content:center}
 @media(max-width:680px){.feed-welcome{align-items:center;text-align:center}}
+
+/* Bazaar Live cohesive three-column layout: geometry only. */
+@media(min-width:1181px){
+  .app-shell,.app-shell[data-rail="compact"]{
+    width:min(100%,1320px);
+    max-width:1320px;
+    margin-inline:auto;
+    column-gap:0;
+  }
+  .app-shell{grid-template-columns:minmax(205px,230px) minmax(0,1fr) minmax(305px,335px)}
+  .app-shell[data-rail="compact"]{grid-template-columns:78px minmax(0,1fr) minmax(305px,335px)}
+  .main-column{min-width:0}
+  .view-root{max-width:780px;padding-inline:clamp(12px,1.5vw,22px)}
+  .left-rail{padding-inline:14px}
+  .right-rail{padding-inline:12px}
+}
+@media(min-width:681px) and (max-width:1180px){
+  .view-root{max-width:780px}
+}
 </style>
 </head>
 <body>
