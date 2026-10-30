@@ -1305,10 +1305,13 @@ button{overflow-wrap:anywhere}
 
 /* Bazaar Art Live ecosystem: theme and contrast controls, independent of social data. */
 .vnv-live-ticker-track{animation-duration:23s!important}
-#vnv-global-support{width:min(25vw,245px)!important;max-width:calc(100vw - 24px)!important;margin:12px auto 16px!important;padding:9px!important;font-size:10px!important;box-shadow:none!important}
-#vnv-global-support h2,#vnv-global-support h3{font-size:12px!important;margin:3px 0!important}
-#vnv-global-support p{font-size:10px!important;line-height:1.35!important;margin:4px 0!important}
-#vnv-global-support a{font-size:10px!important}
+/* A low-profile, wide support invitation rather than a narrow fundraising tower. */
+#vnv-global-support{width:calc(100% - 48px)!important;max-width:1050px!important;margin:22px auto 24px!important;padding:16px 26px!important;border-radius:7px!important;box-shadow:none!important;border:1px solid rgba(130,125,111,.28)!important;background:linear-gradient(110deg,#f9f7f1,#f0eee8)!important;text-align:center!important}
+#vnv-global-support .vnv-support-kicker{font-size:10px!important;letter-spacing:.1em!important;margin:0 0 4px!important}
+#vnv-global-support h2,#vnv-global-support h3{font-size:17px!important;font-weight:400!important;line-height:1.25!important;margin:2px auto 5px!important}
+#vnv-global-support p{font-size:12px!important;line-height:1.5!important;margin:5px auto!important;max-width:850px!important}
+#vnv-global-support .vnv-support-button{font-size:10px!important;min-height:32px!important;margin-top:7px!important;padding:7px 14px!important;font-weight:400!important}
+#vnv-global-support small{font-size:10px!important;line-height:1.45!important;max-width:900px!important;margin:8px auto 0!important;color:#58645e!important}
 .vnv-live-theme-controls{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;padding:5px 9px;background:var(--bg-2);border-bottom:1px solid var(--line);color:var(--text);font:400 11px/1.3 Nunito,system-ui,sans-serif}
 .vnv-live-theme-controls span{color:var(--muted);margin-right:5px}
 .vnv-live-theme-controls button{border:1px solid var(--line);background:var(--panel-2);color:var(--text);border-radius:7px;padding:5px 11px;min-height:30px;cursor:pointer}
@@ -1317,7 +1320,7 @@ button{overflow-wrap:anywhere}
 :root[data-theme="girls"]{--bg:#34152f;--bg-2:#4b2044;--panel:#59274e;--panel-2:#683258;--panel-3:#7b3d68;--text:#fafbff;--muted:#d9dce7;--faint:#bdc4d4;--line:#a16c94;--accent:#ffe08c;--accent-2:#a6efdd;--warm:#ffc0a1;--violet:#e0bdff;--danger:#ffb0b9;--success:#a4ebc6;--warning:#ffdd92}
 :root[data-theme="boys"] .app-shell,:root[data-theme="girls"] .app-shell{color:var(--text)}
 :root[data-theme="boys"] .nav-btn,:root[data-theme="girls"] .nav-btn,:root[data-theme="boys"] .post-action,:root[data-theme="girls"] .post-action{color:var(--text)}
-@media(max-width:600px){#vnv-global-support{width:min(65vw,245px)!important}}
+@media(max-width:600px){#vnv-global-support{width:calc(100% - 24px)!important;padding:14px 12px!important;margin:16px auto!important}#vnv-global-support h2{font-size:15px!important}#vnv-global-support p{font-size:11px!important}}
 
 /* Bazaar Art Live responsive social feed: final layout authority. */
 html,body{width:100%;min-width:0}
