@@ -1,0 +1,27 @@
+{
+  "schema": "vnv-toolbar-normalization-v1",
+  "counts": {
+    "html": 12,
+    "eligible": 11,
+    "already": 0,
+    "changed": 11,
+    "protected": 0,
+    "internal": 0,
+    "fragments": 1,
+    "legacyRemoved": 2,
+    "duplicatesCollapsed": 0
+  },
+  "changed": [
+    "404.html",
+    "app/Bazaar_Art_Live_index.html",
+    "app/Bunya_digital_infrastructure_index.html",
+    "app/EVen_mail_index.html",
+    "app/FleaPit\u2122 _media_hub_index.html",
+    "app/FleaPit\u2122_media_gate_Index.html",
+    "app/HOLLO_333_direct_connect_index.html",
+    "app/KANSEE_333_meeting_rooms_index.html",
+    "app/SIte_builder_index.html",
+    "index.html",
+    "offline.html"
+  ]
+}

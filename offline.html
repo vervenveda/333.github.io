@@ -38,5 +38,6 @@
   <script>
     (()=>{"use strict";const status=document.getElementById("connectionStatus"),text=document.getElementById("connectionStatusText"),retry=document.getElementById("retryButton");function update(){const online=navigator.onLine;status.classList.toggle("online",online);text.textContent=online?"Connection detected":"Offline mode";retry.textContent=online?"Return Online":"Try Again"}retry.addEventListener("click",()=>{retry.disabled=true;retry.textContent="Checking…";setTimeout(()=>window.location.replace("./"),180)});window.addEventListener("online",update);window.addEventListener("offline",update);update()})();
   </script>
+<script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
