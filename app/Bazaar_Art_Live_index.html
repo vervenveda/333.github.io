@@ -1502,6 +1502,24 @@ button :is(strong,b),[role="button"] :is(strong,b),.vnv-live-dock :is(strong,b){
 .vnv-live-dock :is(a,button,summary) :is(b,strong){font-weight:400!important}
 .modal :is(.primary-btn,#saveProfileBtn):focus-visible,
 .app-shell button:focus-visible{outline:2px solid var(--accent)!important;outline-offset:2px}
+
+/* Third pass: theme, modal and 255px responsive control audit. */
+:root[data-theme="light"] .app-shell :is(.soft-btn,.icon-btn,.nav-btn,.post-action,.reaction-btn,.profile-tab:not(.active),.filter-chip:not(.active)){color:var(--text)!important}
+:root[data-theme="boys"] .app-shell :is(.soft-btn,.icon-btn,.nav-btn,.post-action,.reaction-btn,.profile-tab:not(.active),.filter-chip:not(.active)),
+:root[data-theme="girls"] .app-shell :is(.soft-btn,.icon-btn,.nav-btn,.post-action,.reaction-btn,.profile-tab:not(.active),.filter-chip:not(.active)){color:var(--text)!important}
+.modal .modal-foot :is(button,[role="button"]){min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal;font-weight:400!important}
+.modal .modal-foot .soft-btn{color:var(--text)!important;background:var(--panel-2)}
+.modal .modal-foot .primary-btn{color:#111426!important}
+.modal .modal-close{color:var(--text)!important}
+.vnv-live-dock>a,.vnv-live-dock>details,.vnv-live-dock>details>summary{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.vnv-live-dock :is(a,button,summary){font:400 11px/1.3 "Brandon Grotesque",Nunito,Arial,sans-serif!important;letter-spacing:0!important;text-transform:none!important}
+@media(max-width:420px){
+  .modal-layer{padding:7px}
+  .modal .modal-foot{gap:7px;padding:10px}
+  .modal .modal-foot :is(button,[role="button"]){min-height:38px;padding:8px}
+  .vnv-live-dock{width:min(310px,calc(100vw - 12px))!important;right:6px!important;gap:3px!important;padding:4px!important}
+  .vnv-live-dock :is(a,button,summary){font-size:clamp(9px,2.7vw,11px)!important;padding:5px 2px!important}
+}
 </style>
 </head>
 <body>
