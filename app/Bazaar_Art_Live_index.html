@@ -1307,6 +1307,16 @@ h1,h2,h3,h4,h5,h6,.section-head h2,.section-kicker{font-family:var(--font-displa
 .discover-card-actions button:hover,.discover-card-actions button:focus-visible{border-color:var(--accent);outline-color:var(--accent)}
 @media(max-width:520px){.discover-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.discover-copy{max-height:190px;padding:10px;font-size:12px}.discover-card-actions{gap:2px;padding:6px 3px}.discover-card-actions button{min-width:28px;padding:4px 5px}}
 @media(max-width:340px){.discover-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* Compact voluntary-support band: directly above the footer, not inside feed columns. */
+#vnv-global-support.bazaar-support-band{box-sizing:border-box!important;position:relative!important;display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;gap:9px 18px!important;width:calc(100% - 32px)!important;max-width:1160px!important;min-height:0!important;margin:16px auto 12px!important;padding:11px 17px!important;border:1px solid var(--line,rgba(130,125,111,.3))!important;border-radius:7px!important;background:var(--panel,#f6f2ea)!important;color:var(--text,#27302c)!important;box-shadow:none!important;text-align:left!important;font-family:"Brandon Grotesque","Nunito","Avenir Next",Arial,sans-serif!important}
+.bazaar-support-band-copy{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 12px;flex:1 1 360px;min-width:0}
+.bazaar-support-band-title{font:400 14px/1.4 Cinzel,Georgia,serif;color:inherit}
+.bazaar-support-band-detail{font:400 12px/1.5 "Brandon Grotesque","Nunito",Arial,sans-serif;color:inherit;opacity:.85}
+#vnv-global-support .bazaar-support-band-link{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-height:32px;padding:6px 12px;border:1px solid currentColor;border-radius:7px;color:inherit;background:transparent;text-decoration:none;font:400 11px/1.3 "Brandon Grotesque","Nunito",Arial,sans-serif}
+#vnv-global-support .bazaar-support-band-link:hover,#vnv-global-support .bazaar-support-band-link:focus-visible{outline:2px solid var(--accent,#bd9851);outline-offset:2px}
+.bazaar-support-band-note{font:400 10px/1.4 "Brandon Grotesque","Nunito",Arial,sans-serif;color:inherit;opacity:.7;flex:0 1 auto}
+@media(max-width:600px){#vnv-global-support.bazaar-support-band{width:calc(100% - 20px)!important;padding:12px!important;gap:9px!important;text-align:center!important}.bazaar-support-band-copy{justify-content:center;flex-basis:100%}.bazaar-support-band-note{flex-basis:100%;text-align:center}}
 </style>
 <style id="vnv-bazaar-live-chrome">
 .vnv-live-ticker{height:33px;display:flex;align-items:center;background:#171d1c;color:#f4ead8;border-bottom:1px solid #796d52;position:relative;z-index:80;font:400 11px/1.3 Nunito,system-ui,sans-serif}
@@ -1420,6 +1430,7 @@ html,body{width:100%;min-width:0}
 
   <aside class="right-rail" id="rightRail" aria-label="Feed context"></aside>
 </div>
+<section id="vnv-global-support" class="bazaar-support-band" aria-label="Voluntary support"><div class="bazaar-support-band-copy"><span class="bazaar-support-band-title">Support free creativity</span><span class="bazaar-support-band-detail">Everything here remains free. Optional contributions help maintain the creative ecosystem.</span></div><a class="bazaar-support-band-link" href="https://buy.stripe.com/aFa8wQ5xf9Scf65caT4AU0s" target="_blank" rel="noopener noreferrer">Contribute with Stripe ↗</a><span class="bazaar-support-band-note">Voluntary · No charitable or tax-deductible status represented</span></section>
 <footer class="site-footer">
   <strong>Bazaar Art Live · 333 Creative Community</strong><br>
   Verve N Veda · Khaemenes Academy · Jennifer Kay Pearl · All Rights Reserved 2026<br>
