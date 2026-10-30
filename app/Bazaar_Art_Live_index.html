@@ -1484,6 +1484,24 @@ button :is(strong,b),[role="button"] :is(strong,b),.vnv-live-dock :is(strong,b){
 }
 .app-shell :is(.primary-btn,.create-main,.profile-tab.active,.filter-chip.active){font-weight:400!important}
 #saveProfileBtn{font-weight:400!important;color:#111426!important}
+
+/* Second pass: contrast follows actual control surface, not merely theme name. */
+.app-shell :is(button,[role="button"],.nav-btn,.network-link,.profile-chip),
+.modal :is(button,[role="button"]),
+.vnv-live-dock :is(a,button,summary){
+  font-family:"Brandon Grotesque",Nunito,Arial,sans-serif!important;
+  font-weight:400!important;
+}
+.app-shell :is(button,[role="button"]) :is(b,strong),
+.modal button :is(b,strong){font-weight:400!important}
+.app-shell :is(.primary-btn,.create-main,.filter-chip.active,.profile-tab.active),
+.modal :is(.primary-btn,#saveProfileBtn){color:#111426!important}
+.app-shell :is(.nav-btn,.soft-btn,.icon-btn,.tool-btn,.post-action,.reaction-btn,.filter-chip:not(.active),.profile-tab:not(.active)),
+.modal :is(.soft-btn,.icon-btn,.modal-close){color:var(--text)!important}
+.vnv-live-dock :is(a,button,summary){color:#f6f0e5!important}
+.vnv-live-dock :is(a,button,summary) :is(b,strong){font-weight:400!important}
+.modal :is(.primary-btn,#saveProfileBtn):focus-visible,
+.app-shell button:focus-visible{outline:2px solid var(--accent)!important;outline-offset:2px}
 </style>
 </head>
 <body>
