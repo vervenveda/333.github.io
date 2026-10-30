@@ -1281,39 +1281,33 @@ button{overflow-wrap:anywhere}
 }
 
 </style>
-<style id="vnv-global-ecosystem-shell">
-.vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
-.vnv-global-strip a{color:inherit;text-decoration:none}.vnv-global-brand{display:flex;align-items:center;gap:8px;white-space:nowrap}.vnv-global-mark{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.38);border-radius:7px;font:500 10px Georgia,serif}.vnv-global-copy{display:grid}.vnv-global-copy strong{font:500 11px Georgia,serif;letter-spacing:.08em;text-transform:uppercase}.vnv-global-copy small{margin-top:1px;color:#bdb5a6;font-size:9px;letter-spacing:.06em;text-transform:uppercase}
-.vnv-global-links{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;overflow:hidden;white-space:nowrap}.vnv-global-links a{color:#d8d1c5;font-size:10px;letter-spacing:.04em}.vnv-global-links a:hover,.vnv-global-links a:focus-visible{color:#fff}
-.vnv-global-menu{position:relative;justify-self:end}.vnv-global-menu summary{list-style:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.28);border-radius:7px;cursor:pointer}.vnv-global-menu summary::-webkit-details-marker{display:none}.vnv-global-lines,.vnv-global-lines:before,.vnv-global-lines:after{content:"";display:block;width:14px;height:1.5px;background:#eee8dc}.vnv-global-lines{position:relative}.vnv-global-lines:before,.vnv-global-lines:after{position:absolute;left:0}.vnv-global-lines:before{top:-5px}.vnv-global-lines:after{top:5px}
-.vnv-global-panel{position:absolute;right:0;top:36px;width:min(300px,calc(100vw - 20px));padding:10px;border:1px solid rgba(238,232,220,.22);border-radius:7px;background:#17201f;box-shadow:0 18px 40px rgba(0,0,0,.28)}.vnv-global-panel p{margin:3px 5px 8px;color:#aaa294;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.vnv-global-panel a{display:block;padding:9px 10px;border-radius:5px;color:#eee8dc;font-size:11px}.vnv-global-panel a:hover,.vnv-global-panel a:focus-visible{background:#22302e}
-@media(max-width:760px){.vnv-global-strip{grid-template-columns:minmax(0,1fr) auto}.vnv-global-links{display:none}.vnv-global-copy small{display:none}}@media print{.vnv-global-strip{display:none!important}}
+<style id="vnv-bazaar-live-chrome">
+.vnv-live-ticker{height:33px;display:flex;align-items:center;background:#171d1c;color:#f4ead8;border-bottom:1px solid #796d52;position:relative;z-index:80;font:400 11px/1.3 Nunito,system-ui,sans-serif}
+.vnv-live-ticker-viewport{flex:1;min-width:0;overflow:hidden;white-space:nowrap}
+.vnv-live-ticker-track{display:flex;width:max-content;animation:vnv-live-scroll 44s linear infinite}
+.vnv-live-ticker:hover .vnv-live-ticker-track,.vnv-live-ticker:focus-within .vnv-live-ticker-track,.vnv-live-ticker[data-paused="true"] .vnv-live-ticker-track{animation-play-state:paused}
+.vnv-live-ticker-set{display:flex;align-items:center;gap:24px;padding:0 20px;flex:none}
+.vnv-live-ticker a{color:#f4ead8;text-decoration:none}.vnv-live-ticker a:hover,.vnv-live-ticker a:focus-visible{color:#ffdf7d;text-decoration:underline}
+.vnv-live-ticker-label{color:#e4bc58;letter-spacing:.09em;text-transform:uppercase;font-size:10px}
+.vnv-live-ticker-control{flex:none;min-width:43px;height:33px;border:0;border-left:1px solid #796d52;border-radius:0;background:#202b29;color:#fff;cursor:pointer}
+@keyframes vnv-live-scroll{to{transform:translateX(-50%)}}
+.vnv-live-header{height:56px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 18px;background:#19211f;color:#f4ead8;border-bottom:1px solid #786c54;position:relative;z-index:79;font:400 12px/1.3 Nunito,system-ui,sans-serif}
+.vnv-live-brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;min-width:0}.vnv-live-mark{display:grid;place-items:center;width:35px;height:35px;border:1px solid #e4bc58;border-radius:7px;font:400 18px/1 Cinzel,Georgia,serif;color:#e4bc58}.vnv-live-brand-copy{display:grid;gap:2px}.vnv-live-brand-copy strong{font:400 15px/1.1 Cinzel,Georgia,serif}.vnv-live-brand-copy small{color:#cfc7b9;font-size:10px}
+.vnv-live-header-links{display:flex;gap:15px;align-items:center}.vnv-live-header-links a{color:#f4ead8;text-decoration:none}.vnv-live-header-links a:hover{text-decoration:underline}
+.vnv-live-dock{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));z-index:1800;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:5px;max-width:min(94vw,470px);padding:7px;border:1px solid #6e786d;border-radius:7px;background:#252d29;box-shadow:0 8px 24px #0007}
+.vnv-live-dock a,.vnv-live-dock button{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:7px 9px;background:#34413b;border:1px solid #66776d;border-radius:7px;color:#f6f0e5;font:400 11px/1.2 Nunito,system-ui,sans-serif;text-decoration:none;white-space:nowrap;cursor:pointer}
+.vnv-live-dock a:hover,.vnv-live-dock button:hover,.vnv-live-dock a:focus-visible,.vnv-live-dock button:focus-visible{background:#4b6155;outline:2px solid #e4bc58;outline-offset:1px}
+.vnv-live-menu{position:relative}.vnv-live-menu summary{list-style:none;cursor:pointer;padding:8px 10px;border:1px solid #66776d;border-radius:7px;background:#34413b;color:#fff}.vnv-live-menu summary::-webkit-details-marker{display:none}
+.vnv-live-menu-panel{position:absolute;bottom:calc(100% + 10px);right:0;width:210px;max-width:90vw;padding:7px;border:1px solid #6e786d;border-radius:7px;background:#252d29;box-shadow:0 8px 24px #0008;display:grid;gap:4px}.vnv-live-menu-panel a{justify-content:flex-start}
+@media(max-width:680px){.vnv-live-header{height:48px;padding:6px 10px}.vnv-live-header-links{gap:9px;font-size:10px}.vnv-live-brand-copy small{display:none}.vnv-live-dock{bottom:calc(70px + env(safe-area-inset-bottom));right:8px;max-width:calc(100vw - 16px);padding:4px}.vnv-live-dock a,.vnv-live-dock button,.vnv-live-menu summary{font-size:10px;padding:6px 7px;min-height:28px}.vnv-live-dock a:nth-of-type(2){display:none}}
+@media(prefers-reduced-motion:reduce){.vnv-live-ticker-track{animation:none}.vnv-live-ticker-set[aria-hidden="true"]{display:none}}
+@media print{.vnv-live-ticker,.vnv-live-header,.vnv-live-dock{display:none!important}}
 </style>
 </head>
 <body>
-<div class="vnv-global-strip" data-vnv-global-strip>
-  <a class="vnv-global-brand" href="https://vervenveda.com/" aria-label="Verve N Veda home">
-    <span class="vnv-global-mark">VNV</span>
-    <span class="vnv-global-copy"><strong>Verve N Veda</strong><small>333 Network · Bazaar Art Live</small></span>
-  </a>
-  <nav class="vnv-global-links" aria-label="Verve N Veda network links">
-    <a href="https://vervenveda.com/333.github.io/app/Bazaar_Art_Live_index.html">This App</a>
-    <a href="https://vervenveda.com/#directory">Ecosystem Directory</a>
-    <a href="https://vervenveda.com/core/directory-agi/">Directory AGI</a>
-    <a href="https://vervenveda.com/cloud/">Public Cloud</a>
-  </nav>
-  <details class="vnv-global-menu">
-    <summary aria-label="Open Verve N Veda ecosystem menu"><span class="vnv-global-lines" aria-hidden="true"></span></summary>
-    <div class="vnv-global-panel"><p>Ecosystem</p>
-      <a href="https://vervenveda.com/">Verve N Veda Gateway</a>
-      <a href="https://vervenveda.com/#directory">Complete Ecosystem Directory</a>
-      <a href="https://vervenveda.com/333.github.io/">333 Network</a>
-      <a href="https://vervenveda.com/PLERASearch.github.io/">PLERA Search</a>
-      <a href="https://vervenveda.com/theverifier.github.io/">The Verifier</a>
-      <a href="https://vervenveda.com/solanar.github.io/">Solanar</a>
-    </div>
-  </details>
-</div>
+<div class="vnv-live-ticker" id="vnvLiveTicker" data-paused="false" aria-label="Verve N Veda 333 Network ticker"><div class="vnv-live-ticker-viewport"><div class="vnv-live-ticker-track"><div class="vnv-live-ticker-set"><span class="vnv-live-ticker-label">333 Network</span><a href="https://vervenveda.com/333.github.io/app/HOLLO_333_direct_connect_index.html">HOLLO</a><a href="https://vervenveda.com/333.github.io/app/KANSEE_333_meeting_rooms_index.html">KANSEE</a><a href="https://vervenveda.com/333.github.io/app/EVen_mail_index.html">E=Ven Mail</a><a href="https://vervenveda.com/333.github.io/app/Bazaar_Art_Live_index.html">Bazaar Art Live</a><a href="https://vervenveda.com/333.github.io/app/SIte_builder_index.html">SIte Studio</a><a href="https://vervenveda.com/333.github.io/app/Bunya_digital_infrastructure_index.html">Bunya</a><a href="https://vervenveda.com/333.github.io/">333 Network</a></div><div class="vnv-live-ticker-set" aria-hidden="true"><span class="vnv-live-ticker-label">333 Network</span><a href="https://vervenveda.com/333.github.io/app/HOLLO_333_direct_connect_index.html" tabindex="-1">HOLLO</a><a href="https://vervenveda.com/333.github.io/app/KANSEE_333_meeting_rooms_index.html" tabindex="-1">KANSEE</a><a href="https://vervenveda.com/333.github.io/app/EVen_mail_index.html" tabindex="-1">E=Ven Mail</a><a href="https://vervenveda.com/333.github.io/app/Bazaar_Art_Live_index.html" tabindex="-1">Bazaar Art Live</a><a href="https://vervenveda.com/333.github.io/app/SIte_builder_index.html" tabindex="-1">SIte Studio</a><a href="https://vervenveda.com/333.github.io/app/Bunya_digital_infrastructure_index.html" tabindex="-1">Bunya</a><a href="https://vervenveda.com/333.github.io/" tabindex="-1">333 Network</a></div></div></div><button type="button" class="vnv-live-ticker-control" id="vnvLiveTickerPause" aria-label="Pause ticker" aria-pressed="false">Ⅱ</button></div>
+<header class="vnv-live-header"><a class="vnv-live-brand" href="https://vervenveda.com/"><span class="vnv-live-mark">V</span><span class="vnv-live-brand-copy"><strong>Verve N Veda</strong><small>333 Network · Bazaar Art Live</small></span></a><nav class="vnv-live-header-links" aria-label="Ecosystem shortcuts"><a href="https://vervenveda.com/bazaarart.github.io/">Bazaar Art</a><a href="https://vervenveda.com/333.github.io/">333 Network</a></nav></header>
+
 <div class="app-shell" id="appShell">
   <aside class="left-rail" aria-label="Primary navigation">
     <a class="brand" href="../index.html" aria-label="Open the 333 Network gateway">
@@ -2917,8 +2911,10 @@ adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadg
 
 })();
 </script>
-<script src="/assets/vnv-beta-link.js" defer></script>
+
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<nav class="vnv-live-dock" aria-label="Verve N Veda ecosystem toolbar"><a href="https://vervenveda.com/">Home</a><a href="https://vervenveda.com/bazaarart.github.io/">Bazaar Art</a><details class="vnv-live-menu"><summary>Ecosystem</summary><div class="vnv-live-menu-panel"><a href="https://vervenveda.com/#directory">Directory</a><a href="https://vervenveda.com/333.github.io/">333 Network</a><a href="https://vervenveda.com/Khaemenes_Academy.github.io/">Academy</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></div></details><a href="https://vervenveda.com/beta/">Beta</a><a href="https://vervenveda.com/#support">Support</a></nav>
+<script>(function(){const b=document.getElementById('vnvLiveTickerPause'),t=document.getElementById('vnvLiveTicker');b.addEventListener('click',function(){const paused=t.dataset.paused!=='true';t.dataset.paused=String(paused);b.setAttribute('aria-pressed',String(paused));b.setAttribute('aria-label',paused?'Resume ticker':'Pause ticker');b.textContent=paused?'▶':'Ⅱ'})})();</script>
 </body>
 </html>
 Bazaar_Art_Live_index.html
