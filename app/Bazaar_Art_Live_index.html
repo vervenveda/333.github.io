@@ -1436,6 +1436,20 @@ html,body{width:100%;min-width:0}
 @media(min-width:681px) and (max-width:1180px){
   .view-root{max-width:780px}
 }
+
+/* Profile-only readable foregrounds in all four existing themes; no palette changes. */
+.profile-header,.profile-header :is(h2,.profile-bio,.profile-stats,.profile-stats button){
+  color:var(--text);
+}
+.profile-header :is(.profile-handle,.small.muted){color:var(--muted)}
+.profile-header .profile-actions .soft-btn{color:var(--text);background:var(--panel-2);border-color:var(--line)}
+.profile-header .profile-stats .badge{color:var(--text);background:var(--panel-2);border-color:var(--line)}
+.profile-tabs .profile-tab:not(.active){color:var(--text);background:var(--panel);border-color:var(--line)}
+.profile-tabs .profile-tab.active{color:#101426;background:var(--accent);border-color:var(--accent)}
+:root[data-theme="light"] .profile-tabs .profile-tab.active{color:#fffdf8}
+:root[data-theme="boys"] .profile-tabs .profile-tab.active,
+:root[data-theme="girls"] .profile-tabs .profile-tab.active{color:#101426}
+.profile-header :is(button,a):focus-visible,.profile-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
