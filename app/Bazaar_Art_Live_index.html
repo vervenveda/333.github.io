@@ -1318,6 +1318,17 @@ button{overflow-wrap:anywhere}
 :root[data-theme="boys"] .app-shell,:root[data-theme="girls"] .app-shell{color:var(--text)}
 :root[data-theme="boys"] .nav-btn,:root[data-theme="girls"] .nav-btn,:root[data-theme="boys"] .post-action,:root[data-theme="girls"] .post-action{color:var(--text)}
 @media(max-width:600px){#vnv-global-support{width:min(65vw,245px)!important}}
+
+/* Bazaar Art Live responsive social feed: final layout authority. */
+html,body{width:100%;min-width:0}
+.app-shell{width:100%;max-width:1600px;grid-template-columns:minmax(190px,240px) minmax(0,1fr) minmax(240px,290px);align-items:stretch;margin-inline:auto}
+.main-column{min-width:0;width:100%}
+.view-root{width:100%;max-width:900px;margin-inline:auto;padding-inline:clamp(14px,2vw,28px)}
+.topbar{width:100%;min-width:0}
+@media(min-width:1181px){.app-shell[data-rail="compact"]{grid-template-columns:78px minmax(0,1fr) minmax(240px,290px)}}
+@media(min-width:681px) and (max-width:1180px){.app-shell,.app-shell[data-rail="compact"]{width:100%;max-width:none;grid-template-columns:clamp(78px,18vw,205px) minmax(0,1fr)}.right-rail{display:none}.view-root{max-width:900px}}
+@media(min-width:681px) and (max-width:900px){.app-shell,.app-shell[data-rail="compact"]{grid-template-columns:78px minmax(0,1fr)}}
+@media(max-width:680px){.app-shell,.app-shell[data-rail="compact"]{display:block;width:100%;max-width:none}.main-column{width:100%;border:0}.left-rail,.right-rail{display:none}.view-root{width:100%;max-width:none;padding:12px 12px 110px}.topbar{padding-inline:12px}}
 </style>
 </head>
 <body>
