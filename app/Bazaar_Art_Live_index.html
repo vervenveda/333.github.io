@@ -1317,6 +1317,12 @@ h1,h2,h3,h4,h5,h6,.section-head h2,.section-kicker{font-family:var(--font-displa
 #vnv-global-support .bazaar-support-band-link:hover,#vnv-global-support .bazaar-support-band-link:focus-visible{outline:2px solid var(--accent,#bd9851);outline-offset:2px}
 .bazaar-support-band-note{font:400 10px/1.4 "Brandon Grotesque","Nunito",Arial,sans-serif;color:inherit;opacity:.7;flex:0 1 auto}
 @media(max-width:600px){#vnv-global-support.bazaar-support-band{width:calc(100% - 20px)!important;padding:12px!important;gap:9px!important;text-align:center!important}.bazaar-support-band-copy{justify-content:center;flex-basis:100%}.bazaar-support-band-note{flex-basis:100%;text-align:center}}
+
+/* Consistent six-button, 3-column x 2-row ecosystem dock. */
+.vnv-live-dock{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-template-rows:repeat(2,minmax(32px,auto))!important;gap:5px!important;width:min(340px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;box-sizing:border-box!important;justify-content:stretch!important;left:auto!important;right:max(12px,env(safe-area-inset-right))!important;bottom:max(12px,env(safe-area-inset-bottom))!important}
+.vnv-live-dock>a,.vnv-live-dock>details{min-width:0!important;width:100%!important;box-sizing:border-box!important}
+.vnv-live-dock>a,.vnv-live-dock>details>summary{display:flex!important;align-items:center!important;justify-content:center!important;min-height:32px!important;padding:6px 4px!important;text-align:center!important;white-space:normal!important;font:400 11px/1.25 "Brandon Grotesque",Nunito,Arial,sans-serif!important}
+@media(max-width:680px){.vnv-live-dock{left:auto!important;right:8px!important;bottom:max(8px,env(safe-area-inset-bottom))!important;width:min(310px,calc(100vw - 16px))!important}}
 </style>
 <style id="vnv-bazaar-live-chrome">
 .vnv-live-ticker{height:33px;display:flex;align-items:center;background:#171d1c;color:#f4ead8;border-bottom:1px solid #796d52;position:relative;z-index:80;font:400 11px/1.3 Nunito,system-ui,sans-serif}
@@ -2985,7 +2991,7 @@ adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadg
 </script>
 
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
-<nav class="vnv-live-dock" aria-label="Verve N Veda ecosystem toolbar"><a href="https://vervenveda.com/">Home</a><a href="https://vervenveda.com/bazaarart.github.io/">Bazaar Art</a><details class="vnv-live-menu"><summary>Ecosystem</summary><div class="vnv-live-menu-panel"><a href="https://vervenveda.com/#directory">Directory</a><a href="https://vervenveda.com/333.github.io/">333 Network</a><a href="https://vervenveda.com/Khaemenes_Academy.github.io/">Academy</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></div></details><a href="https://vervenveda.com/beta/">Beta</a><a href="https://vervenveda.com/#support">Support</a></nav>
+<nav class="vnv-live-dock" aria-label="Verve N Veda ecosystem toolbar"><a href="https://vervenveda.com/">Home</a><a href="https://vervenveda.com/bazaarart.github.io/">Bazaar Art</a><details class="vnv-live-menu"><summary>Ecosystem</summary><div class="vnv-live-menu-panel"><a href="https://vervenveda.com/#directory">Directory</a><a href="https://vervenveda.com/333.github.io/">333 Network</a><a href="https://vervenveda.com/Khaemenes_Academy.github.io/">Academy</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></div></details><a href="https://vervenveda.com/beta/">Beta</a><a href="https://vervenveda.com/#support">Support</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></nav>
 <script>(function(){const b=document.getElementById('vnvLiveTickerPause'),t=document.getElementById('vnvLiveTicker');b.addEventListener('click',function(){const paused=t.dataset.paused!=='true';t.dataset.paused=String(paused);b.setAttribute('aria-pressed',String(paused));b.setAttribute('aria-label',paused?'Resume ticker':'Pause ticker');b.textContent=paused?'▶':'Ⅱ'})})();</script>
 <script src="/assets/vnv-beta-link.js" defer></script>
 </body>
