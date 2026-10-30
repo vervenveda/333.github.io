@@ -1323,6 +1323,34 @@ h1,h2,h3,h4,h5,h6,.section-head h2,.section-kicker{font-family:var(--font-displa
 .vnv-live-dock>a,.vnv-live-dock>details{min-width:0!important;width:100%!important;box-sizing:border-box!important}
 .vnv-live-dock>a,.vnv-live-dock>details>summary{display:flex!important;align-items:center!important;justify-content:center!important;min-height:32px!important;padding:6px 4px!important;text-align:center!important;white-space:normal!important;font:400 11px/1.25 "Brandon Grotesque",Nunito,Arial,sans-serif!important}
 @media(max-width:680px){.vnv-live-dock{left:auto!important;right:8px!important;bottom:max(8px,env(safe-area-inset-bottom))!important;width:min(310px,calc(100vw - 16px))!important}}
+
+/* Bazaar Live compact centered welcome — layout only; inherit all existing colors. */
+.feed-welcome{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:12px 16px;
+  margin-bottom:12px;
+  text-align:center;
+}
+.feed-welcome > div{width:100%;min-width:0;text-align:center}
+.feed-welcome h1{margin:4px 0;line-height:1.15}
+.feed-welcome p{margin-inline:auto;max-width:56ch}
+.feed-welcome .feed-status-stack{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:7px;width:100%}
+.feed-welcome .status-pill{justify-self:center}
+@media(max-width:680px){
+  .feed-welcome{gap:6px;padding:10px 11px;margin-bottom:10px}
+  .feed-welcome h1{font-size:clamp(1.35rem,6vw,1.8rem);line-height:1.16}
+  .feed-welcome p{font-size:.72rem;line-height:1.4}
+  .feed-welcome .feed-status-stack{justify-content:center}
+}
+@media(max-width:340px){
+  .feed-welcome{padding:9px 8px}
+  .feed-welcome h1{font-size:1.35rem}
+}
+
 </style>
 <style id="vnv-bazaar-live-chrome">
 .vnv-live-ticker{height:33px;display:flex;align-items:center;background:#171d1c;color:#f4ead8;border-bottom:1px solid #796d52;position:relative;z-index:80;font:400 11px/1.3 Nunito,system-ui,sans-serif}
@@ -1375,6 +1403,20 @@ html,body{width:100%;min-width:0}
 @media(min-width:681px) and (max-width:1180px){.app-shell,.app-shell[data-rail="compact"]{width:100%;max-width:none;grid-template-columns:clamp(78px,18vw,205px) minmax(0,1fr)}.right-rail{display:none}.view-root{max-width:900px}}
 @media(min-width:681px) and (max-width:900px){.app-shell,.app-shell[data-rail="compact"]{grid-template-columns:78px minmax(0,1fr)}}
 @media(max-width:680px){.app-shell,.app-shell[data-rail="compact"]{display:block;width:100%;max-width:none}.main-column{width:100%;border:0}.left-rail,.right-rail{display:none}.view-root{width:100%;max-width:none;padding:12px 12px 110px}.topbar{padding-inline:12px}}
+
+/* 2026-10-30 screenshot follow-up: geometry only, preserve every theme color. */
+@media(min-width:1181px){
+  .app-shell{max-width:none;grid-template-columns:minmax(190px,220px) minmax(0,1fr) minmax(300px,350px)}
+  .app-shell[data-rail="compact"]{grid-template-columns:78px minmax(0,1fr) minmax(300px,350px)}
+  .right-rail{min-width:0;padding-inline:14px}
+  .right-rail .rail-card{min-width:0;overflow-wrap:anywhere;word-break:normal}
+  .right-rail :is(.person-row,.trend-row,.event-mini){min-width:0}
+  .right-rail :is(.grow,.rail-sub){min-width:0;overflow-wrap:anywhere}
+}
+.feed-welcome{align-items:center;justify-content:center;text-align:center}
+.feed-welcome > div,.feed-welcome :is(.feed-eyebrow,h1,p,.feed-status-detail){text-align:center}
+.feed-welcome .feed-status-stack{margin-inline:auto;justify-content:center}
+@media(max-width:680px){.feed-welcome{align-items:center;text-align:center}}
 </style>
 </head>
 <body>
@@ -2994,6 +3036,6 @@ adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadg
 <nav class="vnv-live-dock" aria-label="Verve N Veda ecosystem toolbar"><a href="https://vervenveda.com/">Home</a><a href="https://vervenveda.com/bazaarart.github.io/">Bazaar Art</a><details class="vnv-live-menu"><summary>Ecosystem</summary><div class="vnv-live-menu-panel"><a href="https://vervenveda.com/#directory">Directory</a><a href="https://vervenveda.com/333.github.io/">333 Network</a><a href="https://vervenveda.com/Khaemenes_Academy.github.io/">Academy</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></div></details><a href="https://vervenveda.com/beta/">Beta</a><a href="https://vervenveda.com/#support">Support</a><a href="https://vervenveda.com/PLERASearch.github.io/">Search</a></nav>
 <script>(function(){const b=document.getElementById('vnvLiveTickerPause'),t=document.getElementById('vnvLiveTicker');b.addEventListener('click',function(){const paused=t.dataset.paused!=='true';t.dataset.paused=String(paused);b.setAttribute('aria-pressed',String(paused));b.setAttribute('aria-label',paused?'Resume ticker':'Pause ticker');b.textContent=paused?'▶':'Ⅱ'})})();</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-menu.js" defer></script>
-<script src="/assets/vnv-beta-link.js" defer></script>
+<!-- Standalone beta widget omitted: ecosystem dock already provides Beta. -->
 </body>
 </html>
