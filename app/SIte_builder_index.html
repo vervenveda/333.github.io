@@ -1501,9 +1501,9 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
     <div id="authMsg" class="auth-error"></div>
     <p class="auth-local-note">Local editing profiles do not create a remote account or synchronize automatically.</p>
     <nav class="auth-network-links" aria-label="333 Network">
-      <a href="../index.html">333 Network Gateway</a>
-      <a href="./EVen_mail_index.html#apply">E=Ven Mail Application</a>
-      <a href="./Bunya_digital_infrastructure_index.html">Bunya Infrastructure</a>
+      <a href="../index.html" data-ticker>333 Network Gateway</a>
+      <a href="./EVen_mail_index.html#apply" data-ticker>E=Ven Mail Application</a>
+      <a href="./Bunya_digital_infrastructure_index.html" data-ticker>Bunya Infrastructure</a>
     </nav>
   </div>
 </div>
@@ -3645,6 +3645,8 @@ function buildStaticWebsite(){
 <body>
 ${pages}
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
+<script>VNV_TICKER.autoPopulate({label:"SIte Quick Links",max:14});</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>`;
