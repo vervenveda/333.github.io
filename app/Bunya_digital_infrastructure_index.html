@@ -1291,8 +1291,8 @@
       <nav class="utility-links" aria-label="Utility navigation">
         <a href="../../">Verve N Veda</a>
         <a href="../index.html">333 Network</a>
-        <a href="./HOLLO_333_direct_connect_index.html">HOLLO</a>
-        <a href="./KANSEE_333_meeting_rooms_index.html">KANSEE</a>
+        <a href="./HOLLO_333_direct_connect_index.html" data-ticker>HOLLO</a>
+        <a href="./KANSEE_333_meeting_rooms_index.html" data-ticker>KANSEE</a>
         <a href="./EVen_mail_index.html#apply">E=Ven Mail</a>
         <a href="./Bazaar_Art_Live_index.html">Bazaar</a>
         <a href="./SIte_builder_index.html">SIte</a>
@@ -1311,11 +1311,11 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#services">Twelve Halls</a>
-        <a href="#workspace">Workspace</a>
-        <a href="#network">333 Suite</a>
-        <a href="#records">DNS Guide</a>
-        <a href="#principles">Principles</a>
+        <a href="#services" data-ticker>Twelve Halls</a>
+        <a href="#workspace" data-ticker>Workspace</a>
+        <a href="#network" data-ticker>333 Suite</a>
+        <a href="#records" data-ticker>DNS Guide</a>
+        <a href="#principles" data-ticker>Principles</a>
       </nav>
 
       <div class="network-identity" id="networkIdentity" title="Shared HOLLO identity status">
@@ -3143,6 +3143,8 @@
     })();
   </script>
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
+<script>VNV_TICKER.autoPopulate({label:"Bunya Quick Links",max:14});</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
