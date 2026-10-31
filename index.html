@@ -318,8 +318,8 @@
       <span>333 Network · Local-first communication, community, creation, and infrastructure</span>
       <nav class="utility-links" aria-label="Utility navigation">
         <a href="https://vervenveda.com/">Verve N Veda</a>
-        <a href="./app/HOLLO_333_direct_connect_index.html#enroll">Member Enrollment</a>
-        <a href="./app/EVen_mail_index.html#apply">Email Application</a>
+        <a href="./app/HOLLO_333_direct_connect_index.html#enroll" data-ticker>Member Enrollment</a>
+        <a href="./app/EVen_mail_index.html#apply" data-ticker>Email Application</a>
         <a class="support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Contribute</a>
       </nav>
     </div>
@@ -344,12 +344,12 @@
       </a>
 
       <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#start">Start Here</a>
-        <a href="#continuity">My Network</a>
-        <a href="#applications">Applications</a>
-        <a href="#routes">Routes</a>
-        <a href="#principles">Principles</a>
-        <a href="#support">Support</a>
+        <a href="#start" data-ticker>Start Here</a>
+        <a href="#continuity" data-ticker>My Network</a>
+        <a href="#applications" data-ticker>Applications</a>
+        <a href="#routes" data-ticker>Routes</a>
+        <a href="#principles" data-ticker>Principles</a>
+        <a href="#support" data-ticker>Support</a>
       </nav>
 
       <div class="header-tools">
@@ -812,6 +812,8 @@
   <script src="./install-app.js" defer></script>
   <script src="./register-service-worker.js" defer></script>
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
+<script>VNV_TICKER.autoPopulate({label:"333 Network Quick Links",max:14});</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
