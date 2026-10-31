@@ -107,12 +107,12 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <span>HOLLO</span>
 </nav>
 <div aria-label="333 Network services" class="network-links">
-<a href="../index.html">333 Network Home</a>
-<a href="./KANSEE_333_meeting_rooms_index.html">KANSEE Meeting Rooms</a>
-<a href="./Bazaar_Art_Live_index.html">Bazaar Art Live</a>
-<a href="./EVen_mail_index.html">E=Ven Mail</a>
-<a href="./SIte_builder_index.html">SIte</a>
-<a href="./Bunya_digital_infrastructure_index.html">Bunya</a>
+<a href="../index.html" data-ticker>333 Network Home</a>
+<a href="./KANSEE_333_meeting_rooms_index.html" data-ticker>KANSEE Meeting Rooms</a>
+<a href="./Bazaar_Art_Live_index.html" data-ticker>Bazaar Art Live</a>
+<a href="./EVen_mail_index.html" data-ticker>E=Ven Mail</a>
+<a href="./SIte_builder_index.html" data-ticker>SIte</a>
+<a href="./Bunya_digital_infrastructure_index.html" data-ticker>Bunya</a>
 <a class="support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" rel="noopener noreferrer" target="_blank">Support 333</a></div>
 </div>
 </div>
@@ -1653,6 +1653,8 @@ function init(){
   })();
 </script>
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
+<script>VNV_TICKER.autoPopulate({label:"HOLLO Quick Links",max:14});</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
