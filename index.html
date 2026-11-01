@@ -333,36 +333,11 @@
     </div>
   </div>
 
-  <header class="header">
-    <div class="shell header-inner">
-      <a class="brand" href="#top" aria-label="333 Network home">
-        <span class="brand-mark">333</span>
-        <span class="brand-copy">
-          <span class="brand-name">333 Network</span>
-          <span class="brand-sub">Communication · Community · Creation · Infrastructure</span>
-        </span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#start" data-ticker>Start Here</a>
-        <a href="#continuity" data-ticker>My Network</a>
-        <a href="#applications" data-ticker>Applications</a>
-        <a href="#routes" data-ticker>Routes</a>
-        <a href="#principles" data-ticker>Principles</a>
-        <a href="#support" data-ticker>Support</a>
-      </nav>
-
-      <div class="header-tools">
-        <div class="identity-pill" id="networkIdentity" title="Shared HOLLO profile status">
+  <div class="shell network-identity-strip"><div class="identity-pill" id="networkIdentity" title="Shared HOLLO profile status">
           <span class="identity-dot" aria-hidden="true"></span>
           <span id="networkIdentityText">Local network</span>
-        </div>
-        <button class="menu-button" id="menuButton" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open navigation">☰</button>
-      </div>
-    </div>
-  </header>
-
-  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+        </div></div>
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
     <a href="#start">Start Here</a>
     <a href="#continuity">My Network</a>
     <a href="#applications">Applications</a>
@@ -740,14 +715,14 @@
 
       const menuButton=$("#menuButton");
       const mobileMenu=$("#mobileMenu");
-      menuButton.addEventListener("click",()=>{
+      menuButton?.addEventListener("click",()=>{
         const open=mobileMenu.classList.toggle("open");
         document.body.classList.toggle("menu-open",open);
-        menuButton.setAttribute("aria-expanded",String(open));
-        menuButton.textContent=open?"×":"☰";
+        menuButton?.setAttribute("aria-expanded",String(open));
+        if(menuButton)menuButton.textContent=open?"×":"☰";
       });
       $$("#mobileMenu a").forEach(link=>link.addEventListener("click",()=>{
-        mobileMenu.classList.remove("open");document.body.classList.remove("menu-open");menuButton.setAttribute("aria-expanded","false");menuButton.textContent="☰";
+        mobileMenu.classList.remove("open");document.body.classList.remove("menu-open");menuButton?.setAttribute("aria-expanded","false");if(menuButton)menuButton.textContent="☰";
       }));
 
       const search=$("#appSearch");
@@ -813,12 +788,12 @@
   <script src="./register-service-worker.js" defer></script>
 <script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
 
+<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
+<script>VNV_HEADER.mount({"title":"333 Network","subtitle":"Communication · Community · Creation · Infrastructure","icon":"333","home":"#top","actions":[{"label":"Start Here","href":"#start"},{"label":"My Network","href":"#continuity"},{"label":"Applications","href":"#applications"},{"label":"Routes","href":"#routes"},{"label":"Support","href":"#support"}]});</script>
 <script src="https://vervenveda.com/assets/vnv-333-ticker.js"></script>
 <script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
 <script>VNV_TICKER.autoPopulate({label:"333 Network Quick Links",max:14});</script>
-
-<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
-<script>VNV_HEADER.mount({replaceLegacy:true});</script>
+<script>VNV_HEADER.mount({"title":"333 Network","subtitle":"Communication · Community · Creation · Infrastructure","icon":"333","home":"#top","actions":[{"label":"Start Here","href":"#start"},{"label":"My Network","href":"#continuity"},{"label":"Applications","href":"#applications"},{"label":"Routes","href":"#routes"},{"label":"Support","href":"#support"}]});</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
