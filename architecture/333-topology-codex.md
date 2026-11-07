@@ -346,3 +346,30 @@ Revert only the D14 KANSEE display commit after checking later modifications. Do
 
 ### Rollback
 Revert only the D15 KANSEE source commit if layout/fullscreen browser acceptance fails, after checking subsequent changes. Keep earlier D13 security, D14 gallery adaptations, all HOLLO work, the protected gateway and the founder's verified fallback ZIP unchanged.
+
+## D16 — E=Ven Mail readability and canonical family integration (2026-11-07)
+
+**Request:** Give the E=Ven Mail local-first correspondence application visual TLC while preserving its distinct navy/parchment/rose/violet identity, existing mail controls, HOLLO handoff, applications, drafts and the legacy healthy fallback ZIP.
+
+### Baseline and commits
+- Baseline Git blob `f426a8d6ec7e1e9c1b86fe6ce16ee4f027193948`, `app/EVen_mail_index.html`.
+- `bfd1b7f7eba207942d0fc149374b7d102082f843`: replace handwritten VNV global strip and duplicate `vnv-support.js` with one canonical header, 333 ticker, E=Ven Quick Links ticker, and official floating toolbar. Retain **E=Ven-specific mail search / identity / apply / settings header**, which is a separate application toolbar, not a duplicate ecosystem header.
+- Same commit: override earlier 9–12px compressed labels with 16px readable text, 44–48px touch targets, 7px corners, updated 1760px maximum layout, generous three-pane inbox/folders/reader proportions, balanced mailbox and identity sections, and clearer contrast. All original mail application JS preserved byte-for-byte.
+- `1380de7ede2f6838518e47fe7c2d096baa15f5a2`: preserve existing `reader.mobile-open` JavaScript behavior with matching mobile CSS, including overlay/close behavior at narrow screen widths.
+- `720e8ebf0e87184838023bf9a1d7c747d0817741`: introduce six source contract tests in `tests/even_mail_blueprint.test.mjs`. `db7b28831030fbf5f89113b88a83889c09cd4076`: correct a test assertion that referenced a nonexistent static folder element ID (folders are dynamically rendered). `a10f6d040b154617ec0d5407185c696d8a1bc469`: register the suite in the manual-only, contents-read 333 source audit workflow.
+
+### Preservation checks
+- Current mail frontend blob `5eb8ba2d6544953e31e93826c97e1c3d03ac3f28`.
+- 74 surviving application and modal IDs; **no duplicates**, no missing direct selector targets. The sole removed ID belonged to the retired header CSS `<style>`.
+- Seven inline JavaScript blocks pass source syntax checks; 4 sections, 1 main, 3 nav, 4 header, 3 footer and 1 style structures balanced in source.
+- Exactly one canonical shared header script, one 333 ticker, one E=Ven Quick Links ticker, and one official toolbar; legacy duplicate support/global header absent.
+- Canonical VNV homepage, other 333 apps, HOLLO identity files, messages, browser storage, backend/router and STOS not modified. Future E=Ven terminal remains **planned/uncommissioned, slot unassigned**.
+
+### Important operational boundaries and acceptance
+- Current app is still **local applications and drafts**. No real SMTP mail service, provisioning, mailbox account approval, multi-device communication or verified network service has been activated.
+- CSS/readability checks are source-level, **not a live browser screenshot test**. Browser widths 390/768/1024/1440/1920, keyboard menu/search/draft/reader toggle, mail reader focus/close, legacy demo messages, identity handoff, floating toolbar clearance and zoom should be tested with synthetic records.
+- Chrome screenshot appears to use a substantially reduced effective page scale; verify browser zoom at 100% independently. Never claim CSS alone addresses browser zoom.
+- Run manual `333-topology-boundary-audit.yml` and examine actual Node logs. Tests are committed, but the full runner has not been observed here.
+
+### Rollback
+If visual acceptance fails, revert the two D16 E=Ven Mail page commits after checking intervening edits; do not revert previously validated HOLLO/KANSEE hardening, global VNV assets or historical fallback archives.
