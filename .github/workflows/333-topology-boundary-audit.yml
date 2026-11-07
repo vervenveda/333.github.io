@@ -51,3 +51,6 @@ jobs:
 
       - name: Verify E=Ven Mail recovery, cross-tab preservation and STOS boundaries (Node.js)
         run: node --test tests/even_mail_integrity.test.mjs
+
+      - name: Verify SIte dormant local-editor boundary (Node.js)
+        run: node --test tests/site_dormant_entry.test.mjs
