@@ -1878,11 +1878,45 @@ async function importBackup(file){
   showToast('HOLLO backup restored and verified on this device.');
 }
 function resetApp(){
-  if(!confirm('Reset all local HOLLO contacts, messages, invitations, profile, and activity? This cannot be undone without a backup.')) return;
-  stopMedia(false); state=defaultState(); storageAvailable=true;
-  try{ localStorage.removeItem(STORAGE_KEY); localStorage.removeItem(IDENTITY_HANDOFF_KEY); }catch{}
-  saveState(); renderAll(); updateCallContact(); closeModal(); activateMobileView('contacts');
-  window.setTimeout(openEnrollment,120); showToast('HOLLO local data reset.');
+  if(!confirm('Reset all local HOLLO contacts, messages, invitations, profile, and activity? Export a backup first.')) return;
+  if(!storageAvailable){
+    showToast('Reset cancelled: persistent browser storage is unavailable. Your workspace was preserved.');
+    return;
+  }
+  const oldState=state, oldMemory=memoryState;
+  let oldRaw,oldHandoff;
+  try{
+    oldRaw=localStorage.getItem(STORAGE_KEY);
+    oldHandoff=localStorage.getItem(IDENTITY_HANDOFF_KEY);
+    const fresh=defaultState();
+    const serialized=JSON.stringify(fresh);
+    // Do not remove the previous record before checking replacement persistence.
+    localStorage.setItem(STORAGE_KEY,serialized);
+    if(localStorage.getItem(STORAGE_KEY)!==serialized)throw new Error('reset-readback');
+    localStorage.removeItem(IDENTITY_HANDOFF_KEY);
+    if(localStorage.getItem(IDENTITY_HANDOFF_KEY)!==null)throw new Error('handoff-removal');
+    state=fresh;memoryState=clone(fresh);
+  }catch{
+    let recovered=true;
+    try{
+      if(oldRaw===null) localStorage.removeItem(STORAGE_KEY);
+      else localStorage.setItem(STORAGE_KEY,oldRaw);
+      if(oldHandoff===null) localStorage.removeItem(IDENTITY_HANDOFF_KEY);
+      else localStorage.setItem(IDENTITY_HANDOFF_KEY,oldHandoff);
+      if(localStorage.getItem(STORAGE_KEY)!==oldRaw ||
+         localStorage.getItem(IDENTITY_HANDOFF_KEY)!==oldHandoff)recovered=false;
+    }catch{recovered=false;}
+    state=oldState;memoryState=oldMemory;
+    if(!recovered)storageAvailable=false;
+    showToast(recovered
+      ?'Reset could not be saved; your previous workspace was restored.'
+      :'Reset failed and storage recovery could not be verified. Export your current data before leaving.');
+    return;
+  }
+  stopMedia(false);
+  renderAll();updateCallContact();closeModal();activateMobileView('contacts');
+  window.setTimeout(openEnrollment,120);
+  showToast('HOLLO local workspace reset and storage verified.');
 }
 function wireEvents(){
   $('#contactSearch').addEventListener('input',renderContacts);
