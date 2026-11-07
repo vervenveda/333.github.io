@@ -27,3 +27,6 @@ jobs:
 
       - name: Exercise HOLLO backup rollback and local media boundaries (Node.js)
         run: node --test tests/hollo_hardening.test.mjs
+
+      - name: Exercise HOLLO D09 three-bubble safety regressions (Node.js)
+        run: node --test tests/hollo_three_bubbles.test.mjs
