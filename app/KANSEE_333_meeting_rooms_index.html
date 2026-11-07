@@ -1501,25 +1501,55 @@
       }
     }
     function normalizeState(raw){
-      const s={...safeClone(DEFAULT_STATE),...(raw&&typeof raw==='object'?raw:{})};
-      s.profile={...DEFAULT_STATE.profile,...(s.profile||{})};
+      const s={...safeClone(DEFAULT_STATE),...(raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{})};
+      s.profile={...DEFAULT_STATE.profile,...(s.profile&&typeof s.profile==='object'&&!Array.isArray(s.profile)?s.profile:{})};
       s.profile.name=String(s.profile.name||DEFAULT_STATE.profile.name).slice(0,80);
       s.profile.number=String(s.profile.number||'').slice(0,24);
       s.profile.handle=String(s.profile.handle||'').slice(0,40);
       s.profile.role=['host','participant','presenter'].includes(s.profile.role)?s.profile.role:'host';
       s.profile.source=String(s.profile.source||'local');
       s.profile.numberKind=String(s.profile.numberKind||'none');
-      s.profile.verified=Boolean(s.profile.verified);
+      s.profile.verified=false; // No browser backup or local identity is authoritative.
       s.profile.updatedAt=s.profile.updatedAt||null;
-      s.settings={...DEFAULT_STATE.settings,...(s.settings||{})};
+      const localSettings=s.settings&&typeof s.settings==='object'&&!Array.isArray(s.settings)?s.settings:{};
+      s.settings={
+        signalingUrl:String(localSettings.signalingUrl||'').slice(0,1024),
+        turnUrl:String(localSettings.turnUrl||'').slice(0,1024),
+        mediaUrl:String(localSettings.mediaUrl||'').slice(0,1024)
+      };
       s.meetings=Array.isArray(s.meetings)?s.meetings:[];
       s.history=Array.isArray(s.history)?s.history:[];
       s.inviteHistory=Array.isArray(s.inviteHistory)?s.inviteHistory:[];
-      s.continuity=s.continuity&&typeof s.continuity==='object'?s.continuity:{};
-      s.sync={...DEFAULT_STATE.sync,...(s.sync||{}),mode:KANSEE_SERVICE.mode};
+      const rawContinuity=s.continuity&&typeof s.continuity==='object'&&!Array.isArray(s.continuity)?s.continuity:{};
+      s.continuity=Object.create(null);
+      const acceptedTools=new Set(['Agenda','Shared Notes','Polls','Tasks','Files','Minutes','Transcript','Follow-Up']);
+      for(const [roomId,tools] of Object.entries(rawContinuity).slice(0,250)){
+        if(!roomId||roomId.length>100||['__proto__','prototype','constructor'].includes(roomId)||
+           !tools||typeof tools!=='object'||Array.isArray(tools))continue;
+        const safeTools=Object.create(null);
+        for(const [name,value] of Object.entries(tools)){
+          if(acceptedTools.has(name)&&typeof value==='string')safeTools[name]=value.slice(0,12000);
+        }
+        s.continuity[roomId]=safeTools;
+      }
+      const localSync=s.sync&&typeof s.sync==='object'&&!Array.isArray(s.sync)?s.sync:{};
+      s.sync={mode:KANSEE_SERVICE.mode,lastSyncedAt:null,
+        revision:Number.isSafeInteger(localSync.revision)&&localSync.revision>=0?Math.min(localSync.revision,1000000000):1};
       s.meetings=s.meetings.map(normalizeMeeting).filter(Boolean).slice(0,250);
-      s.history=s.history.slice(0,250);
-      s.inviteHistory=s.inviteHistory.slice(0,250);
+      const safeEntry=value=>value&&typeof value==='object'&&!Array.isArray(value);
+      s.history=s.history.filter(safeEntry).slice(0,250).map(x=>({
+        id:String(x.id||uid('history')).slice(0,100),roomId:String(x.roomId||'').slice(0,100),
+        title:String(x.title||'KANSEE Meeting').slice(0,120),
+        code:normalizeCode(x.code),endedAt:String(x.endedAt||nowIso()).slice(0,40),
+        participants:Number.isFinite(Number(x.participants))?Math.max(0,Math.min(250,Number(x.participants))):0
+      }));
+      s.inviteHistory=s.inviteHistory.filter(safeEntry).slice(0,250).map(x=>({
+        id:String(x.id||uid('invite')).slice(0,100),
+        target:normalizeInviteTarget(x.target),role:['host','cohost','presenter','participant'].includes(x.role)?x.role:'participant',
+        roomCode:normalizeCode(x.roomCode),roomTitle:String(x.roomTitle||'KANSEE Meeting').slice(0,120),
+        status:['local draft','queued','sent','failed'].includes(x.status)?x.status:'local draft',
+        ts:String(x.ts||nowIso()).slice(0,40)
+      })).filter(x=>x.target&&x.roomCode);
       s.currentRoomId=s.meetings.some(room=>String(room.id)===String(s.currentRoomId))?s.currentRoomId:null;
       return s;
     }
@@ -1531,27 +1561,27 @@
       catch(e){memoryState=safeClone(state);toast('Browser storage is unavailable. KANSEE is using temporary session memory.');return false}
     }
     function normalizeMeeting(m){
-      if(!m||typeof m!=='object') return null;
+      if(!m||typeof m!=='object'||Array.isArray(m)) return null;
       return {
-        id:String(m.id||uid('room')),
+        id:String(m.id||uid('room')).slice(0,100),
         code:normalizeCode(m.code)||makeRoomCode(),
         title:String(m.title||'KANSEE Meeting').slice(0,120),
         type:String(m.type||'meeting').slice(0,40),
         layout:String(m.layout||'round-table').slice(0,40),
-        date:String(m.date||''),time:String(m.time||''),duration:Number(m.duration)||60,
+        date:String(m.date||'').slice(0,20),time:String(m.time||'').slice(0,12),duration:Math.min(1440,Math.max(1,Number(m.duration)||60)),
         access:['invite','waiting','trusted'].includes(m.access)?m.access:'invite',
         waitingRoom:m.waitingRoom!==false,muteOnEntry:m.muteOnEntry!==false,
         createdAt:String(m.createdAt||nowIso()),updatedAt:String(m.updatedAt||m.createdAt||nowIso()),
         status:['scheduled','active','ended'].includes(m.status)?m.status:'scheduled',
-        participants:Array.isArray(m.participants)?m.participants.map(normalizeParticipant).filter(Boolean):[],
-        waiting:Array.isArray(m.waiting)?m.waiting.map(normalizeParticipant).filter(Boolean):[],
-        chat:Array.isArray(m.chat)?m.chat.map(x=>({id:String(x.id||uid('msg')),who:String(x.who||'System').slice(0,80),text:String(x.text||'').slice(0,1000),kind:['you','guest','system'].includes(x.kind)?x.kind:'guest',ts:String(x.ts||nowIso())})).filter(x=>x.text):[],
+        participants:Array.isArray(m.participants)?m.participants.slice(0,250).map(normalizeParticipant).filter(Boolean):[],
+        waiting:Array.isArray(m.waiting)?m.waiting.slice(0,250).map(normalizeParticipant).filter(Boolean):[],
+        chat:Array.isArray(m.chat)?m.chat.slice(-250).filter(x=>x&&typeof x==='object'&&!Array.isArray(x)).map(x=>({id:String(x.id||uid('msg')).slice(0,100),who:String(x.who||'System').slice(0,80),text:String(x.text||'').slice(0,1000),kind:['you','guest','system'].includes(x.kind)?x.kind:'guest',ts:String(x.ts||nowIso()).slice(0,40)})).filter(x=>x.text):[],
         notes:String(m.notes||'').slice(0,12000)
       };
     }
     function normalizeParticipant(p){
-      if(!p||typeof p!=='object') return null;
-      return {id:String(p.id||uid('person')),name:String(p.name||'Guest').slice(0,80),number:String(p.number||'').slice(0,24),role:['host','cohost','presenter','participant'].includes(p.role)?p.role:'participant',muted:p.muted!==false,camera:p.camera===true,simulated:p.simulated===true,joinedAt:String(p.joinedAt||nowIso())};
+      if(!p||typeof p!=='object'||Array.isArray(p)) return null;
+      return {id:String(p.id||uid('person')).slice(0,100),name:String(p.name||'Guest').slice(0,80),number:String(p.number||'').slice(0,24),role:['host','cohost','presenter','participant'].includes(p.role)?p.role:'participant',muted:p.muted!==false,camera:p.camera===true,simulated:p.simulated===true,joinedAt:String(p.joinedAt||nowIso())};
     }
 
     let state=loadState();
@@ -1651,7 +1681,7 @@
           number:normalizeMemberNumber(hollo.profile.number),
           handle:String(hollo.profile.handle||'').slice(0,40),
           numberKind:String(hollo.profile.numberKind||hollo.enrollment.numberChoice||'none'),
-          verified:Boolean(hollo.profile.numberVerified),
+          verified:false, // Local HOLLO records cannot assert verified membership.
           completedAt:hollo.enrollment.completedAt||null,
           source:'HOLLO local enrollment'
         };
