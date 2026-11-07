@@ -39,3 +39,6 @@ jobs:
 
       - name: Verify KANSEE conference gallery and visual blueprint (Node.js)
         run: node --test tests/kansee_gallery_layout.test.mjs
+
+      - name: Verify KANSEE Focus Mode and meeting-first layout (Node.js)
+        run: node --test tests/kansee_focus_mode.test.mjs
