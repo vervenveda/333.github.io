@@ -54,3 +54,6 @@ jobs:
 
       - name: Verify SIte dormant local-editor boundary (Node.js)
         run: node --test tests/site_dormant_entry.test.mjs
+
+      - name: Verify SIte export, embed sandbox and recovery safeguards (Node.js)
+        run: node --test tests/site_export_embed_recovery.test.mjs
