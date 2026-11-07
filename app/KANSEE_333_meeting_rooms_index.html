@@ -2005,6 +2005,7 @@ footer{padding-bottom:165px}
       if(screenStream){stopScreenShare();return}
       if(!navigator.mediaDevices?.getDisplayMedia){toast('Screen sharing is not supported in this browser');return}
       const revision=++mediaRequestRevision,roomId=room.id;
+      if(previewStarting){previewStarting=false;updateMediaControls()}
       let captured=null;
       try{
         captured=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});
@@ -2025,6 +2026,7 @@ footer{padding-bottom:165px}
     }
     function stopScreenShare(){
       mediaRequestRevision+=1;
+      previewStarting=false;
       if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}
       const room=currentMeeting();if(room){syncLocalParticipant()}updateMediaControls();renderStage();
     }
