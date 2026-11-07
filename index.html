@@ -867,14 +867,22 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
       function readIdentity(){
         const handoff=safeJson(STORAGE.identityHandoff);
         const hollo=safeJson(STORAGE.hollo);
-        const source=handoff?.profile?handoff:hollo?.profile?hollo:null;
+        // A handoff is a browser-local convenience, never an authentication assertion.
+        // Ignore malformed or unrelated records instead of displaying them as HOLLO identity.
+        const validHandoff=handoff?.schema==="333-identity-handoff" &&
+          handoff?.version===1 && handoff?.source==="HOLLO" &&
+          handoff?.profile && typeof handoff.profile==="object" &&
+          !Array.isArray(handoff.profile);
+        const validHollo=hollo?.profile && typeof hollo.profile==="object" &&
+          !Array.isArray(hollo.profile);
+        const source=validHandoff?handoff:validHollo?hollo:null;
         if(!source?.profile)return null;
         return {
           name:clean(source.profile.name),
           handle:clean(source.profile.handle),
           number:digits(source.profile.number || source.profile.number333),
           numberKind:clean(source.profile.numberKind || source.enrollment?.numberChoice),
-          complete:Boolean(source.enrollment?.complete)
+          complete:Boolean(source.enrollment?.complete && clean(source.profile.name))
         };
       }
 
