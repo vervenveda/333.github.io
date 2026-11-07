@@ -419,6 +419,59 @@ footer{padding:38px 18px;color:#fff8e9}
  #applications .category-count{text-align:center}
  #applications .app-card{flex-basis:100%;min-width:0}
 }
+
+/* Application Directory · parchment/cream clarity pass.
+   Scoped: no global header, ticker, toolbar or application logic changes. */
+#applications{background:#eee7d9;color:#202724}
+#applications>.section-inner{width:min(100%,1320px);margin-inline:auto}
+#applications .section-heading{max-width:920px}
+#applications .section-heading .kicker{color:#5b4930;font-size:16px}
+#applications .section-heading h2{font-size:clamp(36px,4vw,48px);color:#202724}
+#applications .section-heading p{font-size:18px;color:#202724}
+#applications .section-heading .directory-guidance{font-size:16px;color:#3e4944}
+#applications .category-shelf{
+  padding:22px;border:3px solid #202724;border-top:5px solid var(--accent);
+  background:#e4daca;box-shadow:0 8px 24px rgba(32,39,36,.13);
+}
+#applications .category-head{margin-bottom:4px;padding:8px 8px 17px;border-bottom:2px solid #646d63}
+#applications .category-head h3{color:#202724;font-size:clamp(24px,2.7vw,32px)}
+#applications .category-head p{color:#2f3b35;font-size:17px;line-height:1.5}
+#applications .category-count{color:#34423a;font-size:16px}
+#applications .app-grid,#applications .app-grid.single{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:stretch;gap:15px;margin-top:18px
+}
+#applications .app-grid.single{grid-template-columns:minmax(0,min(100%,420px));justify-content:center}
+#applications .app-card{
+  flex:none;min-width:0;width:100%;height:100%;padding:24px 20px 20px;
+  background:#fffaf0;border:2px solid #57645b;border-top:5px solid var(--accent);
+  box-shadow:0 6px 18px rgba(32,39,36,.13);
+}
+#applications .app-card:hover,#applications .app-card:focus-within{
+  border-color:#202724;box-shadow:0 10px 23px rgba(32,39,36,.2)
+}
+#applications .app-card h3{font-size:clamp(23px,2.2vw,30px);color:#202724}
+#applications .app-tag,#applications .app-sub{font-size:16px;color:#33443b}
+#applications .app-card p,#applications .feature-list{font-size:16px;line-height:1.6;color:#202724}
+#applications .feature-list{gap:10px;padding-inline-start:5px}
+#applications .feature-list li{color:#202724}
+#applications .app-actions{margin-top:auto}
+#applications .app-actions a{background:#202724;color:#fff8e9;font-size:16px}
+#applications .app-actions button{background:#f3eadb;color:#202724;border-color:#59675c;font-size:16px}
+#applications .app-icon{border:1px solid #202724;font-size:23px}
+#applications .field,#applications .clear-button{font-size:16px}
+@media(max-width:850px){
+ #applications .app-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #applications .app-grid.single{grid-template-columns:minmax(0,min(100%,420px))}
+ #applications .category-shelf{padding:16px}
+}
+@media(max-width:540px){
+ #applications .app-grid,#applications .app-grid.single{grid-template-columns:minmax(0,1fr)}
+ #applications .app-card{padding:19px 17px}
+ #applications .category-head{grid-template-columns:1fr;text-align:center}
+ #applications .category-count{text-align:center}
+ #applications .section-heading h2{font-size:36px}
+}
   </style>
 </head>
 <body id="top">
