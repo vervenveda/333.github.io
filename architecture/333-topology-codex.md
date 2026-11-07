@@ -84,3 +84,26 @@ From a clean local checkout, run `python3 -m unittest discover -s tests -p 'test
 - The 333 hub has an introduction self-link inconsistent with its dedicated 333 landing. No route or link modification made.
 - Commit: `011ce29db122adebff8cd6b73393b625e7e25db1`.
 - Next: isolated data-schema and browser acceptance tests; no STOS commissioning or browser-record mutation.
+
+## D04 — Offline cache and backup safety (2026-11-07)
+
+**Status:** Changes committed and source-verified; live browser activation, Python/Node executions, and GitHub Actions test logs are not yet verified. No STOS commissioning, member-data import, or service activation.
+
+### Commits
+- `38438f8e6ef77208811f4e4935a995f0cc8c08cb`: Service-worker v8 runtime cache now explicitly limits eligible requests to approved public static resources. Excludes Authorization-bearing, query-bearing, off-scope, unknown navigation and sensitive-namespace requests; excludes private/no-store/no-cache, Set-Cookie, JSON, and event-stream responses. Previous cache generation is eligible for cleanup upon activation.
+- `5dda87a9f7cf2dcc97b7222792cb61bed4d8630c`: Offline page now includes FleaPit as a seventh directory destination; wording acknowledges that precache success is necessary.
+- `1c06241c0d27633a13ec4ff8ca4f8df572c19c5e`: Eight source-level offline and backup integrity tests.
+- `fb68cd55c162c1faff019503778c8d6a1ea0a677`: Six mocked JavaScript service-worker cache policy tests.
+- `d0d1814d67f17e689a5ecbaf96eed73c6534970e` and `4733e34ec9dd74c3e2c8c95f8a6c870eddb2a2c0`: Included both D04 test suites in manually dispatched, read-only CI.
+
+### Preserved and unchanged
+All seven application files, browser storage and profile data, the main gateway, backend routers, public routes, VNV master directory and STOS internals.
+
+### Outstanding backup findings
+- HOLLO and E=Ven Mail: 5 MB import caps and named schema checks.
+- Bazaar Art Live: 150 MB maximum import; existing media store is cleared before all replacement media records are committed. Requires isolated failure/rollback testing before any change.
+- Bunya: inspected JSON import has no explicit file-size cap before reading. Add a safe limit only after considering legacy backups and schema compatibility.
+- FleaPit: 2 MB import cap and snapshot capabilities; identical storage identifiers do not permit cross-origin data sharing.
+
+### Acceptance remaining
+Run `python3 -m unittest discover -s tests -p 'test_offline_backup_boundaries.py' -v` and `node --test tests/service_worker_policy.test.mjs` using an approved read-only runner. Verify actual v7-to-v8 browser worker activation, public offline coverage, Cache Storage privacy exclusion, and synthetic backup rollback tests. No STOS slot is commissioned.
