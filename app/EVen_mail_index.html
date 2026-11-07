@@ -1474,6 +1474,8 @@ body{color:var(--ink);background:#f5f2ea}
       const APP_VERSION = "1.1.0";
       const MAIL_DOMAIN = "vervenveda.com";
       const MAX_MESSAGES = 500;
+      const MAX_APPLICATIONS = 250;
+      const MAX_MAILBOXES = 250;
       const MAX_IMPORT_BYTES = 5 * 1024 * 1024;
 
       const EVEN_MAIL_BACKEND = Object.freeze({
@@ -1539,6 +1541,9 @@ body{color:var(--ink);background:#f5f2ea}
       let state = loadState();
       let activeModal = false;
       let lastFocusedElement = null;
+      let persistenceConflict = false;
+      let observedStoredRecord = (() => { try{return localStorage.getItem(STORAGE_KEY)}catch{return null} })();
+      let persistenceWarningShown = false;
 
       function clone(value){
         return JSON.parse(JSON.stringify(value));
@@ -1648,7 +1653,8 @@ body{color:var(--ink);background:#f5f2ea}
           applicationId: safeText(mailbox.applicationId, 100),
           address: safeText(mailbox.address, 180),
           label: safeText(mailbox.label, 80) || "Requested Address",
-          status: ["application-draft", "application-pending", "application-withdrawn", "legacy-local", "provisioned"].includes(mailbox.status)
+          // Imported local data cannot certify provisioning by a remote mail service.
+          status: ["application-draft", "application-pending", "application-withdrawn", "legacy-local"].includes(mailbox.status)
             ? mailbox.status
             : "application-pending",
           createdAt: safeText(mailbox.createdAt, 40) || new Date().toISOString()
@@ -1681,36 +1687,56 @@ body{color:var(--ink);background:#f5f2ea}
 
       function normalizeState(value){
         const base = emptyState();
-        if (!value || typeof value !== "object") return base;
+        if (!value || typeof value !== "object" || Array.isArray(value)) return base;
 
-        const profile = normalizeProfile(value.profile);
+        const profile = normalizeProfile(value.profile && typeof value.profile === "object" && !Array.isArray(value.profile) ? value.profile : {});
         const applications = Array.isArray(value.applications)
-          ? value.applications.map(normalizeApplication)
+          ? value.applications.filter(item => item && typeof item === "object" && !Array.isArray(item)).slice(-MAX_APPLICATIONS).map(normalizeApplication)
           : [];
         const mailboxes = Array.isArray(value.mailboxes)
-          ? value.mailboxes.map(normalizeMailbox)
+          ? value.mailboxes.filter(item => item && typeof item === "object" && !Array.isArray(item)).slice(-MAX_MAILBOXES).map(normalizeMailbox)
           : [];
         const messages = Array.isArray(value.messages)
-          ? value.messages.slice(-MAX_MESSAGES).map(normalizeMessage)
+          ? value.messages.filter(item => item && typeof item === "object" && !Array.isArray(item)).slice(-MAX_MESSAGES).map(normalizeMessage)
           : [];
 
+        // Guard duplicate imported identifiers without discarding valid unique records.
+        function uniqueRecords(rows){
+          const seen = new Set();
+          return rows.filter(item => {
+            if (!item.id || seen.has(item.id)) return false;
+            seen.add(item.id);
+            return true;
+          });
+        }
+        const cleanApplications = uniqueRecords(applications);
+        const cleanMailboxes = uniqueRecords(mailboxes);
+        const cleanMessages = uniqueRecords(messages);
+        const validApplicationIds = new Set(cleanApplications.map(item => item.id));
+        // Legacy local mailboxes may not have a matching application; preserve them
+        // as historical local records rather than assigning provisioned status.
+        const linkedMailboxes = cleanMailboxes.map(item =>
+          item.applicationId && !validApplicationIds.has(item.applicationId)
+            ? {...item, status:"legacy-local"} : item
+        );
         return {
           schema: "even-mail-workspace",
           version: APP_VERSION,
           activeFolder: ["inbox", "starred", "sent", "drafts", "archive", "trash"].includes(value.activeFolder)
             ? value.activeFolder
             : "inbox",
-          selectedMessageId: messages.some(message => message.id === value.selectedMessageId)
+          selectedMessageId: cleanMessages.some(message => message.id === value.selectedMessageId)
             ? value.selectedMessageId
             : null,
           profile,
-          applications,
-          mailboxes,
-          messages,
+          applications: cleanApplications,
+          mailboxes: linkedMailboxes,
+          messages: cleanMessages,
           sync: {
-            ...base.sync,
-            ...(value.sync || {}),
-            mode: EVEN_MAIL_BACKEND.mode
+            mode: EVEN_MAIL_BACKEND.mode,
+            revision:Number.isSafeInteger(value.sync?.revision) && value.sync.revision >= 0
+              ? Math.min(value.sync.revision,1000000000) : base.sync.revision,
+            lastSyncedAt:null
           }
         };
       }
@@ -1758,17 +1784,39 @@ body{color:var(--ink);background:#f5f2ea}
       }
 
       function saveState(){
-        state.version = APP_VERSION;
-        state.schema = "even-mail-workspace";
-        state.sync = state.sync || {mode:"local",revision:0,lastSyncedAt:null};
-        state.sync.mode = EVEN_MAIL_BACKEND.mode;
-        state.sync.revision = (Number(state.sync.revision) || 0) + 1;
-
+        if (persistenceConflict){
+          showToast("A newer E=Ven Mail workspace was detected. Export this tab before reloading; no changes were overwritten.");
+          return false;
+        }
         try{
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          const current = localStorage.getItem(STORAGE_KEY);
+          if (observedStoredRecord !== null && current !== observedStoredRecord){
+            persistenceConflict = true;
+            showToast("Another tab changed this workspace. Export this tab before reloading to avoid losing drafts.");
+            return false;
+          }
+          const candidate = clone(state);
+          candidate.version = APP_VERSION;
+          candidate.schema = "even-mail-workspace";
+          candidate.sync = {
+            mode: EVEN_MAIL_BACKEND.mode,
+            revision: Math.min(1000000001,(Number(candidate.sync?.revision)||0)+1),
+            lastSyncedAt:null
+          };
+          const serialized = JSON.stringify(candidate);
+          localStorage.setItem(STORAGE_KEY, serialized);
+          if(localStorage.getItem(STORAGE_KEY) !== serialized) throw new Error("storage-readback");
+          state = candidate;
+          observedStoredRecord = serialized;
+          persistenceWarningShown = false;
+          return true;
         }catch(error){
           console.warn("E=Ven Mail state could not be saved:", error);
-          showToast("Browser storage is unavailable. Export important application records now.");
+          if(!persistenceWarningShown){
+            showToast("Workspace not saved. Export important records before leaving.");
+            persistenceWarningShown = true;
+          }
+          return false;
         }
       }
 
