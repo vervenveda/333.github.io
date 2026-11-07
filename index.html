@@ -508,10 +508,11 @@ footer{padding:38px 18px;color:#fff8e9}
 #routes .dial-actions button,#routes .copy-button,#routes .route-load-button{min-height:44px;border-radius:7px;font:400 16px/1.4 var(--sans);letter-spacing:0;text-transform:none}
 #routes #openRoute{background:#202724;color:#fff8e9;border:1px solid #bba776}
 #routes #openRoute:disabled{opacity:.57;cursor:not-allowed}
+#routes .route-row{grid-template-columns:125px minmax(0,1fr) auto auto;gap:9px}
 #routes .route-load-button{padding:8px 13px;border:1px solid #202724;color:#fff8e9;background:#202724;cursor:pointer}
 #routes .route-load-button:hover,#routes .route-load-button:focus-visible{background:#30413d;color:#fff8e9}
 #routes :is(.dial-key,.dial-display,.dial-actions button,.copy-button,.route-load-button):focus-visible{outline:3px solid #dcc79f;outline-offset:2px}
-@media(max-width:720px){#routes .route-layout{grid-template-columns:1fr}#routes .route-row{gap:9px;flex-wrap:wrap}}
+@media(max-width:720px){#routes .route-layout{grid-template-columns:1fr}#routes .route-row{grid-template-columns:1fr 1fr;gap:9px}#routes .route-number{grid-column:1/-1}#routes .route-row>div{grid-column:1/-1}#routes .route-row .copy-button,#routes .route-row .route-load-button{width:100%}}
 /* D06 — 333 lower-page refinement. Scoped to content owned by this page. */
 #principles{padding:62px 20px 70px;background:#071c2a;color:#fff8e9}
 #principles .section-heading{max-width:830px;margin:0 auto 30px}
@@ -1104,7 +1105,7 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
           showToast("Clipboard unavailable. The route is selected in the finder.");
         }
       }));
-      $(".route-row").forEach(row=>{
+      document.querySelectorAll(".route-row").forEach(row=>{
         const button=document.createElement("button");
         button.type="button";
         button.className="route-load-button";
