@@ -60,3 +60,6 @@ jobs:
 
       - name: Verify SIte canonical blueprint, visual controls and dormant entry (Node.js)
         run: node --test tests/site_blueprint_visual.test.mjs
+
+      - name: Verify SIte studio D23 toolbar and canvas presentation (Node.js)
+        run: node --test tests/site_studio_visual_d23.test.mjs
