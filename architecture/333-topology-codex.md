@@ -170,3 +170,26 @@ Review desktop/tablet/mobile screenshots, accessibility and contrast, location o
 
 ### Rollback
 Revert the isolated D08 HOLLO commits in reverse order only after checking later dependencies; preserve valid newer user data, the D07 visual work, other 333 pages and all STOS infrastructure. The prior HOLLO blob above is a documented source checkpoint, not authorization to overwrite unrelated changes.
+
+## D09 — HOLLO Three More Preservation Bubbles (2026-11-07)
+
+**Future STOS service terminal:** planned and uncommissioned. Terminal number deliberately not assigned. No runtime binding, privileged authority, port, secret, key, live database or administrator changes.
+
+### Upgrade 1 — Safe import structure and authority
+Commit `d7dc0926682acf01657c158f4fd04ca04d70f67c`: Reject malformed import object/array shapes; validate contact IDs and block prototype-named contact/thread keys; use a null-prototype thread dictionary; constrain message metadata; preserve valid legacy orphaned threads; prevent imported sync metadata from granting remote authority. Original keys, routes and media/application features retained.
+
+### Upgrade 2 — Verified reset with restoration attempt
+Commits `8024708e4707439c48d65d31c43171017b79f295` and `f36cb958d8533d26350b3322d5ea61730fc829ae`: Reset now snapshots both existing workspace and handoff records, aborts if snapshot cannot be read, verifies the new workspace and handoff removal, and attempts to restore both prior records on failure. Success notification is reserved for a verified change. This is **not** a true transaction; recovery can fail when browser storage itself stops functioning.
+
+### Upgrade 3 — Eliminate automatic background overwrites
+Commit `c9113a4455dac75f1e815e923e895ac1b5146e24`: Preserve media cleanup during pagehide and visibility changes while removing redundant automatic saveState calls that could overwrite a newer tab's workspace. A storage event from another HOLLO tab reloads valid changed records and announces the change; a removed record prompts the user to reload. Concurrent deliberate edits can still conflict; complete multi-tab merging or revision CAS is not implemented.
+
+### Tests and source verification
+- `tests/hollo_three_bubbles.test.mjs` commit `2807a5bb004ca74827d934d49de04443133d4e5e`: Synthetic Node regressions for five reset scenarios, imported trust boundaries, automatic-save behavior, and STOS dormancy.
+- Manual read-only workflow `.github/workflows/333-topology-boundary-audit.yml` extended in `ff6670f1295f5b13a987e4f913f2f43e21f493e7`.
+- Independently executed in isolated JavaScript using the **actual extracted resetApp function** with synthetic records: success, quota failure, snapshot read failure, failed write/readback, and handoff removal failure. All five preserved the expected old state on failure; test records were not real user data.
+- GitHub Actions / complete Node module suite **not yet executed or verified**. Full browser, viewport, keyboard, offline and multi-tab regression tests remain pending.
+- 333 Network gateway, all other subsidiaries, master VNV directory, STOS and protected admin systems were not modified.
+
+### Rollback
+Pre-D09 hardened HOLLO Git blob: `fb4fe26598d252cb9c06592f5b00e68456e05f5d`. Roll back only isolated HOLLO source commits after checking for later edits; preserve actual user records and the D08 recovery improvements. Never overwrite the previously validated directory recovery ZIP.
