@@ -65,6 +65,154 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 @media(max-width:360px){.network-links{grid-template-columns:1fr 1fr}.backend-status-grid,.quick-numbers,.enrollment-progress{grid-template-columns:1fr}.mobile-tabs{gap:4px;padding:5px}.mobile-tabs button{font-size:8px}.profile-identity{min-width:0}.status-actions{display:grid}.status-actions button{width:100%}.remote-placeholder strong{font-size:19px}#localVideo{width:100px;height:74px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 
+
+/* HOLLO visual refinement D07: source controls and local records remain untouched.
+   CSS targets existing page-owned elements; the shared VNV toolbar and tickers remain separately owned. */
+:root{--max:1600px;--card:14px}
+body{font-size:16px;line-height:1.56;color:#202724}
+.topline-inner,.hero,.status-strip,.backend-readiness,.mobile-tabs,.app-shell,.activity-drawer{width:min(calc(100% - 32px),var(--max))}
+.topline{position:relative;z-index:12}
+.topline-inner{min-height:48px;padding:8px 0;align-items:center}
+.crumbs{font-size:16px;line-height:1.4;font-weight:400;letter-spacing:0}
+.hollo-network-menu{position:relative;min-width:0}
+.hollo-network-menu summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:40px;padding:8px 13px;border:1px solid #6f756d;border-radius:7px;background:#202724;color:#fff8e9;font-size:16px;line-height:1.4}
+.hollo-network-menu summary::-webkit-details-marker{display:none}
+.hollo-network-menu[open] .network-links{position:absolute;right:0;top:calc(100% + 6px);z-index:30;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:min(590px,calc(100vw - 32px));padding:14px;background:#f7f0e4;border:2px solid #202724;border-radius:7px;box-shadow:0 14px 35px rgba(0,0,0,.2)}
+.hollo-network-menu .network-links a{min-height:44px;border:1px solid #667268;border-radius:7px;padding:9px 11px;color:#fff8e9;background:#202724;font-size:16px;line-height:1.35;font-weight:400;letter-spacing:0;text-transform:none;white-space:normal;text-align:center}
+.hollo-network-menu .network-links .support-link{background:#dcc79f;color:#202724;border-color:#b49b6a}
+.hero{padding:22px 0 17px;grid-template-columns:minmax(0,1fr) minmax(210px,270px);gap:22px}
+.hero>div:first-child{max-width:960px}
+.eyebrow{font-size:16px;letter-spacing:.055em;color:#55447b}
+h1{font-size:clamp(44px,5.4vw,68px);line-height:1.02}
+.hero-copy{margin-top:9px;font-size:17px;line-height:1.55;color:#374139}
+.service-number{padding:13px;border-radius:7px}
+.service-number small,.service-number span{font-size:16px;line-height:1.4;color:#47524b;letter-spacing:0}
+.service-number strong{font-size:22px}
+.status-strip{margin-bottom:10px}
+.status-card{grid-template-columns:minmax(0,1fr) minmax(205px,auto) minmax(300px,auto);gap:12px;border:2px solid #a58d60;border-radius:7px;background:#f4ead6;padding:14px;color:#283830;font-size:16px}
+.status-copy{font-size:16px;line-height:1.55}
+.status-copy strong{display:block;color:#202724;font-size:17px}
+.status-explanation{display:block;color:#435044;margin-top:3px}
+.profile-identity{min-width:0;background:#fffaf0;border:1px solid #95866c}
+.identity-chip{font-size:14px;letter-spacing:0}
+.profile-identity strong,.profile-identity span:last-child{font-size:16px;line-height:1.35}
+.status-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.status-actions button{width:100%;white-space:normal}
+.small-btn,.primary-btn,.danger-btn,.quiet-btn{min-height:44px;padding:9px 12px;border-radius:7px;font-size:16px;line-height:1.4;letter-spacing:0;font-weight:400}
+.small-btn,.quiet-btn{background:#f3eee4;color:#202724;border:1px solid #606c63}
+.primary-btn{background:#202724;color:#fff8e9;border:1px solid #202724}
+.primary-btn:hover{background:#30443d;color:#fff8e9}
+.danger-btn{background:#873c43;color:#fff8e9}
+.icon-btn{min-height:44px;width:44px;flex:0 0 44px;font-size:21px;border-radius:7px}
+.backend-readiness{margin-bottom:13px}
+.backend-readiness-inner{grid-template-columns:minmax(0,1.25fr) minmax(390px,1fr);gap:17px;padding:15px 19px;border:2px solid #9b9b8c;border-radius:7px;background:#fffaf1;box-shadow:none}
+.backend-kicker{font-size:16px;line-height:1.4;letter-spacing:.05em}
+.backend-readiness h2{font-size:clamp(24px,2.6vw,32px);line-height:1.2}
+.backend-readiness p:not(.backend-kicker){font-size:16px;line-height:1.55;color:#465149;margin-top:5px}
+.backend-status-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.backend-status-grid>div{min-height:72px;border:1px solid #a5afa4;border-radius:7px;padding:9px 7px}
+.backend-status-grid strong{font-size:16px;line-height:1.3;letter-spacing:0;color:#34563e}
+.backend-status-grid span{font-size:16px;line-height:1.35;color:#405048}
+.app-shell{grid-template-columns:minmax(260px,26fr) minmax(410px,46fr) minmax(295px,28fr);gap:14px;align-items:stretch}
+.panel{border:2px solid #9aa69b;border-radius:7px;background:#fffaf1;box-shadow:0 9px 25px rgba(32,39,36,.09);backdrop-filter:none}
+.panel-head{min-height:74px;padding:14px 17px;background:#efe6d6;border-bottom:2px solid #9aa69b}
+.panel-head h2{font-size:clamp(22px,2vw,27px);line-height:1.2;color:#202724}
+.panel-head p{font-size:16px;line-height:1.45;color:#405047}
+.panel-body{padding:15px}
+.workspace-subheading,.section-label{color:#263a31;font:400 17px/1.4 var(--font-display);letter-spacing:0;text-transform:none;margin:0 0 10px;text-align:left}
+.studio-label{margin:5px 0 2px;padding-bottom:5px;border-bottom:1px solid #b7b8a9}
+input,textarea,select{min-height:44px;font-size:16px;line-height:1.45;color:#202724;padding:10px 12px}
+textarea{min-height:76px}
+.search-wrap{grid-template-columns:minmax(0,1fr) 44px;gap:8px;margin-bottom:13px}
+.search-clear{width:44px}
+.contact-list{gap:8px;max-height:560px}
+.contact-card{min-height:72px;grid-template-columns:44px minmax(0,1fr) auto;padding:10px;gap:9px;border:1px solid #d0d2c8;border-radius:7px;background:#fffdf8}
+.contact-card.active{border:2px solid #66549f;background:#f1ecf8}
+.contact-name{font-size:16px;line-height:1.4;font-weight:400}
+.contact-meta{font-size:16px;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+.avatar{width:44px;height:44px;border-radius:7px;font-size:17px}
+.dialer{padding:14px;border:2px solid #a2a89e;border-radius:7px;background:#f2eadc}
+.dialer h3{font-size:20px;line-height:1.3;color:#202724}
+.dialer-row input{font-size:16px}
+.quick-numbers{gap:8px;margin-top:10px}
+.quick-numbers button{min-height:44px;padding:9px;font-size:16px}
+.dialer-help{font-size:16px;line-height:1.5;color:#405047;margin-top:10px;text-align:left}
+.conversation-panel,.call-panel{min-height:690px}
+.conversation-header{padding:13px 15px;gap:11px}
+.conversation-title strong{font-size:21px}
+.conversation-title span{font-size:16px;line-height:1.35}
+.conversation-actions{gap:8px}
+.message-list{min-height:400px;max-height:650px;gap:11px;padding:17px}
+.empty-state{font-size:16px;color:#465047}
+.empty-state strong{font-size:20px}
+.bubble,.msg.system .bubble{font-size:16px;line-height:1.55}
+.msg-meta{font-size:14px;color:#445048}
+.composer{gap:10px;padding:13px}
+.composer textarea{min-height:90px}
+.composer-actions{gap:8px}
+.delivery-note{font-size:16px;line-height:1.5;color:#435047}
+.call-panel .panel-body{gap:12px;padding:15px}
+.call-stage{min-height:280px;border-radius:7px}
+.remote-placeholder span{font-size:16px;line-height:1.45;color:#e3dcf0}
+.remote-placeholder strong{font-size:22px}
+.stage-badge,.pill{font-size:16px;line-height:1.35}
+.call-status,.call-status strong{font-size:16px;line-height:1.5;color:#33423c}
+.device-grid{gap:10px}
+.device-grid label,.device-grid select{font-size:16px;line-height:1.4;color:#33423c}
+.invite-tabs{gap:8px}
+.invite-list{max-height:230px;gap:8px}
+.invite-item,.activity-item{padding:11px;border-color:#bfc5b9}
+.invite-item strong,.activity-item strong,.invite-item span,.activity-item span{font-size:16px;line-height:1.45}
+.invite-tools,.invite-actions{gap:8px}
+.activity-top h2{font-size:25px}
+.activity-subtitle{font-size:16px;color:#405047}
+.activity-card{border:2px solid #9aa69b;border-radius:7px;padding:16px}
+.activity-list{gap:10px}
+footer{max-width:1150px;font-size:16px;line-height:1.6;padding-bottom:120px}
+footer strong{font-size:18px}
+@media(max-width:1320px){
+ .app-shell{grid-template-columns:minmax(250px,1fr) minmax(375px,1.5fr)}
+ .call-panel{grid-column:1/-1;min-height:0}
+ .call-panel .panel-body{display:grid;grid-template-columns:minmax(320px,1fr) minmax(290px,1fr);gap:12px}
+ .call-stage{grid-row:2/6;min-height:330px}
+ .backend-readiness-inner{grid-template-columns:1fr}
+ .status-card{grid-template-columns:minmax(0,1fr) minmax(220px,auto)}
+ .status-actions{grid-column:1/-1;justify-content:center}
+}
+@media(max-width:900px){
+ .topline-inner{align-items:center;flex-wrap:wrap;justify-content:center}
+ .hollo-network-menu{width:100%;max-width:520px}
+ .hollo-network-menu summary{width:100%}
+ .hollo-network-menu[open] .network-links{left:0;right:auto;width:100%;min-width:0}
+ .hero{grid-template-columns:1fr}
+ .status-card{grid-template-columns:1fr}
+ .status-actions{grid-template-columns:1fr}
+ .backend-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .mobile-tabs{display:flex;gap:8px}
+ .mobile-tabs button{font-size:16px;min-height:44px}
+ .app-shell{display:block}
+ .panel{display:none}
+ .panel.mobile-active{display:flex;margin-bottom:10px}
+ .contacts-panel.mobile-active{display:block}
+ .call-panel .panel-body{display:flex}
+}
+@media(max-width:620px){
+ body{font-size:16px}
+ .topline-inner,.hero,.status-strip,.backend-readiness,.mobile-tabs,.app-shell,.activity-drawer{width:min(calc(100% - 20px),var(--max))}
+ .hero-copy{font-size:16px}
+ .crumbs,.network-links a{font-size:16px}
+ .network-links{display:grid;grid-template-columns:1fr}
+ .status-actions{display:grid;grid-template-columns:1fr}
+ .backend-status-grid{grid-template-columns:1fr 1fr}
+ .mobile-tabs button{font-size:16px;padding:9px}
+ .composer{grid-template-columns:1fr}
+ .composer-actions{flex-direction:row;flex-wrap:wrap}
+ .call-stage{min-height:310px}
+ .device-grid{grid-template-columns:1fr}
+ .contact-card{grid-template-columns:44px minmax(0,1fr)}
+ .contact-side{grid-column:2;text-align:left}
+ .form-grid label,.privacy-note,.verification-note,.choice-card span span,.enrollment-consent,.storage-summary{font-size:16px;line-height:1.5}
+}
 </style>
 <style id="vnv-global-ecosystem-shell">
 .vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
@@ -106,14 +254,14 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <a href="../index.html">333 Network</a><span aria-hidden="true">›</span>
 <span>HOLLO</span>
 </nav>
-<div aria-label="333 Network services" class="network-links">
+<details class="hollo-network-menu"><summary>333 Network Applications <span aria-hidden="true">▾</span></summary><div aria-label="333 Network services" class="network-links">
 <a href="../index.html" data-ticker>333 Network Home</a>
 <a href="./KANSEE_333_meeting_rooms_index.html" data-ticker>KANSEE Meeting Rooms</a>
 <a href="./Bazaar_Art_Live_index.html" data-ticker>Bazaar Art Live</a>
 <a href="./EVen_mail_index.html" data-ticker>E=Ven Mail</a>
 <a href="./SIte_builder_index.html" data-ticker>SIte</a>
 <a href="./Bunya_digital_infrastructure_index.html" data-ticker>Bunya</a>
-<a class="support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" rel="noopener noreferrer" target="_blank">Support 333</a></div>
+<a class="support-link" href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" rel="noopener noreferrer" target="_blank">Support 333</a></div></details>
 </div>
 </div>
 <header class="hero">
@@ -128,9 +276,9 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <span>Not a public telephone number</span>
 </div>
 </header>
-<div class="status-strip">
+<div class="status-strip" aria-label="My HOLLO Account">
 <div class="status-card">
-<div class="status-copy"><span class="status-dot"></span><strong>Local-first workspace.</strong> Profiles, contacts, messages, invitations, activity, and media previews remain on this device. Existing numbers are unverified and generated 333 identities are provisional.</div>
+<div class="status-copy"><span class="status-dot"></span><strong>My HOLLO Account · Local-first workspace</strong><span class="status-explanation"> Profiles, contacts, messages, invitations, activity, and media previews remain on this device. Existing numbers are unverified and generated 333 identities are provisional.</span></div>
 <div aria-live="polite" class="profile-identity" id="profileIdentity">
 <span class="identity-chip" id="identityType">Guest</span>
 <strong id="identityName">Local Member</strong>
@@ -147,8 +295,8 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <div class="backend-readiness-inner">
 <div>
 <p class="backend-kicker">Persistence Architecture</p>
-<h2 id="backendReadinessTitle">Private on this device. Prepared for secure synchronization.</h2>
-<p>HOLLO currently provides browser persistence, portable backup and restore, identity handoff to E=Ven Mail, and local media previews. Authentication, encrypted server storage, signaling, moderation, and cross-device synchronization remain clearly marked as future services.</p>
+<h2 id="backendReadinessTitle">Workspace Status</h2>
+<p>Local profiles, backups, E=Ven Mail handoffs, and camera previews are available. Authentication, secure server storage, signaling, moderation, and cross-device synchronization still require future connected services.</p>
 </div>
 <div aria-label="HOLLO persistence status" class="backend-status-grid">
 <div><strong>Active</strong><span>Browser persistence</span></div>
@@ -171,13 +319,14 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <button aria-label="Add contact" class="icon-btn" id="addContactBtn" title="Add contact" type="button">＋</button>
 </div>
 <div class="panel-body">
+<p class="workspace-subheading">Find a Contact</p>
 <div class="search-wrap">
 <label class="sr-only" for="contactSearch">Search contacts</label>
 <input autocomplete="off" id="contactSearch" placeholder="Search contacts…" type="search"/>
 <button aria-label="Clear contact search" class="icon-btn search-clear" id="clearContactSearchBtn" title="Clear search" type="button">×</button></div>
 <div aria-live="polite" class="contact-list" id="contactList"></div>
 <section aria-labelledby="dialerTitle" class="dialer">
-<h3 id="dialerTitle">Internal 333 Dialer</h3>
+<h3 id="dialerTitle">333 Direct Dial</h3>
 <div class="dialer-row">
 <label class="sr-only" for="dialInput">333 number or handle</label>
 <input autocomplete="off" id="dialInput" inputmode="text" placeholder="Phone, 333 number, or @handle"/>
@@ -225,6 +374,7 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 <span class="pill prototype" id="networkBadge">Prototype</span>
 </div>
 <div class="panel-body">
+<p class="workspace-subheading studio-label">My Preview</p>
 <div class="call-stage" id="callStage">
 <div class="stage-badge" id="stageBadge">Idle</div>
 <div class="remote-placeholder" id="remotePlaceholder">
@@ -234,6 +384,7 @@ footer{max-width:1000px;margin:auto;padding:18px 14px 30px;color:#625c69;font-si
 </div>
 <video aria-label="Your local camera preview" autoplay="" class="hidden" id="localVideo" muted="" playsinline=""></video>
 </div>
+<p class="workspace-subheading studio-label">Call Controls</p>
 <div class="call-controls">
 <button aria-label="Mute microphone" aria-pressed="false" class="icon-btn" disabled="" id="micBtn" title="Mute microphone" type="button">🎙</button>
 <button aria-label="Turn camera off" aria-pressed="false" class="icon-btn" disabled="" id="cameraBtn" title="Turn camera off" type="button">📹</button>
