@@ -137,3 +137,36 @@ Review desktop/tablet/mobile screenshots, accessibility and contrast, location o
 - **Pending acceptance:** Browser rendering and behavior at wide desktop, 1024 px, 768 px and 390 px; account drop-down keyboard behavior, message controls, local camera preview, enrollment pop-up and backups. Source checks do not prove runtime success.
 - Rollback: revert only the isolated HOLLO visual commit after checking for later source changes. Preserve user data and later approved commits.
 
+## D08 — HOLLO Data Integrity, Identity, Media and Accessibility (2026-11-07)
+
+### Scope / preservation
+- Public file: `app/HOLLO_333_direct_connect_index.html` only, plus additive synthetic test and manual workflow entry.
+- HOLLO's prior baseline Git blob: `05071daea488ee084f74d87ca4cee7306b4fc945`.
+- Current hardened Git blob (post-D08): `fb4fe26598d252cb9c06592f5b00e68456e05f5d`.
+- Future STOS service terminal remains **planned and uncommissioned**. No backend authority, database, identity service, live member records, browser storage, other subsidiary, or Verve N Veda master gateway touched.
+
+### Source modifications
+1. `91801b814f6f03464870103033cada89ee29f707`: Backup import stages/normalizes the candidate, requires available persistent browser storage, writes and verifies the stored bytes, restores the original workspace and handoff when commit fails, and reserves success messaging for a confirmed restore. Does not claim multi-key atomicity or guarantee recovery if browser storage itself becomes nonfunctional.
+2. Same commit: Normalize imported invitation and activity fields, limit unsafe values, non-actionable unknown/missing-contact invitations, restrict mobile view and invitation-tab settings, and prevent locally imported profile/enrollment flags from becoming verified account authority. Historical completed profiles remain locally usable.
+3. `2fd005cb1532b81b5ec9904a59efd62688ff65a5`: Media-permission request revision invalidation guards against delayed camera/microphone capture after cancellation, device switching, or page hiding. Stale tracks are stopped. Harden modal focus visibility checks, fallback focus, focus containment, and Escape handling.
+4. `b57c6a38328f3a8b1a2d8f28097e7f3c59f1a752`: Link all four mobile tab controls to corresponding panels and maintain active tab focusability; enlarge enrollment, backup, and modal instructions to 16px while retaining existing form steps and actions.
+5. `accfba8fe6e6af141c7dda78e1f08ba74dd68980`: Nine synthetic Node.js tests in `tests/hollo_hardening.test.mjs`.
+6. `8701e7a8bb6023982065e23c4f65467b2767f469`: Manual, contents-read 333 audit workflow includes the HOLLO suite.
+
+### Verification actually performed
+- Source fetched from current main; all five inline `script` elements parsed, including the 69K-character main script.
+- 134 unique HTML IDs; no duplicates and no missing direct `$('#id')` references.
+- Balanced: 6 section, 2 details, 1 main, 3 nav, 2 style tags.
+- In isolated JavaScript engine, executed actual extracted `importBackup()` with synthetic valid, quota-failure, handoff-failure, readback-failure, cancelled, and storage-unavailable cases. All six preserved the expected in-memory state and showed non-success status on failed/cancelled paths. A deliberately permanently corrupted readback mock does not prove storage rollback when the browser can no longer read accurate bytes.
+- Actual extracted normalization functions rejected unknown/missing-contact actionable invitations and sanitized activity records.
+- Actual extracted media-preview function refused a delayed stale permission result and stopped the returned test track.
+- Source and isolated VM checks are **not** equivalent to running the full Node suite in GitHub Actions or testing a real browser.
+
+### Remaining acceptance gates / hardening candidates
+- Run manual GitHub Actions `333-topology-boundary-audit.yml` and save the actual Python and Node logs.
+- In a browser test profile with synthetic data only: verify backup replacement, recovery from quota exhaustion, correct legacy backup loading, reset behavior, media permission denial, tab keyboard navigation, modal focus return, and viewport widths 390/768/1024/1440 px.
+- Browser storage is not a durable multi-key transaction. If both the replacement write and attempted rollback fail, HOLLO warns rather than falsely reporting recovery; provide separate downloadable backup before migration.
+- STOS integration requires independent authenticated member verification, consent, scoped capabilities, and controlled commissioning. Browser-local `333_identity_handoff_v1` never grants terminal authority.
+
+### Rollback
+Revert the isolated D08 HOLLO commits in reverse order only after checking later dependencies; preserve valid newer user data, the D07 visual work, other 333 pages and all STOS infrastructure. The prior HOLLO blob above is a documented source checkpoint, not authorization to overwrite unrelated changes.
