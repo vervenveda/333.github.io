@@ -726,6 +726,7 @@ footer strong{font-size:18px}
     let state = loadState();
     let localStream = null;
     let displayStream = null;
+    let mediaRequestRevision = 0;
     let callTimer = null;
     let callStartedAt = null;
     let currentCall = null;
@@ -1209,6 +1210,7 @@ async function startMediaPreview(options={video:true,audio:true},context='previe
   const targetContactId=contactId||previous?.contactId||getActiveContact()?.id;
   const targetContact=state.contacts.find(contact=>contact.id===targetContactId)||getActiveContact();
   await stopMedia(false);
+  const requestRevision=++mediaRequestRevision;
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
     setCallError('Media preview is not supported in this browser. Use a modern browser on HTTPS or localhost.');
     return false;
@@ -1218,9 +1220,15 @@ async function startMediaPreview(options={video:true,audio:true},context='previe
     video:options.video ? ($('#cameraSelect').value?{deviceId:{exact:$('#cameraSelect').value}}:{width:{ideal:1280},height:{ideal:720}}) : false
   };
   try{
-    localStream=await navigator.mediaDevices.getUserMedia(constraints);
+    const captured=await navigator.mediaDevices.getUserMedia(constraints);
+    if(requestRevision!==mediaRequestRevision || document.visibilityState==='hidden'){
+      captured.getTracks().forEach(track=>track.stop());
+      return false;
+    }
+    localStream=captured;
     const video=$('#localVideo'); video.srcObject=localStream; video.classList.toggle('hidden',!options.video);
     await video.play().catch(()=>{});
+    if(requestRevision!==mediaRequestRevision) return false;
     currentCall={contactId:targetContact.id,context,mode:options.video?'video':'voice',inviteId:inviteId||null};
     callStartedAt=Date.now();
     $('#remoteAvatar').textContent=initials(targetContact.name);
@@ -1244,6 +1252,7 @@ async function startMediaPreview(options={video:true,audio:true},context='previe
     logActivity('local-preview-started',targetContact.id,currentCall.mode);
     return true;
   }catch(err){
+    if(requestRevision!==mediaRequestRevision) return false;
     if(inviteId){
       const invite=state.invites.incoming.find(item=>item.id===inviteId);
       if(invite&&invite.status==='reviewed') invite.status='pending';
@@ -1286,6 +1295,7 @@ async function startMediaPreview(options={video:true,audio:true},context='previe
       box.append(strong,text);
     }
 async function stopMedia(log=true){
+  mediaRequestRevision+=1; // invalidate in-flight permission prompts and device swaps
   const duration=callStartedAt?Date.now()-callStartedAt:0;
   if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream=null; }
   if(displayStream){ displayStream.getTracks().forEach(t=>t.stop()); displayStream=null; }
@@ -1389,8 +1399,10 @@ function openModal(modal){
   if(activeModal&&activeModal!==modal) closeModal(false);
   lastFocusedElement=document.activeElement; activeModal=modal;
   modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false');
+  modal.setAttribute('tabindex','-1');
   document.body.classList.add('modal-open');
-  const focusable=getFocusable(modal); if(focusable[0]) setTimeout(()=>focusable[0].focus(),0);
+  const focusable=getFocusable(modal);
+  setTimeout(()=>{if(activeModal===modal)(focusable[0]||modal).focus();},0);
 }
 function closeModal(restoreFocus=true){
   if(!activeModal) return;
@@ -1398,11 +1410,16 @@ function closeModal(restoreFocus=true){
   activeModal=null; document.body.classList.remove('modal-open');
   if(restoreFocus&&lastFocusedElement&&typeof lastFocusedElement.focus==='function') lastFocusedElement.focus();
 }
-    function getFocusable(root){ return $$('button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),a[href]',root).filter(el=>!el.classList.contains('hidden')); }
+    function getFocusable(root){
+      return $('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),a[href],[tabindex]:not([tabindex="-1"])',root)
+        .filter(el=>!el.closest('[hidden],[inert],[aria-hidden="true"],.hidden') && el.getClientRects().length>0);
+    }
     function trapModalFocus(e){
       if(!activeModal||e.key!=='Tab') return;
-      const items=getFocusable(activeModal); if(!items.length) return;
+      const items=getFocusable(activeModal);
+      if(!items.length){ e.preventDefault(); activeModal.focus(); return; }
       const first=items[0],last=items[items.length-1];
+      if(!activeModal.contains(document.activeElement)){ e.preventDefault(); (e.shiftKey?last:first).focus(); return; }
       if(e.shiftKey&&document.activeElement===first){ e.preventDefault(); last.focus(); }
       else if(!e.shiftKey&&document.activeElement===last){ e.preventDefault(); first.focus(); }
     }
@@ -1867,7 +1884,12 @@ function wireEvents(){
   $('#exportActivityBtn').addEventListener('click',exportActivity); $('#clearActivityBtn').addEventListener('click',()=>{if(!state.activity.length){showToast('Activity is already empty.');return;}if(confirm('Clear local call activity?')){state.activity=[];saveState();renderActivity();showToast('Call activity cleared.');}});
   $$('[data-close-modal]').forEach(b=>b.addEventListener('click',()=>closeModal()));
   $$('.modal-layer').forEach(layer=>layer.addEventListener('mousedown',e=>{if(e.target===layer) closeModal();}));
-  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&activeModal)closeModal(); trapModalFocus(e); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&activeModal){e.preventDefault();closeModal();} trapModalFocus(e); });
+  document.addEventListener('focusin',e=>{
+    if(activeModal && !activeModal.contains(e.target)){
+      (getFocusable(activeModal)[0]||activeModal).focus();
+    }
+  });
   $$('.mobile-tabs button').forEach(b=>b.addEventListener('click',()=>activateMobileView(b.dataset.mobileView)));
   $$('.mobile-tabs button').forEach((button,index,buttons)=>button.addEventListener('keydown',event=>{
     if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return; event.preventDefault(); let next=index;
@@ -1878,7 +1900,9 @@ function wireEvents(){
     if(event.key===STORAGE_KEY&&event.newValue){ try{ state=validateAndMergeState(JSON.parse(event.newValue)); renderAll(); updateCallContact(); }catch{} }
   });
   window.addEventListener('pagehide',()=>{ if(localStream||displayStream) stopMedia(false); saveState(); });
-  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') saveState(); });
+  document.addEventListener('visibilitychange',()=>{
+    if(document.visibilityState==='hidden'){ stopMedia(false); saveState(); }
+  });
 }
 function init(){
   wireEvents(); renderAll(); updateCallContact(); refreshDevices();
