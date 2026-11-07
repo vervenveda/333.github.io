@@ -2831,25 +2831,79 @@ body{color:var(--ink);background:#f5f2ea}
         $("#closeProfileButton").addEventListener("click", closeModal);
       }
 
+      function commitWorkspaceReplacement(candidate){
+        if(persistenceConflict){
+          showToast("Restore/reset blocked by a newer tab. Export this tab, then reload.");
+          return false;
+        }
+        let previousRaw;
+        try{
+          previousRaw = localStorage.getItem(STORAGE_KEY);
+          if(observedStoredRecord !== null && previousRaw !== observedStoredRecord){
+            persistenceConflict = true;
+            showToast("Another tab changed this workspace. Export current work before reloading.");
+            return false;
+          }
+        }catch{
+          showToast("Workspace operation cancelled: previous browser storage is unreadable.");
+          return false;
+        }
+        let writeAttempted = false;
+        try{
+          candidate.schema = "even-mail-workspace";
+          candidate.version = APP_VERSION;
+          candidate.sync = {
+            mode: EVEN_MAIL_BACKEND.mode,
+            revision: Math.min(1000000001,(Number(state.sync?.revision)||0)+1),
+            lastSyncedAt:null
+          };
+          const serialized = JSON.stringify(candidate);
+          writeAttempted = true;
+          localStorage.setItem(STORAGE_KEY,serialized);
+          if(localStorage.getItem(STORAGE_KEY)!==serialized)throw new Error("storage-readback");
+          state = candidate;
+          observedStoredRecord = serialized;
+          persistenceConflict = false;
+          persistenceWarningShown = false;
+          return true;
+        }catch(error){
+          let restored = true;
+          if(writeAttempted){
+            try{
+              if(previousRaw===null)localStorage.removeItem(STORAGE_KEY);
+              else localStorage.setItem(STORAGE_KEY,previousRaw);
+              if(localStorage.getItem(STORAGE_KEY)!==previousRaw)restored=false;
+            }catch{restored=false}
+          }
+          if(!restored)persistenceConflict=true;
+          showToast(restored
+            ? "Workspace change failed. The previous saved records were retained."
+            : "Browser storage recovery could not be verified. Export your current workspace before leaving.");
+          return false;
+        }
+      }
       async function importWorkspace(file){
-        if (!file) return;
-        if (file.size > MAX_IMPORT_BYTES) {
-          showToast("That backup is too large. Maximum import size is 5 MB.");
+        if(!file)return;
+        if(file.size>MAX_IMPORT_BYTES){
+          showToast("That backup is too large. Maximum import size is 5 MB.");return;
+        }
+        let candidate;
+        try{
+          const parsed=JSON.parse(await file.text());
+          if(!parsed||typeof parsed!=="object"||Array.isArray(parsed)||
+             parsed.schema!=="even-mail-workspace"||!Array.isArray(parsed.messages)||
+             !Array.isArray(parsed.applications)||!Array.isArray(parsed.mailboxes)){
+            throw new Error("invalid backup");
+          }
+          candidate=normalizeState(parsed);
+        }catch(error){
+          showToast("Invalid E=Ven Mail backup; existing correspondence is unchanged.");
           return;
         }
-        try {
-          const parsed = JSON.parse(await file.text());
-          if (parsed?.schema !== "even-mail-workspace") throw new Error("schema");
-          if (!window.confirm("Replace the current local E=Ven Mail workspace with this backup? Export the current workspace first when needed.")) return;
-          state = normalizeState(parsed);
-          saveState();
-          closeModal();
-          renderAll();
-          showToast("E=Ven Mail workspace restored.");
-        } catch (error) {
-          console.warn("E=Ven Mail import failed:", error);
-          showToast("The selected file is not a valid E=Ven Mail backup.");
-        }
+        if(!window.confirm("Replace local E=Ven Mail applications, drafts and messages with this verified backup? Export the current workspace first."))return;
+        if(!commitWorkspaceReplacement(candidate))return;
+        closeModal();renderAll();
+        showToast("E=Ven Mail backup restored and verified on this device.");
       }
 
       function openSettings(){
@@ -2893,13 +2947,13 @@ body{color:var(--ink);background:#f5f2ea}
         $("#importWorkspaceInput").addEventListener("change", event => importWorkspace(event.target.files?.[0]));
 
         $("#resetWorkspaceButton").addEventListener("click", () => {
-          if (!window.confirm("Reset all local E=Ven Mail applications, requested addresses, drafts, and messages? Export first when needed.")) return;
-          state = emptyState();
-          syncHolloProfile();
-          saveState();
-          closeModal();
-          renderAll();
-          showToast("Local E=Ven Mail data reset.");
+          if(!window.confirm("Reset local E=Ven Mail applications, requested addresses, drafts, and messages? Export a backup first."))return;
+          const fresh=emptyState();
+          // Keep locally visible identity without treating a browser record as verification.
+          fresh.profile=normalizeProfile(state.profile);
+          if(!commitWorkspaceReplacement(fresh))return;
+          closeModal();renderAll();
+          showToast("Local E=Ven Mail workspace reset and storage verified.");
         });
 
         $("#closeSettingsButton").addEventListener("click", closeModal);
@@ -3082,13 +3136,18 @@ body{color:var(--ink);background:#f5f2ea}
       });
 
       window.addEventListener("storage", event => {
-        if (event.key === STORAGE_KEY) {
-          state = loadState();
-          renderAll();
+        if(event.key===STORAGE_KEY){
+          // Never reload a different tab's draft silently: keep this tab available
+          // for backup export and refuse further overwrites until a deliberate reload.
+          if(event.newValue!==observedStoredRecord){
+            persistenceConflict=true;
+            showToast("E=Ven Mail changed in another tab. Export this tab before reloading; saving is paused.");
+          }
           return;
         }
-        if ([HOLLO_STORAGE_KEY, HANDOFF_STORAGE_KEY].includes(event.key)) {
-          syncHolloProfile();
+        if([HOLLO_STORAGE_KEY,HANDOFF_STORAGE_KEY].includes(event.key)){
+          // Handoff is descriptive local profile data, never a verified login.
+          if(!persistenceConflict)syncHolloProfile();
           renderAll();
         }
       });
@@ -3102,8 +3161,9 @@ body{color:var(--ink);background:#f5f2ea}
         trapModalFocus(event);
       });
 
-      syncHolloProfile();
-      saveState();
+      // Initial display must not overwrite newer records from another open tab.
+      // User edits and explicit HOLLO profile refresh still use guarded saveState().
+      if(!observedStoredRecord)syncHolloProfile();
       renderAll();
 
       if (location.hash === "#apply") {
