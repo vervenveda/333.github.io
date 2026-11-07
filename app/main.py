@@ -355,6 +355,10 @@ def create_app(application_settings: Settings = settings) -> FastAPI:
                 "configuration": configuration,
                 "database": database.to_dict(),
                 "routers_loaded": list(app.state.routers_loaded),
+                "routers_missing": [
+                    definition.module for definition in ROUTER_DEFINITIONS
+                    if definition.module not in app.state.routers_loaded
+                ],
             },
         )
 
@@ -372,6 +376,16 @@ def create_app(application_settings: Settings = settings) -> FastAPI:
                 "Bunya",
             ],
             "routers_loaded": list(app.state.routers_loaded),
+            "router_capabilities": {
+                definition.prefix.lstrip("/"): (
+                    definition.module in app.state.routers_loaded
+                )
+                for definition in ROUTER_DEFINITIONS
+            },
+            "routers_missing": [
+                definition.module for definition in ROUTER_DEFINITIONS
+                if definition.module not in app.state.routers_loaded
+            ],
         }
 
     app.state.routers_loaded = register_optional_routers(app)
