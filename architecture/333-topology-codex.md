@@ -293,3 +293,10 @@ If the new canonical header cannot render, revert only the D11 `index`-equivalen
 
 ### Rollback
 Revert these isolated KANSEE changes only after confirming no later dependent modifications. Preserve the HOLLO D07–D12 changes, 333 directory gateway, validated fallback ZIP, current browser data and future unassigned STOS terminal status.
+
+### D13 final readiness addendum
+- `afa956c2c42a6ae21cecb92701b017e425b6bbb1`: replace unverified browser-adapter "network connected" claim with explicitly **unverified adapter status**, and clarify that copied local room links are not authenticated live conferences.
+- Final frontend Git blob: `e043fd41ca67b6ebbc95c429cb35f50d4f6ac5f1`.
+- Final read-only source verification: 124 unique application IDs (no duplicates), 110 directly referenced ID targets found, 7 inline scripts parse, 14 sections/3 navs/1 main/1 style/1 header/1 footer/1 details balanced, exactly one canonical header / 333 ticker / KANSEE ticker / official toolbar, legacy header/support loader absent.
+- Isolated actual-function media test: delayed camera and screen-share results were rejected after cancellation and both stale synthetic tracks were stopped. No real device was accessed.
+- GitHub Actions still needs a manual run; future STOS terminal number remains unassigned.
