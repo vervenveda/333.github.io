@@ -369,6 +369,56 @@ footer{padding:38px 18px;color:#fff8e9}
 #continuity .status-card{border-top-color:var(--accent)}
 #continuity{padding-bottom:132px;scroll-margin-top:100px}
 @media(max-width:720px){#continuity{padding-bottom:150px}}
+
+/* 333 Network application-directory refinement — presentation only.
+   Preserve six genuine destinations, route keypad actions and search filtering. */
+#applications{padding-top:48px;padding-bottom:138px}
+#applications .section-heading{max-width:760px;margin-bottom:20px}
+#applications .section-heading .kicker{color:#927846;font:400 16px/1.45 var(--sans);letter-spacing:.045em;text-transform:none}
+#applications .section-heading h2{margin-top:7px;color:#202724;font:400 clamp(34px,4.4vw,44px)/1.2 Cinzel,Georgia,serif}
+#applications .section-heading p{max-width:700px;margin:9px auto 0;color:#34443c;font:400 18px/1.5 var(--sans)}
+#applications .section-heading .directory-guidance{font-size:16px;line-height:1.55;color:#46554d}
+#applications .directory-toolbar{max-width:720px;margin:0 auto 22px;grid-template-columns:minmax(0,1fr) auto;gap:9px;align-items:stretch}
+#applications .directory-toolbar label{display:block;min-width:0}
+#applications .field{height:46px;width:100%;padding:10px 13px;border:1px solid #6d7973;border-radius:7px;background:#fffdf8;color:#202724;font:400 16px/1.4 var(--sans)}
+#applications .field::placeholder{color:#5b655f;opacity:1}
+#applications .clear-button{height:46px;min-height:46px;white-space:nowrap;padding:9px 14px;border:1px solid #202724;border-radius:7px;background:#f4f0e7;color:#202724;font:400 16px/1.35 var(--sans);text-transform:none}
+#applications .category-shelf{margin-top:18px;padding:19px;border:3px solid #343d37;border-top-color:var(--accent);border-radius:7px;background:#f7f3e9}
+#applications .category-shelf:first-of-type{margin-top:0}
+#applications .category-head{align-items:center;gap:12px;padding:8px 10px 15px;border-bottom:1px solid #a4aba3}
+#applications .category-head h3{color:#202724;font:400 clamp(23px,2.8vw,30px)/1.25 Cinzel,Georgia,serif}
+#applications .category-head p{font:400 16px/1.55 var(--sans);color:#36453e}
+#applications .category-count{color:#34443c;font:400 16px/1.4 var(--sans);letter-spacing:0;text-transform:none;text-align:right}
+#applications .app-grid,#applications .app-grid.single{display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:14px;margin-top:17px}
+#applications .app-card{box-sizing:border-box;flex:0 1 calc((100% - 28px)/3);min-width:min(100%,285px);min-height:0;height:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:19px 17px;border:1px solid #b0b8b0;border-top:3px solid var(--accent);border-radius:7px;background:#fffdf9;color:#202724}
+#applications .app-icon{width:46px;height:44px;flex:none;border-radius:7px;font-size:21px}
+#applications .app-tag{margin-top:6px;font:400 16px/1.35 var(--sans);color:#40544a;letter-spacing:0;text-transform:none}
+#applications .app-card h3{margin:3px 0 0;color:#202724;font:400 clamp(21px,2.1vw,27px)/1.25 Cinzel,Georgia,serif}
+#applications .app-sub{margin:0;color:#40544a;font:400 16px/1.45 var(--sans);letter-spacing:0;text-transform:none}
+#applications .app-card p{margin:6px 0 0;color:#34443c;font:400 16px/1.55 var(--sans)}
+#applications .feature-list{width:100%;margin:5px 0 0;display:grid;gap:8px;color:#34443c;font:400 16px/1.5 var(--sans)}
+#applications .feature-list li{align-items:flex-start}
+#applications .feature-list li::before{flex:none;color:#40544a}
+#applications .app-actions{width:100%;min-height:99px;display:grid;grid-template-rows:repeat(2,minmax(44px,auto));align-content:end;gap:9px;margin-top:auto;padding-top:15px}
+#applications .app-actions a,#applications .app-actions button{min-height:44px;width:100%;padding:9px 12px;display:flex;align-items:center;justify-content:center;border-radius:7px;font:400 16px/1.4 var(--sans);text-transform:none;letter-spacing:0;text-align:center}
+#applications .app-actions a{grid-row:2;color:#fff8e9;background:#202724;border:1px solid #202724}
+#applications .app-actions button{grid-row:1;color:#202724;background:#f4f0e7;border:1px solid #899187}
+#applications .app-actions a:hover,#applications .app-actions a:focus-visible{background:#30413d}
+#applications .app-actions button:hover,#applications .app-actions button:focus-visible{background:#e7d9ba}
+#applications :is(.app-actions a,.app-actions button,.clear-button,.field):focus-visible{outline:3px solid #b48b45;outline-offset:2px}
+#applications .empty{font-size:16px;color:#34443c}
+@media(max-width:1050px){
+ #applications .app-card{flex-basis:calc((100% - 14px)/2)}
+}
+@media(max-width:700px){
+ #applications{padding:44px 12px 148px}
+ #applications .directory-toolbar{grid-template-columns:1fr}
+ #applications .category-shelf{padding:12px}
+ #applications .category-head{grid-template-columns:1fr;text-align:center}
+ #applications .category-head p{margin-inline:auto}
+ #applications .category-count{text-align:center}
+ #applications .app-card{flex-basis:100%;min-width:0}
+}
   </style>
 </head>
 <body id="top">
@@ -486,9 +536,10 @@ footer{padding:38px 18px;color:#fff8e9}
     <section class="section section-alt" id="applications" aria-labelledby="applicationsTitle">
       <div class="section-inner">
         <div class="section-heading">
-          <p class="kicker">Verified Application Directory</p>
-          <h2 id="applicationsTitle">Six roles. One organized network.</h2>
-          <p>Search by application, purpose, or feature. All six launch paths were matched to existing files in the repository’s singular <code>app/</code> directory.</p>
+          <p class="kicker">333 Network · Application Directory</p>
+          <h2 id="applicationsTitle">Six Applications</h2>
+          <p>One connected network. Six independent workspaces.</p>
+          <p class="directory-guidance">Search by application, purpose, or feature. All six launch paths lead to existing files in the network’s <code>app/</code> directory.</p>
         </div>
 
         <div class="directory-toolbar">
@@ -502,12 +553,12 @@ footer{padding:38px 18px;color:#fff8e9}
             <article class="app-card" style="--accent:var(--violet)" data-app data-search="hollo enrollment identity member profile contacts messages direct connect number">
               <span class="app-icon" aria-hidden="true">◌</span><span class="app-tag">Communication</span><h3>HOLLO™</h3><span class="app-sub">Direct Connect · 333-222-7777</span><p>The enrollment and profile doorway for the 333 Network, followed by trusted contacts and consent-based direct connection.</p>
               <ul class="feature-list"><li>Existing or provisional member-number pathways</li><li>Shared identity handoff to connected applications</li><li>Contacts, private threads, presence, and backups</li></ul>
-              <div class="app-actions"><a href="./app/HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a><button type="button" data-route="3332227777">Load HOLLO Route</button></div>
+              <div class="app-actions"><button type="button" data-route="3332227777">Load HOLLO Route</button><a href="./app/HOLLO_333_direct_connect_index.html#enroll">Open HOLLO Enrollment</a></div>
             </article>
             <article class="app-card" style="--accent:var(--teal)" data-app data-search="kansee meetings rooms video voice collaboration schedule invitations chat participants">
               <span class="app-icon" aria-hidden="true">▦</span><span class="app-tag">Communication</span><h3>KANSEE™</h3><span class="app-sub">Meeting Rooms · 333-333-7777</span><p>Private and scheduled meeting rooms that can reuse a locally created HOLLO member identity.</p>
               <ul class="feature-list"><li>Create, schedule, or join with a room code</li><li>HOLLO identity import or local meeting profile</li><li>Participants, invitations, notes, chat, and previews</li></ul>
-              <div class="app-actions"><a href="./app/KANSEE_333_meeting_rooms_index.html">Open KANSEE</a><button type="button" data-route="3333337777">Load KANSEE Route</button></div>
+              <div class="app-actions"><button type="button" data-route="3333337777">Load KANSEE Route</button><a href="./app/KANSEE_333_meeting_rooms_index.html">Open KANSEE</a></div>
             </article>
             <article class="app-card" style="--accent:var(--cyan)" data-app data-search="even mail email application address drafts correspondence inbox folders">
               <span class="app-icon" aria-hidden="true">✉</span><span class="app-tag">Communication</span><h3>E=Ven Mail</h3><span class="app-sub">Applications & Correspondence</span><p>Apply for an E=Ven address using a HOLLO profile, then organize drafts and correspondence locally.</p>
@@ -523,7 +574,7 @@ footer{padding:38px 18px;color:#fff8e9}
             <article class="app-card" style="--accent:var(--rose)" data-app data-search="bazaar art live community feed posts groups events reels artists creative social">
               <span class="app-icon" aria-hidden="true">✦</span><span class="app-tag">Community</span><h3>Bazaar Art Live</h3><span class="app-sub">Creative Community · 333-444-7777</span><p>A local-first creative community feed for art, ideas, events, groups, short videos, and trusted participation.</p>
               <ul class="feature-list"><li>Public browsing and local participating profiles</li><li>Posts, groups, events, comments, reactions, and reels</li><li>Creative identity connected to the broader 333 journey</li></ul>
-              <div class="app-actions"><a href="./app/Bazaar_Art_Live_index.html">Open Bazaar Art Live</a><button type="button" data-route="3334447777">Load Bazaar Route</button></div>
+              <div class="app-actions"><button type="button" data-route="3334447777">Load Bazaar Route</button><a href="./app/Bazaar_Art_Live_index.html">Open Bazaar Art Live</a></div>
             </article>
           </div>
         </section>
