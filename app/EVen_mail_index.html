@@ -2565,7 +2565,8 @@ body{color:var(--ink);background:#f5f2ea}
 
         if (submitting) addApplicationNotice(application);
 
-        saveState();
+        // Never announce an application submission if its local record was not persisted.
+        if (!saveState()) return;
         closeModal();
         renderAll();
 
@@ -2748,7 +2749,7 @@ body{color:var(--ink);background:#f5f2ea}
           draft.createdAt = Date.now();
         }
 
-        saveState();
+        if (!saveState()) return;
         closeModal();
         handleFolder("drafts");
         showToast("Draft saved locally.");
@@ -2791,7 +2792,7 @@ body{color:var(--ink);background:#f5f2ea}
           createdAt: Date.now()
         }));
 
-        saveState();
+        if (!saveState()) return;
         closeModal();
         handleFolder("sent");
         showToast("Saved to Sent Local. External delivery is not active.");
@@ -2918,6 +2919,11 @@ body{color:var(--ink);background:#f5f2ea}
             </div>
             <div class="application-summary">
               <div><strong>Mode</strong><span>Local planning</span></div>
+              <div><strong>Identity</strong><span>Local HOLLO profile · not a verified login</span></div>
+              <div><strong>Review</strong><span>Future authenticated approval · not connected</span></div>
+              <div><strong>Mailbox</strong><span>No live provisioning · SMTP unavailable</span></div>
+              <div><strong>Delivery</strong><span>Sent Local only · no external delivery</span></div>
+              <div><strong>STOS</strong><span>Dedicated terminal planned · slot unassigned</span></div>
               <div><strong>Storage</strong><span>${esc((bytes / 1024).toFixed(1))} KB</span></div>
               <div><strong>Applications</strong><span>${state.applications.length}</span></div>
               <div><strong>Messages</strong><span>${state.messages.length}</span></div>
