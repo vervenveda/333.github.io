@@ -237,6 +237,70 @@ footer strong{font-size:18px}
 @media(max-width:620px){.modal-layer .form-grid,.modal-layer .choice-grid{grid-template-columns:1fr}
  .modal-layer .enrollment-progress{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* HOLLO D10 — compact entrance, balanced account, legible local status, safe scroll room.
+   This does not alter canonical VNV header/ticker/toolbars, app IDs or storage logic. */
+.topline-inner{min-height:45px;gap:13px;padding-block:5px}
+.crumbs{font-size:16px;font-weight:400;letter-spacing:0;line-height:1.4}
+.hollo-network-menu summary{font-size:16px;min-height:42px;padding:8px 14px}
+.hero{padding:19px 0 13px;grid-template-columns:minmax(0,1fr) minmax(210px,245px);gap:20px;align-items:center}
+.hero .eyebrow{margin:0 0 5px;font-size:16px;letter-spacing:.065em}
+.hero h1{margin:0;font-size:clamp(46px,5.4vw,65px);line-height:1.08}
+.hero-copy{margin-top:8px;max-width:780px;font-size:17px;line-height:1.55}
+.service-number{min-height:0;padding:15px 14px;border:2px solid #8b7b61;border-radius:7px;box-shadow:0 4px 12px rgba(32,39,36,.09);background:#fffaf0}
+.service-number small{font-size:16px;letter-spacing:.045em;font-weight:400;color:#36443c}
+.service-number strong{font-size:clamp(21px,2.4vw,27px);letter-spacing:.03em;color:#66549f;margin-top:5px}
+.service-number span{font-size:16px;line-height:1.45;color:#435047}
+.status-strip{margin-bottom:12px}
+.status-card{grid-template-columns:minmax(0,1fr) minmax(210px,auto);align-items:center;gap:12px 18px;padding:18px 21px;border:2px solid #a58d60;border-radius:7px;background:#f4ead6}
+.status-copy{font-size:16px;line-height:1.5}
+.status-copy strong{font-size:22px;font-family:var(--font-display);font-weight:400}
+.status-explanation{font-size:16px;max-width:670px;color:#3b4b40}
+.profile-identity{min-width:0;justify-self:end;max-width:310px;border:1px solid #ad9a77;background:#fffaf0;padding:10px 13px}
+.profile-identity strong,.profile-identity span:last-child{font-size:16px}
+.identity-chip{font-size:16px;min-width:73px}
+.status-actions{grid-column:1/-1;justify-self:stretch;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.status-actions .small-btn{min-height:46px;width:100%;padding:9px 13px;border:1px solid #202724;border-radius:7px;background:#202724;color:#fff8e9;font:400 16px/1.4 var(--font-ui);letter-spacing:0}
+.status-actions .small-btn:hover,.status-actions .small-btn:focus-visible{background:#32443d;color:#fff8e9}
+.backend-readiness{margin-bottom:20px;scroll-margin-bottom:140px}
+.backend-readiness-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.24fr);gap:15px 20px;align-items:start;padding:20px;border:2px solid #a5ab9f;border-radius:7px;background:#fffaf0;box-shadow:0 6px 18px rgba(32,39,36,.08)}
+.backend-readiness h2{font-size:clamp(26px,3.2vw,36px);line-height:1.22}
+.backend-kicker{font-size:16px;letter-spacing:.05em}
+.backend-readiness p:not(.backend-kicker){margin-top:10px;color:#33443a;font-size:16px;line-height:1.55}
+.backend-status-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.backend-status-grid>div{min-height:83px;padding:13px;border:1px solid #7b877d;border-radius:7px;background:#f5f0e7}
+.backend-status-grid strong{font:400 16px/1.35 var(--font-ui);letter-spacing:0;color:#2f543a;text-transform:none}
+.backend-status-grid div:last-child strong{color:#69502d}
+.backend-status-grid span{font-size:16px;line-height:1.4;color:#273a30}
+.hollo-privacy-details{grid-column:1/-1;border-top:1px solid #b9bcae;padding-top:12px}
+.hollo-privacy-details summary{cursor:pointer;width:fit-content;max-width:100%;padding:7px 5px;min-height:43px;color:#202724;font-size:16px;line-height:1.4}
+.hollo-privacy-details summary:focus-visible{outline:3px solid #a88950;outline-offset:2px}
+.hollo-privacy-details p{max-width:950px;margin:6px 0 0;font-size:16px;color:#34443b;line-height:1.6}
+.app-shell{margin-bottom:130px}
+.activity-drawer{padding-bottom:95px}
+footer{padding-bottom:170px}
+/* The shared toolbar is fixed. The extra scroll space exposes obscured content
+   without rewriting or relocating its global canonical implementation. */
+@media(min-width:900px) and (max-width:1360px){
+  .backend-readiness{margin-bottom:72px}
+  .app-shell{margin-bottom:175px}
+}
+@media(max-width:900px){
+ .hero{grid-template-columns:1fr}
+ .service-number{max-width:330px}
+ .backend-readiness-inner{grid-template-columns:1fr}
+ .status-card{grid-template-columns:1fr}
+ .profile-identity{justify-self:start}
+ .status-actions{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+ .status-card{padding:17px}
+ .status-actions{grid-template-columns:1fr}
+ .backend-readiness-inner{padding:17px}
+ .backend-status-grid{grid-template-columns:1fr 1fr}
+ .service-number{max-width:none}
+ .app-shell{margin-bottom:160px}
+}
 </style>
 <style id="vnv-global-ecosystem-shell">
 .vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
@@ -302,7 +366,7 @@ footer strong{font-size:18px}
 </header>
 <div class="status-strip" aria-label="My HOLLO Account">
 <div class="status-card">
-<div class="status-copy"><span class="status-dot"></span><strong>My HOLLO Account · Local-first workspace</strong><span class="status-explanation"> Profiles, contacts, messages, invitations, activity, and media previews remain on this device. Existing numbers are unverified and generated 333 identities are provisional.</span></div>
+<div class="status-copy"><span class="status-dot"></span><strong>My HOLLO Account</strong><span class="status-explanation">Your local-first communication workspace. Existing numbers remain unverified; generated 333 identities are provisional.</span></div>
 <div aria-live="polite" class="profile-identity" id="profileIdentity">
 <span class="identity-chip" id="identityType">Guest</span>
 <strong id="identityName">Local Member</strong>
@@ -320,14 +384,15 @@ footer strong{font-size:18px}
 <div>
 <p class="backend-kicker">Persistence Architecture</p>
 <h2 id="backendReadinessTitle">Workspace Status</h2>
-<p>Local profiles, backups, E=Ven Mail handoffs, and camera previews are available. Authentication, secure server storage, signaling, moderation, and cross-device synchronization still require future connected services.</p>
+<p>Local features are available on this device. Connected services remain separate and are not yet commissioned.</p>
 </div>
 <div aria-label="HOLLO persistence status" class="backend-status-grid">
-<div><strong>Active</strong><span>Browser persistence</span></div>
-<div><strong>Active</strong><span>JSON backup and restore</span></div>
-<div><strong>Active</strong><span>E=Ven application handoff</span></div>
-<div><strong>Planned</strong><span>Cloud sync &amp; signaling</span></div>
+<div><strong>Local</strong><span>Browser Storage</span></div>
+<div><strong>Local</strong><span>Backup &amp; Restore</span></div>
+<div><strong>Local</strong><span>E=Ven Handoff</span></div>
+<div><strong>Planned</strong><span>Secure Synchronization</span></div>
 </div>
+<details class="hollo-privacy-details"><summary>How HOLLO protects your local workspace</summary><p>Profiles, contacts, messages, invitations, activity, and media previews remain on this device. Local identities and existing numbers are not verified accounts or permanent number reservations. Authentication, secure server storage, signaling, moderation, external delivery, and cross-device continuity require separate connected services. HOLLO's future STOS terminal is planned but has no assigned number or active service connection.</p></details>
 </div>
 </section>
 <nav aria-label="HOLLO mobile views" class="mobile-tabs" role="tablist">
