@@ -1890,8 +1890,7 @@ function importHolloProfile({silent=false}={}){
   const identity=readHolloIdentity();
   if(!identity){
     if(!silent){
-      toast('Complete HOLLO enrollment before importing a shared Bazaar profile.','error');
-      window.location.href='./HOLLO_333_direct_connect_index.html#enroll';
+      toast('No shared HOLLO profile found. You can enroll from the HOLLO link in the Network menu, or continue using Bazaar locally.','error');
     }
     return false;
   }
