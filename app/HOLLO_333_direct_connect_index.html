@@ -213,6 +213,30 @@ footer strong{font-size:18px}
  .contact-side{grid-column:2;text-align:left}
  .form-grid label,.privacy-note,.verification-note,.choice-card span span,.enrollment-consent,.storage-summary{font-size:16px;line-height:1.5}
 }
+
+/* HOLLO D08 — modal readability and keyboard / tab interaction.
+   Keeps the existing enrollment steps, consent, modals and backup controls. */
+.modal-layer .modal{border-radius:7px}
+.modal-layer .modal-head h2{font-size:clamp(24px,3vw,31px);line-height:1.25;color:#202724}
+.modal-layer .form-grid label,.modal-layer .check-label,.modal-layer .privacy-note,
+.modal-layer .verification-note,.modal-layer .enrollment-step,.modal-layer .choice-card span span,
+.modal-layer .enrollment-consent,.modal-layer .storage-summary,
+.modal-layer .modal-body p,.modal-layer .modal-body small,
+.modal-layer .modal-actions button{font-size:16px;line-height:1.5;font-weight:400;letter-spacing:0}
+.modal-layer .form-grid input,.modal-layer .form-grid select,.modal-layer .modal-actions button{min-height:44px}
+.modal-layer .choice-card{min-height:118px;gap:11px}
+.modal-layer .choice-card strong{font-size:19px;line-height:1.35}
+.modal-layer .enrollment-step{min-height:53px;text-transform:none}
+.modal-layer .privacy-note,.modal-layer .verification-note{color:#463b28}
+.modal-layer .modal-body{padding:19px}
+.modal-layer .modal-actions{gap:9px}
+.modal-layer :is(button,input,select,textarea,a):focus-visible,
+.hollo-network-menu summary:focus-visible,.mobile-tabs button:focus-visible{
+ outline:3px solid #a88950;outline-offset:2px
+}
+@media(max-width:620px){.modal-layer .form-grid,.modal-layer .choice-grid{grid-template-columns:1fr}
+ .modal-layer .enrollment-progress{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 <style id="vnv-global-ecosystem-shell">
 .vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
@@ -307,13 +331,13 @@ footer strong{font-size:18px}
 </div>
 </section>
 <nav aria-label="HOLLO mobile views" class="mobile-tabs" role="tablist">
-<button aria-selected="true" class="small-btn active" data-mobile-view="contacts" role="tab" type="button">Contacts</button>
-<button aria-selected="false" class="small-btn" data-mobile-view="messages" role="tab" type="button">Messages</button>
-<button aria-selected="false" class="small-btn" data-mobile-view="call" role="tab" type="button">Call</button>
-<button aria-selected="false" class="small-btn" data-mobile-view="activity" role="tab" type="button">Activity</button>
+<button aria-controls="contactsPanel" aria-selected="true" class="small-btn active" data-mobile-view="contacts" id="holloContactsTab" role="tab" tabindex="0" type="button">Contacts</button>
+<button aria-controls="messagesPanel" aria-selected="false" class="small-btn" data-mobile-view="messages" id="holloMessagesTab" role="tab" tabindex="-1" type="button">Messages</button>
+<button aria-controls="callPanel" aria-selected="false" class="small-btn" data-mobile-view="call" id="holloCallTab" role="tab" tabindex="-1" type="button">Call</button>
+<button aria-controls="activityPanel" aria-selected="false" class="small-btn" data-mobile-view="activity" id="holloActivityTab" role="tab" tabindex="-1" type="button">Activity</button>
 </nav>
 <main class="app-shell" id="holloWorkspace">
-<section aria-labelledby="contactsTitle" class="panel contacts-panel mobile-active" data-view="contacts" id="contactsPanel">
+<section aria-describedby="contactsTitle" aria-labelledby="holloContactsTab" class="panel contacts-panel mobile-active" data-view="contacts" role="tabpanel" id="contactsPanel">
 <div class="panel-head">
 <div><h2 id="contactsTitle">Trusted Contacts</h2><p>Search by name, handle, phone number, or 333 number.</p></div>
 <button aria-label="Add contact" class="icon-btn" id="addContactBtn" title="Add contact" type="button">＋</button>
@@ -342,7 +366,7 @@ footer strong{font-size:18px}
 </section>
 </div>
 </section>
-<section aria-labelledby="conversationName" class="panel conversation-panel" data-view="messages" id="messagesPanel">
+<section aria-describedby="conversationName" aria-labelledby="holloMessagesTab" class="panel conversation-panel" data-view="messages" role="tabpanel" id="messagesPanel">
 <div class="conversation-header">
 <div aria-hidden="true" class="avatar" id="conversationAvatar">JP</div>
 <div class="conversation-title">
@@ -368,7 +392,7 @@ footer strong{font-size:18px}
 </form>
 </div>
 </section>
-<section aria-labelledby="callTitle" class="panel call-panel" data-view="call" id="callPanel">
+<section aria-describedby="callTitle" aria-labelledby="holloCallTab" class="panel call-panel" data-view="call" role="tabpanel" id="callPanel">
 <div class="panel-head">
 <div><h2 id="callTitle">Voice &amp; Video</h2><p id="callSubtitle">Private invitations and local media preview.</p></div>
 <span class="pill prototype" id="networkBadge">Prototype</span>
@@ -414,7 +438,7 @@ footer strong{font-size:18px}
 </div>
 </section>
 </main>
-<section aria-labelledby="activityTitle" class="activity-drawer" data-view="activity" id="activityPanel">
+<section aria-describedby="activityTitle" aria-labelledby="holloActivityTab" class="activity-drawer" data-view="activity" role="tabpanel" id="activityPanel">
 <div class="activity-card">
 <div class="activity-top">
 <div><h2 id="activityTitle">Call Activity</h2><p class="activity-subtitle">Missed, declined, completed, and preview sessions stored on this device.</p></div>
@@ -1429,7 +1453,7 @@ function activateMobileView(view){
   state.settings.mobileView=resolved;
   $$('.mobile-tabs button').forEach(b=>{
     const active=b.dataset.mobileView===resolved;
-    b.classList.toggle('active',active); b.setAttribute('aria-selected',String(active));
+    b.classList.toggle('active',active); b.setAttribute('aria-selected',String(active)); b.tabIndex=active?0:-1;
   });
   $$('.app-shell [data-view]').forEach(el=>el.classList.toggle('mobile-active',el.dataset.view===resolved));
   $('#activityPanel').classList.toggle('mobile-active',resolved==='activity');
