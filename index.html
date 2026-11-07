@@ -498,6 +498,20 @@ footer{padding:38px 18px;color:#fff8e9}
  #applications .section-heading h2{font-size:36px}
 }
 
+/* 333 Route Finder: readable controls, clear validation and consistent actions. */
+#routes .section-heading{max-width:790px}
+#routes .route-layout{gap:16px;align-items:stretch}
+#routes .route-card{min-width:0;border-radius:7px}
+#routes .dial-display{min-height:55px;font:400 20px/1.4 var(--mono);letter-spacing:.075em}
+#routes .dial-key{min-height:49px;font:400 18px/1.4 var(--sans)}
+#routes .dial-status{font:400 16px/1.5 var(--sans);min-height:55px}
+#routes .dial-actions button,#routes .copy-button,#routes .route-load-button{min-height:44px;border-radius:7px;font:400 16px/1.4 var(--sans);letter-spacing:0;text-transform:none}
+#routes #openRoute{background:#202724;color:#fff8e9;border:1px solid #bba776}
+#routes #openRoute:disabled{opacity:.57;cursor:not-allowed}
+#routes .route-load-button{padding:8px 13px;border:1px solid #202724;color:#fff8e9;background:#202724;cursor:pointer}
+#routes .route-load-button:hover,#routes .route-load-button:focus-visible{background:#30413d;color:#fff8e9}
+#routes :is(.dial-key,.dial-display,.dial-actions button,.copy-button,.route-load-button):focus-visible{outline:3px solid #dcc79f;outline-offset:2px}
+@media(max-width:720px){#routes .route-layout{grid-template-columns:1fr}#routes .route-row{gap:9px;flex-wrap:wrap}}
 /* D06 — 333 lower-page refinement. Scoped to content owned by this page. */
 #principles{padding:62px 20px 70px;background:#071c2a;color:#fff8e9}
 #principles .section-heading{max-width:830px;margin:0 auto 30px}
@@ -736,14 +750,14 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
       <div class="section-inner">
         <div class="section-heading">
           <p class="kicker">Internal Route Directory</p>
-          <h2 id="routesTitle">Established routes remain clear.</h2>
-          <p>The four current 333 routes are preserved. E=Ven Mail, SIte, and Bunya use direct verified application links until permanent routes are intentionally assigned.</p>
+          <h2 id="routesTitle">333 Route Directory</h2>
+          <p>Choose from four established internal routes. E=Ven Mail, SIte, and Bunya remain accessible through their application links until dedicated routes are assigned.</p>
         </div>
 
         <div class="route-layout">
           <article class="route-card dark">
-            <h3>333 Route Finder</h3><p>Enter or load an established route, then open the matching destination.</p>
-            <input class="dial-display" id="dialDisplay" inputmode="numeric" autocomplete="off" maxlength="12" value="333-" aria-label="333 internal route">
+            <h3>333 Route Finder</h3><p>Enter the seven digits after 333, or load a route from the directory. Only assigned routes open destinations.</p>
+            <input class="dial-display" id="dialDisplay" inputmode="numeric" autocomplete="off" maxlength="12" value="333-" spellcheck="false" aria-label="333 internal route" aria-describedby="dialStatus">
             <div class="dial-pad" aria-label="Route keypad">
               <button class="dial-key" type="button" data-key="1">1</button><button class="dial-key" type="button" data-key="2">2</button><button class="dial-key" type="button" data-key="3">3</button>
               <button class="dial-key" type="button" data-key="4">4</button><button class="dial-key" type="button" data-key="5">5</button><button class="dial-key" type="button" data-key="6">6</button>
@@ -1027,35 +1041,83 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
 
       const display=$("#dialDisplay");
       const dialStatus=$("#dialStatus");
-      function formatRoute(value){
-        const number=digits(value).slice(0,10);
-        const parts=[];
-        if(number.length)parts.push(number.slice(0,3));
-        if(number.length>3)parts.push(number.slice(3,6));
-        if(number.length>6)parts.push(number.slice(6,10));
-        return parts.join("-")||"333-";
+      const openRouteButton=$("#openRoute");
+      function routeDigits(value){
+        const number=digits(value);
+        // The 333 prefix identifies this internal directory; do not accept another prefix.
+        return "333"+(number.startsWith("333")?number.slice(3):number).slice(0,7);
       }
-      function setRoute(value){display.value=formatRoute(value)}
+      function formatRoute(value){
+        const number=routeDigits(value);
+        return number.slice(0,3)+"-"+number.slice(3,6)+(number.length>6?"-"+number.slice(6,10):"");
+      }
+      function updateRouteFeedback(message){
+        const number=routeDigits(display.value);
+        const assigned=Object.prototype.hasOwnProperty.call(ROUTES,number);
+        openRouteButton.disabled=!assigned;
+        if(message){dialStatus.textContent=message;return}
+        if(assigned){
+          dialStatus.textContent="Assigned route: "+ROUTES[number].name+". Select Open Route to continue.";
+        }else if(number.length<10){
+          dialStatus.textContent="Enter "+(10-number.length)+" more digit"+(10-number.length===1?"":"s")+" after 333.";
+        }else{
+          dialStatus.textContent="This number is not assigned. Choose one of the four listed routes.";
+        }
+      }
+      function setRoute(value,message){
+        display.value=formatRoute(value);
+        updateRouteFeedback(message);
+      }
       function openCurrentRoute(){
-        const key=digits(display.value);
-        const route=ROUTES[key];
-        if(!route){dialStatus.textContent="That route is not assigned in the current directory.";return}
-        dialStatus.textContent=`Opening ${route.name}.`;
+        const key=routeDigits(display.value);
+        const route=Object.prototype.hasOwnProperty.call(ROUTES,key)?ROUTES[key]:null;
+        if(!route){updateRouteFeedback();return}
+        dialStatus.textContent="Opening "+route.name+".";
         window.location.href=route.href;
       }
-      $$("[data-key]").forEach(button=>button.addEventListener("click",()=>{
+      $("[data-key]").forEach(button=>button.addEventListener("click",()=>{
         const key=button.dataset.key;
-        let value=digits(display.value);
-        if(key==="clear")value="333";else if(key==="back")value=value.slice(0,-1)||"333";else if(value.length<10)value+=key;
+        let value=routeDigits(display.value);
+        if(key==="clear")value="333";
+        else if(key==="back")value=value.slice(0,-1);
+        else if(value.length<10)value+=key;
         setRoute(value);
+        display.focus({preventScroll:true});
       }));
       display.addEventListener("input",()=>setRoute(display.value));
-      $("#resetRoute").addEventListener("click",()=>{setRoute("333");dialStatus.textContent="Ready for an established internal 333 service route."});
-      $("#openRoute").addEventListener("click",openCurrentRoute);
-      $$("[data-route]").forEach(button=>button.addEventListener("click",()=>{setRoute(button.dataset.route);document.querySelector("#routes").scrollIntoView({behavior:"smooth"});dialStatus.textContent="Route loaded. Select Open Route when ready."}));
-      $$("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
-        try{await navigator.clipboard.writeText(button.dataset.copy);showToast(`${button.dataset.copy} copied.`)}catch{showToast("Copy was unavailable. Select the route manually.")}
+      display.addEventListener("keydown",event=>{
+        if(event.key==="Enter"){event.preventDefault();openCurrentRoute()}
+        if(event.key==="Escape"){event.preventDefault();setRoute("333")}
+      });
+      $("#resetRoute").addEventListener("click",()=>{setRoute("333");display.focus({preventScroll:true})});
+      openRouteButton.addEventListener("click",openCurrentRoute);
+      $("[data-route]").forEach(button=>button.addEventListener("click",()=>{setRoute(button.dataset.route);$("#routes").scrollIntoView({behavior:"smooth"});dialStatus.textContent="Route loaded: "+(ROUTES[routeDigits(display.value)]?.name||"333 route")+". Select Open Route to continue."}));
+      $("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
+        const value=button.dataset.copy;
+        try{
+          await navigator.clipboard.writeText(value);
+          showToast(value+" copied.");
+        }catch{
+          setRoute(value,"Route loaded in the finder. Copy manually from the field if needed.");
+          display.focus({preventScroll:true});
+          display.select();
+          showToast("Clipboard unavailable. The route is selected in the finder.");
+        }
       }));
+      $(".route-row").forEach(row=>{
+        const button=document.createElement("button");
+        button.type="button";
+        button.className="route-load-button";
+        button.textContent="Load";
+        button.setAttribute("aria-label","Load "+row.querySelector(".route-number").textContent+" in route finder");
+        button.addEventListener("click",()=>{
+          const value=row.querySelector(".route-number").textContent;
+          setRoute(value,"Route loaded. Select Open Route to continue.");
+          $("#routes").scrollIntoView({behavior:"smooth"});
+          display.focus({preventScroll:true});
+        });
+        row.append(button);
+      });
 
       $("#refreshContinuityButton").addEventListener("click",()=>{renderContinuity();showToast("Local application status refreshed.")});
       $("#year").textContent=new Date().getFullYear();
