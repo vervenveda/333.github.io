@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "333-333-network-pwa-";
-const CACHE_VERSION = `${CACHE_PREFIX}v8`;
+const CACHE_VERSION = `${CACHE_PREFIX}v9`;
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const MAX_RUNTIME_ENTRIES = 60;
@@ -157,7 +157,8 @@ async function handleSameOriginAsset(request) {
 }
 
 self.addEventListener("install", event => {
-  event.waitUntil(precacheFiles().then(() => self.skipWaiting()));
+  // Leave updates waiting until the visitor selects Update Now. The first install activates normally.
+  event.waitUntil(precacheFiles());
 });
 
 self.addEventListener("activate", event => {
