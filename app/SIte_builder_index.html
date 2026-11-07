@@ -1510,6 +1510,45 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
  #canvas{overflow:visible}
  .page-canvas{width:100%;max-width:none;margin:0;box-shadow:none}
 }
+
+/* D23: professional workspace refinement. Application CSS only; site content untouched. */
+#siteDormantNotice{padding:12px 18px 14px;gap:4px}
+#siteStudioTitle{font-size:clamp(29px,2.7vw,41px)}
+.site-studio-identity{gap:1px}
+.site-studio-context p{font-size:16px;line-height:1.45}
+#topbar{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:13px 18px 15px;min-height:0}
+#topbar .left{width:100%;display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+#topbar .right.workspace-command{width:100%;flex:1 1 auto;display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:9px}
+#topbar .site-tool-group{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;align-content:center;gap:7px;padding:10px 12px 12px;border:1px solid #67796e;border-radius:7px;background:#2d3b34;min-width:0}
+#topbar .site-tool-group-label{flex:0 0 100%;text-align:center;font:400 16px/1.35 "Avenir Next","Segoe UI",sans-serif;color:#f5e8d4}
+#topbar .site-tool-group button{min-height:44px;padding:9px 13px;font:400 16px/1.4 "Avenir Next","Segoe UI",sans-serif;white-space:normal;color:#fffaf0;background:#202724;border:1px solid #7d9184;border-radius:7px}
+#topbar .site-tool-group button:hover,#topbar .site-tool-group button:focus-visible{background:#465d4d;color:#fffaf0}
+#topbar .site-tool-group .device-btn.active{background:#fffaf0;color:#202724;border-color:#fffaf0}
+#topbar .site-tool-group #btnReset{background:#fffaf0;color:#202724;border-color:#aeb8ad}
+#topbar .site-tool-group .badge{min-height:44px;display:inline-flex;align-items:center;padding:8px 11px;color:#fffaf0;background:#42554a;border-color:#718177}
+#topbar .device-toolbar{display:flex;align-items:center;gap:6px}
+#topbar .device-toolbar button{min-width:44px;padding:8px}
+#topbar .site-tool-navigation{flex:1 1 350px}
+#topbar .site-tool-export{flex:1 1 425px}
+#leftPanel,#rightPanel{padding:18px 14px;background:#f8f5ed}
+.site-rail-section{background:#fffcf5;border:1px solid #cbd1c6;border-radius:7px;padding:17px 14px;margin-bottom:16px;min-width:0}
+#leftPanel .site-rail-section h3,#rightPanel .site-rail-section h3{font:400 23px/1.35 Georgia,serif;color:#202724;letter-spacing:0;text-transform:none;margin:0 0 11px}
+#leftPanel .site-rail-section .smallhelp,#rightPanel .site-rail-section .smallhelp{font-size:16px;line-height:1.55}
+#leftPanel .site-rail-section button,#rightPanel .site-rail-section button{min-height:44px;padding:9px 12px;font-size:16px;border-radius:7px;max-width:100%;white-space:normal}
+#rightPanel .site-block-section>button{display:flex;align-items:center;justify-content:center;width:100%;min-height:44px;margin:9px 0;background:#202724;color:#fffaf0}
+#rightPanel .site-block-section>br{display:none}
+#canvas{background:#e5eaed}
+#canvas .canvas-shell{width:100%;padding:18px 20px 34px;min-width:0}
+#canvas .site-canvas-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;max-width:1100px;margin:0 auto 11px;padding:10px 14px;background:#f5f0e7;border:1px solid #c5cec7;border-radius:7px;color:#25352d;font:400 16px/1.4 "Avenir Next","Segoe UI",sans-serif}
+#canvas .site-canvas-heading>span:first-child{font:400 19px/1.3 Georgia,serif}
+#canvas .site-canvas-heading>span:last-child{font-size:16px;color:#536258}
+#canvas .page-canvas{width:100%;max-width:1100px;min-height:68vh;margin:0 auto 22px;padding:30px;border:1px solid #b9c2ba;border-radius:7px;box-shadow:0 12px 30px rgba(31,48,39,.11)}
+body.left-collapsed #app{grid-template-columns:minmax(0,1fr) minmax(270px,300px)}
+body.right-collapsed #app{grid-template-columns:minmax(245px,270px) minmax(0,1fr)}
+body.left-collapsed.right-collapsed #app{grid-template-columns:minmax(0,1fr)}
+@media(max-width:1180px){body.left-collapsed #app,body.right-collapsed #app,body.left-collapsed.right-collapsed #app{grid-template-columns:minmax(215px,235px) minmax(0,1fr)}body.left-collapsed #app{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){#topbar{padding:11px 9px}#topbar .site-tool-group{width:100%;padding:10px}#topbar .site-tool-navigation,#topbar .site-tool-export{flex-basis:100%}#canvas .canvas-shell{padding:12px}#canvas .site-canvas-heading{flex-wrap:wrap}#canvas .page-canvas{padding:18px;min-height:62vh}body.left-collapsed #app,body.right-collapsed #app,body.left-collapsed.right-collapsed #app{grid-template-columns:minmax(0,1fr)}}
+@media print{#canvas .site-canvas-heading{display:none}#canvas .canvas-shell{padding:0}#canvas .page-canvas{width:100%;max-width:none;margin:0;padding:0;border:0;box-shadow:none}}
 </style>
 
 </head>
@@ -1591,16 +1630,14 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
 
   <!-- LEFT PANEL -->
   <div class="panel" id="leftPanel">
-    <h3>Pages</h3>
+    <section class="site-rail-section"><h3>Pages</h3>
     <div class="smallhelp" style="margin:-4px 0 10px;">
       Tip: Use ▲▼ to reorder pages in this session. Export your project to keep the changes.
     </div>
     <div id="pageList"></div>
     <button type="button" id="btnAddPage" class="small">+ Add Page</button>
 
-    <hr>
-
-    <h3>Languages</h3>
+    </section><section class="site-rail-section"><h3>Languages</h3>
     <div id="langList"></div>
 
     <div id="langAdder">
@@ -1619,9 +1656,7 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
       <b>Rule:</b> One layout, many languages. Locked pages block layout edits but allow translation edits.
     </div>
 
-    <hr>
-
-    <h3>Domains (prep)</h3>
+    </section><section class="site-rail-section"><h3>Domains (prep)</h3>
     <div class="label">Primary</div>
     <input id="primaryDomain" placeholder="example.com" />
     <div class="label">Aliases (one per line)</div>
@@ -1635,6 +1670,7 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
     <div class="smallhelp" style="margin-top:10px;">
       Domains & live URLs here are <b>descriptive only</b>. They help you track routing for Wix / DNS.
     </div>
+    </section>
   </div>
 
   <!-- CENTER CANVAS -->
@@ -1649,27 +1685,27 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
         <div id="topLangBadge" class="badge">—</div>
       </div>
       <div class="right workspace-command">
-        <span id="topIdentityBadge" class="badge top-identity">Local editor</span>
+        <div class="site-tool-group site-tool-navigation" aria-label="Navigation"><span class="site-tool-group-label">Navigation</span><span id="topIdentityBadge" class="badge top-identity">Local editor</span>
         <button id="btnNetworkDirectory" class="secondary small" type="button">333 Network</button>
         <button id="btnToggleLeft" class="secondary small" type="button">Pages</button>
         <button id="btnToggleRight" class="secondary small" type="button">Inspector</button>
-        <div class="device-toolbar" aria-label="Responsive preview">
+        </div><div class="site-tool-group site-tool-view" aria-label="View"><span class="site-tool-group-label">View</span><div class="device-toolbar" aria-label="Responsive preview">
           <button class="secondary small device-btn active" data-device="desktop" type="button" title="Desktop">🖥</button>
           <button class="secondary small device-btn" data-device="tablet" type="button" title="Tablet">▣</button>
           <button class="secondary small device-btn" data-device="phone" type="button" title="Phone">▯</button>
         </div>
-        <button id="btnUndo" class="secondary small" type="button">Undo</button>
+        </div><div class="site-tool-group site-tool-edit" aria-label="Editing"><span class="site-tool-group-label">Editing</span><button id="btnUndo" class="secondary small" type="button">Undo</button>
         <button id="btnRedo" class="secondary small" type="button">Redo</button>
         <button id="btnSnapshot" class="secondary small" type="button">Restore Point</button>
-        <button id="btnEmbedStudio" class="secondary small" type="button">Embed Studio</button>
+        </div><div class="site-tool-group site-tool-create" aria-label="Creation"><span class="site-tool-group-label">Creation</span><button id="btnEmbedStudio" class="secondary small" type="button">Embed Studio</button>
         <button id="btnPreview" class="small secondary" type="button">Preview</button>
-        <button id="btnExportSite" class="secondary small" type="button">Export Website</button>
+        </div><div class="site-tool-group site-tool-export" aria-label="Export and recovery"><span class="site-tool-group-label">Export &amp; Recovery</span><button id="btnExportSite" class="secondary small" type="button">Export Website</button>
         <button id="btnPublishBunya" class="secondary small" type="button">Publish with Bunya</button>
         <button id="btnExport" class="secondary small" type="button">Download Project JSON</button>
         <button id="btnImportProject" class="secondary small" type="button">Import Project JSON</button>
         <input id="siteProjectImportFile" type="file" accept=".json,application/json" hidden>
         <button id="btnReset" class="secondary small" type="button">Reset</button>
-        <button id="btnLogout" class="secondary small" type="button">Log Out</button>
+        <button id="btnLogout" class="secondary small" type="button">Log Out</button></div>
       </div>
     </div>
 
@@ -1678,18 +1714,13 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
       <div id="statusMsg">Ready.</div>
     </div>
 
-    <div class="canvas-shell"><div id="pageCanvas" class="page-canvas"></div></div>
+    <div class="canvas-shell"><div class="site-canvas-heading"><span>Design Canvas</span><span>Use View controls above for responsive previews</span></div><div id="pageCanvas" class="page-canvas"></div></div>
     <footer>SIte™ Alpha v0.8.0 · Website Builder • Embed Studio • Responsive Layouts • Local Workspace</footer>
   </div>
 
   <!-- RIGHT PANEL -->
   <div class="panel right" id="rightPanel">
-    <h3>Inspector</h3>
-    <div id="inspector"></div>
-
-    <hr>
-
-    <h3>Add Block</h3>
+    <section class="site-rail-section"><h3>Inspector</h3><div id="inspector"></div></section><section class="site-rail-section site-block-section"><h3>Add Block</h3>
     <div class="smallhelp" style="margin-bottom:10px;">
       Layout edits are disabled when a page is locked.
     </div>
@@ -1698,7 +1729,7 @@ body{display:block;height:auto;min-height:100dvh;background:var(--site-paper);co
     <button type="button" id="btnAddText">Text</button><br><br>
     <button type="button" id="btnAddButton">Button (Palette)</button><br><br>
     <button type="button" id="btnAddImage">Image</button><br><br>
-    <button type="button" id="btnAddEmbed">Embed Studio</button>
+    <button type="button" id="btnAddEmbed">Embed Studio</button></section>
   </div>
 
 </div>
