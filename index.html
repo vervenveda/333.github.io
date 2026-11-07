@@ -926,7 +926,8 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
           !Array.isArray(handoff.profile);
         const validHollo=hollo?.profile && typeof hollo.profile==="object" &&
           !Array.isArray(hollo.profile);
-        const source=validHandoff?handoff:validHollo?hollo:null;
+        // HOLLO owns the workspace profile. Prefer its current record to a possibly stale handoff.
+        const source=validHollo?hollo:validHandoff?handoff:null;
         if(!source?.profile)return null;
         return {
           name:clean(source.profile.name),
