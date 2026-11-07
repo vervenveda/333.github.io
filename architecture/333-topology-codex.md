@@ -451,3 +451,33 @@ Revert only the four D18 E=Ven Mail source commits (in reverse order) after chec
 
 ### Rollback
 Prior SIte blob `7bd259bbaff380bbf0b35afac1ee4a87bcc5b842`. Revert D19 SIte source commits only after checking intervening modifications. Do **not** overwrite historical account/project storage or auto-enable existing local auth at STOS commissioning; migration and permission boundaries require a separate audited release.
+
+## D20 — SIte embed containment, safe export, and session project recovery (2026-11-07)
+
+**Scope:** SIte website export, authored embed preview, canvas embed rendering, in-memory restore points, Project JSON download/import, and reset. **Account sign-in remains dormant under D19.** No STOS terminal assigned, commissioned, or touched. Historical saved account `SITE_ALPHA_AUTH_V1`, site `SITE_ALPHA_V070`, and snapshots stay isolated from public temporary sessions.
+
+### Baseline and commits
+- D20 starts from SIte blob `b641bf120bc450a258b9bcc0085579c18cc547a8`.
+- `7df4240ffbd2d771ba39510009fca4dbea73190c`: all three direct authored-embed `innerHTML=getText(b,lang)` paths moved into a unique-origin iframe renderer. Restrict frame to `sandbox="allow-scripts"`, no `allow-same-origin`, popups or forms; inject restrictive per-frame CSP including `default-src 'none'`, `connect-src 'none'`, `frame-src 'none'`, and deny form action. Embed Studio preview uses the same controlled source document rather than a blob URL.
+- `6065abbbd5810e4afd9df8c8254fbd9bb8076c62`: validate imported site structures (1–80 pages, no duplicate page IDs, up to 400 blocks per page, at most 5000 blocks total), reject files over 5MB, and retain a restore point before import and snapshot restoration. Replace the clipboard-only `Project JSON` export with a real downloadable JSON file and provide in-memory `Import Project JSON` controls. All temporary project data is still lost on refresh unless exported.
+- `3e82373803e6625977edb148200c669a64487b1f`: exported static HTML embeds are also sandboxed, not appended as trusted DOM nodes; exported button/image URLs are constrained to permitted schemes. Keeps the existing authoring intent (scripts execute **inside** isolated embed frames, not the parent builder or exported page).
+- `c64440b8f57084139a47d79e933cf49575e5d495`: checkpoint the temporary site before Reset.
+- `c4dffc98c45de47cf2c91ff4b31da1020a82a23d`: add seven source/synthetic tests in `tests/site_export_embed_recovery.test.mjs`.
+- `950aaed6a0e855713dbe7084d5b16dc8c9c3bdc5`: include these tests in the manual 333 Network source audit workflow.
+
+### Forensic evidence
+- Verified full SIte inline application JavaScript parses after changes, despite embedded HTML strings containing literal script tags (naive HTML regex prematurely truncates it).
+- Isolated generated website tested with malicious-looking synthetic author content: a script-bearing embed was encoded inside sandboxed iframe srcdoc and `javascript:` URL did not appear as a clickable exported href. `safeExportUrl("javascript:...")` returned `#`. Validation accepted an ordinary synthetic project and rejected malformed page/block structures.
+- Source tests committed; **the full GitHub Actions runner and live browser execution have not yet been observed**.
+- Existing editor, block types, layouts, responsive controls, exports, restore points and historical projects preserved. No private browser profile accessed.
+
+### Outstanding acceptance and limits
+- Browser-rendering acceptance at 390/768/1024/1440/1920 CSS pixels; confirm temporary entry, authoring, undo/redo, flow/free embed iframe size, CSS and script previews, import/reimport, download, restore-point semantics, Reset, and keyboard navigation.
+- A temporary SIte session is **not persisted**: the user must save `site-project.json` before page exit. The restore-point list is also session-only in dormant mode; it cannot substitute for external backups.
+- Embed scripts are sandboxed with network blocked. Some old third-party embeds requiring network, popups, forms, geolocation, or same-origin API access may not preview until a separate trusted-permissions release. This is intentional fail-closed behavior.
+- Exported page still references existing VNV shared assets; actual published-site trust model, hosted authentication, file uploads and third-party scripts require a separate publication security review.
+- Static source checks cannot guarantee browser-level frame isolation or storage reliability. Do not mistake local passcode auth for STOS identity.
+- Dedicated SIte terminal remains **uncommissioned and unassigned**.
+
+### Rollback
+Revert only D20 SIte source commits in reverse order after checking subsequent edits. Preserve D19 admission dormancy, all browser records, healthy fallback ZIP, and other 333 subsidiaries. Do not restore local sign-in automatically.
