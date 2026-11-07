@@ -818,6 +818,41 @@ function safeHandle(value){
       }
     }
 
+    // Preserve legitimate legacy records, but never let malformed imports create
+    // actionable invitations or unbounded record values.
+    function safeRecordTime(value){
+      const ts=Number(value);
+      return Number.isFinite(ts)&&ts>0&&ts<8640000000000000?ts:Date.now();
+    }
+    function normalizeInviteRecords(value,contacts,direction){
+      if(!Array.isArray(value)) return [];
+      const allowed=new Set(['pending','reviewed','declined','cancelled','accepted-local-preview','completed','expired','missed','archived']);
+      const used=new Set();
+      return value.slice(-100).filter(v=>v&&typeof v==='object'&&!Array.isArray(v)).map(v=>{
+        let id=String(v.id||'').slice(0,100);
+        if(!id||used.has(id)) id=uid('invite');
+        used.add(id);
+        const contactId=String(v.contactId||'').slice(0,100);
+        const hasContact=contacts.some(c=>c.id===contactId);
+        const mode=v.mode==='video'?'video':'voice';
+        const status=allowed.has(v.status)?v.status:'archived';
+        return {id,contactId,mode,ts:safeRecordTime(v.ts),
+          status:hasContact?status:'archived',
+          demo:v.demo===true};
+      });
+    }
+    function normalizeActivityRecords(value,contacts){
+      if(!Array.isArray(value)) return [];
+      return value.slice(-MAX_ACTIVITY).filter(v=>v&&typeof v==='object'&&!Array.isArray(v)).map(v=>({
+        id:String(v.id||uid('activity')).slice(0,100),
+        contactId:String(v.contactId||'').slice(0,100),
+        type:String(v.type||'activity').slice(0,70).replace(/[^a-z0-9-]/gi,''),
+        ts:safeRecordTime(v.ts),
+        note:String(v.note||'').slice(0,160),
+        durationMs:Number.isFinite(Number(v.durationMs))?Math.max(0,Math.min(Number(v.durationMs),86400000)):0
+      }));
+    }
+
     function validateAndMergeState(input){
       const base=defaultState();
       if(!input || typeof input!=='object') return base;
@@ -834,7 +869,7 @@ function safeHandle(value){
           handle:safeHandle(input.profile.handle||base.profile.handle),
           number:incomingNumber,
           numberKind:incomingKind,
-          numberVerified:Boolean(input.profile.numberVerified)
+          numberVerified:false // Browser backups never verify membership or number ownership.
         };
       }
       const legacyProfileLooksComplete=Boolean(
@@ -851,6 +886,8 @@ function safeHandle(value){
           ? input.enrollment.complete
           : legacyProfileLooksComplete
       };
+      // Historical completed enrollments remain usable locally, never as backend proof.
+      out.enrollment.verification=out.enrollment.complete?'local-unverified':'guest-local';
       if(!input.enrollment && out.profile.number==='3330000000'){
         out.profile.number='';
         out.profile.numberKind='none';
@@ -874,11 +911,15 @@ function safeHandle(value){
         });
       }
       if(input.invites && typeof input.invites==='object'){
-        out.invites.incoming=Array.isArray(input.invites.incoming)?input.invites.incoming.slice(-100):[];
-        out.invites.outgoing=Array.isArray(input.invites.outgoing)?input.invites.outgoing.slice(-100):[];
+        out.invites.incoming=normalizeInviteRecords(input.invites.incoming,out.contacts,'incoming');
+        out.invites.outgoing=normalizeInviteRecords(input.invites.outgoing,out.contacts,'outgoing');
       }
-      out.activity=Array.isArray(input.activity)?input.activity.slice(-MAX_ACTIVITY):[];
-      out.settings={...base.settings,...(input.settings||{})};
+      out.activity=normalizeActivityRecords(input.activity,out.contacts);
+      const settings=input.settings&&typeof input.settings==='object'&&!Array.isArray(input.settings)?input.settings:{};
+      out.settings={
+        inviteTab:['incoming','outgoing'].includes(settings.inviteTab)?settings.inviteTab:base.settings.inviteTab,
+        mobileView:['contacts','messages','call','activity'].includes(settings.mobileView)?settings.mobileView:base.settings.mobileView
+      };
       out.sync={...base.sync,...(input.sync||{}),mode:HOLLO_BACKEND.mode};
       out.activeContactId=out.contacts.some(c=>c.id===input.activeContactId)?input.activeContactId:'founder';
       out.version=APP_VERSION;
@@ -1720,13 +1761,62 @@ function deleteActiveContact(){
 async function importBackup(file){
   if(!file) return;
   if(file.size>5*1024*1024){ showToast('Backup is too large. Maximum import size is 5 MB.'); return; }
+  let candidate;
   try{
     const data=JSON.parse(await file.text());
-    if(data.schema!=='hollo-backup'){ throw new Error('schema'); }
-    if(!confirm('Replace the current local HOLLO workspace with this backup? Export the current workspace first when needed.')) return;
-    state=validateAndMergeState(data); saveState(); writeIdentityHandoff(); renderAll(); updateCallContact(); closeModal();
-    activateMobileView(state.settings.mobileView||'contacts'); showToast('HOLLO backup restored.');
-  }catch{ showToast('This file is not a valid HOLLO backup.'); }
+    if(!data||typeof data!=='object'||Array.isArray(data)||data.schema!=='hollo-backup') throw new Error('schema');
+    candidate=validateAndMergeState(data);
+    // Import is deliberately local-only: untrusted backup flags cannot verify a member.
+    candidate.profile.numberVerified=false;
+    candidate.enrollment.verification=candidate.enrollment.complete?'local-unverified':'guest-local';
+  }catch{
+    showToast('This file is not a valid HOLLO backup. Current workspace was preserved.');
+    return;
+  }
+  if(!storageAvailable){
+    showToast('Local storage is unavailable. Restore cancelled; existing workspace preserved.');
+    return;
+  }
+  if(!confirm('Replace this device’s HOLLO workspace with the checked backup? Export your current workspace first.')) return;
+  const previousState=state;
+  const previousMemory=memoryState;
+  let previousRaw,previousHandoff;
+  let wroteWorkspace=false;
+  try{
+    previousRaw=localStorage.getItem(STORAGE_KEY);
+    previousHandoff=localStorage.getItem(IDENTITY_HANDOFF_KEY);
+    candidate.schema='hollo-backup';
+    candidate.version=APP_VERSION;
+    candidate.sync.mode=HOLLO_BACKEND.mode;
+    candidate.sync.revision=(Number(previousState.sync?.revision)||0)+1;
+    const serialized=JSON.stringify(candidate);
+    // Commit the workspace only after it is staged; verify the exact persisted bytes.
+    localStorage.setItem(STORAGE_KEY,serialized);
+    wroteWorkspace=true;
+    if(localStorage.getItem(STORAGE_KEY)!==serialized) throw new Error('readback');
+    state=candidate;
+    if(!writeIdentityHandoff()) throw new Error('handoff');
+    memoryState=clone(candidate);
+  }catch{
+    if(wroteWorkspace){
+      try{
+        if(previousRaw===null) localStorage.removeItem(STORAGE_KEY);
+        else localStorage.setItem(STORAGE_KEY,previousRaw);
+        if(previousHandoff===null) localStorage.removeItem(IDENTITY_HANDOFF_KEY);
+        else localStorage.setItem(IDENTITY_HANDOFF_KEY,previousHandoff);
+      }catch{
+        showToast('Restore failed and browser storage could not roll back. Export your previous data before closing this tab.');
+        state=previousState; memoryState=previousMemory; storageAvailable=false;
+        return;
+      }
+    }
+    state=previousState; memoryState=previousMemory;
+    showToast('Restore was not saved. The previous HOLLO workspace remains active.');
+    return;
+  }
+  renderAll(); updateCallContact(); closeModal();
+  activateMobileView(state.settings.mobileView||'contacts');
+  showToast('HOLLO backup restored and verified on this device.');
 }
 function resetApp(){
   if(!confirm('Reset all local HOLLO contacts, messages, invitations, profile, and activity? This cannot be undone without a backup.')) return;
