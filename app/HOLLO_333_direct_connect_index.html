@@ -1888,6 +1888,11 @@ function resetApp(){
   try{
     oldRaw=localStorage.getItem(STORAGE_KEY);
     oldHandoff=localStorage.getItem(IDENTITY_HANDOFF_KEY);
+  }catch{
+    showToast('Reset cancelled: existing storage could not be read safely.');
+    return;
+  }
+  try{
     const fresh=defaultState();
     const serialized=JSON.stringify(fresh);
     // Do not remove the previous record before checking replacement persistence.
