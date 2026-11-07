@@ -215,3 +215,28 @@ Pre-D09 hardened HOLLO Git blob: `fb4fe26598d252cb9c06592f5b00e68456e05f5d`. Rol
 
 ### Remaining visual acceptance
 Review in-browser desktop at 1440 and 1024 px, tablet 768 px and mobile 390 px; inspect dropdown keyboard operation, disclosure interaction, account button wrapping, status-label contrast, right-side toolbar overlay while scrolling, and the media studio controls. Source checks are not visual or behavioral confirmation.
+
+## D11 — HOLLO canonical blueprint and relic-chrome cleanup (2026-11-07)
+
+**Reference:** Founder-supplied `Verve N Veda & Khaemenes Academy — Canonical Page Architecture & Design Blueprint, v1.0`, especially pages 1–3 (one canonical header, two distinct tickers, one official toolbar, typography), page 6 (shared menu and toolbar), page 7 (ticker contract), and page 8 (surgical acceptance protocol).
+
+### Why
+Founder screenshot showed two ecosystem navigations and top support/menu relic, while the official fixed 3×2 toolbar overlaid the lower-right HOLLO Workspace Status card. D10's added scroll padding did not prevent content from sitting beneath the fixed dock.
+
+### Surgical source change
+- `df1b4324b9ce6c560bfea55f595528d0851586c2`: removed hand-built `vnv-global-strip` and `vnv-global-ecosystem-shell` CSS and the older `vnv-support.js` loader (which could add another menu and support banner).
+- Added one `vnv-header-autopopulate.js` mount, the canonical `vnv-333-ticker.js` and one `vnv-ticker-autopopulate.js`, and retained the one official `vnv-ecosystem-toolbar.js`.
+- Preserved old handmade header's useful `Ecosystem Directory`, `Directory AGI`, `Public Cloud` routes by adding them to the existing HOLLO 333 applications dropdown. The original 333 donation destination remains accessible through the dropdown and footer.
+- Added page-local status layout right-side dock-safe padding at laptop widths, and bottom clearance at narrow widths. The official toolbar source itself is untouched.
+- Before blob `08c6f1a6f07a075815d15c1dd84e89ad9edb820e`; after blob `9cbb8059634f9801815e67a52782555aef99404b`.
+- HOLLO's 72,636-character application JavaScript block is byte-for-byte unchanged, and its 133 remaining application element IDs have no duplicates. The one removed ID belonged to the retired header's CSS `<style>` element. Six sections, one main, two details, two navs and one style tag are balanced.
+- `4fcca1c321c4295dd8ff77b5983f204e86fa57e1`: six stdlib Node test cases in `tests/hollo_blueprint_chrome.test.mjs` for the component contract, navigation preservation, account/control IDs, dock-safe rail and dormant STOS.
+- `399ed9f79b24cce588d01a94bb8d225beed9bd2a`: registered the tests in manual-only GitHub Actions.
+
+### Outstanding acceptance
+Actual browser visual inspection is still required after publication at desktop/tablet/mobile widths. Confirm exactly one **rendered** canonical header and two distinct tickers, reliable enriched hamburger, no support/menu duplication, the toolbar not masking status cards at the screenshot viewport, and that footer support links function. Source presence is not runtime evidence. The old global support banner is intentionally retired on HOLLO; the existing donation destination remains available by intentional local links.
+
+**No modifications:** Protected Verve N Veda homepage, HOLLO accounts, messages, enrollment, storage keys, backup format, service worker, backend, or STOS terminals. HOLLO's STOS slot remains unassigned/uncommissioned.
+
+### Rollback protocol
+If the new canonical header cannot render, revert only the D11 `index`-equivalent HOLLO source commit, not previous D07-D10 application hardening or global shared assets. Confirm no subsequent page edits first.
