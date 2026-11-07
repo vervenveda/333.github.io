@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "333-333-network-pwa-";
-const CACHE_VERSION = `${CACHE_PREFIX}v7`;
+const CACHE_VERSION = `${CACHE_PREFIX}v8`;
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const MAX_RUNTIME_ENTRIES = 60;
@@ -30,12 +30,43 @@ const APP_PAGES = [
 
 const PRECACHE_URLS = [...CORE_SHELL, ...APP_PAGES];
 
+/* Runtime cache is exclusively for public, origin-scoped static resources.
+   Authenticated requests, APIs, query-bearing URLs and private responses bypass it. */
+const STATIC_PATHS = new Set(PRECACHE_URLS.map(path => new URL(path, self.registration.scope).pathname));
+const ASSET_EXTENSIONS = new Set([".css", ".js", ".mjs", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".ico", ".woff", ".woff2", ".webmanifest"]);
+
+function approvedPublicCacheRequest(request) {
+  if (request.method !== "GET" || request.headers.has("Authorization")) return false;
+  const url = new URL(request.url);
+  const scope = new URL(self.registration.scope);
+  if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname) ||
+      url.search || url.hash) return false;
+  if (STATIC_PATHS.has(url.pathname)) return true;
+  if (request.mode === "navigate") return false;
+  const extension = url.pathname.slice(url.pathname.lastIndexOf(".")).toLowerCase();
+  if (!ASSET_EXTENSIONS.has(extension)) return false;
+  const scoped = url.pathname.slice(scope.pathname.length).toLowerCase();
+  if (scoped.split("/").some(part => ["api", "auth", "admin", "private", "account", "accounts", "member", "members", "token", "tokens", "session", "sessions", "vault", "backup", "backups"].includes(part))) return false;
+  return true;
+}
+
+function approvedPublicCacheResponse(response) {
+  if (!isCacheable(response)) return false;
+  const policy = (response.headers.get("Cache-Control") || "").toLowerCase();
+  if (/\b(?:private|no-store|no-cache)\b/.test(policy)) return false;
+  if (response.headers.has("Set-Cookie")) return false;
+  const type = (response.headers.get("Content-Type") || "").toLowerCase();
+  if (type.includes("application/json") || type.includes("text/event-stream")) return false;
+  return true;
+}
+
+
 function isCacheable(response) {
   return Boolean(response && response.ok && (response.type === "basic" || response.type === "default"));
 }
 
 async function putInCache(cacheName, request, response) {
-  if (!isCacheable(response)) return;
+  if (!approvedPublicCacheRequest(request) || !approvedPublicCacheResponse(response)) return;
   const cache = await caches.open(cacheName);
   await cache.put(request, response.clone());
 }
@@ -79,13 +110,13 @@ async function precacheFiles() {
 async function handleNavigation(request) {
   try {
     const response = await fetch(request);
-    if (isCacheable(response)) {
+    if (approvedPublicCacheRequest(request) && approvedPublicCacheResponse(response)) {
       await putInCache(RUNTIME_CACHE, request, response);
       await trimCache(RUNTIME_CACHE, MAX_RUNTIME_ENTRIES);
     }
     return response;
   } catch {
-    const cachedPage = await caches.match(request);
+    const cachedPage = approvedPublicCacheRequest(request) ? await caches.match(request) : null;
     if (cachedPage) return cachedPage;
     const offlinePage = await caches.match("./offline.html");
     if (offlinePage) return offlinePage;
@@ -103,7 +134,7 @@ async function handleNavigation(request) {
 async function handleSameOriginAsset(request) {
   const cached = await caches.match(request);
   const networkUpdate = fetch(request).then(async response => {
-    if (isCacheable(response)) {
+    if (approvedPublicCacheRequest(request) && approvedPublicCacheResponse(response)) {
       await putInCache(RUNTIME_CACHE, request, response);
       await trimCache(RUNTIME_CACHE, MAX_RUNTIME_ENTRIES);
     }
@@ -152,7 +183,7 @@ self.addEventListener("fetch", event => {
     return;
   }
 
-  if (url.origin === self.location.origin) {
+  if (url.origin === self.location.origin && approvedPublicCacheRequest(request)) {
     event.respondWith(handleSameOriginAsset(request));
   }
 });
