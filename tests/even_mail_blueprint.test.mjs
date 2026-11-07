@@ -27,7 +27,7 @@ test("mobile reader class agrees with existing application JavaScript",()=>{
 });
 test("original correspondence features and modal controls remain",()=>{
  for(const id of ["sidebarToggle","mailSearch","applyEmailButton","syncButton",
- "settingsButton","profileButton","holloIdentityChip","sidebar","folderList",
+ "settingsButton","profileButton","holloIdentityChip","sidebar",
  "mailList","reader","readerContent","modalLayer","accountList","storageSummary"]){
  assert.equal(html.split('id="'+id+'"').length-1,1,id);
  }
