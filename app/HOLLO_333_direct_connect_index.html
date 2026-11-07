@@ -1973,11 +1973,29 @@ function wireEvents(){
     buttons[next].focus(); activateMobileView(buttons[next].dataset.mobileView);
   }));
   window.addEventListener('storage',event=>{
-    if(event.key===STORAGE_KEY&&event.newValue){ try{ state=validateAndMergeState(JSON.parse(event.newValue)); renderAll(); updateCallContact(); }catch{} }
+    if(event.key!==STORAGE_KEY)return;
+    if(event.newValue){
+      try{
+        const remote=JSON.parse(event.newValue);
+        if(!remote || remote.schema!=='hollo-backup')throw new Error('invalid workspace');
+        state=validateAndMergeState(remote);
+        memoryState=clone(state);
+        renderAll();updateCallContact();
+        showToast('HOLLO workspace updated in another tab. Current local data reloaded.');
+      }catch{
+        showToast('Another tab changed HOLLO data. Review your workspace before editing.');
+      }
+    }else{
+      // Another tab removed the record: never recreate it on unload.
+      stopMedia(false);
+      showToast('HOLLO workspace changed in another tab. Reload to review before editing.');
+    }
   });
-  window.addEventListener('pagehide',()=>{ if(localStream||displayStream) stopMedia(false); saveState(); });
+  // Every intentional data edit already calls saveState(). An unload or a hidden
+  // tab must never silently overwrite newer records from a different tab.
+  window.addEventListener('pagehide',()=>{ if(localStream||displayStream) stopMedia(false); });
   document.addEventListener('visibilitychange',()=>{
-    if(document.visibilityState==='hidden'){ stopMedia(false); saveState(); }
+    if(document.visibilityState==='hidden')stopMedia(false);
   });
 }
 function init(){
