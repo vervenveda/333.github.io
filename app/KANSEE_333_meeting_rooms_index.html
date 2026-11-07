@@ -1588,6 +1588,7 @@
     let currentRoom=null;
     let localStream=null;
     let screenStream=null;
+    let mediaRequestRevision=0;
     let audioMuted=false;
     let cameraOff=false;
     let lastFocus=null;
@@ -1967,19 +1968,37 @@
       const room=currentMeeting();if(!room){toast('Open a room first');return}
       if(localStream){toast('Local preview is already active');return}
       if(previewStarting)return;
-      if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){toast('This browser does not support camera and microphone preview');return}
+      if(!navigator.mediaDevices?.getUserMedia){toast('This browser does not support camera and microphone preview');return}
+      const revision=++mediaRequestRevision,roomId=room.id;
       previewStarting=true;updateMediaControls();
+      let captured=null;
       try{
-        try{localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}
+        try{captured=await navigator.mediaDevices.getUserMedia({video:true,audio:true})}
         catch(primaryError){
+          if(revision!==mediaRequestRevision)return;
           if(['NotAllowedError','SecurityError'].includes(primaryError?.name))throw primaryError;
-          try{localStream=await navigator.mediaDevices.getUserMedia({video:false,audio:true});toast('Audio-only preview started because no usable camera was available.')}
-          catch(audioError){localStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});toast('Video-only preview started because no usable microphone was available.')}
+          try{captured=await navigator.mediaDevices.getUserMedia({video:false,audio:true});}
+          catch(audioError){
+            if(revision!==mediaRequestRevision)return;
+            captured=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+          }
         }
-        audioMuted=false;cameraOff=false;localStream.getAudioTracks().forEach(t=>t.enabled=true);localStream.getVideoTracks().forEach(t=>t.enabled=true);
-        ensureLocalParticipant(room);syncLocalParticipant();renderAll();toast('Local media preview started');
-      }catch(err){localStream=null;toast(mediaErrorMessage(err));}
-      finally{previewStarting=false;updateMediaControls();}
+        if(revision!==mediaRequestRevision||currentMeeting()?.id!==roomId||
+           document.visibilityState==='hidden'){
+          captured?.getTracks().forEach(track=>track.stop());return;
+        }
+        localStream=captured;captured=null;
+        audioMuted=false;cameraOff=false;
+        localStream.getAudioTracks().forEach(track=>track.enabled=true);
+        localStream.getVideoTracks().forEach(track=>track.enabled=true);
+        ensureLocalParticipant(room);syncLocalParticipant();renderAll();
+        toast('Local media preview started');
+      }catch(err){
+        captured?.getTracks().forEach(track=>track.stop());
+        if(revision===mediaRequestRevision)toast(mediaErrorMessage(err));
+      }finally{
+        if(revision===mediaRequestRevision){previewStarting=false;updateMediaControls()}
+      }
     }
     function mediaErrorMessage(err){
       const n=err&&err.name||'';if(n==='NotAllowedError'||n==='SecurityError')return 'Camera or microphone permission was denied. Use HTTPS or localhost and review browser permissions.';if(n==='NotFoundError')return 'No usable camera or microphone was found.';if(n==='NotReadableError')return 'A camera or microphone is already in use.';return 'KANSEE could not start the local media preview.';
@@ -1993,16 +2012,34 @@
     async function toggleShare(){
       const room=currentMeeting();if(!room){toast('Open a room before presenting');return}
       if(screenStream){stopScreenShare();return}
-      if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia){toast('Screen sharing is not supported in this browser');return}
+      if(!navigator.mediaDevices?.getDisplayMedia){toast('Screen sharing is not supported in this browser');return}
+      const revision=++mediaRequestRevision,roomId=room.id;
+      let captured=null;
       try{
-        screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});const track=screenStream.getVideoTracks()[0];if(track)track.addEventListener('ended',()=>stopScreenShare(),{once:true});ensureLocalParticipant(room);room.updatedAt=nowIso();saveState();renderAll();toast('Local screen presentation started');
-      }catch(err){if(err&&err.name!=='NotAllowedError')toast('KANSEE could not start screen sharing')}
+        captured=await navigator.mediaDevices.getDisplayMedia({video:true,audio:false});
+        if(revision!==mediaRequestRevision||currentMeeting()?.id!==roomId||
+           document.visibilityState==='hidden'){
+          captured.getTracks().forEach(track=>track.stop());return;
+        }
+        screenStream=captured;captured=null;
+        const track=screenStream.getVideoTracks()[0];
+        if(track)track.addEventListener('ended',()=>stopScreenShare(),{once:true});
+        ensureLocalParticipant(room);room.updatedAt=nowIso();saveState();renderAll();
+        toast('Local screen presentation started');
+      }catch(err){
+        captured?.getTracks().forEach(track=>track.stop());
+        if(revision===mediaRequestRevision&&err?.name!=='NotAllowedError')
+          toast('KANSEE could not start screen sharing');
+      }
     }
     function stopScreenShare(){
+      mediaRequestRevision+=1;
       if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}
       const room=currentMeeting();if(room){syncLocalParticipant()}updateMediaControls();renderStage();
     }
     function stopAllMedia(options={}){
+      mediaRequestRevision+=1;
+      previewStarting=false;
       if(screenStream){screenStream.getTracks().forEach(t=>t.stop());screenStream=null}
       if(localStream){localStream.getTracks().forEach(t=>t.stop());localStream=null}
       audioMuted=false;cameraOff=false;
@@ -2317,7 +2354,11 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
 
     $('#cancelMeetingBtn').addEventListener('click',()=>{editingRoomId=null});bindDialog($('#meetingModalBackdrop'),$('#meetingModal'),[$('#cancelMeetingBtn')]);bindDialog($('#profileModalBackdrop'),$('#profileModal'),[$('#cancelProfileBtn')]);bindDialog($('#settingsModalBackdrop'),$('#settingsModal'),[$('#cancelSettingsBtn')]);bindDialog($('#detailsModalBackdrop'),$('#detailsModal'),[$('#closeDetailsBtn')]);bindDialog($('#collabModalBackdrop'),$('#collabModal'),[$('#cancelCollabBtn')]);
 
-    window.addEventListener('pagehide',stopAllMedia);window.addEventListener('beforeunload',stopAllMedia);
+    window.addEventListener('pagehide',()=>stopAllMedia({persist:false}));
+    window.addEventListener('beforeunload',()=>stopAllMedia({persist:false}));
+    document.addEventListener('visibilitychange',()=>{
+      if(document.visibilityState==='hidden')stopAllMedia({persist:false});
+    });
     window.addEventListener('resize',()=>{if(matchMedia('(min-width:781px)').matches)$$('.app-shell>.panel').forEach(p=>p.classList.remove('mobile-active'))});
 
     window.addEventListener('storage',event=>{
