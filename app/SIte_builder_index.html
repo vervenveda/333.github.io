@@ -4159,6 +4159,8 @@ $("siteProjectImportFile").addEventListener("change",async(event)=>{
 $("btnReset").addEventListener("click",()=>{
   const ok=confirm("Reset SIte Alpha (local) data? This cannot be undone.");
   if(!ok) return;
+  if(!createRestorePoint("Before temporary studio reset"))return;
+  if(saveDebounce){clearTimeout(saveDebounce);saveDebounce=null}
   try{ store.removeItem(STORAGE_KEY); }catch(e){}
   site=deepClone(DEFAULT_SITE);
   currentPage=site.pages[0];
