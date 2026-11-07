@@ -9,13 +9,17 @@ import {fileURLToPath} from "node:url";
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
 const page=fs.readFileSync(path.join(root,"app/SIte_builder_index.html"),"utf8");
 
-test("account sign-in remains dormant, not deleted or bypassed",()=>{
+test("retired sign-in cannot block direct access to the temporary studio",()=>{
  assert.match(page,/const SITE_ACCOUNT_ACCESS_DORMANT = true/);
- assert.match(page,/function authInit\(\)\{\s*if\(SITE_ACCOUNT_ACCESS_DORMANT\)/);
+ assert.match(page,/<div id="app">/);
+ assert.doesNotMatch(page,/<div id="app" class="hidden">/);
+ assert.match(page,/function bootTemporarySiteStudio\(\)/);
+ assert.match(page,/bootTemporarySiteStudio\(\);\s*render\(\);/);
+ assert.doesNotMatch(page,/(?:^|\n)authInit\(\);/);
  for(const id of ["authOverlay","tabSignIn","tabCreate","btnSignIn","btnCreateAccount","signInPass","createPass"])
-   assert.equal(page.split('id="'+id+'"').length-1,1,id);
+   assert.equal(page.split('id="'+id+'"').length-1,0,id);
  assert.match(page,/derivePassHash\(pass,salt/);
- assert.match(page,/btnLogout"\)\.hidden=true/);
+ assert.match(page,/#app\{display:grid!important;visibility:visible!important\}/);
 });
 test("temporary studio never reads or overwrites old project/account keys",()=>{
  assert.match(page,/const STORAGE_KEY = "SITE_ALPHA_V070"/);
