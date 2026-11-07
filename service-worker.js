@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "333-333-network-pwa-";
-const CACHE_VERSION = `${CACHE_PREFIX}v9`;
+const CACHE_VERSION = `${CACHE_PREFIX}v10`;
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const MAX_RUNTIME_ENTRIES = 60;
@@ -12,6 +12,7 @@ const CORE_SHELL = [
   "./manifest.webmanifest",
   "./install-app.js",
   "./register-service-worker.js",
+  "./assets/vnv-beta-link.js",
   "./assets/icons/icon-192.png",
   "./assets/icons/icon-512.png",
   "./assets/icons/icon-maskable-512.png"
@@ -33,7 +34,7 @@ const PRECACHE_URLS = [...CORE_SHELL, ...APP_PAGES];
 /* Runtime cache is exclusively for public, origin-scoped static resources.
    Authenticated requests, APIs, query-bearing URLs and private responses bypass it. */
 const STATIC_PATHS = new Set(PRECACHE_URLS.map(path => new URL(path, self.registration.scope).pathname));
-const ASSET_EXTENSIONS = new Set([".css", ".js", ".mjs", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg", ".ico", ".woff", ".woff2", ".webmanifest"]);
+// No extension-based runtime admission: only explicitly reviewed public files are cacheable.
 
 function approvedPublicCacheRequest(request) {
   if (request.method !== "GET" || request.headers.has("Authorization")) return false;
@@ -41,13 +42,7 @@ function approvedPublicCacheRequest(request) {
   const scope = new URL(self.registration.scope);
   if (url.origin !== scope.origin || !url.pathname.startsWith(scope.pathname) ||
       url.search || url.hash) return false;
-  if (STATIC_PATHS.has(url.pathname)) return true;
-  if (request.mode === "navigate") return false;
-  const extension = url.pathname.slice(url.pathname.lastIndexOf(".")).toLowerCase();
-  if (!ASSET_EXTENSIONS.has(extension)) return false;
-  const scoped = url.pathname.slice(scope.pathname.length).toLowerCase();
-  if (scoped.split("/").some(part => ["api", "auth", "admin", "private", "account", "accounts", "member", "members", "token", "tokens", "session", "sessions", "vault", "backup", "backups"].includes(part))) return false;
-  return true;
+  return STATIC_PATHS.has(url.pathname);
 }
 
 function approvedPublicCacheResponse(response) {
