@@ -122,3 +122,18 @@ Run `python3 -m unittest discover -s tests -p 'test_offline_backup_boundaries.py
 
 ### Acceptance before extending this design
 Review desktop/tablet/mobile screenshots, accessibility and contrast, location of globally injected Support Free Access component, footer-toolbar overlap, and donation link click-through. Keep the design scoped to 333 Network until validated.
+
+## D07 — HOLLO workspace visual organization (2026-11-07)
+
+**Visual change:** `0537e744d8e4254e072c3f9fd4f1d5c4c21a3e3a` in `app/HOLLO_333_direct_connect_index.html`. Baseline Git blob `70f8b27f4102e1cd98922e4197d95e5f231d0b2d`; updated blob `05071daea488ee084f74d87ca4cee7306b4fc945`.
+
+- Original VNV ecosystem menu and ticker components retained. HOLLO-specific 333 navigation is now a compact expandable application selector containing its established links.
+- My HOLLO Account clarifies local identity, provisional 333 numbers, and the existing enrollment/email/backup actions.
+- Workspace Status condenses browser persistence, JSON backup, E=Ven handoff, and uncommissioned sync/signaling indicators without changing status values.
+- Workspace CSS uses wider maximum layout, desktop proportions targeting 26/46/28 contacts/messages/studio, more readable 16 px text, balanced buttons, stronger charcoal/cream contrast, and tablet/mobile panel fallback.
+- Contacts, direct dial, conversations, camera/mic preview, call controls, invitations, and activity use existing IDs and event handlers; descriptions and grouping are visual only.
+- Explicit pre/post verification: 130 element IDs preserved, inline application script unchanged, six balanced section tags, two balanced details tags, one balanced main, and official support/ticker/toolbar scripts retained.
+- No changes to message or invitation storage, credentials, member records, API endpoints, 333 numbers, modal event handlers, backup schema, STOS terminals or any other repository page.
+- **Pending acceptance:** Browser rendering and behavior at wide desktop, 1024 px, 768 px and 390 px; account drop-down keyboard behavior, message controls, local camera preview, enrollment pop-up and backups. Source checks do not prove runtime success.
+- Rollback: revert only the isolated HOLLO visual commit after checking for later source changes. Preserve user data and later approved commits.
+
