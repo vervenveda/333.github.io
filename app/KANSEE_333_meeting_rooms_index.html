@@ -1143,6 +1143,87 @@ label{font-size:16px;line-height:1.45;font-weight:400}
  .control-btn{font-size:16px;min-height:44px}
  .mobile-tabs button{font-size:16px}
 }
+
+/* D15 — KANSEE meeting-first blueprint: preserve original workspace and family chrome. */
+:root{--kansee-page-max:1820px}
+.hero{max-width:var(--kansee-page-max);padding-top:21px;padding-bottom:17px;gap:28px}
+.hero>div:first-child{max-width:1100px}
+.hero .eyebrow{font:400 16px/1.4 system-ui,sans-serif;letter-spacing:.04em}
+.hero h1{font:400 clamp(44px,4.2vw,60px)/1.12 Georgia,serif}
+.hero-copy{font-size:17px;line-height:1.58;max-width:840px}
+.service-number{padding:15px 20px;border-radius:7px}
+.status-strip{margin-bottom:14px}
+.status-card{padding:15px 19px;gap:13px;border-radius:7px}
+.status-card>div:first-child{font-size:16px;line-height:1.5}
+.status-actions{gap:9px;flex-wrap:wrap}
+.status-actions button{min-height:44px;font-size:16px;border-radius:7px}
+.kansee-readiness{margin-bottom:19px}
+.kansee-readiness-disclosure{border:2px solid #9b9d91;border-radius:7px;background:#fffaf0;overflow:hidden}
+.kansee-readiness-disclosure>summary{min-height:52px;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;color:#202724;font:400 18px/1.4 Georgia,serif}
+.kansee-readiness-disclosure>summary span{color:#465248;font:400 16px/1.4 system-ui,sans-serif}
+.kansee-readiness-disclosure>summary:focus-visible{outline:3px solid #bda777;outline-offset:-3px}
+.kansee-readiness-disclosure[open]>summary{border-bottom:1px solid #b4b8aa}
+.kansee-readiness-disclosure .kansee-readiness-inner{padding:20px;border:0;box-shadow:none}
+.app-shell{grid-template-columns:minmax(245px,18fr) minmax(0,62fr) minmax(270px,20fr);gap:20px;align-items:start}
+.stage-panel{min-width:0;min-height:700px}
+.stage-panel .panel-head{gap:12px;flex-wrap:wrap}
+.stage-panel .panel-head .button-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.kansee-focus-toggle{min-width:144px;background:#202724;color:#fff8e9;border:1px solid #202724;border-radius:7px;font-size:16px;min-height:44px}
+.kansee-focus-toggle:hover,.kansee-focus-toggle:focus-visible{background:#345044;color:#fff8e9}
+.stage-grid{min-height:470px;max-height:70vh}
+.call-controls{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding:12px}
+.call-controls .control-btn{display:flex;align-items:center;justify-content:center;min-width:0;white-space:normal;padding:10px 8px;font:400 16px/1.4 system-ui,sans-serif;border-radius:7px}
+.call-controls .control-btn.danger{background:#7d343a;color:#fff8e9;border-color:#7d343a}
+.call-controls .control-btn:disabled{opacity:.65;cursor:not-allowed}
+.side-tabs button,.side-tabs .small-btn{font-size:16px;line-height:1.4;min-height:44px}
+.panel-head,.panel-body{min-width:0}
+.stage-panel:fullscreen,
+body.kansee-focus-mode #stagePanel{
+ width:100%;height:100%;max-width:none;max-height:none;margin:0;
+ display:flex!important;flex-direction:column;overflow:hidden;
+ background:#f4efe5;border:0;border-radius:0;padding:18px;
+}
+body.kansee-focus-mode #stagePanel:not(:fullscreen){
+ position:fixed;inset:0;z-index:2147483645;
+ width:100vw;height:100dvh;
+}
+body.kansee-focus-mode{overflow:hidden}
+.stage-panel:fullscreen .panel-head,
+body.kansee-focus-mode #stagePanel .panel-head{flex-shrink:0;min-height:65px;padding:10px 16px}
+.stage-panel:fullscreen .panel-body,
+body.kansee-focus-mode #stagePanel .panel-body{display:flex;flex:1;min-height:0;overflow:hidden;padding:12px}
+.stage-panel:fullscreen .stage-grid,
+body.kansee-focus-mode #stagePanel .stage-grid{flex:1;min-height:0;max-height:none;overflow:auto;align-content:center}
+.stage-panel:fullscreen .video-tile,
+body.kansee-focus-mode #stagePanel .video-tile{min-height:115px}
+.stage-panel:fullscreen .call-controls,
+body.kansee-focus-mode #stagePanel .call-controls{flex-shrink:0}
+@media(max-width:1560px){
+ .app-shell{grid-template-columns:minmax(245px,285px) minmax(0,1fr)}
+ .right-panel{grid-column:1/-1}
+ .call-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:1080px){
+ .app-shell{grid-template-columns:minmax(0,1fr)}
+ .stage-panel,.right-panel{grid-column:1}
+ .stage-panel{min-height:650px}
+ .stage-grid{min-height:420px}
+}
+@media(max-width:780px){
+ .kansee-readiness-disclosure>summary{flex-wrap:wrap}
+ .app-shell{display:block}
+ .panel{display:none}
+ .panel.mobile-active{display:block}
+ .stage-panel:fullscreen,body.kansee-focus-mode #stagePanel{display:flex!important}
+ .call-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:520px){
+ .call-controls{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .kansee-readiness-disclosure>summary span{font-size:16px}
+ .stage-panel:fullscreen .stage-grid,body.kansee-focus-mode #stagePanel .stage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stage-panel:fullscreen .call-controls,body.kansee-focus-mode #stagePanel .call-controls{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){.stage-panel:fullscreen *,body.kansee-focus-mode #stagePanel *{scroll-behavior:auto}}
 </style>
 
 </head>
@@ -1175,7 +1256,7 @@ label{font-size:16px;line-height:1.45;font-weight:400}
     <div>
       <p class="eyebrow">333 Network · Private Meeting Rooms</p>
       <h1>KANSEE™</h1>
-      <p class="hero-copy">Create a private room, invite trusted participants, manage a reception lobby, exchange messages, present to the room, and share a local room invitation link. Live conferencing and remote room access require a verified connected service. KANSEE keeps collaboration calm, clear, and under the host’s control.</p>
+      <p class="hero-copy">Create a room, bring people together, and organize chat, invitations, presentations, and collaboration in one calm workspace. Room previews are local; live remote conferencing requires a verified connected service.</p>
     </div>
     <div class="service-number" aria-label="KANSEE network number">
       <small>Internal KANSEE Route</small>
@@ -1198,6 +1279,8 @@ label{font-size:16px;line-height:1.45;font-weight:400}
 
 
   <section class="kansee-readiness" aria-labelledby="kanseeReadinessTitle">
+    <details class="kansee-readiness-disclosure">
+      <summary>Connection &amp; Privacy Status <span>Local workspace · Future connected services</span></summary>
     <div class="kansee-readiness-inner">
       <div class="readiness-copy">
         <p class="readiness-kicker">Conversation Continuity</p>
@@ -1217,6 +1300,7 @@ label{font-size:16px;line-height:1.45;font-weight:400}
         <div><strong>Prepared</strong><span>Secure cloud synchronization</span></div>
       </div>
     </div>
+    </details>
   </section>
 
   <nav class="mobile-tabs" aria-label="Mobile KANSEE sections">
@@ -1256,6 +1340,7 @@ label{font-size:16px;line-height:1.45;font-weight:400}
       <div class="panel-head">
         <div><h2 id="stageTitle">Meeting Room</h2><p id="stageSubtitle">Choose or create a room to begin.</p></div>
         <div class="button-row">
+          <button class="small-btn kansee-focus-toggle" id="stageFocusBtn" type="button" aria-label="Enter meeting Focus Mode" aria-pressed="false" title="Expand meeting gallery">⛶ Focus Mode</button>
           <button class="small-btn" id="copyInviteBtn" type="button" disabled>Copy Invite</button>
           <button class="small-btn" id="roomDetailsBtn" type="button" disabled>Details</button>
         </div>
@@ -2371,6 +2456,43 @@ label{font-size:16px;line-height:1.45;font-weight:400}
       if(matchMedia('(min-width:781px)').matches)return;$$('.app-shell>.panel').forEach(p=>p.classList.toggle('mobile-active',p.id===id));$$('[data-mobile-panel]').forEach(b=>{const on=b.dataset.mobilePanel===id;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on))});window.scrollTo({top:document.querySelector('.mobile-tabs').offsetTop-8,behavior:'smooth'});
     }
 
+
+    // Focus Mode is presentation-only; it never starts remote conferencing,
+    // changes meeting records, or requests camera/microphone permissions.
+    let kanseeFocusFallback=false;
+    function syncFocusMode(){
+      const active=document.fullscreenElement===$('#stagePanel')||kanseeFocusFallback;
+      document.body.classList.toggle('kansee-focus-mode',active);
+      const button=$('#stageFocusBtn');
+      button.setAttribute('aria-pressed',String(active));
+      button.setAttribute('aria-label',active?'Exit meeting Focus Mode':'Enter meeting Focus Mode');
+      button.textContent=active?'⛶ Exit Focus Mode':'⛶ Focus Mode';
+    }
+    async function toggleFocusMode(){
+      const panel=$('#stagePanel');
+      if(document.fullscreenElement===panel){
+        if(document.exitFullscreen)await document.exitFullscreen().catch(()=>{});
+        kanseeFocusFallback=false;syncFocusMode();return;
+      }
+      if(kanseeFocusFallback){kanseeFocusFallback=false;syncFocusMode();return}
+      // On mobile, the stage is already a dedicated panel; keep it visible.
+      activateMobilePanel('stagePanel');
+      if(panel.requestFullscreen){
+        try{await panel.requestFullscreen();kanseeFocusFallback=false;syncFocusMode();return}
+        catch{ /* CSS fallback when native fullscreen is unavailable or denied. */ }
+      }
+      kanseeFocusFallback=true;syncFocusMode();
+    }
+    document.addEventListener('fullscreenchange',()=>{
+      if(document.fullscreenElement!==$('#stagePanel'))kanseeFocusFallback=false;
+      syncFocusMode();
+    });
+    document.addEventListener('keydown',event=>{
+      if(event.key==='Escape'&&kanseeFocusFallback){
+        kanseeFocusFallback=false;syncFocusMode();$('#stageFocusBtn').focus();
+      }
+    });
+    $('#stageFocusBtn').addEventListener('click',toggleFocusMode);
     $('#createMeetingBtn').addEventListener('click',()=>openMeetingModal());$('#instantMeetingBtn').addEventListener('click',instantMeeting);$('#joinRoomBtn').addEventListener('click',joinByCode);$('#joinCodeInput').addEventListener('keydown',e=>{if(e.key==='Enter')joinByCode()});
     $('#previewBtn').addEventListener('click',startPreview);$('#muteBtn').addEventListener('click',toggleMute);$('#cameraBtn').addEventListener('click',toggleCamera);$('#shareBtn').addEventListener('click',toggleShare);$('#simulateGuestBtn').addEventListener('click',simulateGuest);$('#leaveRoomBtn').addEventListener('click',leaveRoom);
 
