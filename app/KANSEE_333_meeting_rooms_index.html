@@ -1031,6 +1031,118 @@
 @media(max-width:959px){.kansee-readiness-inner{padding-bottom:165px}}
 @media(max-width:600px){.kansee-network-menu[open] .network-links{grid-template-columns:1fr;left:0;right:auto;min-width:0;width:100%}}
 footer{padding-bottom:165px}
+
+/* D14 — KANSEE conference-first visual refinement.
+   Institutional chrome is shared; KANSEE keeps its teal/navy/gold identity.
+   Stage remains a *local* preview/demonstration until authenticated services exist. */
+:root{--kansee-page-max:1700px}
+.topline-inner,.hero,.status-strip,.kansee-readiness,.mobile-tabs,.app-shell,footer{
+  width:min(calc(100% - 44px),var(--kansee-page-max));
+  max-width:var(--kansee-page-max);
+  margin-left:auto;margin-right:auto;
+}
+.hero{padding:35px 12px 30px;align-items:center;gap:26px}
+.hero>div:first-child{max-width:1050px}
+.hero .eyebrow{font-size:18px;line-height:1.4;letter-spacing:.045em;font-weight:400}
+.hero h1{font-size:clamp(46px,5vw,66px);line-height:1.12;font-weight:400}
+.hero-copy{font-size:18px;line-height:1.65;max-width:920px}
+.service-number{align-self:center;padding:18px 20px;border-radius:7px}
+.status-strip{margin-bottom:24px}
+.kansee-readiness{margin-bottom:28px}
+.kansee-readiness-inner{gap:22px;padding:24px;border-radius:7px}
+.kansee-readiness h2{font-size:clamp(26px,3vw,40px);font-weight:400}
+.kansee-readiness p:not(.readiness-kicker){font-size:16px;line-height:1.65}
+.app-shell{padding:0 0 72px;grid-template-columns:minmax(270px,300px) minmax(0,1fr) minmax(300px,340px);gap:20px;align-items:start}
+.panel{border-radius:7px;box-shadow:0 10px 26px rgba(17,24,39,.09)}
+.panel-head{min-height:86px;padding:18px 20px;gap:14px}
+.panel-head h2{font-size:clamp(23px,2.1vw,29px);font-weight:400;line-height:1.25}
+.panel-head p{font-size:16px;line-height:1.5;font-weight:400}
+.panel-body{padding:18px}
+.stage-panel{min-height:760px}
+.stage-panel .panel-body{padding:18px}
+.room-banner{padding:16px 18px;border-radius:7px}
+.room-banner strong{font-size:20px;font-weight:400}
+.room-banner .meta{font-size:16px;line-height:1.45;font-weight:400}
+.stage-grid{
+ min-width:0;min-height:520px;
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ grid-auto-rows:minmax(190px,auto);align-content:start;
+ gap:12px;padding:14px;border-radius:7px;
+ background:linear-gradient(145deg,#101827,#1c3144);
+ overflow-y:auto;max-height:75vh;
+}
+.stage-grid[data-count="1"]{grid-template-columns:1fr;align-content:stretch}
+.stage-grid[data-count="2"]{grid-template-columns:repeat(2,minmax(0,1fr));align-content:stretch}
+.stage-grid[data-count="3"],.stage-grid[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stage-grid[data-count="5"],.stage-grid[data-count="6"],
+.stage-grid[data-count="7"],.stage-grid[data-count="8"],
+.stage-grid[data-count="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stage-grid[data-count="10"],.stage-grid[data-count="11"],
+.stage-grid[data-count="12"],.stage-grid[data-count="13"],
+.stage-grid[data-count="14"],.stage-grid[data-count="15"],
+.stage-grid[data-count="16"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.video-tile{min-height:165px;aspect-ratio:16/10;border-radius:7px;overflow:hidden}
+.stage-grid[data-count="1"] .video-tile{min-height:430px;aspect-ratio:16/9}
+.stage-grid[data-count="2"] .video-tile{min-height:300px}
+.video-tile .avatar{width:clamp(48px,5vw,78px);height:clamp(48px,5vw,78px);border-radius:50%;font-size:24px;font-weight:400}
+.video-label{font-size:16px;line-height:1.3;font-weight:400;padding:9px 11px;border-radius:7px}
+.video-label>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.video-badge{font-size:16px;flex-shrink:0}
+.empty-stage{font-size:17px;line-height:1.6}
+.call-controls{gap:9px;padding:13px;border-radius:7px}
+.control-btn,.small-btn,.primary-btn,.quiet-btn,.danger-btn{
+ min-height:44px;font-size:16px;line-height:1.4;font-weight:400;border-radius:7px
+}
+input,select,textarea{font-size:16px;min-height:44px}
+label{font-size:16px;line-height:1.45;font-weight:400}
+.room-summary,.meeting-meta,.participant-meta,.media-status,.chat-tools,.collab-counter{font-size:16px;line-height:1.5;font-weight:400}
+.participant-name{font-size:16px;font-weight:400}
+.participant-actions button,.meeting-actions button{font-size:16px;min-height:44px}
+.side-tabs{gap:7px;padding:10px}
+.side-tabs button{font-size:16px;min-height:44px;min-width:0}
+.chat-log{min-height:330px}
+.mobile-tabs button{font-size:16px;min-height:44px}
+@media(max-width:1510px){
+ .app-shell{grid-template-columns:minmax(260px,295px) minmax(0,1fr)}
+ .right-panel{grid-column:1/-1}
+ .right-panel .panel-body{min-height:0}
+ .stage-grid[data-count="10"],.stage-grid[data-count="11"],
+ .stage-grid[data-count="12"],.stage-grid[data-count="13"],
+ .stage-grid[data-count="14"],.stage-grid[data-count="15"],
+ .stage-grid[data-count="16"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:1000px){
+ .app-shell{grid-template-columns:minmax(0,1fr)}
+ .stage-panel,.right-panel{grid-column:1}
+ .stage-grid{min-height:490px;max-height:70vh}
+ .kansee-readiness-inner{grid-template-columns:1fr}
+}
+@media(max-width:780px){
+ .topline-inner,.hero,.status-strip,.kansee-readiness,.mobile-tabs,.app-shell,footer{width:min(calc(100% - 24px),var(--kansee-page-max))}
+ .hero{padding:26px 0}
+ .app-shell{display:block}
+ .panel{display:none}
+ .panel.mobile-active{display:block;margin-bottom:18px}
+ .panel-head{padding:16px}
+ .panel-body,.stage-panel .panel-body{padding:14px}
+ .stage-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:70vh}
+ .stage-grid[data-count="10"],.stage-grid[data-count="11"],
+ .stage-grid[data-count="12"],.stage-grid[data-count="13"],
+ .stage-grid[data-count="14"],.stage-grid[data-count="15"],
+ .stage-grid[data-count="16"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .stage-grid[data-count="1"] .video-tile{min-height:320px}
+}
+@media(max-width:520px){
+ .stage-grid,.stage-grid[data-count="2"],.stage-grid[data-count="3"],.stage-grid[data-count="4"],
+ .stage-grid[data-count="5"],.stage-grid[data-count="6"],.stage-grid[data-count="7"],
+ .stage-grid[data-count="8"],.stage-grid[data-count="9"],.stage-grid[data-count="10"],
+ .stage-grid[data-count="11"],.stage-grid[data-count="12"],.stage-grid[data-count="13"],
+ .stage-grid[data-count="14"],.stage-grid[data-count="15"],.stage-grid[data-count="16"]{grid-template-columns:1fr}
+ .stage-grid[data-count="1"] .video-tile{min-height:260px}
+ .video-label{font-size:16px}
+ .control-btn{font-size:16px;min-height:44px}
+ .mobile-tabs button{font-size:16px}
+}
 </style>
 
 </head>
@@ -1812,9 +1924,10 @@ footer{padding-bottom:165px}
       renderStage();
     }
     function renderStage(){
-      const grid=$('#stageGrid');grid.replaceChildren();const room=currentMeeting();
+      const grid=$('#stageGrid');grid.replaceChildren();grid.dataset.count='0';const room=currentMeeting();
       if(!room){const empty=document.createElement('div');empty.className='empty-stage';empty.innerHTML='<div><strong>KANSEE Room</strong>Choose an instant or scheduled meeting. Camera and microphone access begins only when you explicitly start your preview.</div>';grid.appendChild(empty);return}
       const people=room.participants||[];
+      grid.dataset.count=String(Math.min(16,people.length));
       if(!people.length&&!localStream){const empty=document.createElement('div');empty.className='empty-stage';empty.innerHTML='<div><strong>'+escapeText(room.title)+'</strong>Start your local preview or add a clearly labeled demonstration guest to inspect the room layout.</div>';grid.appendChild(empty);return}
       people.forEach(person=>grid.appendChild(makeVideoTile(person)));
     }
