@@ -394,3 +394,33 @@ If visual acceptance fails, revert the two D16 E=Ven Mail page commits after che
 
 ### Rollback
 Revert only the D17 E=Ven CSS commit after checking later edits; preserve prior D16 correction, HOLLO/KANSEE improvements, VNV protected gateway, browser data and validated fallback archive.
+
+## D18 — E=Ven Mail five-stage local data and service hardening (2026-11-07)
+
+**Intent:** Advance E=Ven Mail's local-first privacy and safe future STOS readiness while preserving the founder-approved cream/charcoal D17 visual blueprint, canonical shared VNV header, two tickers, toolbar, HOLLO handoff, application forms, drafts, inbox and eight surrounding 333 subsidiaries.
+
+### Baseline and commits
+- Before D18 blob: `40e65732efa5fa5a56733cc53093fbc312f76e55` (E=Ven Mail source).
+- `ab92eec85dde55d8e0c4426850a7c1c7de5b3a31`: cap and deduplicate imported applications, mailboxes and messages, reject malformed records, constrain remote synchronization metadata, and downgrade imported `provisioned` local mailbox records to nonauthoritative pending status. Guard guarded local browser writes with storage readback and optimistic old-value checks.
+- `3f8a458816b5e69649d778d8125c88727529f437`: stage and verify import and reset replacement before changing active workspace, attempt prior-record rollback on storage failures, and refuse silently overwriting content from another tab. Preserve older tab's draft state in memory for a deliberate backup export.
+- `cf96a088f8292dd7f421e1445c40e0290fb1b40d`: require saved data before claiming success for local drafts, Sent Local messages or E=Ven applications. Display honest local-only identity, provisioning, SMTP delivery and future STOS status in Settings.
+- `9fe26fe3c8db235bdfe353c21914f03d3bd692d8`: detect first-write races even when the current tab began with no stored workspace.
+- Final Git blob: `942b0236a6f8505d8eeb0ac11a6f2b20d7d67956`.
+- `120508060a77039cd7253ef69723ef291482aeb0`: `tests/even_mail_integrity.test.mjs` adds synthetic restore and boundary checks.
+- `dc9b71a7ef706012805efc067a01161c64e24229`: registers the test suite in manually triggered read-only `.github/workflows/333-topology-boundary-audit.yml`.
+
+### Verification
+- Executed actual extracted `importWorkspace()` and `commitWorkspaceReplacement()` in isolated JavaScript with synthetic storage for success, quota failure, readback failure, unreadable previous storage, cancelled import. Five of five retained the correct old or new state and recorded bytes; successful import notified only after verification. Actual extracted `saveState()` rejected an attempted first-write overwrite from a second tab.
+- Verified on latest GitHub file: 74 unique HTML element IDs, zero duplicates, zero missing `$('#id')` selector targets; seven inline JS blocks parse, existing shared header / 333 ticker / E=Ven ticker / toolbar references preserved. Existing presentation stylesheet not modified.
+- New test suite committed and wired into manual GitHub Actions; **complete runner execution not independently observed**. Source checks and mocks are not a full browser acceptance test.
+- No real account, private message, browser storage, production mail server, authenticated backend route, or STOS terminal modified.
+
+### Known limits and remaining acceptance
+- Browser localStorage is not an atomic database and is not a secure vault; recovery after persistent storage corruption cannot be guaranteed. Export a local backup before substantial migrations. Backup exports are unencrypted JSON and must be safeguarded by the user.
+- Cross-tab safeguard is fail-closed and protective of the current tab's in-memory content; it does not yet offer automatic conflict merging. The user should export the current tab, reload the authoritative stored workspace and manually reconcile if there is a collision.
+- The import cap is 5MB; application and mailbox caps are 250 each, messages remain capped at 500. Imported remote-looking mailbox statuses are downgraded because the existing local-only application has no verified provisioning service. Future provisioned status requires independently authenticated backend evidence.
+- Live browser acceptance pending: legacy backup shape, reset with quota denial, two-tab concurrent editing, drafting with a blocked write, local application status, keyboard/dialog focus, and desktop/tablet/mobile usability at 100% zoom.
+- Existing `app/routers/even_mail.py` supports authenticated application submission/withdrawal; none of those endpoints was activated or modified here. SMTP, mail delivery, provisioning and remote synchronization remain unconfigured. Dedicated E=Ven Mail STOS terminal remains **planned, uncommissioned, number unassigned**.
+
+### Rollback
+Revert only the four D18 E=Ven Mail source commits (in reverse order) after checking newer dependencies. Keep D16-D17 visual refinements, HOLLO/KANSEE hardening, 333 directory, protected VNV homepage, STOS infrastructure and founder's verified fallback ZIP untouched.
