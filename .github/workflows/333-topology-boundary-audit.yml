@@ -30,3 +30,6 @@ jobs:
 
       - name: Exercise HOLLO D09 three-bubble safety regressions (Node.js)
         run: node --test tests/hollo_three_bubbles.test.mjs
+
+      - name: Verify HOLLO canonical blueprint chrome and layout rail (Node.js)
+        run: node --test tests/hollo_blueprint_chrome.test.mjs
