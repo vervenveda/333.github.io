@@ -322,3 +322,27 @@ Revert these isolated KANSEE changes only after confirming no later dependent mo
 
 ### Rollback
 Revert only the D14 KANSEE display commit after checking later modifications. Do not roll back D13 data integrity or other 333 subsidiaries; preserve the founder's verified recovery ZIP.
+
+## D15 — KANSEE meeting-first stage and Focus Mode (2026-11-07)
+
+**Request:** Align KANSEE with VNV blueprint while preserving KANSEE's private, local-first conferencing character; expand the meeting stage, compact the entrance, refine controls, add Focus Mode, and improve responsive legibility.
+
+### Source and commits
+- `94d88465cf4ed4f1c07556f76ced6631768be615`: `app/KANSEE_333_meeting_rooms_index.html` only. Baseline Git blob `199608045cfb240dea36503f6507d3c42b80e530`; updated blob `01e3ab76aad690dfee7563cbb24d7034bf5664e9`.
+- Desktop meeting-first stage uses proportional rails (approximately 18% Rooms / 62% Meeting Stage / 20% Meeting Console when wide enough); responsive breakpoints place the console below at intermediate widths and retain the pre-existing mobile tabs at narrow widths. Container maximum 1820px. Keep KANSEE navy/teal/gold/parchment theme.
+- Hero explanatory sentence shortened but still states that live remote conferencing requires a verified service. Original number/route card, HOLLO profile and network status controls unchanged.
+- Conversation Continuity / Connection & Privacy Status preserved intact under a keyboard-operable `<details>` disclosure. Local network status remains visible even when disclosure is closed.
+- Six pre-existing media/stage controls preserved and refined for consistent 44px minimum height, 16px labels, charcoal/cream contrast and visibly distinct Leave.
+- Added `stageFocusBtn` to existing Meeting Room panel. Native `requestFullscreen()` is used when available, with CSS-only local fallback; Escape and button toggle leave Focus Mode. Gallery, chat, participants, current room, media tracks and storage remain the same objects and handlers. Focus Mode never activates microphone/camera or remote connections.
+- `565c37e8184ed77905ce8787672e7824b9dca64a`: added ten static and synthetic Focus Mode tests in `tests/kansee_focus_mode.test.mjs`.
+- `a81a9025edc45e3e87ba5903d8cb203f97920472`: included tests in the manual-only, contents-read `333-topology-boundary-audit.yml`.
+
+### Evidence and limitations
+- Fetched new source from GitHub and verified 125 unique element IDs (124 existing + 1 new), no duplicates; all seven inline JavaScript blocks parse; 14 sections, 3 navs, 1 main, 1 style, 2 details, 1 header and 1 footer balanced.
+- In isolated JavaScript with mocked fullscreen requests, actual extracted Focus Mode handlers successfully entered and exited native full screen, updating `aria-pressed` and the button label. No real camera, browser profile, network service, or STOS action involved.
+- Source checks found all 16 regular-expression anchors required by the additive Focus Mode test file. **Complete Node suite and live visual/browser behavior have not been verified.**
+- Outstanding acceptance: desktop widths 1440/1920, laptop 1024/1280, tablet 768, mobile 390, both supported native fullscreen and unsupported/denied fallback, Escape, permission and focus, 1/2/4/9/16 synthetic guests, scroll behavior and VNV floating toolbar overlay.
+- This preserves **16 locally demonstrated participant tiles**; there is no claim of a live 16-feed WebRTC conference. Authenticated backends and STOS terminal remain **uncommissioned and unassigned**.
+
+### Rollback
+Revert only the D15 KANSEE source commit if layout/fullscreen browser acceptance fails, after checking subsequent changes. Keep earlier D13 security, D14 gallery adaptations, all HOLLO work, the protected gateway and the founder's verified fallback ZIP unchanged.
