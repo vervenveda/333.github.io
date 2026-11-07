@@ -1,0 +1,20 @@
+name: 333 Network Topology and Identity Boundary Audit
+# Manual-only, source-contract checks. No STOS or OHMIC network connection.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current default branch
+        uses: actions/checkout@v4
+
+      - name: Run topology contracts (stdlib)
+        run: python3 -m unittest discover -s tests -p 'test_topology_contract.py' -v
+
+      - name: Run identity boundary contracts (stdlib)
+        run: python3 -m unittest discover -s tests -p 'test_identity_boundaries.py' -v
