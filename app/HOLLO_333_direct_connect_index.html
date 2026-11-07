@@ -1253,6 +1253,12 @@ function renderConversation(){
 
     function updateCallContact(){
       const c=getActiveContact();
+      if(!c){
+        $('#remoteAvatar').textContent='—';
+        $('#remoteName').textContent='No contact selected';
+        if(!currentCall) $('#remoteStatus').textContent='Add a contact before creating a local invitation.';
+        return;
+      }
       $('#remoteAvatar').textContent=initials(c.name);
       $('#remoteName').textContent=c.name;
       if(!currentCall) $('#remoteStatus').textContent='Choose voice or video to create an outgoing invitation.';
