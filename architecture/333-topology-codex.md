@@ -262,3 +262,34 @@ If the new canonical header cannot render, revert only the D11 `index`-equivalen
 - Protected homepage, other 333 apps, user data, STOS internals, administrator systems and terminal commissioning untouched.
 - **Outstanding:** test actual rendered header offsets, ticker pause controls, 333 hamburger branching, layout-safe toolbar clearance at 1440/1160/1024/768/390 CSS px, and local HOLLO dropdown; source checks alone do not prove visual compatibility.
 - HOLLO STOS terminal remains `planned-uncommissioned` and **number unassigned**.
+
+## D13 — KANSEE conferencing integrity and family integration (2026-11-07)
+
+**Scope:** Frontend-only KANSEE source changes, one additive test suite, and the existing manually triggered source-contract workflow. No changes to `app/routers/kansee.py`, other subsidiaries, the protected VNV homepage, live browser/member data, or STOS control surfaces. Future dedicated KANSEE STOS service terminal remains **planned-uncommissioned; number not assigned**.
+
+### Baseline and commits
+- Baseline KANSEE Git blob: `7f6597d06573115e73ca3eaad49316609463eebe`.
+- `abb26dcbf56522c03756c67ee23c0d98e1a2ec44`: normalize imported profile, sync metadata, meeting participants/chat and collaborative local records; prevent local/HOLLO numberVerification flags from asserting backend identity; prevent prototype-key insertion into imported collaboration dictionaries.
+- `ce393eed6d069a8b6c1bffcb350fe8ad36668796`: bound JSON backup import at 5MB; validate shape/schema; stage changes; verify persistent storage bytes and attempt previous-record rollback on failures; do not stop active media before backup commit is confirmed.
+- `5e598b6d5f6c0de9eb973ea33c9ba0332f19fc1e`: add request-revision guards to camera/microphone and screen share and stop stale captures when a room changes or the page hides; media cleanup on hide/page exit.
+- `2d6ce9fd31d0672774d734138e2382c73fa9bf27`: remove handwritten VNV global strip and legacy `vnv-support.js` loader; integrate approved shared header, 333 ticker, KANSEE Quick Links ticker and official toolbar. Preserve KANSEE teal/navy/gold styling, locally scoped dropdown, existing 333 app routes and original Stripe support destination.
+- `f1d8d4915e4c86680026d3453f0598c49ecb39a1`: handle interruption of pending previews when screen sharing changes.
+- `b347078cd0a681eb8cf48665ba5869d1883b95e2`: add `tests/kansee_hardening.test.mjs` with synthetic restore failures and source-boundary tests.
+- `2aaff35b85afa13a23a292735841692d83e147cf`: include suite in `.github/workflows/333-topology-boundary-audit.yml`, manual-only with contents-read permission.
+
+### Verified
+- Executed actual extracted `importWorkspace()` in isolated JavaScript with synthetic records for successful write, quota denial, failed write readback, unreadable old storage and cancellation. **Five of five behaved as expected**: previous state and stored records preserved on failed/cancelled restores, successful backup only reported after readback, and media stopped only after confirmed commit.
+- All in-page script blocks parse; KANSEE control IDs retained (only ID of discarded legacy stylesheet removed).
+- No remote conferencing activation, network delivery, authentication change, public STOS routing, terminal number assignment, or privileged service assertion.
+- Source tests and isolated harnesses are **not** a substitute for GitHub Actions logs or real-browser media/permission/layout acceptance.
+
+### Outstanding acceptance
+- Run the existing manual `333-topology-boundary-audit.yml` and preserve the actual Node test logs; not yet verified by the runner.
+- Test camera/mic permission denial, audio-only/video-only fallback, late permission results after navigation, screen-share stop and browser hide in a synthetic browser profile.
+- Test KANSEE identity handoff, older locally saved rooms, imported backup compatibility, all eight collaboration panels, room creation and joining, lobby demonstrations, chat, export and user-visible status.
+- Validate the canonical header, enriched menu, two ticker stack and toolbar overlap at desktop/tablet/mobile sizes.
+- The browser remains a local simulation. Real guest participants, authenticated remote delivery, WebRTC media server/SFU, TURN, secure session authority and the future sovereign STOS terminal are **not provisioned by these commits**.
+- Browser localStorage has no atomic multi-key transaction; a permanently unusable browser storage subsystem can defeat rollback. Recommend independent backup export before restoring valuable data.
+
+### Rollback
+Revert these isolated KANSEE changes only after confirming no later dependent modifications. Preserve the HOLLO D07–D12 changes, 333 directory gateway, validated fallback ZIP, current browser data and future unassigned STOS terminal status.
