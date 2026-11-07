@@ -430,6 +430,7 @@ footer{padding:38px 18px;color:#fff8e9}
 #applications .app-actions a:hover,#applications .app-actions a:focus-visible{background:#30413d}
 #applications .app-actions button:hover,#applications .app-actions button:focus-visible{background:#e7d9ba}
 #applications :is(.app-actions a,.app-actions button,.clear-button,.field):focus-visible{outline:3px solid #b48b45;outline-offset:2px}
+#applications .directory-results{max-width:720px;margin:0 auto 20px;color:#34443c;font:400 16px/1.5 var(--sans);text-align:center}
 #applications .empty{font-size:16px;color:#34443c}
 @media(max-width:1050px){
  #applications .app-card{flex-basis:calc((100% - 14px)/2)}
@@ -671,6 +672,7 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
           <label><span class="sr-only">Search 333 applications</span><input class="field" id="appSearch" type="search" placeholder="Search meetings, email, art, website, DNS…" autocomplete="off"></label>
           <button class="clear-button" id="clearSearch" type="button">Clear Search</button>
         </div>
+        <p class="directory-results" id="directoryResults" role="status" aria-live="polite" aria-atomic="true">Showing all 7 destinations: six core applications and FleaPit media hub.</p>
 
         <section class="category-shelf" style="--accent:var(--violet)" aria-labelledby="communicationTitle">
           <div class="category-head"><div><h3 id="communicationTitle">Communication</h3><p>Member identity, private meeting rooms, and a personal correspondence workspace.</p></div><span class="category-count">3 applications</span></div>
@@ -991,17 +993,37 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
 
       const search=$("#appSearch");
       function filterApps(){
-        const query=search.value.trim().toLowerCase();
+        const query=search.value.trim().toLocaleLowerCase();
+        const cards=$('[data-app]');
         let visible=0;
-        $$('[data-app]').forEach(card=>{
-          const show=!query||card.dataset.search.includes(query)||card.textContent.toLowerCase().includes(query);
-          card.hidden=!show;if(show)visible+=1;
+        cards.forEach(card=>{
+          const searchable=(card.dataset.search+" "+card.textContent).toLocaleLowerCase();
+          const show=!query||query.split(/\\s+/).every(term=>searchable.includes(term));
+          card.hidden=!show;
+          if(show)visible+=1;
         });
-        $$(".category-shelf").forEach(shelf=>{shelf.hidden=!$$('[data-app]:not([hidden])',shelf).length});
+        $(".category-shelf").forEach(shelf=>{
+          const count=$('[data-app]:not([hidden])',shelf).length;
+          shelf.hidden=count===0;
+          const label=$(".category-count",shelf);
+          if(label)label.textContent=count+" "+(count===1?"destination":"destinations");
+        });
         $("#emptyResults").hidden=visible!==0;
+        const countText=visible===1?"1 destination":visible+" destinations";
+        $("#directoryResults").textContent=query
+          ? countText+" match "+(visible===1?"found":"found")+" for “"+search.value.trim()+"”."
+          : "Showing all "+cards.length+" destinations: six core applications and FleaPit media hub.";
       }
       search.addEventListener("input",filterApps);
+      search.addEventListener("keydown",event=>{
+        if(event.key==="Escape" && search.value){
+          event.preventDefault();
+          search.value="";
+          filterApps();
+        }
+      });
       $("#clearSearch").addEventListener("click",()=>{search.value="";filterApps();search.focus()});
+      filterApps();
 
       const display=$("#dialDisplay");
       const dialStatus=$("#dialStatus");
