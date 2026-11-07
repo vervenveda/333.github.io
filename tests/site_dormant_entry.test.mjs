@@ -38,8 +38,9 @@ test("embed drafts use isolated selected store rather than shared localStorage",
 test("preview and project export remain, commissioning/publishing stays unavailable",()=>{
  for(const id of ["btnExportSite","btnExport","btnPreview","btnUndo","btnRedo","btnEmbedStudio","btnReset","pageCanvas","btnPublishBunya"])
    assert.equal(page.split('id="'+id+'"').length-1,1,id);
- assert.match(page,/btnPublishBunya"\)\.hidden=true/);
- assert.match(page,/btnPublishBunya"\)\.disabled=true/);
+ assert.match(page,/const logout=\$\("btnLogout"\),publish=\$\("btnPublishBunya"\)/);
+ assert.match(page,/if\(button\)\{button\.hidden=true;button\.disabled=true\}/);
+ assert.match(page,/#btnLogout,#btnPublishBunya\{display:none!important\}/);
  assert.match(page,/Export Project JSON or Website/);
 });
 test("dormant banner is distinct from auth and fits three-column application",()=>{
