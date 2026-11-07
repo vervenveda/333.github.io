@@ -424,3 +424,30 @@ Revert only the D17 E=Ven CSS commit after checking later edits; preserve prior 
 
 ### Rollback
 Revert only the four D18 E=Ven Mail source commits (in reverse order) after checking newer dependencies. Keep D16-D17 visual refinements, HOLLO/KANSEE hardening, 333 directory, protected VNV homepage, STOS infrastructure and founder's verified fallback ZIP untouched.
+
+## D19 — SIte account admission dormancy and safe temporary studio (2026-11-07)
+
+**Owner direction:** Temporarily neutralize SIte sign-in and account creation until SIte's own secure STOS terminal is ready. Preserve the existing builder/editor and all historical browser-local accounts and projects. Do not commission or assign an STOS terminal.
+
+### Forensic discovery
+- Original SIte code stored one account in `SITE_ALPHA_AUTH_V1` (salted PBKDF2 digest or legacy transitional credential) and editor project data in `SITE_ALPHA_V070`, with snapshots and a separate Embed Studio draft key.
+- Original sign-in overlay hid the 3-pane editor until a browser-local account was created or signed in. This is local browser authentication, **not server authorization**. Simply removing the overlay without isolating stored projects would let a visitor using the same browser view or alter old local projects.
+- Important features retained: 3-pane website builder, free blocks and responsive preview, translation, Embed Studio sandbox, undo/redo, restore points, static website export, Project JSON export, and local session-only editing.
+
+### Reversible source changes
+- `73c553b21b6dbd38c283714f9306befecfb7fdfd`: `SITE_ACCOUNT_ACCESS_DORMANT = true` feature switch; early `authInit()` no-login path; hide/disable the logout control and the Bunya publish handoff until commissioned. Expose a visible nonauthenticating studio notice and identity badge.
+- In dormant mode `store` is strictly the app-local in-memory `MemStore` instead of browser `localStorage`: protected account `SITE_ALPHA_AUTH_V1`, site `SITE_ALPHA_V070`, snapshots, and saved Embed Studio drafts are neither opened nor modified. The Embed Studio draft now uses the selected store for write, read, and delete.
+- In dormant mode HOLLO and E=Ven local identity readers return no identity, and the HOLLO account-prefill path is disabled. Historical sign-in/create-account UI and credential-verification routines remain in source for a future controlled STOS-era rebuild, but are not executed.
+- `c9965b75c3c2acb77bb76e0dbfffda9f37274937`: allocate stable first-row banner and second-row editor in the existing 3-column layout. No editor data migration.
+- `f24b9a6ee9636bca3a80ea4d95690e5674d44ad3`: add `tests/site_dormant_entry.test.mjs` six Node source-contract checks for dormant flags, isolation, preserved editor capabilities, and terminal boundary.
+- `af44c92441ebb8d7139fcde355e87d346c257a13`: add tests to manual-only, read-only 333 network topology workflow.
+
+### Limits / acceptance
+- The temporary public builder is **session-only**: edits and snapshots vanish when the page is closed or refreshed unless exported by the user. Project JSON or exported static website must be saved externally. This is intentional to avoid exposing old account projects.
+- Dormancy is not a privileged security system. Public repo source is visible and local JavaScript can be inspected; future private/user-account access needs authenticated STOS authorization, scoped server storage, fail-closed separation, and explicit migration controls. Do not reactivate pre-existing local passcode auth as if it were secure backend identity.
+- No GitHub files outside SIte, tests, workflow and Codex were altered; founder's recovery ZIP and the prior SIte local storage keys remain untouched. No STOS code, credential, or terminal changes.
+- Browser review pending: fresh visit shows Temporary SIte Studio without auth form, edits/render/undo/export work, refresh clears temporary edits, previous browser-local account and saved projects remain untouched, HOLLO/E=Ven personal details are not populated in temporary mode, and Bunya publish is unavailable. Verify browser widths and keyboard access.
+- If owner elects to make the entire editor dormant too, replace the temporary editor with a non-authenticating informational entry without exposing older data.
+
+### Rollback
+Prior SIte blob `7bd259bbaff380bbf0b35afac1ee4a87bcc5b842`. Revert D19 SIte source commits only after checking intervening modifications. Do **not** overwrite historical account/project storage or auto-enable existing local auth at STOS commissioning; migration and permission boundaries require a separate audited release.
