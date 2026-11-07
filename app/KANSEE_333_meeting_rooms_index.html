@@ -1063,7 +1063,7 @@ footer{padding-bottom:165px}
     <div>
       <p class="eyebrow">333 Network · Private Meeting Rooms</p>
       <h1>KANSEE™</h1>
-      <p class="hero-copy">Create a private room, invite trusted participants, manage a reception lobby, exchange messages, present to the room, and share a secure conversation link. KANSEE keeps collaboration calm, clear, and under the host’s control.</p>
+      <p class="hero-copy">Create a private room, invite trusted participants, manage a reception lobby, exchange messages, present to the room, and share a local room invitation link. Live conferencing and remote room access require a verified connected service. KANSEE keeps collaboration calm, clear, and under the host’s control.</p>
     </div>
     <div class="service-number" aria-label="KANSEE network number">
       <small>Internal KANSEE Route</small>
@@ -1760,7 +1760,7 @@ footer{padding-bottom:165px}
         ? state.profile.name+' · '+state.profile.number
         : state.profile.name+' · no member number selected';
       if(adapter&&adapter.connected===true){
-        card.classList.add('connected');$('#networkStatusTitle').textContent='KANSEE network connected';$('#networkStatusText').textContent='A trusted backend adapter is active. Remote delivery depends on the adapter implementation and configured services.';
+        card.classList.add('connected');$('#networkStatusTitle').textContent='Adapter reports connected · unverified';$('#networkStatusText').textContent='A browser-side adapter reports connectivity, but this is not proof of authenticated member access, signaling, live conferencing or STOS service readiness.';
       }else{
         card.classList.remove('connected');$('#networkStatusTitle').textContent='Local meeting preview';$('#networkStatusText').textContent='Rooms, local media preview, chat, lobby demonstrations, invitations, shared links, and backups persist on this device. Real participants, cross-device synchronization, casting, and live delivery require connected KANSEE services.';
       }
