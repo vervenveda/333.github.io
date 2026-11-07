@@ -346,6 +346,15 @@ footer{padding:38px 18px;color:#fff8e9}
 #continuity .status-card a{align-self:end;margin-top:0;min-height:44px;width:100%;display:flex;align-items:center;justify-content:center;border-radius:7px;font-size:16px;line-height:1.4}
 @media(max-width:900px){#continuity .continuity-layout{grid-template-columns:1fr}}
 @media(max-width:540px){#continuity .status-grid{grid-template-columns:1fr}}
+
+/* My 333 Network — D02/03: balanced member action buttons. */
+#continuity .continuity-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:17px;align-items:stretch}
+#continuity .continuity-actions a,#continuity .continuity-actions button{display:flex;align-items:center;justify-content:center;min-height:48px;width:100%;padding:10px 12px;border:1px solid #a6b2ab;border-radius:7px;background:#202724;color:#fff8e9;font:400 16px/1.4 var(--sans);letter-spacing:0;text-transform:none;text-align:center}
+#continuity .continuity-actions a.primary{background:#dcc79f;color:#202724;border-color:#dcc79f}
+#continuity .continuity-actions a:hover,#continuity .continuity-actions button:hover{background:#30413d;color:#fff8e9}
+#continuity .continuity-actions a.primary:hover{background:#f0dfbc;color:#202724}
+#continuity .continuity-actions :is(a,button):focus-visible{outline:3px solid #dcc79f;outline-offset:2px}
+@media(max-width:540px){#continuity .continuity-actions{grid-template-columns:1fr}}
   </style>
 </head>
 <body id="top">
