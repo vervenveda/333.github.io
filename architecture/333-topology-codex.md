@@ -240,3 +240,25 @@ Actual browser visual inspection is still required after publication at desktop/
 
 ### Rollback protocol
 If the new canonical header cannot render, revert only the D11 `index`-equivalent HOLLO source commit, not previous D07-D10 application hardening or global shared assets. Confirm no subsequent page edits first.
+
+## D12 — HOLLO family integration and shared-component order (2026-11-07)
+
+**Intent:** Help HOLLO belong visually and functionally to the Verve N Veda family while retaining its independent navy/cream identity, local 333 navigation, offline data, enrolled profiles, messaging and video features.
+
+### Baseline verification
+- Examined protected `vervenveda/vervenveda.github.io/index.html`: native 333 ticker, institutional site header, enriched branched hamburger and native shared toolbar entry. Did **not** change homepage.
+- Examined canonical reusable sources: `assets/vnv-header-autopopulate.js`, `assets/vnv-333-ticker.js`, `assets/vnv-ticker-autopopulate.js`, `assets/vnv-ecosystem-toolbar.js`.
+- Critical dependency detail: 333 ticker mounts on `DOMContentLoaded` while the header computes a sticky offset and attaches resize observers to tickers **when mounted**. Previous HOLLO source invoked header mount before ticker existence; this could leave an incorrect header offset.
+
+### Surgical changes
+- `2548cee48632905ffa68bda6e77a88ab155c2366`: reorder ticker scripts and defer shared header mount until after 333 ticker `DOMContentLoaded` mount; AutoPopulate inserts one HOLLO ticker before the page's own breadcrumb. Preserve exactly one canonical header, the two specified tickers, and one official toolbar. Keep HOLLO-specific navy breadcrumb and application dropdown.
+- Same commit: add understated familial header accent and breadcrumb border; reserve **up to 510px** beside Workspace Status at laptop widths because the official toolbar can be 480px wide (the previous 300px buffer was insufficient). Keep untouched toolbar source.
+- `f11ba9e04db2adaccbd8b96b647adba73ac627bb`: explicit HOLLO ticker links to avoid relying on collapsed dropdown visibility.
+- `3424cd0602e06005b3fd966fbd0dac8ff25e857f`: correct local ticker entry to validated `#holloWorkspace` rather than an unenforced `#enroll` anchor.
+
+### Verification and constraints
+- Original HOLLO inline application JavaScript (72,653 characters) **unchanged**; 133 source IDs preserved; all inline script blocks parsed before committing.
+- Retired handwritten header and duplicate support loader remain absent. 333 application routes and contribution link remain unchanged.
+- Protected homepage, other 333 apps, user data, STOS internals, administrator systems and terminal commissioning untouched.
+- **Outstanding:** test actual rendered header offsets, ticker pause controls, 333 hamburger branching, layout-safe toolbar clearance at 1440/1160/1024/768/390 CSS px, and local HOLLO dropdown; source checks alone do not prove visual compatibility.
+- HOLLO STOS terminal remains `planned-uncommissioned` and **number unassigned**.
