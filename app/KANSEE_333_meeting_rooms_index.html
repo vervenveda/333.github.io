@@ -1015,40 +1015,27 @@
       .modal-actions>*{width:100%}
     }
 
-  </style>
-<style id="vnv-global-ecosystem-shell">
-.vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
-.vnv-global-strip a{color:inherit;text-decoration:none}.vnv-global-brand{display:flex;align-items:center;gap:8px;white-space:nowrap}.vnv-global-mark{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.38);border-radius:7px;font:500 10px Georgia,serif}.vnv-global-copy{display:grid}.vnv-global-copy strong{font:500 11px Georgia,serif;letter-spacing:.08em;text-transform:uppercase}.vnv-global-copy small{margin-top:1px;color:#bdb5a6;font-size:9px;letter-spacing:.06em;text-transform:uppercase}
-.vnv-global-links{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;overflow:hidden;white-space:nowrap}.vnv-global-links a{color:#d8d1c5;font-size:10px;letter-spacing:.04em}.vnv-global-links a:hover,.vnv-global-links a:focus-visible{color:#fff}
-.vnv-global-menu{position:relative;justify-self:end}.vnv-global-menu summary{list-style:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.28);border-radius:7px;cursor:pointer}.vnv-global-menu summary::-webkit-details-marker{display:none}.vnv-global-lines,.vnv-global-lines:before,.vnv-global-lines:after{content:"";display:block;width:14px;height:1.5px;background:#eee8dc}.vnv-global-lines{position:relative}.vnv-global-lines:before,.vnv-global-lines:after{position:absolute;left:0}.vnv-global-lines:before{top:-5px}.vnv-global-lines:after{top:5px}
-.vnv-global-panel{position:absolute;right:0;top:36px;width:min(300px,calc(100vw - 20px));padding:10px;border:1px solid rgba(238,232,220,.22);border-radius:7px;background:#17201f;box-shadow:0 18px 40px rgba(0,0,0,.28)}.vnv-global-panel p{margin:3px 5px 8px;color:#aaa294;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.vnv-global-panel a{display:block;padding:9px 10px;border-radius:5px;color:#eee8dc;font-size:11px}.vnv-global-panel a:hover,.vnv-global-panel a:focus-visible{background:#22302e}
-@media(max-width:760px){.vnv-global-strip{grid-template-columns:minmax(0,1fr) auto}.vnv-global-links{display:none}.vnv-global-copy small{display:none}}@media print{.vnv-global-strip{display:none!important}}
+  
+/* KANSEE's own colors and conferencing layout remain independent. */
+.topline-inner{min-height:46px}
+.crumbs{font:400 16px/1.4 system-ui,sans-serif;letter-spacing:0}
+.kansee-network-menu{position:relative;z-index:30}
+.kansee-network-menu summary{list-style:none;cursor:pointer;padding:10px 15px;min-height:44px;background:#202724;color:#fff8e9;border:1px solid #bda777;border-radius:7px;font:400 16px/1.35 system-ui,sans-serif}
+.kansee-network-menu summary::-webkit-details-marker{display:none}
+.kansee-network-menu[open] .network-links{position:absolute;top:calc(100% + 6px);right:0;z-index:40;min-width:min(560px,calc(100vw - 28px));max-height:65vh;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:13px;background:#fffaf0;border:2px solid #293d35;border-radius:7px;box-shadow:0 12px 34px rgba(0,0,0,.18)}
+.kansee-network-menu .network-links a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:9px 11px;color:#fff8e9;background:#202724;border-radius:7px;font:400 16px/1.35 system-ui,sans-serif;text-decoration:none;white-space:normal;text-align:center}
+.kansee-network-menu summary:focus-visible,.kansee-network-menu a:focus-visible{outline:3px solid #c6a45e;outline-offset:2px}
+@media(min-width:960px) and (max-width:1479px){
+ .kansee-readiness-inner{padding-right:min(510px,calc(100% - 340px))}
+}
+@media(max-width:959px){.kansee-readiness-inner{padding-bottom:165px}}
+@media(max-width:600px){.kansee-network-menu[open] .network-links{grid-template-columns:1fr;left:0;right:auto;min-width:0;width:100%}}
+footer{padding-bottom:165px}
 </style>
+
 </head>
 <body>
-<div class="vnv-global-strip" data-vnv-global-strip>
-  <a class="vnv-global-brand" href="https://vervenveda.com/" aria-label="Verve N Veda home">
-    <span class="vnv-global-mark">VNV</span>
-    <span class="vnv-global-copy"><strong>Verve N Veda</strong><small>333 Network · KANSEE</small></span>
-  </a>
-  <nav class="vnv-global-links" aria-label="Verve N Veda network links">
-    <a href="https://vervenveda.com/333.github.io/app/KANSEE_333_meeting_rooms_index.html">This App</a>
-    <a href="https://vervenveda.com/#directory">Ecosystem Directory</a>
-    <a href="https://vervenveda.com/core/directory-agi/">Directory AGI</a>
-    <a href="https://vervenveda.com/cloud/">Public Cloud</a>
-  </nav>
-  <details class="vnv-global-menu">
-    <summary aria-label="Open Verve N Veda ecosystem menu"><span class="vnv-global-lines" aria-hidden="true"></span></summary>
-    <div class="vnv-global-panel"><p>Ecosystem</p>
-      <a href="https://vervenveda.com/">Verve N Veda Gateway</a>
-      <a href="https://vervenveda.com/#directory">Complete Ecosystem Directory</a>
-      <a href="https://vervenveda.com/333.github.io/">333 Network</a>
-      <a href="https://vervenveda.com/PLERASearch.github.io/">PLERA Search</a>
-      <a href="https://vervenveda.com/theverifier.github.io/">The Verifier</a>
-      <a href="https://vervenveda.com/solanar.github.io/">Solanar</a>
-    </div>
-  </details>
-</div>
+
   <div class="topline">
     <div class="topline-inner">
       <nav class="crumbs" aria-label="Breadcrumb">
@@ -1056,6 +1043,7 @@
         <a href="../index.html" data-ticker>333 Network</a><span aria-hidden="true">›</span>
         <span>KANSEE</span>
       </nav>
+      <details class="kansee-network-menu"><summary>333 Network Applications ▾</summary>
       <nav class="network-links" aria-label="333 Network services">
         <a href="../index.html">333 Network</a>
         <a href="./HOLLO_333_direct_connect_index.html" data-ticker>HOLLO</a>
@@ -1064,7 +1052,10 @@
         <a href="./SIte_builder_index.html" data-ticker>SIte</a>
         <a href="./Bunya_digital_infrastructure_index.html" data-ticker>Bunya</a>
         <a href="https://buy.stripe.com/7sY9AU9Nv6G02jj3En4AU0r" target="_blank" rel="noopener noreferrer">Support 333</a>
-      </nav>
+        <a href="https://vervenveda.com/#directory">Ecosystem Directory</a>
+        <a href="https://vervenveda.com/core/directory-agi/">Directory AGI</a>
+        <a href="https://vervenveda.com/cloud/">Public Cloud</a>
+      </nav></details>
     </div>
   </div>
 
@@ -2385,9 +2376,29 @@ $$('[data-mobile-panel]').forEach(b=>b.addEventListener('click',()=>activateMobi
     updateChatCounter();updateCollabCounter();renderAll();
   })();
   </script>
-<script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<!-- VNV family: 333 ticker + KANSEE links + canonical header and toolbar -->
+<script src="https://vervenveda.com/assets/vnv-333-ticker.js"></script>
 <script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
-<script>VNV_TICKER.autoPopulate({label:"KANSEE Quick Links",max:14});</script>
+<script>
+VNV_TICKER.autoPopulate({label:"KANSEE Quick Links",max:14,before:".topline",links:[
+ {label:"333 Network",href:"../index.html"},
+ {label:"KANSEE Rooms",href:"#meetingsPanel"},
+ {label:"HOLLO",href:"./HOLLO_333_direct_connect_index.html"},
+ {label:"E=Ven Mail",href:"./EVen_mail_index.html"},
+ {label:"Bazaar Art Live",href:"./Bazaar_Art_Live_index.html"},
+ {label:"SIte",href:"./SIte_builder_index.html"},
+ {label:"Bunya",href:"./Bunya_digital_infrastructure_index.html"},
+ {label:"Ecosystem Directory",href:"https://vervenveda.com/#directory"}
+]});
+</script>
+<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
+<script>
+function mountKanseeFamilyHeader(){
+ if(window.VNV_HEADER?.mount)window.VNV_HEADER.mount({title:"Verve N Veda",subtitle:"333 Network · KANSEE",home:"https://vervenveda.com/",icon:"V"});
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mountKanseeFamilyHeader,{once:true});
+else{window.VNV333Ticker?.mount();mountKanseeFamilyHeader()}
+</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
