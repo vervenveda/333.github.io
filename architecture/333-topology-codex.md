@@ -300,3 +300,25 @@ Revert these isolated KANSEE changes only after confirming no later dependent mo
 - Final read-only source verification: 124 unique application IDs (no duplicates), 110 directly referenced ID targets found, 7 inline scripts parse, 14 sections/3 navs/1 main/1 style/1 header/1 footer/1 details balanced, exactly one canonical header / 333 ticker / KANSEE ticker / official toolbar, legacy header/support loader absent.
 - Isolated actual-function media test: delayed camera and screen-share results were rejected after cancellation and both stale synthetic tracks were stopped. No real device was accessed.
 - GitHub Actions still needs a manual run; future STOS terminal number remains unassigned.
+
+## D14 — KANSEE conference gallery, breathing room and blueprint alignment (2026-11-07)
+
+**Source standard:** Founder-provided `Verve N Veda & Khaemenes Academy — Canonical Page Architecture & Design Blueprint v1.0`: one canonical header, two tickers, one dock, centered hero, 16px minimum interactive typography, generous responsive spacing, no hidden content, and independent thematic character. Protected VNV gateway is unchanged.
+
+### Implemented
+- `85f776af037cdcc09f3c8ead479aab250c87c449`: visual-only refinement to `app/KANSEE_333_meeting_rooms_index.html`. Maximum application width increased from 1221px to 1700px, meeting stage promoted, desktop rail layout given more breathing room, and tablet/mobile layouts improved. Teal/navy/gold and cream/parchment retained.
+- Stage is explicitly count-aware without changing participant records: one tile expands, two arrange side-by-side, three/four use two columns, five through nine use three columns where space permits, ten through sixteen use four columns on extra-wide screens and fewer columns at smaller breakpoints. Smaller viewports scroll rather than clip. Data count is set by `renderStage()` only.
+- Strengthened typography for panel headings, controls, participant labels, chat, meeting metadata, and instructional text to 16px or more where overridden by the D14 scoped style; 7px corners and symmetric button spacing.
+- Existing meeting controls, IDs, enrollment handoff, chat, media permissions, waiting room, collaborators, backup schema and STOS integrations remain unchanged.
+- The existing local demo limit remains **16 participants**. Tiles for demonstration guests are avatars and labels; only the local user camera/screen stream can show local real media. No remote WebRTC media is commissioned by this change.
+- `b04c2b27dea2943bb425a45e04a4cdef4cfd59a4`: five Node source-contract tests in `tests/kansee_gallery_layout.test.mjs` verify adaptive grid, 16-person simulation boundary, preserved controls, typography, and shared chrome.
+- `45a1998cb4c7804e8a3cd890a809560493ce1525`: adds the gallery checks to the manual-only, contents-read `333-topology-boundary-audit.yml` workflow.
+
+### Evidence and acceptance limits
+- Source verification checked 124 existing IDs unchanged and all inline scripts parsed before the visual commit.
+- This is a **visual layout enhancement**, not live video-conference infrastructure. Browser rendering at 390/768/1024/1440/1920px and 1/2/4/9/16 synthetic participants is still pending.
+- Need manual keyboard, screen-reader, camera permission, grid overflow, screen share, toolbar clearance and real device testing. Test suite committed but not independently confirmed running through GitHub Actions.
+- Future dedicated KANSEE STOS terminal remains **planned-uncommissioned and number unassigned**.
+
+### Rollback
+Revert only the D14 KANSEE display commit after checking later modifications. Do not roll back D13 data integrity or other 333 subsidiaries; preserve the founder's verified recovery ZIP.
