@@ -57,3 +57,6 @@ jobs:
 
       - name: Verify SIte export, embed sandbox and recovery safeguards (Node.js)
         run: node --test tests/site_export_embed_recovery.test.mjs
+
+      - name: Verify SIte canonical blueprint, visual controls and dormant entry (Node.js)
+        run: node --test tests/site_blueprint_visual.test.mjs
