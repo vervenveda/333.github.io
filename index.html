@@ -277,6 +277,14 @@
     }
 
 /* 333 Network refinements: canonical navigation owned by shared VNV header. */
+/* Maintain readable default text on parchment and the retained local-status indicator. */
+body{--ink:#202724;--ink-soft:#43504b;--muted:#43504b}
+.network-identity-strip{display:flex;justify-content:center;padding:7px 0;min-height:0}
+.network-identity-strip .identity-pill{font-size:16px;line-height:1.4;color:#fff8e9;background:#202724;border:1px solid #8f816c;padding:5px 12px;min-height:34px}
+.status-chip:not(.ready){color:#35453f}
+.app-tag,.app-sub{color:#40554c}
+.empty{color:#43504b}
+
 body{font-size:16px;line-height:1.55;color:#202724}
 .hero{min-height:0}.hero-inner{padding:64px 0 52px}
 .eyebrow,.kicker{font-size:16px;line-height:1.5;letter-spacing:.07em}
