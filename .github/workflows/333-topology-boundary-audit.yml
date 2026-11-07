@@ -33,3 +33,6 @@ jobs:
 
       - name: Verify HOLLO canonical blueprint chrome and layout rail (Node.js)
         run: node --test tests/hollo_blueprint_chrome.test.mjs
+
+      - name: Verify KANSEE backup, local identity, media and shared chrome (Node.js)
+        run: node --test tests/kansee_hardening.test.mjs
