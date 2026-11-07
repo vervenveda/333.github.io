@@ -624,13 +624,13 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
         <div class="section-heading">
           <p class="kicker">My 333 Network</p>
           <h2 id="continuityTitle">My Network</h2>
-          <p>One shared identity. Six independent application spaces.</p><p class="continuity-privacy-note">This gateway reads only descriptive local records created by the six applications on this device. It does not display passcodes, private keys, message bodies, credentials, or unpublished project content.</p>
+          <p>One local profile, six independent workspaces.</p><p class="continuity-privacy-note">This gateway reads only descriptive local records created by the six applications on this device. It does not display passcodes, private keys, message bodies, credentials, or unpublished project content.</p>
         </div>
 
         <div class="continuity-layout">
           <article class="continuity-card dark">
-            <h3>Shared Member Profile</h3>
-            <p>HOLLO enrollment is the local doorway into the connected 333 application experience.</p>
+            <h3>Local HOLLO Profile</h3>
+            <p>Review your browser-local HOLLO details and continue your enrollment in its own workspace.</p>
             <div class="identity-overview">
               <span class="identity-mark" aria-hidden="true">333</span>
               <div><h4 id="sharedIdentityName">No HOLLO enrollment detected</h4><p id="sharedIdentitySummary">Create a profile, use an existing number, or generate a provisional 333 number.</p></div>
@@ -639,7 +639,7 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
               <div class="identity-detail"><span>Handle</span><strong id="sharedIdentityHandle">—</strong></div>
               <div class="identity-detail"><span>Member Number</span><strong id="sharedIdentityNumber">—</strong></div>
               <div class="identity-detail"><span>Number Type</span><strong id="sharedIdentityNumberType">—</strong></div>
-              <div class="identity-detail"><span>E=Ven Request</span><strong id="sharedIdentityEmail">—</strong></div>
+              <div class="identity-detail"><span>E=Ven Request (local)</span><strong id="sharedIdentityEmail">—</strong></div>
             </div>
             <div class="continuity-actions">
               <a class="primary" href="./app/HOLLO_333_direct_connect_index.html#enroll" id="holloIdentityAction">Begin HOLLO Enrollment</a>
@@ -650,7 +650,7 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
           </article>
 
           <article class="continuity-card">
-            <h3>Application Continuity</h3>
+            <h3>Local Workspace Status</h3>
             <p>These indicators describe browser-local records only, not hosted accounts or synchronized services.</p>
             <div class="status-grid" id="appStatusGrid"></div>
           </article>
@@ -926,9 +926,9 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
           bazaar:safeJson(STORAGE.bazaar),site:safeJson(STORAGE.site),bunya:safeJson(STORAGE.bunya)
         };
         return {identity,even,apps:[
-          {id:"hollo",name:"HOLLO",accent:"var(--violet)",href:LINKS.hollo,detected:Boolean(data.hollo),ready:Boolean(identity?.complete),meta:data.hollo?(identity?.complete?"Enrollment complete":"Profile or enrollment draft detected"):"No local member record detected"},
+          {id:"hollo",name:"HOLLO",accent:"var(--violet)",href:LINKS.hollo,detected:Boolean(data.hollo),ready:Boolean(identity?.complete),meta:data.hollo?(identity?.complete?"Local enrollment complete":"Profile or enrollment draft detected"):"No local member record detected"},
           {id:"kansee",name:"KANSEE",accent:"var(--teal)",href:LINKS.kansee,detected:Boolean(data.kansee),ready:Boolean(data.kansee?.profile),meta:data.kansee?`${Array.isArray(data.kansee.meetings)?data.kansee.meetings.length:0} meeting records detected`:"No local meeting workspace detected"},
-          {id:"even",name:"E=Ven Mail",accent:"var(--cyan)",href:LINKS.even,detected:Boolean(even.state),ready:Boolean(even.latest),meta:even.latest?(even.address||"Active application detected"):"No active email application detected"},
+          {id:"even",name:"E=Ven Mail",accent:"var(--cyan)",href:LINKS.even,detected:Boolean(even.state),ready:Boolean(even.latest),meta:even.latest?"Address request saved locally":"No local email request detected"},
           {id:"bazaar",name:"Bazaar Art Live",accent:"var(--rose)",href:LINKS.bazaar,detected:Boolean(data.bazaar),ready:Boolean(data.bazaar?.currentUserId),meta:data.bazaar?`${Array.isArray(data.bazaar.posts)?data.bazaar.posts.length:0} local posts detected`:"No local creative workspace detected"},
           {id:"site",name:"SIte",accent:"var(--green)",href:LINKS.site,detected:Boolean(data.site),ready:Boolean(data.site?.pages?.length),meta:data.site?`${Array.isArray(data.site.pages)?data.site.pages.length:0} project pages detected`:"No local SIte project detected"},
           {id:"bunya",name:"Bunya",accent:"var(--amber)",href:LINKS.bunya,detected:Boolean(data.bunya),ready:Boolean(data.bunya?.plans?.length||data.bunya?.projects?.length),meta:data.bunya?"Infrastructure workspace detected":"No local infrastructure plan detected"}
@@ -939,14 +939,14 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
         const status=currentStatus();
         const detected=status.apps.filter(app=>app.detected).length;
         $("#heroDetectedCount").textContent=String(detected).padStart(2,"0");
-        $("#heroIdentityStatus").textContent=status.identity?.complete?"Ready":status.identity?"Draft":"Guest";
+        $("#heroIdentityStatus").textContent=status.identity?.complete?"Local":status.identity?"Draft":"Guest";
         const pill=$("#networkIdentity");
-        pill.classList.toggle("ready",Boolean(status.identity));
+        pill.classList.toggle("ready",Boolean(status.identity?.complete));
         $("#networkIdentityText").textContent=status.identity?.handle||status.identity?.name||"Local network";
 
         if(status.identity){
           $("#sharedIdentityName").textContent=status.identity.name||"HOLLO member profile";
-          $("#sharedIdentitySummary").textContent=status.identity.complete?"A completed local HOLLO enrollment is available to connected applications.":"A local HOLLO profile or enrollment draft is available.";
+          $("#sharedIdentitySummary").textContent=status.identity.complete?"HOLLO enrollment is complete in this browser; this does not verify membership or number ownership.":"A browser-local HOLLO profile or enrollment draft is available.";
           $("#sharedIdentityHandle").textContent=status.identity.handle||"—";
           $("#sharedIdentityNumber").textContent=formatNumber(status.identity.number);
           $("#sharedIdentityNumberType").textContent=status.identity.numberKind||"Local profile";
@@ -961,11 +961,32 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
         }
         $("#sharedIdentityEmail").textContent=status.even.address||"—";
 
-        $("#appStatusGrid").innerHTML=status.apps.map(app=>`
-          <article class="status-card" style="--accent:${app.accent}">
-            <div class="status-head"><h4>${app.name}</h4><span class="status-chip ${app.ready?"ready":""}" title="Browser-local status; not a hosted service guarantee">${app.ready?"Local ready":app.detected?"Local record":"Not started"}</span></div>
-            <p class="status-meta">${app.meta}</p><a href="${app.href}">Open ${app.name}</a>
-          </article>`).join("");
+        // Browser-local records are untrusted display data: never interpolate them into HTML.
+        const statusGrid=$("#appStatusGrid");
+        const cards=document.createDocumentFragment();
+        status.apps.forEach(app=>{
+          const card=document.createElement("article");
+          card.className="status-card";
+          card.style.setProperty("--accent",app.accent);
+          const head=document.createElement("div");
+          head.className="status-head";
+          const heading=document.createElement("h4");
+          heading.textContent=app.name;
+          const chip=document.createElement("span");
+          chip.className="status-chip"+(app.ready?" ready":"");
+          chip.title="This reflects browser-local records only, not hosted service availability.";
+          chip.textContent=app.ready?"Local setup":app.detected?"Local record":"Not started";
+          head.append(heading,chip);
+          const description=document.createElement("p");
+          description.className="status-meta";
+          description.textContent=app.meta;
+          const link=document.createElement("a");
+          link.href=app.href;
+          link.textContent="Open "+app.name;
+          card.append(head,description,link);
+          cards.append(card);
+        });
+        statusGrid.replaceChildren(cards);
       }
 
       const search=$("#appSearch");
