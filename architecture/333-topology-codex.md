@@ -76,3 +76,11 @@ Do not invent routes for E=Ven Mail, SIte, Bunya or FleaPit.
 ### Runbook
 
 From a clean local checkout, run `python3 -m unittest discover -s tests -p 'test_topology_contract.py' -v` and `python3 -m unittest discover -s tests -p 'test_identity_boundaries.py' -v`; or manually dispatch the read-only GitHub Actions workflow. Record the actual test logs and commit SHA. A source-level test passing does **not** establish deployed backend authorization correctness.
+
+## D03 — FleaPit near-parity evidence checkpoint (2026-11-07)
+
+- Added `architecture/fleapit-source-parity-checkpoint.md` with the four source-file Git blob IDs, two-line hub difference, nine-line landing difference, shared local storage markers, and current split between the 333 precache and ProReSources directory destination.
+- The two media hub versions are near-identical but **not bit-for-bit identical**. Do not assume cross-origin storage migration or identical runtime behavior.
+- The 333 hub has an introduction self-link inconsistent with its dedicated 333 landing. No route or link modification made.
+- Commit: `011ce29db122adebff8cd6b73393b625e7e25db1`.
+- Next: isolated data-schema and browser acceptance tests; no STOS commissioning or browser-record mutation.
