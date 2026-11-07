@@ -36,3 +36,6 @@ jobs:
 
       - name: Verify KANSEE backup, local identity, media and shared chrome (Node.js)
         run: node --test tests/kansee_hardening.test.mjs
+
+      - name: Verify KANSEE conference gallery and visual blueprint (Node.js)
+        run: node --test tests/kansee_gallery_layout.test.mjs
