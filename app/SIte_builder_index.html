@@ -1389,6 +1389,8 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
 #siteDormantNotice span{max-width:980px}
 #leftPanel,#canvas,#rightPanel{grid-row:2;min-height:0}
 #btnLogout[hidden],#btnPublishBunya[hidden]{display:none!important}
+
+.site-sandboxed-embed{width:100%;min-height:220px;height:100%;border:1px solid #9ba99e;border-radius:7px;background:#fffaf0}
 </style>
 <style id="vnv-global-ecosystem-shell">
 .vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
@@ -1796,6 +1798,25 @@ function createRestorePoint(name="Manual restore point"){
 function safeParse(str, fb){ try{return JSON.parse(str);}catch(e){return fb;} }
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[s]));
+}
+function renderIsolatedPreviewFrame(frame,code){
+  frame.setAttribute("sandbox","allow-scripts");
+  frame.setAttribute("referrerpolicy","no-referrer");
+  const policy='<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; script-src \'unsafe-inline\'; style-src \'unsafe-inline\'; img-src data: blob:; font-src data:; connect-src \'none\'; form-action \'none\'; base-uri \'none\'; object-src \'none\'; frame-src \'none\'">';
+  frame.srcdoc='<!doctype html><html><head><meta charset="utf-8">'+policy+'</head><body>'+String(code||"")+'</body></html>';
+}
+function renderIsolatedEmbed(host,code){
+  // Untrusted author HTML runs only in a unique-origin frame, never in the
+  // editor DOM. No same-origin grants, popups, forms, or network access.
+  host.replaceChildren();
+  const frame=document.createElement("iframe");
+  frame.className="site-sandboxed-embed";
+  frame.title="SIte embedded-content preview";
+  frame.setAttribute("sandbox","allow-scripts");
+  frame.setAttribute("referrerpolicy","no-referrer");
+  frame.setAttribute("loading","lazy");
+  renderIsolatedPreviewFrame(frame,code);
+  host.appendChild(frame);
 }
 function escapeHtmlForTextarea(str){
   return escapeHtml(str).replace(/<\/textarea>/gi,"&lt;/textarea&gt;");
@@ -2687,7 +2708,7 @@ function renderCanvas(){
       el.appendChild(img);
     }else if(b.type==="embed"){
       ensureTranslationMap(b);
-      el.innerHTML=getText(b,lang);
+      renderIsolatedEmbed(el,getText(b,lang));
     }else if(b.type==="section"){
       ensureTranslationMap(b);
       el.textContent=getText(b,lang);
@@ -2756,7 +2777,7 @@ function renderCanvas(){
       applyBlockStyle(b,img);
     }else if(b.type==="embed"){
       ensureTranslationMap(b);
-      inner.innerHTML=getText(b,lang);
+      renderIsolatedEmbed(inner,getText(b,lang));
     }else if(b.type==="text"){
       ensureTranslationMap(b);
       inner.textContent=getText(b,lang);
@@ -3434,7 +3455,7 @@ function patchBlockContent(b){
     patchBlockStyle(b);
   }else if(b.type==="embed"){
     ensureTranslationMap(b);
-    inner.innerHTML=getText(b,lang);
+    renderIsolatedEmbed(inner,getText(b,lang));
   }else if(b.type==="image"){
     const img=inner.querySelector("img") || document.createElement("img");
     img.src=b.src||PLACEHOLDER_IMAGE;
@@ -3835,10 +3856,10 @@ function runEmbedStudioPreview(){
 
   clearEmbedPreviewUrl();
 
-  const documentCode=code.trim()||"<!doctype html><html><body></body></html>";
-  const blob=new Blob([documentCode],{type:"text/html"});
-  embedPreviewUrl=URL.createObjectURL(blob);
-  frame.src=embedPreviewUrl;
+  const documentCode=code.trim()||"<p>Empty SIte preview</p>";
+  frame.removeAttribute("src");
+  // The same restricted renderer protects standalone Embed Studio and canvas.
+  renderIsolatedPreviewFrame(frame,documentCode);
 
   try{store.setItem(EMBED_STUDIO_DRAFT_KEY,code)}catch(_){}
   setEmbedStudioStatus(
@@ -3965,7 +3986,7 @@ function openEmbedStudio(){
           <iframe
             id="embedStudioPreview"
             title="Embed Studio preview"
-            sandbox="allow-scripts allow-forms allow-modals allow-popups"
+            sandbox="allow-scripts"
             referrerpolicy="no-referrer"
           ></iframe>
         </div>
