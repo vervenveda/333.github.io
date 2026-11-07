@@ -1790,7 +1790,7 @@ body{color:var(--ink);background:#f5f2ea}
         }
         try{
           const current = localStorage.getItem(STORAGE_KEY);
-          if (observedStoredRecord !== null && current !== observedStoredRecord){
+          if (current !== observedStoredRecord){
             persistenceConflict = true;
             showToast("Another tab changed this workspace. Export this tab before reloading to avoid losing drafts.");
             return false;
@@ -2840,7 +2840,7 @@ body{color:var(--ink);background:#f5f2ea}
         let previousRaw;
         try{
           previousRaw = localStorage.getItem(STORAGE_KEY);
-          if(observedStoredRecord !== null && previousRaw !== observedStoredRecord){
+          if(previousRaw !== observedStoredRecord){
             persistenceConflict = true;
             showToast("Another tab changed this workspace. Export current work before reloading.");
             return false;
