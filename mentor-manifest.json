@@ -20,7 +20,7 @@
     {
       "id": "333-gateway",
       "title": "333 Network Gateway",
-      "description": "Shared 333 Network entry point for connected services and identity.",
+      "description": "Public 333 Network gateway and local-first application directory.",
       "url": "https://vervenveda.com/333.github.io/",
       "audiences": [
         "higher-learning",
@@ -43,7 +43,6 @@
       "tags": [
         "333-network",
         "communications",
-        "account-service",
         "privacy-sensitive"
       ],
       "mentorEligible": true,
@@ -53,5 +52,5 @@
       "requiresAccountAwareness": true
     }
   ],
-  "mentorNotes": "333 includes identity, direct communication, meetings, social/community features, and backend services. It is intentionally not a general child recommendation source in Wave 01."
+  "mentorNotes": "333 Network provides an overview of communication, meeting, community and creative workspaces. Available capabilities and age suitability should be checked before recommendation."
 }
