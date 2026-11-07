@@ -83,7 +83,7 @@ async function precacheFiles() {
   const results = await Promise.allSettled(PRECACHE_URLS.map(async url => {
     const request = new Request(url, { cache: "reload" });
     const response = await fetch(request);
-    if (!isCacheable(response)) throw new Error(`Unable to precache ${url}: HTTP ${response.status}`);
+    if (!approvedPublicCacheRequest(request) || !approvedPublicCacheResponse(response)) throw new Error(`Unsafe or unavailable precache ${url}: HTTP ${response.status}`);
     await cache.put(request, response);
   }));
 
