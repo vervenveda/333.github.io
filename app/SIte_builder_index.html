@@ -1383,9 +1383,11 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
 
 
 /* D19: session-only sandbox entry, with historical projects sealed. */
-#siteDormantNotice{grid-column:1/-1;display:flex;justify-content:center;align-items:center;gap:13px;flex-wrap:wrap;background:#f5f0e7;border-bottom:2px solid #9ba798;color:#202724;padding:12px 18px;text-align:center;font:400 16px/1.5 system-ui,sans-serif;z-index:20}
+#app{grid-template-rows:auto minmax(0,1fr)}
+#siteDormantNotice{grid-row:1;grid-column:1/-1;display:flex;justify-content:center;align-items:center;gap:13px;flex-wrap:wrap;background:#f5f0e7;border-bottom:2px solid #9ba798;color:#202724;padding:12px 18px;text-align:center;font:400 16px/1.5 system-ui,sans-serif;z-index:20}
 #siteDormantNotice strong{font:400 20px/1.3 Georgia,serif}
 #siteDormantNotice span{max-width:980px}
+#leftPanel,#canvas,#rightPanel{grid-row:2;min-height:0}
 #btnLogout[hidden],#btnPublishBunya[hidden]{display:none!important}
 </style>
 <style id="vnv-global-ecosystem-shell">
