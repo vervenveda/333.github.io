@@ -309,21 +309,34 @@ footer{padding-bottom:170px}
 .hollo-network-menu[open] .network-links{max-height:min(65vh,500px);overflow-y:auto}
 .backend-readiness-inner,.backend-status-grid{min-width:0}
 .backend-status-grid>div,.hollo-privacy-details{min-width:0;overflow-wrap:anywhere}
+/* HOLLO retains its own deep-navy breadcrumb and warm-cream identity below
+   the institutional header; only the shared chrome receives familial accents. */
+#vnvHeaderAutoPopulate .vnv-header-logo{border-color:#293d35}
+#vnvHeaderAutoPopulate .vnv-header-subtitle{color:#47574b}
+#vnvHeaderAutoPopulate .vnv-header-menu-button{border-radius:7px}
+.topline{border-bottom-color:rgba(185,149,84,.4)}
+.hollo-network-menu summary{border-color:#9d8a62}
+.hero{scroll-margin-top:calc(var(--vnv-ticker-stack-height,66px) + var(--vnv-header-height,66px) + 14px)}
+.backend-readiness-inner{position:relative}
+/* The official utility dock can be 480px wide. Reserve its full horizontal
+   footprint inside the affected card on laptop-size screens, not merely 300px. */
 @media(min-width:960px) and (max-width:1479px){
- .backend-readiness-inner{grid-template-columns:minmax(0,1fr);padding-right:clamp(296px,27vw,330px)}
+ .backend-readiness-inner{grid-template-columns:minmax(0,1fr);padding-right:min(510px,calc(100% - 320px))}
  .backend-status-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
  .hollo-privacy-details{grid-column:1}
 }
-@media(min-width:960px) and (max-width:1120px){
- .backend-readiness-inner{padding-right:292px}
-}
 @media(min-width:620px) and (max-width:959px){
- .backend-readiness-inner{grid-template-columns:minmax(0,1fr);padding-bottom:120px}
+ .backend-readiness-inner{grid-template-columns:minmax(0,1fr);padding-bottom:156px}
+ .hollo-privacy-details{margin-bottom:12px}
 }
 @media(max-width:619px){
- .backend-readiness-inner{padding-bottom:140px}
+ .backend-readiness-inner{grid-template-columns:1fr;padding-bottom:176px}
  .backend-status-grid{grid-template-columns:1fr}
 }
+/* Keep studio controls and navigation visible above the bottom dock when
+   scrolled to the end; no changes to the canonical dock itself. */
+#holloWorkspace,.app-shell,.activity-drawer{scroll-margin-bottom:160px}
+
 </style>
 
 </head>
@@ -2078,12 +2091,39 @@ function init(){
     init();
   })();
 </script>
-<!-- D11 canonical chrome: approved shared header, 333 ticker, page ticker and official dock -->
-<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
-<script>VNV_HEADER.mount({title:"Verve N Veda",subtitle:"333 Network · HOLLO",home:"https://vervenveda.com/",icon:"V"});</script>
+<!-- HOLLO family integration: mount ticker pair before the shared header.
+     Preserve the independent HOLLO entrance, local navigation and official toolbar. -->
 <script src="https://vervenveda.com/assets/vnv-333-ticker.js"></script>
 <script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
-<script>VNV_TICKER.autoPopulate({label:"HOLLO Quick Links",max:14,before:"#vnvHeaderAutoPopulate"});</script>
+<script>
+  VNV_TICKER.autoPopulate({
+    label:"HOLLO Quick Links",
+    max:14,
+    before:".topline",
+    pauseKey:"VNV_HOLLO_QUICK_LINKS_PAUSED"
+  });
+</script>
+<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
+<script>
+  // The 333 ticker mounts at DOMContentLoaded. Mount the header afterwards
+  // so it observes the real two-ticker stack and receives the proper sticky offset.
+  function mountHolloFamilyHeader(){
+    if(window.VNV_HEADER?.mount){
+      window.VNV_HEADER.mount({
+        title:"Verve N Veda",
+        subtitle:"333 Network · HOLLO",
+        home:"https://vervenveda.com/",
+        icon:"V"
+      });
+    }
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",mountHolloFamilyHeader,{once:true});
+  }else{
+    window.VNV333Ticker?.mount();
+    mountHolloFamilyHeader();
+  }
+</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
