@@ -333,6 +333,19 @@ footer{padding:38px 18px;color:#fff8e9}
 .footer-links a{color:#fff8e9}.copyright{width:100%;color:#e7e0d4}
 @media(max-width:720px){.hero-inner{padding:48px 0 42px}.hero .actions{grid-template-columns:1fr;max-width:440px}.section{padding:46px 12px}.choice-grid,.app-grid,.principle-grid{grid-template-columns:1fr}.app-card,.choice-card{min-height:0}.footer-links{gap:4px 9px}}
 
+/* Start choices: consistent six-doorway presentation, no route or state changes. */
+#start .section-heading{max-width:760px;margin-bottom:30px}
+#start .section-heading p:last-child{max-width:700px;margin:15px auto 0;line-height:1.6;text-wrap:pretty}
+#start .choice-grid{gap:16px;align-items:stretch}
+#start .choice-card{min-width:0;min-height:260px;justify-content:flex-start;gap:0;padding:24px 21px 20px;border:1px solid #cfc6b8;border-top:3px solid var(--accent);border-radius:7px;background:#fffdf8;box-shadow:0 8px 23px rgba(13,25,43,.07);text-align:center;transition:transform .17s,box-shadow .17s,border-color .17s}
+#start .choice-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(13,25,43,.12);border-color:#807364}
+#start .choice-card:focus-visible{outline:3px solid #927846;outline-offset:3px}
+#start .choice-icon{width:55px;height:55px;flex:none;margin-inline:auto;border-radius:7px}
+#start .choice-card h3{margin:16px 0 0;font:400 clamp(20px,2.1vw,25px)/1.3 Cinzel,Georgia,serif;color:#202724}
+#start .choice-card p{margin:12px 0 0;color:#43504b;font:400 16px/1.6 var(--sans);max-width:32ch;text-wrap:pretty}
+#start .choice-card span:last-child{align-self:stretch;display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:auto;padding:10px 12px;background:#202724;color:#fff8e9;border:1px solid #202724;border-radius:7px;font:400 16px/1.4 var(--sans);letter-spacing:0;text-transform:none}
+#start .choice-card:hover span:last-child,#start .choice-card:focus-visible span:last-child{background:#30413d;border-color:#30413d;color:#fff8e9}
+@media(max-width:720px){#start .choice-card{min-height:0;padding:22px 19px 19px}#start .choice-card span:last-child{margin-top:18px}#start .choice-grid{gap:13px}}
 /* My 333 Network — D02/01: readable local-identity contrast; no data changes. */
 #continuity .continuity-card.dark{color:#fff8e9}
 #continuity .continuity-card.dark>p{color:#e1e9e6}
@@ -585,22 +598,22 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
 
         <div class="choice-grid">
           <a class="choice-card" style="--accent:var(--violet)" href="./app/HOLLO_333_direct_connect_index.html#enroll">
-            <span class="choice-icon" aria-hidden="true">◌</span><h3>Join the Network</h3><p>Create or connect a local HOLLO member identity and trusted contact space.</p><span>Open HOLLO →</span>
+            <span class="choice-icon" aria-hidden="true">◌</span><h3>Create Your Profile</h3><p>Set up your local HOLLO profile and organize trusted contacts.</p><span>Open HOLLO</span>
           </a>
           <a class="choice-card" style="--accent:var(--teal)" href="./app/KANSEE_333_meeting_rooms_index.html">
-            <span class="choice-icon" aria-hidden="true">▦</span><h3>Meet & Collaborate</h3><p>Create, schedule, or join a local meeting room with clear consent controls.</p><span>Open KANSEE →</span>
+            <span class="choice-icon" aria-hidden="true">▦</span><h3>Meet & Collaborate</h3><p>Plan meetings and prepare collaboration spaces with consent controls.</p><span>Open KANSEE</span>
           </a>
           <a class="choice-card" style="--accent:var(--cyan)" href="./app/EVen_mail_index.html#apply">
-            <span class="choice-icon" aria-hidden="true">✉</span><h3>Apply for Email</h3><p>Request an E=Ven address and organize drafts and correspondence locally.</p><span>Open E=Ven Mail →</span>
+            <span class="choice-icon" aria-hidden="true">✉</span><h3>Prepare Email</h3><p>Prepare an address application and manage correspondence drafts locally.</p><span>Open E=Ven Mail</span>
           </a>
           <a class="choice-card" style="--accent:var(--rose)" href="./app/Bazaar_Art_Live_index.html">
-            <span class="choice-icon" aria-hidden="true">✦</span><h3>Enter the Community</h3><p>Explore creative posts, groups, events, reels, and artistic participation.</p><span>Open Bazaar Art Live →</span>
+            <span class="choice-icon" aria-hidden="true">✦</span><h3>Explore the Community</h3><p>Explore creative posts, groups, events, and shared artistic projects.</p><span>Open Bazaar Art Live</span>
           </a>
           <a class="choice-card" style="--accent:var(--green)" href="./app/SIte_builder_index.html">
-            <span class="choice-icon" aria-hidden="true">◇</span><h3>Build a Site</h3><p>Create websites and applications with the SIte builder and Embed Studio.</p><span>Open SIte →</span>
+            <span class="choice-icon" aria-hidden="true">◇</span><h3>Build a Site</h3><p>Design sites and experiment in Embed Studio. Export work before leaving.</p><span>Open SIte</span>
           </a>
           <a class="choice-card" style="--accent:var(--amber)" href="./app/Bunya_digital_infrastructure_index.html#workspace">
-            <span class="choice-icon" aria-hidden="true">⌘</span><h3>Plan Infrastructure</h3><p>Organize domains, DNS, deployment, monitoring, backups, and readiness.</p><span>Open Bunya →</span>
+            <span class="choice-icon" aria-hidden="true">⌘</span><h3>Plan Infrastructure</h3><p>Plan domains, DNS, deployment, monitoring, and backup readiness.</p><span>Open Bunya</span>
           </a>
         </div>
       </div>
