@@ -1055,11 +1055,14 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
       const openRouteButton=$("#openRoute");
       function routeDigits(value){
         const number=digits(value);
-        // The 333 prefix identifies this internal directory; do not accept another prefix.
+        // Accept a seven-digit suffix or an explicitly prefixed 333 route.
+        // Never silently convert a malformed ten-digit number to another route.
+        if(number.length>7 && !number.startsWith("333"))return null;
         return "333"+(number.startsWith("333")?number.slice(3):number).slice(0,7);
       }
       function formatRoute(value){
         const number=routeDigits(value);
+        if(number===null)return "333-";
         return number.slice(0,3)+"-"+number.slice(3,6)+(number.length>6?"-"+number.slice(6,10):"");
       }
       function updateRouteFeedback(message){
@@ -1076,8 +1079,9 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
         }
       }
       function setRoute(value,message){
+        const invalid=routeDigits(value)===null;
         display.value=formatRoute(value);
-        updateRouteFeedback(message);
+        updateRouteFeedback(invalid?"Invalid route prefix. Use 333 followed by seven digits.":message);
       }
       function openCurrentRoute(){
         const key=routeDigits(display.value);
