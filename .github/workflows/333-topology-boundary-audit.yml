@@ -48,3 +48,6 @@ jobs:
 
       - name: Verify E=Ven Mail restrained palette and balanced correspondence layout (Node.js)
         run: node --test tests/even_mail_palette.test.mjs
+
+      - name: Verify E=Ven Mail recovery, cross-tab preservation and STOS boundaries (Node.js)
+        run: node --test tests/even_mail_integrity.test.mjs
