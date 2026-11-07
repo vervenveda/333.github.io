@@ -107,3 +107,18 @@ All seven application files, browser storage and profile data, the main gateway,
 
 ### Acceptance remaining
 Run `python3 -m unittest discover -s tests -p 'test_offline_backup_boundaries.py' -v` and `node --test tests/service_worker_policy.test.mjs` using an approved read-only runner. Verify actual v7-to-v8 browser worker activation, public offline coverage, Cache Storage privacy exclusion, and synthetic backup rollback tests. No STOS slot is commissioned.
+
+## D06 — Public-facing lower-page design refinement (2026-11-07)
+
+**Commit:** `bb099ec42d5979ac157cb24293b1cd824947a561` — `index.html` only.
+
+### Scope and preservation
+- Refined Network Principles into three larger aligned cards, with 16 px supporting text and clear charcoal/navy/cream contrast.
+- Refined the existing support panel to use the primary heading **Support Free Access**, paired with the established **Support the Network** Stripe action. The original contribution URL remains unchanged. The separately injected VNV support component was not edited.
+- Replaced tiny current-build notice with **Network Service Status**, explicitly distinguishing available browser-local tools, capabilities requiring authenticated connected backends, and **planned/not-commissioned STOS hosting**.
+- Refined footer typography, spacing, layout, and navigation; seven connected destinations now include FleaPit.
+- Source structural checks: 11 balanced section tags; one canonical header mount; existing Stripe URL; one stylesheet pair; 3 principles and 3 status cards. Published-browser rendering, breakpoint behavior, click paths and PWA version interaction **not independently tested**.
+- No changes to app HTML, registered routes, member storage, backend, service worker, shared VNV components, STOS terminals, administrative infrastructure or original directory fallback.
+
+### Acceptance before extending this design
+Review desktop/tablet/mobile screenshots, accessibility and contrast, location of globally injected Support Free Access component, footer-toolbar overlap, and donation link click-through. Keep the design scoped to 333 Network until validated.
