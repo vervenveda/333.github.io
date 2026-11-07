@@ -520,3 +520,28 @@ Revert D21 SIte commits only after checking later changes; do not reactivate leg
 
 ### Rollback
 If browser acceptance reveals a local style defect, revert only the D22 SIte page commit after checking intervening changes, keeping D19–D21 working direct studio, D20 data protection, healthy fallback ZIP, other 333 subsidiaries and protected Verve N Veda gateway unchanged.
+
+## D23 — SIte studio toolbar, sidebars and canvas breathing room (2026-11-07)
+
+**Request:** Five visual improvements to the live SIte creation studio after the approved D22 canonical blueprint upgrade. Preserve the now-working login-free direct entry, independent website editor, source data, preview/export safeguards, and dormant STOS/service boundaries.
+
+### Changes and source checkpoint
+- Baseline SIte frontend Git blob: `2b7325b3800efb55a90ea03a05fd79afc0c8e5fb`.
+- `e1cf8f3395392e629a6a2fa6bd76ca4fd7e67605`: regroup **existing** editor controls into five semantically labeled sections: Navigation, View, Editing, Creation, and Export & Recovery. All original control IDs, their ordering and event handlers are preserved; retired Login and Bunya Publishing remain disabled/hidden.
+- D23 styles enforce 16px interactive labels, 44px touch targets, charcoal controls with cream text and 7px radius. Highlight device selection and distinguish Reset from primary editing controls. Existing toolbar action order not changed within each original sequence; CSS wraps groups responsive to available width.
+- Pages, Languages, Domains, Inspector, and Add Block remain present but now have five aligned cream rail sections. Their original form IDs and data behavior are unchanged. Right-side Add Block actions become aligned full-width controls.
+- Framed Design Canvas workspace adds a calm title and guidance to the **existing** desktop/tablet/phone responsive preview, with more intentional padding and an ivory page surrounded by soft blue-gray canvas backdrop. **No CSS zoom or transforms applied to editable authored canvas**, to avoid breaking drag/resize coordinate arithmetic. Zoom requires separately verified interaction design.
+- Hero uses slightly more compact spacing while preserving institutional eyebrow, SIte title, concise description and explicit temporary-session export guidance.
+- Responsive rail-collapse styles and print-only canvas adjustments maintained. Existing page content styling, editable block structure, identity isolation, local backups, restored project JSON, Embed Studio iframe protections and dormant public sign-in logic preserved **byte-for-byte in application JavaScript**.
+- New frontend Git blob: `cffeb02c516d7b55493fd8ecb1c9cd7085cbc59f`. Source checks: 110 unchanged HTML IDs, no duplicates; five balanced toolbar group divs; full editor JavaScript syntax valid and identical to D22 baseline.
+- `7baa2846e61ca60745bb69cb17817e2d8a01866e`: adds `tests/site_studio_visual_d23.test.mjs`, seven Node tests for toolbar grouping, labels, existing sections and controls, non-scaled canvas, responsive rails, direct entry, project recovery and dormant future STOS.
+- `3eaa8644fe502e18854c70285e48d4a235d5ff46`: wires seven tests into existing manually invoked, read-only `333-topology-boundary-audit.yml`.
+
+### Verification and follow-up
+- Main page was fetched after the commit; confirmed all five toolbar groups and 14 preserved editor command buttons, all toolbar `div` opening/closing counts balanced. No source/JS event handler change.
+- **Not yet verified:** browser-based rendering at 390/768/1024/1440/1920 CSS pixels, real application focus/tab order, free positioning, modal layout, sidebar toggle behavior, toolbar wrapping, printed page and toolbar overlay. Node suite committed but full GitHub Actions result has not been inspected.
+- The owner's screenshot appears scaled unusually small; confirm zoom at 100% when judging readability. SIte stays a temporary studio with a user-exported project file; do not enable local login, old owner project access or backend publishing merely for visual acceptance.
+- Dedicated SIte STOS terminal remains **unassigned and uncommissioned**.
+
+### Rollback
+Revert only the D23 SIte source commit after checking later changes, preserving the D19-D22 direct editor, source-hardened embed isolation and restoration, the founder's healthy fallback ZIP, previously saved owner browser records and all other 333 applications.
