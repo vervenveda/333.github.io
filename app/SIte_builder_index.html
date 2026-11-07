@@ -1655,7 +1655,9 @@ body.left-collapsed.right-collapsed #app{grid-template-columns:1fr}
         <button id="btnPreview" class="small secondary" type="button">Preview</button>
         <button id="btnExportSite" class="secondary small" type="button">Export Website</button>
         <button id="btnPublishBunya" class="secondary small" type="button">Publish with Bunya</button>
-        <button id="btnExport" class="secondary small" type="button">Project JSON</button>
+        <button id="btnExport" class="secondary small" type="button">Download Project JSON</button>
+        <button id="btnImportProject" class="secondary small" type="button">Import Project JSON</button>
+        <input id="siteProjectImportFile" type="file" accept=".json,application/json" hidden>
         <button id="btnReset" class="secondary small" type="button">Reset</button>
         <button id="btnLogout" class="secondary small" type="button">Log Out</button>
       </div>
@@ -1751,14 +1753,35 @@ function pushHistory(label="Change"){
   redoStack=[];
   updateUndoRedo();
 }
+function validateSiteProject(raw){
+  if(!raw||typeof raw!=="object"||Array.isArray(raw)||!Array.isArray(raw.pages)||
+     raw.pages.length<1||raw.pages.length>80||!raw.languages||
+     typeof raw.languages!=="object"||!Array.isArray(raw.languages.list)||
+     raw.languages.list.length>40||typeof raw.languages.default!=="string")return false;
+  const pageIds=new Set();let blockTotal=0;
+  for(const page of raw.pages){
+    if(!page||typeof page!=="object"||Array.isArray(page)||
+       typeof page.id!=="string"||!page.id||page.id.length>100||pageIds.has(page.id)||
+       typeof page.title!=="string"||page.title.length>250||
+       !Array.isArray(page.blocks)||page.blocks.length>400)return false;
+    pageIds.add(page.id);
+    for(const b of page.blocks){
+      if(!b||typeof b!=="object"||Array.isArray(b)||typeof b.id!=="string"||
+         !b.id||b.id.length>100||
+         !["text","button","section","image","embed"].includes(b.type))return false;
+      if(++blockTotal>5000)return false;
+    }
+  }
+  return true;
+}
 function restoreSerialized(serialized){
+  if(typeof serialized!=="string"||serialized.length>5*1024*1024)return false;
   const restored=safeParse(serialized,null);
-  if(!restored||!restored.pages)return false;
+  if(!validateSiteProject(restored))return false;
+  if(saveDebounce){clearTimeout(saveDebounce);saveDebounce=null}
   site=restored;
   currentPage=site.pages.find(p=>p.id===currentPage?.id)||site.pages[0];
-  selectedBlockId=null;
-  saveSite();
-  render();
+  selectedBlockId=null;saveSite();render();
   return true;
 }
 function undo(){
@@ -1783,16 +1806,22 @@ function updateUndoRedo(){
   if(redoBtn)redoBtn.disabled=!redoStack.length;
 }
 function getSnapshots(){
-  return safeParse(store.getItem(SNAPSHOT_KEY)||"[]",[]);
+  const parsed=safeParse(store.getItem(SNAPSHOT_KEY)||"[]",[]);
+  return Array.isArray(parsed)?parsed.filter(x=>x&&typeof x==="object"&&typeof x.id==="string"&&validateSiteProject(x.site)).slice(0,20):[];
 }
 function saveSnapshots(list){
-  try{store.setItem(SNAPSHOT_KEY,JSON.stringify(list.slice(0,20)));}catch(e){}
+  try{
+    const raw=JSON.stringify(list.slice(0,20));
+    store.setItem(SNAPSHOT_KEY,raw);
+    return store.getItem(SNAPSHOT_KEY)===raw;
+  }catch{return false}
 }
 function createRestorePoint(name="Manual restore point"){
   const list=getSnapshots();
   list.unshift({id:uid(),name,createdAt:Date.now(),site:deepClone(site)});
-  saveSnapshots(list);
-  setStatus("Restore point created.","ok");
+  const ok=saveSnapshots(list);
+  setStatus(ok?"Restore point created.":"Restore point could not be stored. Export Project JSON now.",ok?"ok":"warn");
+  return ok;
 }
 
 function safeParse(str, fb){ try{return JSON.parse(str);}catch(e){return fb;} }
@@ -4076,12 +4105,11 @@ function openRestorePoints(){
     button.onclick=()=>{
       const item=getSnapshots().find(x=>x.id===button.dataset.restoreId);
       if(!item)return;
-      if(!confirm("Restore this version? Current unsaved changes will be replaced."))return;
-      site=deepClone(item.site);
-      currentPage=site.pages[0];
-      selectedBlockId=null;
-      saveSite();
-      render();
+      if(!validateSiteProject(item.site)){setStatus("Invalid restore point. Project unchanged.","bad");return}
+      if(!confirm("Restore this version? Export your current project first if needed."))return;
+      if(saveDebounce){clearTimeout(saveDebounce);saveDebounce=null}
+      if(!createRestorePoint("Before snapshot restore"))return;
+      if(!restoreSerialized(JSON.stringify(item.site))){setStatus("Restore failed. Project unchanged.","bad");return}
       pushHistory("Restored snapshot");
       closeSiteModal();
       setStatus("Restore point loaded.","ok");
@@ -4093,14 +4121,27 @@ function openRestorePoints(){
    Export / Reset
    ========================= */
 $("btnExport").addEventListener("click",()=>{
-  const data=JSON.stringify(site,null,2);
   try{
-    navigator.clipboard.writeText(data);
-    setStatus("Export copied to clipboard.","ok");
-  }catch(e){
-    setStatus("Clipboard blocked. Showing export…","warn");
-    prompt("Copy JSON:",data);
-  }
+    downloadText("site-project.json",JSON.stringify(site,null,2),"application/json");
+    setStatus("Project JSON download started. Keep this file before closing the temporary studio.","ok");
+  }catch{setStatus("Project download failed. Your work is unchanged.","bad")}
+});
+$("btnImportProject").addEventListener("click",()=>$("siteProjectImportFile").click());
+$("siteProjectImportFile").addEventListener("change",async(event)=>{
+  const input=event.currentTarget,file=input.files?.[0];
+  input.value="";
+  if(!file)return;
+  if(file.size>5*1024*1024){setStatus("Project exceeds 5 MB. Existing work preserved.","warn");return}
+  let raw;
+  try{
+    raw=await file.text();
+    if(raw.length>5*1024*1024||!validateSiteProject(JSON.parse(raw)))throw Error("invalid project");
+  }catch{setStatus("Invalid SIte project JSON. Existing work preserved.","bad");return}
+  if(!confirm("Replace the temporary editor's current site with this file? Export your current site first."))return;
+  if(!createRestorePoint("Before Project JSON import"))return;
+  if(!restoreSerialized(raw)){setStatus("Import failed. Existing work preserved.","bad");return}
+  pushHistory("Imported project JSON");
+  setStatus("Project imported into this temporary session. Export before leaving.","ok");
 });
 $("btnReset").addEventListener("click",()=>{
   const ok=confirm("Reset SIte Alpha (local) data? This cannot be undone.");
