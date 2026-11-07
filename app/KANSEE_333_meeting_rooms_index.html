@@ -2067,8 +2067,56 @@
     function exportWorkspace(){exportFile('KANSEE_333_workspace.json',JSON.stringify({product:'KANSEE 333 Meeting Rooms',exportedAt:nowIso(),workspace:state},null,2),'application/json')}
     function exportHistory(){exportFile('KANSEE_meeting_history.json',JSON.stringify({exportedAt:nowIso(),history:state.history,invites:state.inviteHistory},null,2),'application/json')}
     async function importWorkspace(file){
-      if(!file)return;try{const parsed=JSON.parse(await file.text());const raw=parsed&&parsed.workspace?parsed.workspace:parsed;if(!raw||typeof raw!=='object'||!Array.isArray(raw.meetings))throw new Error('Invalid workspace');if(!confirm('Replace the local KANSEE workspace with this backup?'))return;stopAllMedia();state=normalizeState(raw);currentRoom=state.currentRoomId?state.meetings.find(room=>room.id===state.currentRoomId)||null:null;saveState();renderAll();toast('KANSEE workspace restored')}
-      catch(e){toast('This file is not a valid KANSEE workspace backup')}
+      if(!file)return;
+      const MAX_IMPORT_BYTES=5*1024*1024;
+      if(file.size>MAX_IMPORT_BYTES){toast('KANSEE backup exceeds the 5 MB import limit. Your workspace is unchanged.');return}
+      let candidate;
+      try{
+        const parsed=JSON.parse(await file.text());
+        const raw=parsed&&parsed.workspace?parsed.workspace:parsed;
+        if(!raw||typeof raw!=='object'||Array.isArray(raw)||!Array.isArray(raw.meetings)||
+           (raw.schemaVersion!==undefined&&raw.schemaVersion!==1))throw new Error('Invalid workspace');
+        candidate=normalizeState(raw);
+        candidate.profile.verified=false;
+        candidate.sync.mode=KANSEE_SERVICE.mode;
+        candidate.sync.lastSyncedAt=null;
+      }catch{
+        toast('Invalid KANSEE backup. The current workspace was preserved.');return;
+      }
+      if(!confirm('Replace this device’s KANSEE rooms, chat, notes and history with this checked backup? Export your current workspace first.'))return;
+      const previousState=state,previousRoom=currentRoom,previousMemory=memoryState;
+      let previousRaw;
+      try{previousRaw=localStorage.getItem(STORAGE_KEY)}
+      catch{toast('Restore cancelled: current workspace storage is unreadable.');return}
+      let wrote=false;
+      try{
+        candidate.build=BUILD;
+        candidate.sync.revision=(Number(previousState.sync?.revision)||0)+1;
+        const serialized=JSON.stringify(candidate);
+        localStorage.setItem(STORAGE_KEY,serialized);
+        wrote=true;
+        if(localStorage.getItem(STORAGE_KEY)!==serialized)throw new Error('readback');
+      }catch{
+        let recovered=true;
+        if(wrote){
+          try{
+            if(previousRaw===null)localStorage.removeItem(STORAGE_KEY);
+            else localStorage.setItem(STORAGE_KEY,previousRaw);
+            if(localStorage.getItem(STORAGE_KEY)!==previousRaw)recovered=false;
+          }catch{recovered=false}
+        }
+        state=previousState;currentRoom=previousRoom;memoryState=previousMemory;
+        toast(recovered?'Restore failed. Previous KANSEE data was preserved.':
+          'Restore failed and storage recovery could not be verified. Export your current data before leaving.');
+        return;
+      }
+      // Only stop media and replace active room state after persistence is confirmed.
+      stopAllMedia({persist:false});
+      state=candidate;
+      memoryState=safeClone(state);
+      currentRoom=state.currentRoomId?state.meetings.find(room=>room.id===state.currentRoomId)||null:null;
+      renderAll();
+      toast('KANSEE backup restored and verified on this device.');
     }
     function clearHistory(){if(!confirm('Clear local meeting and invitation history? Scheduled rooms will remain.'))return;state.history=[];state.inviteHistory=[];saveState();renderInviteHistory();toast('History cleared')}
 
