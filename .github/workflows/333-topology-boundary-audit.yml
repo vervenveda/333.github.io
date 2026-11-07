@@ -42,3 +42,6 @@ jobs:
 
       - name: Verify KANSEE Focus Mode and meeting-first layout (Node.js)
         run: node --test tests/kansee_focus_mode.test.mjs
+
+      - name: Verify E=Ven Mail canonical blueprint and mailbox preservation (Node.js)
+        run: node --test tests/even_mail_blueprint.test.mjs
