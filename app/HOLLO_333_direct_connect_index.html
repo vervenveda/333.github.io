@@ -880,9 +880,9 @@ function safeHandle(value){
 
     function validateAndMergeState(input){
       const base=defaultState();
-      if(!input || typeof input!=='object') return base;
+      if(!input || typeof input!=='object' || Array.isArray(input)) return base;
       const out=base;
-      if(input.profile && typeof input.profile==='object'){
+      if(input.profile && typeof input.profile==='object' && !Array.isArray(input.profile)){
         const incomingNumber=normalizeNumber(input.profile.number);
         const incomingKind=['existing','network','none'].includes(input.profile.numberKind)
           ? input.profile.numberKind
@@ -906,7 +906,7 @@ function safeHandle(value){
       );
       out.enrollment={
         ...base.enrollment,
-        ...(input.enrollment&&typeof input.enrollment==='object'?input.enrollment:{}),
+        ...(input.enrollment&&typeof input.enrollment==='object'&&!Array.isArray(input.enrollment)?input.enrollment:{}),
         complete:typeof input.enrollment?.complete==='boolean'
           ? input.enrollment.complete
           : legacyProfileLooksComplete
@@ -919,19 +919,31 @@ function safeHandle(value){
         out.profile.numberVerified=false;
       }
       if(Array.isArray(input.contacts)){
-        out.contacts=input.contacts.filter(c=>c&&typeof c==='object'&&c.id&&c.name).map(c=>({
-          id:String(c.id),name:String(c.name).slice(0,80),handle:safeHandle(c.handle),number:normalizeNumber(c.number),
+        const seenContacts=new Set();
+        out.contacts=input.contacts.filter(c=>{
+          if(!c||typeof c!=='object'||Array.isArray(c)||!c.id||!c.name)return false;
+          const id=String(c.id).slice(0,100);
+          if(!id||['__proto__','prototype','constructor'].includes(id)||seenContacts.has(id))return false;
+          seenContacts.add(id);return true;
+        }).map(c=>({
+          id:String(c.id).slice(0,100),name:String(c.name).slice(0,80),handle:safeHandle(c.handle),number:normalizeNumber(c.number),
           presence:['available','busy','away','offline','invisible'].includes(c.presence)?c.presence:'offline',
           trusted:Boolean(c.trusted),favorite:Boolean(c.favorite),role:String(c.role||'Network Contact').slice(0,80),pinned:Boolean(c.pinned)
         }));
         if(!out.contacts.some(c=>c.id==='founder')) out.contacts.unshift(base.contacts[0]);
       }
-      if(input.threads && typeof input.threads==='object'){
-        out.threads={};
+      if(input.threads && typeof input.threads==='object' && !Array.isArray(input.threads)){
+        out.threads=Object.create(null);
         Object.entries(input.threads).forEach(([id,list])=>{
-          if(!Array.isArray(list)) return;
-          out.threads[id]=list.slice(-MAX_MESSAGES_PER_THREAD).filter(m=>m&&typeof m.text==='string').map(m=>({
-            id:String(m.id||uid('msg')),who:['you','them','system'].includes(m.who)?m.who:'system',text:m.text.slice(0,4000),ts:Number(m.ts)||Date.now(),status:String(m.status||'local')
+          if(!Array.isArray(list) || !id || id.length>100 ||
+             ['__proto__','prototype','constructor'].includes(id))return;
+          // Retain valid legacy conversation threads, including those whose contacts
+          // were removed; imported names cannot become object prototype keys.
+          out.threads[id]=list.slice(-MAX_MESSAGES_PER_THREAD).filter(m=>m&&typeof m==='object'&&!Array.isArray(m)&&typeof m.text==='string').map(m=>({
+            id:String(m.id||uid('msg')).slice(0,100),
+            who:['you','them','system'].includes(m.who)?m.who:'system',
+            text:m.text.slice(0,4000),ts:safeRecordTime(m.ts),
+            status:String(m.status||'local').slice(0,80)
           }));
         });
       }
@@ -945,7 +957,13 @@ function safeHandle(value){
         inviteTab:['incoming','outgoing'].includes(settings.inviteTab)?settings.inviteTab:base.settings.inviteTab,
         mobileView:['contacts','messages','call','activity'].includes(settings.mobileView)?settings.mobileView:base.settings.mobileView
       };
-      out.sync={...base.sync,...(input.sync||{}),mode:HOLLO_BACKEND.mode};
+      const incomingSync=input.sync&&typeof input.sync==='object'&&!Array.isArray(input.sync)?input.sync:{};
+      out.sync={
+        ...base.sync,mode:HOLLO_BACKEND.mode,
+        revision:Number.isSafeInteger(incomingSync.revision)&&incomingSync.revision>=0
+          ?Math.min(incomingSync.revision,1000000000):base.sync.revision,
+        lastSyncedAt:null
+      };
       out.activeContactId=out.contacts.some(c=>c.id===input.activeContactId)?input.activeContactId:'founder';
       out.version=APP_VERSION;
       return out;
