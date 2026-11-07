@@ -1018,41 +1018,123 @@
       .status-grid{grid-template-columns:1fr}
     }
 
-  </style>
-<style id="vnv-global-ecosystem-shell">
-.vnv-global-strip{position:relative;z-index:2147482000;min-height:38px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:5px 12px;border-bottom:1px solid rgba(160,140,100,.28);background:#121918;color:#eee8dc;font:400 12px/1.2 "Avenir Next",Avenir,"Segoe UI",Arial,sans-serif}
-.vnv-global-strip a{color:inherit;text-decoration:none}.vnv-global-brand{display:flex;align-items:center;gap:8px;white-space:nowrap}.vnv-global-mark{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.38);border-radius:7px;font:500 10px Georgia,serif}.vnv-global-copy{display:grid}.vnv-global-copy strong{font:500 11px Georgia,serif;letter-spacing:.08em;text-transform:uppercase}.vnv-global-copy small{margin-top:1px;color:#bdb5a6;font-size:9px;letter-spacing:.06em;text-transform:uppercase}
-.vnv-global-links{display:flex;align-items:center;justify-content:center;gap:10px;min-width:0;overflow:hidden;white-space:nowrap}.vnv-global-links a{color:#d8d1c5;font-size:10px;letter-spacing:.04em}.vnv-global-links a:hover,.vnv-global-links a:focus-visible{color:#fff}
-.vnv-global-menu{position:relative;justify-self:end}.vnv-global-menu summary{list-style:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid rgba(238,232,220,.28);border-radius:7px;cursor:pointer}.vnv-global-menu summary::-webkit-details-marker{display:none}.vnv-global-lines,.vnv-global-lines:before,.vnv-global-lines:after{content:"";display:block;width:14px;height:1.5px;background:#eee8dc}.vnv-global-lines{position:relative}.vnv-global-lines:before,.vnv-global-lines:after{position:absolute;left:0}.vnv-global-lines:before{top:-5px}.vnv-global-lines:after{top:5px}
-.vnv-global-panel{position:absolute;right:0;top:36px;width:min(300px,calc(100vw - 20px));padding:10px;border:1px solid rgba(238,232,220,.22);border-radius:7px;background:#17201f;box-shadow:0 18px 40px rgba(0,0,0,.28)}.vnv-global-panel p{margin:3px 5px 8px;color:#aaa294;font-size:9px;letter-spacing:.1em;text-transform:uppercase}.vnv-global-panel a{display:block;padding:9px 10px;border-radius:5px;color:#eee8dc;font-size:11px}.vnv-global-panel a:hover,.vnv-global-panel a:focus-visible{background:#22302e}
-@media(max-width:760px){.vnv-global-strip{grid-template-columns:minmax(0,1fr) auto}.vnv-global-links{display:none}.vnv-global-copy small{display:none}}@media print{.vnv-global-strip{display:none!important}}
+  
+/* D16 — E=Ven Mail correspondence-first TLC, canonical VNV family.
+   Preserve the original draft, application, inbox, search and storage logic. */
+:root{--max:1760px;--r2:7px}
+body{font-size:16px;line-height:1.6;background:#f5f0e7}
+.app{width:100%;min-width:0}
+.utility-inner{min-height:46px;font-size:16px;gap:14px}
+.utility-links{gap:12px;flex-wrap:wrap}
+.utility-links a{font-size:16px;line-height:1.45}
+.header{position:relative;z-index:8}
+.header-inner{min-height:76px;grid-template-columns:auto auto minmax(270px,1fr) auto;gap:15px;width:min(calc(100% - 32px),var(--max))}
+.brand{min-width:230px;gap:10px}
+.brand strong{font-size:21px;letter-spacing:.01em}
+.brand small{font-size:16px;line-height:1.35;white-space:normal}
+.brand-mark{width:46px;height:46px;flex:0 0 46px;border-radius:7px}
+.search-wrap input{min-height:48px;font-size:16px;line-height:1.4}
+.search-wrap{max-width:none}
+.header-actions{gap:9px}
+.icon-button,.header-button{min-height:44px;font-size:16px;border-radius:7px}
+.icon-button{width:44px;flex:0 0 44px}
+.identity-strip-inner{min-height:60px;padding:10px 0;gap:12px 18px;text-align:left;font-size:16px;justify-content:center}
+.identity-strip-inner .identity-chip{font-size:16px;padding:7px 11px}
+.identity-strip-inner .button{font-size:16px;min-height:44px}
+.workspace{
+ width:min(calc(100% - 32px),var(--max));max-width:var(--max);
+ grid-template-columns:minmax(245px,260px) minmax(325px,.92fr) minmax(420px,1.35fr);
+ min-height:calc(100vh - 250px);gap:0;border:1px solid #b7b9b0;border-radius:7px;
+ box-shadow:0 12px 34px rgba(17,33,52,.1);overflow:hidden
+}
+.sidebar{padding:20px 15px;background:#f0eadf}
+.sidebar-label{margin:23px 8px 10px;font-size:16px;line-height:1.35;letter-spacing:.03em;font-weight:400}
+.compose-button,.apply-button{min-height:48px;font-size:16px;line-height:1.4;font-weight:400;border-radius:7px}
+.folder-list,.account-list{gap:7px;margin-top:15px}
+.folder-button,.account-button{min-height:47px;padding:10px 12px;gap:10px;font-size:16px;line-height:1.4;border-radius:7px}
+.folder-button span,.account-button span{font-size:16px}
+.folder-count,.account-button span:last-child{font-size:16px!important}
+.application-card,.storage-card{margin-top:19px;padding:16px;border-radius:7px;background:#fffaf0;border:1px solid #b3b6ab}
+.application-card strong,.storage-card strong{font-size:19px;font-weight:400}
+.application-card p,.storage-card small{font-size:16px;line-height:1.55;color:#37453d}
+.application-status{font-size:16px;line-height:1.4}
+.application-actions{display:grid;grid-template-columns:1fr;gap:8px}
+.application-actions button{min-height:44px;font-size:16px}
+.mail-list-panel{min-width:0;background:#fffdfa}
+.mail-list-head{min-height:86px;padding:18px;gap:12px}
+.mail-list-head h2{font-size:30px;line-height:1.25;font-weight:400}
+.mail-list-head p{font-size:16px;line-height:1.45;color:#37453d}
+.list-actions button{font-size:16px;min-height:44px}
+.mail-list{max-height:min(76vh,1050px)}
+.mail-row{grid-template-columns:18px minmax(0,1fr) auto;padding:16px;gap:12px}
+.mail-check{width:12px;height:12px;margin-top:7px}
+.sender,.subject{font-size:16px;line-height:1.4}
+.preview,.mail-time{font-size:16px;line-height:1.4;color:#4b5864}
+.mail-star{width:44px;height:44px;font-size:19px;margin-top:0}
+.reader{background:#fffcf5;min-height:570px}
+.reader-empty{padding:42px}
+.reader-empty .symbol{font-size:52px}
+.reader-empty h2{font-size:clamp(27px,2.6vw,38px);line-height:1.24;font-weight:400}
+.reader-empty p{font-size:17px;line-height:1.65;max-width:680px}
+.reader-head{padding:21px 24px}
+.reader-title h2{font-size:clamp(25px,2.2vw,34px)}
+.reader-body{padding:24px 28px 40px;font-size:17px;line-height:1.7}
+.reader-body p{max-width:880px}
+.reader-from,.reader-meta,.reader-tools,.reply-bar{font-size:16px;line-height:1.5}
+.reader-tools button,.reply-bar button{min-height:44px;font-size:16px}
+.architecture-strip{padding:22px 24px;gap:20px;background:#12233c;color:#fff8e9}
+.architecture-strip h3{font-size:23px;line-height:1.4;font-weight:400}
+.architecture-strip p{font-size:16px;line-height:1.65;color:#e6e2d6}
+.status-grid{gap:10px}
+.status-item{min-height:76px;padding:13px;border-radius:7px}
+.status-item strong,.status-item span{font-size:16px;line-height:1.45}
+.app-footer{padding:22px 28px 180px;font-size:16px}
+.app-footer a{font-size:16px}
+.modal,.modal-head,.modal-foot{border-radius:7px}
+.modal .lead,.modal label,.modal input,.modal textarea,.modal select,.modal button,
+.modal p,.modal small,.compose-counter{font-size:16px;line-height:1.5}
+.modal button,.modal input,.modal select{min-height:44px}
+@media(max-width:1450px){
+ .workspace{grid-template-columns:minmax(230px,245px) minmax(290px,.85fr) minmax(355px,1.15fr)}
+ .header-inner{grid-template-columns:auto auto minmax(220px,1fr) auto}
+ .brand small{display:none}
+}
+@media(max-width:1120px){
+ .workspace{grid-template-columns:240px minmax(0,.93fr) minmax(0,1.07fr)}
+ .header-inner{display:flex;flex-wrap:wrap}
+ .search-wrap{flex:1 1 260px}
+}
+@media(max-width:860px){
+ .workspace{grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);width:min(calc(100% - 18px),var(--max));overflow:visible}
+ .sidebar{position:fixed;inset:0 auto 0 0;z-index:1500;width:min(88vw,320px);transform:translateX(-110%);overflow:auto}
+ .sidebar.open{transform:none}
+ .header-inner{width:min(calc(100% - 18px),var(--max))}
+ .identity-strip-inner{width:min(calc(100% - 18px),var(--max))}
+ .architecture-strip{grid-template-columns:1fr}
+ .utility-links{display:none}
+}
+@media(max-width:650px){
+ .workspace{display:block;min-height:0}
+ .mail-list-panel,.reader{width:100%;min-height:0}
+ .reader{display:none}
+ .reader.mobile-visible{display:block}
+ .mail-list-panel.reader-hidden{display:none}
+ .mail-row{padding:14px}
+ .mail-list{max-height:70vh}
+ .header-inner{gap:9px}
+ .brand{min-width:0}
+ .brand strong{font-size:18px}
+ .header-actions{gap:6px}
+ .header-button.primary span{display:none}
+ .reader-body{padding:20px}
+ .app-footer{padding-bottom:175px}
+}
 </style>
+
 </head>
 
 <body>
-<div class="vnv-global-strip" data-vnv-global-strip>
-  <a class="vnv-global-brand" href="https://vervenveda.com/" aria-label="Verve N Veda home">
-    <span class="vnv-global-mark">VNV</span>
-    <span class="vnv-global-copy"><strong>Verve N Veda</strong><small>333 Network · E=Ven Mail</small></span>
-  </a>
-  <nav class="vnv-global-links" aria-label="Verve N Veda network links">
-    <a href="https://vervenveda.com/333.github.io/app/EVen_mail_index.html">This App</a>
-    <a href="https://vervenveda.com/#directory">Ecosystem Directory</a>
-    <a href="https://vervenveda.com/core/directory-agi/">Directory AGI</a>
-    <a href="https://vervenveda.com/cloud/">Public Cloud</a>
-  </nav>
-  <details class="vnv-global-menu">
-    <summary aria-label="Open Verve N Veda ecosystem menu"><span class="vnv-global-lines" aria-hidden="true"></span></summary>
-    <div class="vnv-global-panel"><p>Ecosystem</p>
-      <a href="https://vervenveda.com/">Verve N Veda Gateway</a>
-      <a href="https://vervenveda.com/#directory">Complete Ecosystem Directory</a>
-      <a href="https://vervenveda.com/333.github.io/">333 Network</a>
-      <a href="https://vervenveda.com/PLERASearch.github.io/">PLERA Search</a>
-      <a href="https://vervenveda.com/theverifier.github.io/">The Verifier</a>
-      <a href="https://vervenveda.com/solanar.github.io/">Solanar</a>
-    </div>
-  </details>
-</div>
+
   <a class="skip" href="#mailList">Skip to messages</a>
 
   <div class="app">
@@ -2811,9 +2893,33 @@
       }
     })();
   </script>
-<script src="https://vervenveda.com/assets/vnv-support.js" defer></script>
+<!-- D16: canonical VNV components around an independent mail interface. -->
+<script src="https://vervenveda.com/assets/vnv-333-ticker.js"></script>
 <script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" data-vnv-ticker-autopopulate></script>
-<script>VNV_TICKER.autoPopulate({label:"E=Ven Mail Quick Links",max:14});</script>
+<script>
+VNV_TICKER.autoPopulate({label:"E=Ven Mail Quick Links",max:14,before:".app .utility",links:[
+ {label:"333 Network",href:"../index.html"},
+ {label:"E=Ven Mail Workspace",href:"#mailList"},
+ {label:"Apply for E=Ven Mail",href:"#apply"},
+ {label:"HOLLO Profile",href:"./HOLLO_333_direct_connect_index.html"},
+ {label:"KANSEE",href:"./KANSEE_333_meeting_rooms_index.html"},
+ {label:"Bunya",href:"./Bunya_digital_infrastructure_index.html"},
+ {label:"Ecosystem Directory",href:"https://vervenveda.com/#directory"},
+ {label:"Public Cloud",href:"https://vervenveda.com/cloud/"}
+]});
+</script>
+<script src="https://vervenveda.com/assets/vnv-header-autopopulate.js"></script>
+<script>
+function mountEvenMailFamilyHeader(){
+ if(window.VNV_HEADER?.mount)window.VNV_HEADER.mount({
+   title:"Verve N Veda",subtitle:"333 Network · E=Ven Mail",
+   home:"https://vervenveda.com/",icon:"V"
+ });
+}
+if(document.readyState==="loading")
+ document.addEventListener("DOMContentLoaded",mountEvenMailFamilyHeader,{once:true});
+else{window.VNV333Ticker?.mount();mountEvenMailFamilyHeader()}
+</script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
