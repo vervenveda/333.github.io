@@ -373,3 +373,24 @@ Revert only the D15 KANSEE source commit if layout/fullscreen browser acceptance
 
 ### Rollback
 If visual acceptance fails, revert the two D16 E=Ven Mail page commits after checking intervening edits; do not revert previously validated HOLLO/KANSEE hardening, global VNV assets or historical fallback archives.
+
+## D17 — E=Ven Mail centered charcoal-and-cream refinement (2026-11-07)
+
+**Founder's acceptance direction:** Reduce gold to a restrained accent; emphasize light cream, ivory and charcoal; center the E=Ven-specific second application header, balance search/actions, calm the HOLLO identity ribbon, unify sidebar controls and make the three-pane mailbox more symmetrical. Keep independent E=Ven Mail identity; official VNV header, two tickers, enriched hamburger and toolbar unchanged.
+
+### Changes and checkpoints
+- `6649e6d18f294a2c7aa778019813c14c6735af7e`: isolated CSS-only D17 enhancement to `app/EVen_mail_index.html`. Baseline blob `5eb8ba2d6544953e31e93826c97e1c3d03ac3f28`; new blob `40e65732efa5fa5a56733cc53093fbc312f76e55`.
+- The secondary application header has balanced desktop grid columns and centrally anchored search, restrained charcoal background, cream action buttons and 7px radii. The local mail-specific toolbar stays distinct from the shared institutional header.
+- HOLLO identity strip becomes a neutral centered cream/charcoal ribbon with readable 16px text and a single elegant enrollment button.
+- Mailbox: cream sidebar, unified charcoal/ivory compose and application controls, charcoal active folder, regular 16px label text, subtle muted-violet selected-message edge, clearer left/center/right pane proportions and generous spacing. Gold limited to minor accent details, no large gold blocks.
+- E=Ven mail application's existing JavaScript was verified **byte-for-byte unchanged**; all 74 IDs preserved, no duplicates. Data records, identity handoff, local drafts, application workflows, reader open/close, and backup logic not modified.
+- `f24f91203affd6a2e4fe1dc97951015dda39cbb9`: six new synthetic source-contract tests in `tests/even_mail_palette.test.mjs`.
+- `8234f26a9e79c4a753dc1eb72574e428bbb66bcf`: add D17 checks to existing manual-only, contents-read 333 topology audit workflow.
+
+### Validation boundary
+- The 74 existing application element IDs and seven inline script blocks remain intact. New tests are committed, but the full GitHub Actions execution and actual visual rendering have not yet been independently observed.
+- Check 100%-zoom desktop, 1280px laptop, 768px tablet and 390px mobile. Confirm centered second header, single official VNV hamburger, both tickers, no toolbar overlap, soft active-row contrasts, mobile folder drawer and reader close, and readable labels.
+- Dedicated STOS email terminal stays planned/uncommissioned and **number unassigned**. Nothing here provisions live SMTP service, authenticated mailbox access, account verification, live delivery or remote synchronization.
+
+### Rollback
+Revert only the D17 E=Ven CSS commit after checking later edits; preserve prior D16 correction, HOLLO/KANSEE improvements, VNV protected gateway, browser data and validated fallback archive.
