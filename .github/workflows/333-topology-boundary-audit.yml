@@ -21,3 +21,6 @@ jobs:
 
       - name: Run offline and backup boundary contracts (stdlib)
         run: python3 -m unittest discover -s tests -p 'test_offline_backup_boundaries.py' -v
+
+      - name: Exercise service-worker cache policy (Node.js)
+        run: node --test tests/service_worker_policy.test.mjs
