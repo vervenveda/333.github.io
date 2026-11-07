@@ -1076,7 +1076,7 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
         dialStatus.textContent="Opening "+route.name+".";
         window.location.href=route.href;
       }
-      $("[data-key]").forEach(button=>button.addEventListener("click",()=>{
+      document.querySelectorAll("[data-key]").forEach(button=>button.addEventListener("click",()=>{
         const key=button.dataset.key;
         let value=routeDigits(display.value);
         if(key==="clear")value="333";
@@ -1092,8 +1092,8 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
       });
       $("#resetRoute").addEventListener("click",()=>{setRoute("333");display.focus({preventScroll:true})});
       openRouteButton.addEventListener("click",openCurrentRoute);
-      $("[data-route]").forEach(button=>button.addEventListener("click",()=>{setRoute(button.dataset.route);$("#routes").scrollIntoView({behavior:"smooth"});dialStatus.textContent="Route loaded: "+(ROUTES[routeDigits(display.value)]?.name||"333 route")+". Select Open Route to continue."}));
-      $("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
+      document.querySelectorAll("[data-route]").forEach(button=>button.addEventListener("click",()=>{setRoute(button.dataset.route);$("#routes").scrollIntoView({behavior:"smooth"});dialStatus.textContent="Route loaded: "+(ROUTES[routeDigits(display.value)]?.name||"333 route")+". Select Open Route to continue."}));
+      document.querySelectorAll("[data-copy]").forEach(button=>button.addEventListener("click",async()=>{
         const value=button.dataset.copy;
         try{
           await navigator.clipboard.writeText(value);
