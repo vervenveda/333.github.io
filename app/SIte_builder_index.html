@@ -2001,17 +2001,9 @@ function setAuthMode(mode){
   showAuthMessage("");
 }
 function authInit(){
-  if(SITE_ACCOUNT_ACCESS_DORMANT){
-    $("authOverlay").classList.add("hidden");
-    $("app").classList.remove("hidden");
-    $("btnLogout").hidden=true;
-    $("btnLogout").disabled=true;
-    $("btnPublishBunya").hidden=true;
-    $("btnPublishBunya").disabled=true;
-    updateTopIdentity();
-    setStatus("Temporary SIte studio only. Export Project JSON or Website before leaving. Previously saved account projects stay untouched.","warn");
-    return;
-  }
+  // Historical account admission is intentionally retired from the public page.
+  // Even an accidental legacy caller must never require or revive the login DOM.
+  if(SITE_ACCOUNT_ACCESS_DORMANT){bootTemporarySiteStudio();return}
   const acc=loadAccount();
   if(acc){ setAuthMode("signin"); }
   else{ setAuthMode("create"); }
