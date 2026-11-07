@@ -45,3 +45,6 @@ jobs:
 
       - name: Verify E=Ven Mail canonical blueprint and mailbox preservation (Node.js)
         run: node --test tests/even_mail_blueprint.test.mjs
+
+      - name: Verify E=Ven Mail restrained palette and balanced correspondence layout (Node.js)
+        run: node --test tests/even_mail_palette.test.mjs
