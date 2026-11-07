@@ -994,24 +994,24 @@ footer .copyright{width:100%;margin-top:5px;padding-top:18px;border-top:1px soli
       const search=$("#appSearch");
       function filterApps(){
         const query=search.value.trim().toLocaleLowerCase();
-        const cards=$('[data-app]');
+        const cards=Array.from(document.querySelectorAll('[data-app]'));
         let visible=0;
         cards.forEach(card=>{
           const searchable=(card.dataset.search+" "+card.textContent).toLocaleLowerCase();
-          const show=!query||query.split(/\\s+/).every(term=>searchable.includes(term));
+          const show=!query||query.split(/\s+/).every(term=>searchable.includes(term));
           card.hidden=!show;
           if(show)visible+=1;
         });
-        $(".category-shelf").forEach(shelf=>{
-          const count=$('[data-app]:not([hidden])',shelf).length;
+        document.querySelectorAll(".category-shelf").forEach(shelf=>{
+          const count=shelf.querySelectorAll('[data-app]:not([hidden])').length;
           shelf.hidden=count===0;
-          const label=$(".category-count",shelf);
+          const label=shelf.querySelector(".category-count");
           if(label)label.textContent=count+" "+(count===1?"destination":"destinations");
         });
         $("#emptyResults").hidden=visible!==0;
         const countText=visible===1?"1 destination":visible+" destinations";
         $("#directoryResults").textContent=query
-          ? countText+" match "+(visible===1?"found":"found")+" for “"+search.value.trim()+"”."
+          ? countText+" found for “"+search.value.trim()+"”."
           : "Showing all "+cards.length+" destinations: six core applications and FleaPit media hub.";
       }
       search.addEventListener("input",filterApps);
