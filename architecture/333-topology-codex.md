@@ -500,3 +500,23 @@ Revert only D20 SIte source commits in reverse order after checking subsequent e
 
 ### Rollback
 Revert D21 SIte commits only after checking later changes; do not reactivate legacy sign-in or overwrite historical account/project browser records. Preserve D19/D20 hardening, healthy fallback ZIP, protected gateway and uncommissioned SIte terminal.
+
+## D22 — SIte Studio canonical page blueprint refinement (2026-11-07)
+
+**Owner request:** Refine the now-accessible, direct-entry SIte website/application builder against the protected Verve N Veda & Khaemenes Academy Canonical Page Architecture & Design Blueprint v1.0. Keep the creative studio distinctive, clean, centered, professional, with breathing room, readable text, symmetrical controls and an uninterrupted page canvas.
+
+### Source, commits and preservation
+- Previous approved functioning SIte source blob: `45f0aef10a95dc50cf6da506484c178dd37bacf2`.
+- `7daa798a8852547f22e9c3ba0d56adf3ac294bb4`: remove obsolete handwritten ecosystem header/branched-menu and its legacy stylesheet, along with duplicate `vnv-support.js`. Integrate one canonical shared VNV header, original 333 ticker, page-specific AutoPopulate ticker and the official compact six-control toolbar. Use shared components, no visual changes to protected VNV homepage.
+- Same commit: replace lengthy temporary admission notice with a centered SIte Studio hero (institutional eyebrow, page title, concise description and explicit session-only/export reminder). Refine the three-panel builder, 16px minimum application controls and instructive text, 44px touch targets, 7px button/card radius, charcoal/cream surfaces, professional restrained accent colors, tighter symmetric toolbar and larger white canvas with reasonable margins. Preserve responsive collapsible Pages and Inspector rails, plus print-only canvas behavior.
+- Existing SIte editor application JavaScript preserved **byte-for-byte**. All existing IDs except the retired global stylesheet ID preserved: 110 remaining unique IDs, none duplicated, full editor JS parses. D21 default-visible login-free studio, D19 in-memory isolated storage, D20 project JSON import/export, Embed Studio iframe isolation, restore validation, undo/redo and existing toolbar actions remain unchanged.
+- `ea7ddbaa11c7afcba2334b9255c8f5af8904ad77`: add seven source-contract tests in `tests/site_blueprint_visual.test.mjs`.
+- `38c1c11c936b8da66d19a14442a8033272f63338`: add these tests to the manual-only, contents-read 333 Network topology workflow.
+
+### Acceptance limits
+- Structural/source checks only. The manual GitHub Actions suite has not been executed/observed here. Real Chrome/Safari mobile layout and visual acceptance still needed at 390, 768, 1024, 1440 and 1920 CSS px; check canonical header and two-ticker ordering, hamburger, toolbar clearance, canvas width, wrapping toolbar, side-panel toggles, modal/export workflows, printing, contrast and keyboard navigation.
+- On Chrome, use 100% browser zoom when judging 16px typography. Do not weaken iframe containment, restore retired sign-in, or expose historical saved account projects to the public temp session.
+- SIte is still a temporary, in-memory, export-before-leaving builder. Authenticated site publishing and dedicated STOS terminal remain **uncommissioned/unassigned**.
+
+### Rollback
+If browser acceptance reveals a local style defect, revert only the D22 SIte page commit after checking intervening changes, keeping D19–D21 working direct studio, D20 data protection, healthy fallback ZIP, other 333 subsidiaries and protected Verve N Veda gateway unchanged.
