@@ -481,3 +481,22 @@ Prior SIte blob `7bd259bbaff380bbf0b35afac1ee4a87bcc5b842`. Revert D19 SIte sour
 
 ### Rollback
 Revert only D20 SIte source commits in reverse order after checking subsequent edits. Preserve D19 admission dormancy, all browser records, healthy fallback ZIP, and other 333 subsidiaries. Do not restore local sign-in automatically.
+
+## D21 — SIte retired public sign-in and static direct editor entry (2026-11-07)
+
+**Owner-reported incident:** Public SIte site-builder page continued to display old Enter SIte sign-in screen after D19. The historical HTML login overlay remained statically in the DOM and the editor was `class="hidden"` until initialization. JS errors or delayed boot could leave users on the form despite the dormant flag.
+
+### Remediation
+- `90451f7a26bac7dede6572dd1826f30b536a510b`: remove the complete active `authOverlay` DOM (22 login/registration-related IDs) while preserving retired login and account code for controlled future STOS migration; change `<div id="app" class="hidden">` to always-visible `<div id="app">`, and add an unconditional visible studio style. Replace the bottom `authInit();render();` with `bootTemporarySiteStudio();render();`. The in-memory editor no longer needs to pass through an auth initialization step.
+- `c69d6f5c69e46c4d40ab25584abb900b3da0013f`: update the previous D19 regression suite to expect **no active login HTML, no auth-init boot**, and an always-visible editor.
+- `5e88db6a207654bfe30ef89376f8b4a9d5a2f342`: make accidentally invoked legacy `authInit()` call the temporary studio initializer, never a removed login form.
+- No changes to historical browser-local keys `SITE_ALPHA_AUTH_V1`, `SITE_ALPHA_V070`, snapshots, HOLLO/E=Ven services, STOS, or other apps. D19 in-memory store separation is unchanged; previous account projects remain untouched.
+
+### Evidence and limitations
+- Pre-remediation source Git blob `c2e7678e9bb07d40a16e2900dc812cc62363327c`. Source check: exactly 22 retired auth HTML IDs removed; full editor script passes JavaScript syntax check; no duplicate current IDs; original project export/import, preview, undo/redo and sandbox safeguards retained.
+- Source tests are updated and committed, but actual deployed browser rendering and manual GitHub Actions execution are **not yet confirmed**.
+- **Practical acceptance**: refresh the public URL using a hard reload or a cache-busting query. The editor should appear immediately, showing `Temporary SIte Studio` without sign-in. Create a sample page and export JSON. Existing local account projects must remain inaccessible to this temporary session.
+- The historical credential functions are retained in inert source only for future audited migration; they must not be treated as commissioned backend authentication.
+
+### Rollback
+Revert D21 SIte commits only after checking later changes; do not reactivate legacy sign-in or overwrite historical account/project browser records. Preserve D19/D20 hardening, healthy fallback ZIP, protected gateway and uncommissioned SIte terminal.
