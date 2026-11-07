@@ -1105,7 +1105,10 @@ body{font-size:16px;line-height:1.6;background:#f5f0e7}
  .search-wrap{flex:1 1 260px}
 }
 @media(max-width:860px){
- .workspace{grid-template-columns:minmax(280px,.9fr) minmax(0,1.1fr);width:min(calc(100% - 18px),var(--max));overflow:visible}
+ .workspace{display:block;width:min(calc(100% - 18px),var(--max));min-height:0;overflow:visible}
+ .mail-list-panel{display:block}
+ .reader{display:none;position:fixed;inset:0;z-index:1200;overflow-y:auto}
+ .reader.mobile-open{display:block}
  .sidebar{position:fixed;inset:0 auto 0 0;z-index:1500;width:min(88vw,320px);transform:translateX(-110%);overflow:auto}
  .sidebar.open{transform:none}
  .header-inner{width:min(calc(100% - 18px),var(--max))}
@@ -1116,9 +1119,9 @@ body{font-size:16px;line-height:1.6;background:#f5f0e7}
 @media(max-width:650px){
  .workspace{display:block;min-height:0}
  .mail-list-panel,.reader{width:100%;min-height:0}
- .reader{display:none}
- .reader.mobile-visible{display:block}
- .mail-list-panel.reader-hidden{display:none}
+ .reader{display:none;position:fixed;inset:0;z-index:1200;overflow-y:auto}
+ .reader.mobile-open{display:block}
+ .mail-list-panel{display:block}
  .mail-row{padding:14px}
  .mail-list{max-height:70vh}
  .header-inner{gap:9px}
