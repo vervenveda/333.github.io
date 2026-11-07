@@ -193,3 +193,25 @@ Commit `c9113a4455dac75f1e815e923e895ac1b5146e24`: Preserve media cleanup during
 
 ### Rollback
 Pre-D09 hardened HOLLO Git blob: `fb4fe26598d252cb9c06592f5b00e68456e05f5d`. Roll back only isolated HOLLO source commits after checking for later edits; preserve actual user records and the D08 recovery improvements. Never overwrite the previously validated directory recovery ZIP.
+
+## D10 — HOLLO entrance and status visual refinement (2026-11-07)
+
+**Commit:** `3cbd8de01bf74abe9d4d9a60348c214bdc01e6a4` — scoped to `app/HOLLO_333_direct_connect_index.html`.
+
+### Five agreed improvements
+1. Keep official Verve N Veda global header/ticker and existing HOLLO application menu; refine HOLLO's local breadcrumb row and compact application selector rather than duplicate or replace the shared header.
+2. Reorganize **My HOLLO Account** into clear introductory identity text, a stable local profile chip, and a symmetrical full-width three-action row (Enrollment & Profile, E=Ven Mail, Settings & Backup). Retain all original click targets.
+3. Convert **Workspace Status** into a readable two-by-two local/connected service dashboard with expandable full privacy/architecture explanation. Status is descriptive, not proof of service deployment.
+4. Tighten hero spacing and align the clear internal 333-222-7777 route card; do not misrepresent this as a public telephone number.
+5. Increase scroll and footer clearance so the official fixed floating toolbar does not permanently hide bottom-of-page content. The shared toolbar itself remains unchanged. Actual overlay acceptance needs screenshots across desktop/tablet/mobile.
+
+### Verified source invariants
+- Git blob after commit: `08c6f1a6f07a075815d15c1dd84e89ad9edb820e`.
+- 134 existing IDs preserved with zero duplicate IDs. Five inline JavaScript blocks parse. Inline application JavaScript remains byte-for-byte unchanged relative to pre-D10.
+- Balanced 2 styles, 6 sections, 1 main, 3 details, 3 nav structures.
+- Enrollment, identity, message form, contacts, studio, backup controls, shared ticker and ecosystem toolbar remain present.
+- No contact data, local storage, route numbers, backend, donation link, 333 gateway, VNV master site, or STOS runtime touched.
+- Dedicated HOLLO STOS terminal remains **planned/uncommissioned, number unassigned**.
+
+### Remaining visual acceptance
+Review in-browser desktop at 1440 and 1024 px, tablet 768 px and mobile 390 px; inspect dropdown keyboard operation, disclosure interaction, account button wrapping, status-label contrast, right-side toolbar overlay while scrolling, and the media studio controls. Source checks are not visual or behavioral confirmation.
