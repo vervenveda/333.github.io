@@ -2532,11 +2532,64 @@ async function exportWorkspaceFile(){
 }
 
 async function importWorkspaceFile(file){
+  if(!file)return;
   try{
-    if(file.size>150*1024*1024)throw new Error("Backup is larger than 150 MB");const parsed=JSON.parse(await file.text());const raw=parsed?.schema==="bazaar-art-live-workspace"?parsed.state:parsed;
-    if(!raw||!Array.isArray(raw.users)||!Array.isArray(raw.posts))throw new Error("Invalid Bazaar workspace");if(!confirm("Replace this device’s current Bazaar Art workspace with the imported file? Export the current workspace first when needed."))return;
-    const incoming=normalizeState(raw);await MediaDB.clear();for(const item of Array.isArray(parsed.media)?parsed.media:[]){if(item?.id&&typeof item.dataUrl==="string"&&safeText(item.type).match(/^(image|video)\//))await MediaDB.put(item)}state=incoming;persist();applySettings();updateProfileChip();updateBadges();closeModal();setView(state.activeView||"home");toast("Bazaar workspace imported.","success");
-  }catch(error){console.warn(error);toast("This is not a valid Bazaar Art Live workspace file.","error")}
+    if(file.size>150*1024*1024)throw new Error("Backup is larger than 150 MB");
+    const parsed=JSON.parse(await file.text());
+    const raw=parsed?.schema==="bazaar-art-live-workspace"?parsed.state:parsed;
+    if(!raw||!Array.isArray(raw.users)||!Array.isArray(raw.posts))throw new Error("Invalid Bazaar workspace");
+    const incoming=normalizeState(raw);
+    const media=Array.isArray(parsed.media)?parsed.media:[];
+    if(media.some(item=>!item||typeof item.id!=="string"||!item.id||
+        typeof item.dataUrl!=="string"||!/^data:(?:image|video)\//.test(item.dataUrl)||
+        !/^(image|video)\//.test(String(item.type||"")))){
+      throw new Error("Invalid backup media record");
+    }
+    // Check collision integrity before writing any new media. Existing local
+    // media is never cleared by an import, including on a failed restore.
+    await MediaDB.open();
+    const existing=await MediaDB.all();
+    const byId=new Map(existing.map(item=>[item.id,item]));
+    const staged=[];
+    const ids=new Set();
+    for(const item of media){
+      if(ids.has(item.id))throw new Error("Duplicate backup media id");
+      ids.add(item.id);
+      const previous=byId.get(item.id);
+      if(previous){
+        if(previous.dataUrl!==item.dataUrl||previous.type!==item.type)
+          throw new Error("Backup media id collides with existing media");
+      }else staged.push(item);
+    }
+    const previousRaw=localStorage.getItem(STATE_KEY);
+    if(!confirm("Replace this device’s current Bazaar Art workspace with this backup? Existing media will be preserved. Export your current workspace first."))return;
+    if(localStorage.getItem(STATE_KEY)!==previousRaw)throw new Error("Workspace changed in another tab");
+    // New media is written in one atomic IndexedDB transaction; a failure
+    // aborts the batch without deleting any pre-existing media.
+    if(staged.length){
+      const db=await MediaDB.open();
+      await new Promise((resolve,reject)=>{
+        const tx=db.transaction("media","readwrite");
+        const store=tx.objectStore("media");
+        for(const item of staged)store.add(item);
+        tx.oncomplete=resolve;
+        tx.onabort=()=>reject(tx.error||new Error("Media import aborted"));
+        tx.onerror=()=>reject(tx.error||new Error("Media import failed"));
+      });
+    }
+    if(localStorage.getItem(STATE_KEY)!==previousRaw)
+      throw new Error("Workspace changed during backup import");
+    const serialized=JSON.stringify({...incoming,version:APP_VERSION});
+    localStorage.setItem(STATE_KEY,serialized);
+    if(localStorage.getItem(STATE_KEY)!==serialized)throw new Error("Workspace persistence failed");
+    state=incoming;
+    applySettings();updateProfileChip();updateBadges();closeModal();
+    setView(state.activeView||"home");
+    toast("Bazaar workspace imported. Existing local media preserved.","success");
+  }catch(error){
+    console.warn("Bazaar restore was not completed:",error);
+    toast("Import was not completed. Existing workspace and media were not cleared; export your current work before retrying.","error");
+  }
 }
 
 function resetWorkspace(){
