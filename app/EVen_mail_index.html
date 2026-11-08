@@ -2769,9 +2769,12 @@ body{color:var(--ink);background:#f5f2ea}
           return;
         }
 
-        if (existingDraftId) {
-          state.messages = state.messages.filter(message => message.id !== existingDraftId);
-        }
+        // Stage the draft-to-sent transition, then restore the in-memory
+        // draft if persistent storage rejects the new local record.
+        const previousMessages = state.messages;
+        state.messages = existingDraftId
+          ? previousMessages.filter(message => message.id !== existingDraftId)
+          : previousMessages.slice();
 
         state.messages.push(normalizeMessage({
           id: uid("message"),
@@ -2792,7 +2795,10 @@ body{color:var(--ink);background:#f5f2ea}
           createdAt: Date.now()
         }));
 
-        if (!saveState()) return;
+        if (!saveState()) {
+          state.messages = previousMessages;
+          return;
+        }
         closeModal();
         handleFolder("sent");
         showToast("Saved to Sent Local. External delivery is not active.");
