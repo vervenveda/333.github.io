@@ -823,6 +823,8 @@ footer{padding-bottom:170px}
     let memoryState = null;
     let storageAvailable = true;
     let state = loadState();
+    let observedWorkspaceRaw = null;
+    try{if(storageAvailable)observedWorkspaceRaw=localStorage.getItem(STORAGE_KEY);}catch{storageAvailable=false;}
     let localStream = null;
     let displayStream = null;
     let mediaRequestRevision = 0;
@@ -1045,6 +1047,18 @@ function safeHandle(value){
     }
 
     function saveState(){
+      if(storageAvailable){
+        try{
+          if(localStorage.getItem(STORAGE_KEY)!==observedWorkspaceRaw){
+            showToast('HOLLO changed in another tab. Export this tab before reloading; saving was paused.');
+            return false;
+          }
+        }catch{
+          storageAvailable=false;
+          showToast('HOLLO storage could not be checked. Saving was paused; export your work.');
+          return false;
+        }
+      }
       state.version=APP_VERSION;
       state.sync=state.sync||{mode:HOLLO_BACKEND.mode,lastSyncedAt:null,revision:0};
       state.sync.mode=HOLLO_BACKEND.mode;
@@ -1053,7 +1067,10 @@ function safeHandle(value){
       memoryState=clone(state);
       if(!storageAvailable) return false;
       try{
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+        const serialized=JSON.stringify(state);
+        localStorage.setItem(STORAGE_KEY,serialized);
+        if(localStorage.getItem(STORAGE_KEY)!==serialized)throw new Error('write-readback');
+        observedWorkspaceRaw=serialized;
         return true;
       }catch(err){
         storageAvailable=false;
@@ -1938,6 +1955,7 @@ async function importBackup(file){
     state=candidate;
     if(!writeIdentityHandoff()) throw new Error('handoff');
     memoryState=clone(candidate);
+    observedWorkspaceRaw=serialized;
   }catch{
     if(wroteWorkspace){
       try{
@@ -1952,6 +1970,7 @@ async function importBackup(file){
       }
     }
     state=previousState; memoryState=previousMemory;
+    observedWorkspaceRaw=previousRaw;
     showToast('Restore was not saved. The previous HOLLO workspace remains active.');
     return;
   }
@@ -1983,6 +2002,7 @@ function resetApp(){
     localStorage.removeItem(IDENTITY_HANDOFF_KEY);
     if(localStorage.getItem(IDENTITY_HANDOFF_KEY)!==null)throw new Error('handoff-removal');
     state=fresh;memoryState=clone(fresh);
+    observedWorkspaceRaw=serialized;
   }catch{
     let recovered=true;
     try{
@@ -1994,6 +2014,7 @@ function resetApp(){
          localStorage.getItem(IDENTITY_HANDOFF_KEY)!==oldHandoff)recovered=false;
     }catch{recovered=false;}
     state=oldState;memoryState=oldMemory;
+    if(recovered)observedWorkspaceRaw=oldRaw;
     if(!recovered)storageAvailable=false;
     showToast(recovered
       ?'Reset could not be saved; your previous workspace was restored.'
@@ -2067,6 +2088,7 @@ function wireEvents(){
         if(!remote || remote.schema!=='hollo-backup')throw new Error('invalid workspace');
         state=validateAndMergeState(remote);
         memoryState=clone(state);
+        observedWorkspaceRaw=event.newValue;
         renderAll();updateCallContact();
         showToast('HOLLO workspace updated in another tab. Current local data reloaded.');
       }catch{
