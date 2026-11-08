@@ -1,0 +1,46 @@
+name: WEAL T33 — Sovereign Hosting Candidate Browser Check
+on:
+  pull_request:
+    paths:
+      - 'app/WEAL_domain_hosting_index.html'
+      - 'app/SIte_builder_index.html'
+      - 'app/Bunya_digital_infrastructure_index.html'
+      - 'tests/weal-t33-browser.mjs'
+      - '.github/workflows/weal-t33-audit.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-only-browser-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium for isolated test
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate desktop/mobile WEAL and dormant SIte/Bunya bridge
+        run: |
+          node --check tests/weal-t33-browser.mjs
+          node tests/weal-t33-browser.mjs
+      - name: Archive synthetic-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weal-t33-browser-evidence
+          path: weal-t33-browser-evidence.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Confirm runtime hold
+        if: always()
+        run: |
+          echo "T33_BINDING=NONE"
+          echo "LIVE_STOS_COMMISSING=NONE"
+          echo "T01_T02_T03=UNTOUCHED"
+          echo "DNS_PUBLISHING=NONE"
