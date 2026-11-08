@@ -2503,7 +2503,16 @@ function openModerationCenter(){
 async function cleanOrphanMedia({silent=false}={}){
   const referenced=new Set();state.users.forEach(user=>{if(user.avatarMediaId)referenced.add(user.avatarMediaId)});state.posts.forEach(post=>(post.media||[]).forEach(media=>referenced.add(media.id)));state.stories.forEach(story=>(story.items||[]).forEach(item=>{if(item.mediaId)referenced.add(item.mediaId)}));const all=await MediaDB.all();let removed=0;for(const item of all)if(!referenced.has(item.id)){await MediaDB.delete(item.id);removed++}if(!silent)toast(removed?`${removed} unused media item(s) removed.`:"No unused media was found.","success")
 }
-async function pruneExpiredStories(){const expired=state.stories.filter(story=>story.expiresAt<=now());if(!expired.length)return;for(const story of expired)for(const item of story.items||[])if(item.mediaId)await MediaDB.delete(item.mediaId);state.stories=state.stories.filter(story=>story.expiresAt>now());persist()}
+async function pruneExpiredStories(){
+  const remaining=state.stories.filter(story=>story.expiresAt>now());
+  if(remaining.length===state.stories.length)return;
+  // First remove expired story references. Media may also belong to a post,
+  // profile or another story; never delete it solely because a story expired.
+  state.stories=remaining;
+  persist();
+  // Orphan cleanup is a separate deliberate operation. Automatic expiry must
+  // not race a second browser tab's media references.
+}
 
 function layoutQuick(){
   state.settings.rail=state.settings.rail==='compact'?'full':'compact';persist();applySettings();toast(state.settings.rail==='compact'?'Navigation rail compacted.':'Navigation rail expanded.');
