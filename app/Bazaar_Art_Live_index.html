@@ -1896,7 +1896,7 @@ function importHolloProfile({silent=false}={}){
   }
 
   const identityKey=(identity.number||identity.handle||identity.name).toLowerCase();
-  let user=state.users.find(item=>item.identitySource==='hollo'&&item.identityKey===identityKey)||state.users.find(item=>(identity.number&&item.number333===identity.number)||(identity.handle&&item.handle===identity.handle));
+  let user=state.users.find(item=>item.identitySource==='hollo'&&item.identityKey===identityKey)||state.users.find(item=>item.identitySource==='hollo'&&((identity.number&&item.number333===identity.number)||(identity.handle&&item.handle===identity.handle)));
 
   if(!user){
     user={
