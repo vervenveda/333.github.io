@@ -2720,6 +2720,13 @@ body{color:var(--ink);background:#f5f2ea}
 
       function saveDraft(existingId = null){
         const values = composeValues();
+        const previousMessages = state.messages;
+        // Clone before editing so a failed save cannot mutate the saved draft.
+        state.messages = previousMessages.map(message => ({
+          ...message,
+          to: Array.isArray(message.to) ? message.to.slice() : message.to,
+          body: Array.isArray(message.body) ? message.body.slice() : message.body
+        }));
         let draft = existingId
           ? state.messages.find(message => message.id === existingId && message.folder === "drafts")
           : null;
@@ -2749,7 +2756,10 @@ body{color:var(--ink);background:#f5f2ea}
           draft.createdAt = Date.now();
         }
 
-        if (!saveState()) return;
+        if (!saveState()) {
+          state.messages = previousMessages;
+          return;
+        }
         closeModal();
         handleFolder("drafts");
         showToast("Draft saved locally.");
