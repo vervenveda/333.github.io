@@ -1943,11 +1943,21 @@ async function importBackup(file){
   try{
     previousRaw=localStorage.getItem(STORAGE_KEY);
     previousHandoff=localStorage.getItem(IDENTITY_HANDOFF_KEY);
+    if(previousRaw!==observedWorkspaceRaw){
+      showToast('HOLLO changed in another tab. Restore cancelled; export this tab before reloading.');
+      return;
+    }
     candidate.schema='hollo-backup';
     candidate.version=APP_VERSION;
     candidate.sync.mode=HOLLO_BACKEND.mode;
     candidate.sync.revision=(Number(previousState.sync?.revision)||0)+1;
     const serialized=JSON.stringify(candidate);
+    // Recheck before committing: an older tab must not overwrite newer records.
+    if(localStorage.getItem(STORAGE_KEY)!==previousRaw ||
+       localStorage.getItem(IDENTITY_HANDOFF_KEY)!==previousHandoff){
+      showToast('HOLLO changed while restoring. Restore cancelled without overwriting.');
+      return;
+    }
     // Commit the workspace only after it is staged; verify the exact persisted bytes.
     localStorage.setItem(STORAGE_KEY,serialized);
     wroteWorkspace=true;
@@ -1959,6 +1969,9 @@ async function importBackup(file){
   }catch{
     if(wroteWorkspace){
       try{
+        // Do not roll back over a later independent edit.
+        if(localStorage.getItem(STORAGE_KEY)!==JSON.stringify(candidate))
+          throw new Error('concurrent-rollback');
         if(previousRaw===null) localStorage.removeItem(STORAGE_KEY);
         else localStorage.setItem(STORAGE_KEY,previousRaw);
         if(previousHandoff===null) localStorage.removeItem(IDENTITY_HANDOFF_KEY);
