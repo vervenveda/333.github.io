@@ -2501,6 +2501,10 @@ function openModerationCenter(){
   modal("Moderation & Visibility",`<div class="form-grid"><section class="moderation-section"><h3>Muted profiles</h3><div class="moderation-list">${state.mutedUserIds.length?state.mutedUserIds.map(userId=>{const user=userById(userId);return `<div class="moderation-item"><div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div><button class="soft-btn" data-action="unmute-user" data-user-id="${esc(user.id)}">Restore</button></div>`}).join(""):'<div class="small muted">No muted profiles.</div>'}</div></section><section class="moderation-section"><h3>Blocked profiles</h3><div class="moderation-list">${state.blockedUserIds.length?state.blockedUserIds.map(userId=>{const user=userById(userId);return `<div class="moderation-item"><div class="grow"><strong>${esc(user.name)}</strong><div class="tiny muted">@${esc(user.handle)}</div></div><button class="soft-btn" data-action="unblock-user" data-user-id="${esc(user.id)}">Unblock</button></div>`}).join(""):'<div class="small muted">No blocked profiles.</div>'}</div></section><section class="moderation-section"><h3>Hidden posts</h3><div class="moderation-list">${hidden.length?hidden.map(post=>`<div class="moderation-item"><div class="grow"><strong>${esc(userById(post.authorId).name)}</strong><div class="tiny muted">${esc((post.text||"Media post").slice(0,90))}</div></div><button class="soft-btn" data-action="unhide-post" data-id="${esc(post.id)}">Restore</button></div>`).join(""):'<div class="small muted">No hidden posts.</div>'}</div></section><section class="moderation-section"><h3>Local reports</h3><div class="small muted">${state.reports.filter(report=>report.reporterId===current.id).length} report record(s) are stored in this browser for future moderator review.</div></section></div>`,`<button class="soft-btn" data-action="close-modal">Close</button>`,true);
 }
 async function cleanOrphanMedia({silent=false}={}){
+  // Never run silently: unreferenced media may be from an interrupted
+  // import or another tab. Only explicit user action may start cleanup.
+  if(silent)return;
+  if(!confirm('Remove media that is unused by this tab? Export your Bazaar workspace and close other Bazaar tabs first.'))return;
   const referenced=new Set();state.users.forEach(user=>{if(user.avatarMediaId)referenced.add(user.avatarMediaId)});state.posts.forEach(post=>(post.media||[]).forEach(media=>referenced.add(media.id)));state.stories.forEach(story=>(story.items||[]).forEach(item=>{if(item.mediaId)referenced.add(item.mediaId)}));const all=await MediaDB.all();let removed=0;for(const item of all)if(!referenced.has(item.id)){await MediaDB.delete(item.id);removed++}if(!silent)toast(removed?`${removed} unused media item(s) removed.`:"No unused media was found.","success")
 }
 async function pruneExpiredStories(){
@@ -3232,7 +3236,7 @@ window.addEventListener("storage",event=>{
 });
 document.addEventListener("333-hollo-profile-created",()=>{if(importHolloProfile({silent:true})){updateProfileChip();renderView();renderRightRail()}});
 document.querySelectorAll('[data-vnv-live-theme]').forEach(b=>b.addEventListener('click',()=>{state.settings.theme=b.dataset.vnvLiveTheme;persist();applySettings()}));
-adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||"home");pruneExpiredStories();cleanOrphanMedia({silent:true}).catch(()=>{});if(!hasMember())setTimeout(openFirstRunProfile,120);
+adoptHolloIdentityOnLoad();applySettings();bind();updateProfileChip();updateBadges();setView(state.activeView||"home");pruneExpiredStories();if(!hasMember())setTimeout(openFirstRunProfile,120);
 
 })();
 </script>
