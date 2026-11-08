@@ -3826,10 +3826,11 @@ const BunyaPublishingService=Object.freeze({
 function openBunyaPublish(){
   siteModal("Publish with Bunya",`
     <div class="notice-card">
-      SIte™ can prepare a publishable static build now. Real publishing through Bunya will require 333 Identity authentication, a deployment API, environment permissions, domain selection, and server-side credentials.
+      SIte™ can export a local static HTML build. WEAL can inspect that downloaded file, calculate its SHA-256 digest and prepare a Terminal 33 draft release manifest. Bunya remains the deployment planner. Actual publishing requires authenticated STOS commissioning and is not connected.
     </div>
     <div class="bunya-handoff">
-      <a href="./Bunya_digital_infrastructure_index.html">Open Bunya Workspace</a>
+      <a href="./Bunya_digital_infrastructure_index.html">Open Bunya Deployment Planner</a>
+      <a href="./WEAL_domain_hosting_index.html">Open WEAL Hosting Studio · T33 Draft</a>
       <a href="../index.html">Open 333 Network Gateway</a>
     </div>
     <div class="label" style="margin-top:14px">Target environment</div>
@@ -3841,7 +3842,7 @@ function openBunyaPublish(){
     <div class="label">Target domain</div>
     <input id="bunyaDomain" value="${escapeHtml(site.domains.primary||"")}" placeholder="example.com">
   `,`
-    <button type="button" class="secondary small" id="downloadBuildBtn">Download Static Build</button>
+    <button type="button" class="secondary small" id="downloadBuildBtn">Download HTML for WEAL</button>
     <button type="button" class="small" id="sendBunyaBtn">Send to Bunya</button>
   `);
   $("downloadBuildBtn").onclick=()=>downloadText("index.html",buildStaticWebsite(),"text/html");
