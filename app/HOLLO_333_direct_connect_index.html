@@ -1882,7 +1882,8 @@ function deleteActiveContact(){
 }
 
     function clearThread(){
-      const c=getActiveContact(); if(!state.threads[c.id]||!state.threads[c.id].length){ showToast('This thread is already empty.'); return; }
+      const c=getActiveContact(); if(!c){ showToast('Select or add a contact before clearing a thread.'); return; }
+      if(!state.threads[c.id]||!state.threads[c.id].length){ showToast('This thread is already empty.'); return; }
       if(!confirm('Clear the local conversation with '+c.name+'? Export a backup first if you need a copy.')) return;
       state.threads[c.id]=[]; saveState(); renderConversation(); showToast('Conversation cleared locally.');
     }
