@@ -2729,31 +2729,31 @@ function liveConnectionState(){
   if(!navigator.onLine){
     return {
       key:'offline',
-      label:'Offline · local cache',
-      detail:'Changes remain available on this device.'
+      label:'Offline · this device',
+      detail:'Local artwork and activity remain available on this device; no network synchronization.'
     };
   }
 
   if(state.settings.backendStatus === 'online'){
     return {
       key:'live',
-      label:'Live',
-      detail:`Updated ${formatTime(lastFeedRefreshAt)}`
+      label:'Service connected',
+      detail:`Service status reported online · checked ${formatTime(lastFeedRefreshAt)}. Individual posts may still be local.`
     };
   }
 
   if(state.settings.backendStatus === 'connecting'){
     return {
       key:'connecting',
-      label:'Connecting…',
-      detail:'Local workspace remains available.'
+      label:'Connecting · local activity',
+      detail:'Remote synchronization is not confirmed. Local workspace remains available.'
     };
   }
 
   return {
     key:'connecting',
-    label:'333 feed ready',
-    detail:'Local cache active while service connection initializes.'
+    label:'Local feed ready',
+    detail:'Activity shown here comes from this device until synchronization is verified.'
   };
 }
 
@@ -3157,8 +3157,9 @@ renderRightRail = function(){
     </section>
 
     <section class="rail-card">
-      <span class="section-kicker">Live activity</span>
-      <h3>Happening Now</h3>
+      <span class="section-kicker">Community activity · ${connection.key==='live'?'service connected':'this device'}</span>
+      <h3>Creative Activity</h3>
+      <p class="small muted">Recent visible posts and upcoming events in this workspace. Activity is not guaranteed to be synchronized across devices.</p>
 
       ${
         happening.length
