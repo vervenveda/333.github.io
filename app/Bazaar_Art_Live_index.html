@@ -2298,9 +2298,81 @@ function publishPost(kind){
   }catch(error){for(const id of savedIds)await MediaDB.delete(id);button.disabled=false;button.textContent="Publish";toast("The post could not be saved. Browser storage may be full.","error")}
 }
 
-function openComments(id){const p=postById(id);if(!p)return;const body=`<div class="comment-list" id="commentList">${renderComments(p)}</div><div class="comment-compose"><input id="commentInput" maxlength="1000" placeholder="Write a comment"><button type="button" class="primary-btn" id="commentSendBtn">Post</button></div>`;modal('Comments',body);$('#commentSendBtn').addEventListener('click',()=>addComment(id));$('#commentInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addComment(id)}})}
-function renderComments(post){const visible=(post.comments||[]).filter(comment=>!isBlocked(comment.authorId)&&!isMuted(comment.authorId));return visible.length?visible.slice().sort((a,b)=>a.createdAt-b.createdAt).map(comment=>{const user=userById(comment.authorId);const canDelete=hasMember()&&(comment.authorId===me().id||post.authorId===me().id);return `<div class="comment">${avatarHTML(user,'small-avatar')}<div class="comment-bubble"><strong>${esc(user.name)}</strong><p>${esc(comment.text)}</p><div class="tiny muted">${formatTime(comment.createdAt)} ${canDelete?`· <button type="button" class="menu-btn" data-action="delete-comment" data-post-id="${esc(post.id)}" data-id="${esc(comment.id)}">Delete</button>`:''}</div></div></div>`}).join(''):'<div class="empty">No comments yet. Begin the conversation.</div>'}
-function addComment(id){const current=requireParticipation('comment');if(!current)return;const input=$('#commentInput'),text=input.value.trim();if(!text)return;if(!BazaarCompositionSafety.confirm(text))return;const post=postById(id);if(!post)return;if(isBlocked(post.authorId)||isMuted(post.authorId)){toast('You cannot comment on a hidden or blocked account in this workspace.','error');return}post.comments=post.comments||[];post.comments.push({id:uid('c'),authorId:current.id,text,createdAt:now()});persist();if(post.authorId!==current.id)addNotification(`${current.name} commented on your post.`,'comment',post.authorId,{postId:post.id});$('#commentList').innerHTML=renderComments(post);hydrateAvatars($('#commentList'));input.value='';renderView();renderRightRail()}
+function openComments(id){
+  const p=postById(id);if(!p)return;
+  const body=`<div class="comment-list" id="commentList">${renderComments(p)}</div>
+    <div class="comment-compose">
+      <input id="commentInput" maxlength="1000" aria-label="Write a comment" placeholder="Write a comment">
+      <button type="button" class="primary-btn" id="commentSendBtn">Post</button>
+    </div>
+    <p class="small muted" id="commentReplyStatus" aria-live="polite"></p>`;
+  modal('Artist Conversations',body);
+  let replyTo=null;
+  const input=$('#commentInput');
+  const send=()=>{if(addComment(id,replyTo)){replyTo=null;input.placeholder='Write a comment';$('#commentReplyStatus').textContent='';}};
+  $('#commentSendBtn').addEventListener('click',send);
+  input.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();send()}});
+  $('#commentList').addEventListener('click',e=>{
+    const button=e.target.closest('[data-reply-to]');
+    if(!button)return;
+    const target=(p.comments||[]).find(c=>c.id===button.dataset.replyTo);
+    if(!target)return;
+    replyTo=target.id;
+    input.placeholder='Reply to '+userById(target.authorId).name;
+    $('#commentReplyStatus').textContent='Replying to '+userById(target.authorId).name;
+    input.focus();
+  });
+}
+function renderComments(post){
+  const visible=(post.comments||[]).filter(comment=>!isBlocked(comment.authorId)&&!isMuted(comment.authorId));
+  if(!visible.length)return '<div class="empty">No comments yet. Begin the conversation.</div>';
+  const ids=new Set(visible.map(comment=>comment.id));
+  const children=new Map();
+  for(const comment of visible){
+    const parent=comment.parentId&&ids.has(comment.parentId)&&comment.parentId!==comment.id?comment.parentId:null;
+    if(!children.has(parent))children.set(parent,[]);
+    children.get(parent).push(comment);
+  }
+  const visited=new Set();
+  function draw(comment,depth){
+    if(visited.has(comment.id))return '';
+    visited.add(comment.id);
+    const user=userById(comment.authorId);
+    const canDelete=hasMember()&&(comment.authorId===me().id||post.authorId===me().id);
+    const markup=`<div class="comment" style="margin-left:${Math.min(depth,3)*14}px">
+      ${avatarHTML(user,'small-avatar')}
+      <div class="comment-bubble"><strong>${esc(user.name)}</strong><p>${esc(comment.text)}</p>
+      <div class="tiny muted">${formatTime(comment.createdAt)}
+        <button type="button" class="menu-btn" data-reply-to="${esc(comment.id)}">Reply</button>
+        ${canDelete?`<button type="button" class="menu-btn" data-action="delete-comment" data-post-id="${esc(post.id)}" data-id="${esc(comment.id)}">Delete</button>`:''}
+      </div></div></div>`;
+    return markup+(children.get(comment.id)||[]).sort((a,b)=>a.createdAt-b.createdAt).map(child=>draw(child,depth+1)).join('');
+  }
+  const roots=(children.get(null)||[]).sort((a,b)=>a.createdAt-b.createdAt);
+  const output=roots.map(comment=>draw(comment,0)).join('');
+  return output+visible.filter(comment=>!visited.has(comment.id)).map(comment=>draw(comment,0)).join('');
+}
+function addComment(id,parentId=null){
+  const current=requireParticipation('comment');if(!current)return false;
+  const input=$('#commentInput'),text=input.value.trim();
+  if(!text||!BazaarCompositionSafety.confirm(text))return false;
+  const post=postById(id);if(!post)return false;
+  if(isBlocked(post.authorId)||isMuted(post.authorId)){
+    toast('You cannot comment on a hidden or blocked account in this workspace.','error');return false;
+  }
+  post.comments=post.comments||[];
+  const parent=parentId?post.comments.find(comment=>comment.id===parentId):null;
+  if(parentId&&!parent)return false;
+  post.comments.push({id:uid('c'),authorId:current.id,text,createdAt:now(),...(parent?{parentId:parent.id}:{})});
+  persist();
+  const recipient=parent&&parent.authorId!==current.id?parent.authorId:post.authorId;
+  if(recipient!==current.id)addNotification(`${current.name} ${parent?'replied to your comment':'commented on your post'}.`,'comment',recipient,{postId:post.id});
+  $('#commentList').innerHTML=renderComments(post);
+  hydrateAvatars($('#commentList'));
+  input.value='';
+  renderView();renderRightRail();
+  return true;
+}
 
 function openStory(id){
   const story=state.stories.find(item=>item.id===id);if(!story)return;
