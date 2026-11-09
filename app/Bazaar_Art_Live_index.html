@@ -2574,11 +2574,19 @@ async function importWorkspaceFile(file){
     const recoveryKey=STATE_KEY+':pending-media-restore';
     if(staged.length){
       const pending=localStorage.getItem(recoveryKey);
-      if(pending)throw new Error("A previous media restore needs review before importing again");
+      let earlierIds=[];
+      if(pending){
+        const earlier=JSON.parse(pending);
+        if(earlier?.schema!=="bazaar-media-restore-pending-v1"||
+           !Array.isArray(earlier.mediaIds)||
+           earlier.mediaIds.some(id=>typeof id!=="string"))
+          throw new Error("Invalid pending media recovery record");
+        earlierIds=earlier.mediaIds;
+      }
       localStorage.setItem(recoveryKey,JSON.stringify({
         schema:"bazaar-media-restore-pending-v1",
         createdAt:new Date().toISOString(),
-        mediaIds:staged.map(item=>item.id)
+        mediaIds:[...new Set([...earlierIds,...staged.map(item=>item.id)])]
       }));
       if(!localStorage.getItem(recoveryKey))
         throw new Error("Cannot verify media recovery record");
@@ -2602,7 +2610,13 @@ async function importWorkspaceFile(file){
     localStorage.setItem(STATE_KEY,serialized);
     if(localStorage.getItem(STATE_KEY)!==serialized)throw new Error("Workspace persistence failed");
     if(staged.length){
-      try{localStorage.removeItem(recoveryKey)}catch(error){
+      try{
+        // A prior incomplete import still needs review; retain its marker.
+        const marker=JSON.parse(localStorage.getItem(recoveryKey)||"null");
+        const remaining=(marker?.mediaIds||[]).filter(id=>!staged.some(item=>item.id===id));
+        if(remaining.length)localStorage.setItem(recoveryKey,JSON.stringify({...marker,mediaIds:remaining}));
+        else localStorage.removeItem(recoveryKey);
+      }catch(error){
         console.warn("Bazaar restore committed; pending-media record cleanup deferred:",error);
       }
     }
