@@ -52,7 +52,7 @@ try{
    await page.locator("#ownerReview").check();
    assert.equal(await page.locator("#exportManifest").isDisabled(),false);
    const [releaseDownload]=await Promise.all([page.waitForEvent("download"),page.locator("#exportManifest").click()]);
-   const stream=releaseDownload.createReadStream();const chunks=[];for await(const chunk of stream)chunks.push(chunk);
+   const stream=await releaseDownload.createReadStream();const chunks=[];for await(const chunk of stream)chunks.push(chunk);
    const exported=JSON.parse(Buffer.concat(chunks).toString("utf8"));
    assert.equal(exported.terminalTarget,"T33");
    assert.equal(exported.releaseStatus,"DRAFT_UNAUTHORIZED");
@@ -61,7 +61,7 @@ try{
    assert.equal(exported.content.sha256.length,64);
    assert.equal(exported.content.byteLength,Buffer.byteLength(fakeHtml));
    const [contractDownload]=await Promise.all([page.waitForEvent("download"),page.locator("#exportContract").click()]);
-   const cstream=contractDownload.createReadStream();const cb=[];for await(const chunk of cstream)cb.push(chunk);
+   const cstream=await contractDownload.createReadStream();const cb=[];for await(const chunk of cstream)cb.push(chunk);
    const contract=JSON.parse(Buffer.concat(cb).toString("utf8"));
    assert.equal(contract.terminal,"T33");
    assert.equal(contract.authoritative,false);
