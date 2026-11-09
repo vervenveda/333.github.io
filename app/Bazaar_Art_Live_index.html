@@ -2284,7 +2284,7 @@ const BazaarCompositionSafety=Object.freeze({
   }
 });
 
-function publishPost(kind){
+async function publishPost(kind){
   const current=requireParticipation("publish");if(!current)return;
   const text=$("#postText").value.trim();if(text&&!BazaarCompositionSafety.confirm(text))return;if(!text&&!pendingMedia.length){toast("Add a caption or media before publishing.","error");return}
   const audience=$("#postAudience").value;const groupId=audience==="group"?$("#postGroup")?.value:null;
