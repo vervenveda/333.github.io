@@ -2289,13 +2289,19 @@ async function publishPost(kind){
   const text=$("#postText").value.trim();if(text&&!BazaarCompositionSafety.confirm(text))return;if(!text&&!pendingMedia.length){toast("Add a caption or media before publishing.","error");return}
   const audience=$("#postAudience").value;const groupId=audience==="group"?$("#postGroup")?.value:null;
   if(audience==="group"&&!state.groups.some(group=>group.id===groupId&&group.memberIds.includes(current.id))){toast("Choose a group you belong to.","error");return}
-  const button=$("#publishPostBtn");button.disabled=true;button.textContent="Publishing…";const media=[];const savedIds=[];
+  const button=$("#publishPostBtn");button.disabled=true;button.textContent="Publishing…";const media=[];const savedIds=[];let stagedPost=null;
   try{
     for(const item of pendingMedia){await MediaDB.put(item);savedIds.push(item.id);media.push({id:item.id,type:item.type,name:item.name})}
     const typedTags=$("#postTags").value.split(",").map(tag=>tag.trim().replace(/^#/,"").replace(/[^\p{L}\p{N}_-]/gu,"")).filter(Boolean);
     const post={id:uid("p"),authorId:current.id,type:kind,text,createdAt:now(),editedAt:null,audience,groupId,location:$("#postLocation").value.trim(),tags:Array.from(new Set([...tagsFromText(text),...typedTags])).slice(0,12),media,reactions:{like:[],love:[],fire:[],applause:[]},comments:[],savedBy:[],hiddenBy:[],reportedBy:[],shareCount:0};
-    state.posts.unshift(post);persist();closeModal();setView(kind==="reel"?"reels":"home");toast("Published successfully.","success");
-  }catch(error){for(const id of savedIds)await MediaDB.delete(id);button.disabled=false;button.textContent="Publish";toast("The post could not be saved. Browser storage may be full.","error")}
+    stagedPost=post;state.posts.unshift(post);persist();closeModal();setView(kind==="reel"?"reels":"home");toast("Published successfully.","success");
+  }catch(error){
+    // Restore in-memory state before cleaning media after a failed persistence attempt.
+    if(stagedPost)state.posts=state.posts.filter(item=>item!==stagedPost);
+    for(const id of savedIds){try{await MediaDB.delete(id)}catch(cleanupError){console.warn("Bazaar media cleanup requires review:",cleanupError)}}
+    button.disabled=false;button.textContent="Publish";
+    toast("The post could not be saved. Browser storage may be full.","error");
+  }
 }
 
 function openComments(id){
