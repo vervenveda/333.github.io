@@ -2685,6 +2685,41 @@ function liveConnectionState(){
   };
 }
 
+// Discovery is intentionally opt-in and derived from visible local posts.
+const BAZAAR_DISCOVERY_CATEGORIES = [
+  ['all','All artwork',null],
+  ['painting','Painting',/paint|canvas|watercolor|acrylic|oil art/i],
+  ['photography','Photography',/photo|camera|portrait|film/i],
+  ['sculpture','Sculpture',/sculpt|ceramic|clay|pottery|installation/i],
+  ['poetry','Poetry',/poem|poetry|spoken word|verse/i],
+  ['music','Music',/music|song|sound|audio|instrument/i],
+  ['digital','Digital art',/digital|illustration|animation|pixel|3d|design/i],
+  ['process','Works in progress',/wip|work in progress|sketch|draft|process|study/i]
+];
+let bazaarDiscoveryCategory='all';
+function bazaarDiscoveryMatches(post,category=bazaarDiscoveryCategory){
+  const match=BAZAAR_DISCOVERY_CATEGORIES.find(item=>item[0]===category);
+  if(!match||!match[2])return true;
+  const terms=[...(post.tags||[]),post.text||''].join(' ');
+  return match[2].test(terms);
+}
+function renderBazaarDiscovery(){
+  const candidates=visiblePosts();
+  const categories=BAZAAR_DISCOVERY_CATEGORIES.map(([key,label])=>{
+    const count=candidates.filter(post=>bazaarDiscoveryMatches(post,key)).length;
+    return `<button type="button" class="filter-chip ${bazaarDiscoveryCategory===key?'active':''}"
+      data-action="discovery-category" data-category="${esc(key)}"
+      aria-pressed="${bazaarDiscoveryCategory===key}">${esc(label)} (${count})</button>`;
+  }).join('');
+  const artists=visibleUsers().filter(user=>user.id!==me().id&&!me().following.includes(user.id)).slice(0,3);
+  return `<section class="section-card" aria-label="Creative Discovery" style="margin-bottom:14px">
+    <div class="section-head"><div><span class="section-kicker">Explore your creative community</span>
+    <h2>Creative Discovery</h2></div></div>
+    <p class="small muted">Choose an art form to explore visible posts. Your feed stays chronological; no hidden ranking or tracking.</p>
+    <div class="feed-filter" role="group" aria-label="Artwork categories">${categories}</div>
+    ${artists.length?`<h3>New artists to discover</h3><div class="grid-2">${artists.map(renderPersonCard).join('')}</div>`:''}
+  </section>`;
+}
 function currentFeedPosts(){
   const u = hasMember() ? me() : null;
   let posts = visiblePosts();
@@ -2705,7 +2740,7 @@ function currentFeedPosts(){
     );
   }
 
-  return posts;
+  return posts.filter(post=>bazaarDiscoveryMatches(post));
 }
 
 function renderLiveFeedNotice(){
@@ -2857,6 +2892,8 @@ renderHome = function(){
       </div>
     </section>
 
+    ${renderBazaarDiscovery()}
+
     <div class="feed-filter">
       ${[
         ['all','Community'],
@@ -2917,6 +2954,15 @@ renderHome = function(){
 const bazaarLegacyHandleAction = handleAction;
 
 handleAction = function(action, element){
+
+  if(action === 'discovery-category'){
+    const next=element.dataset.category||'all';
+    if(!BAZAAR_DISCOVERY_CATEGORIES.some(item=>item[0]===next))return;
+    bazaarDiscoveryCategory=next;
+    feedVisibleCount=FEED_BATCH_SIZE;
+    renderView();
+    return;
+  }
 
   if(action === 'show-new-posts'){
     pendingFeedUpdates = 0;
