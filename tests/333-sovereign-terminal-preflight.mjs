@@ -1,0 +1,15 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+const terminal=fs.readFileSync(path.join("sovereign-terminal","333-network-terminal.mjs"),"utf8");
+assert.match(terminal,/127\.0\.0\.1/);
+assert.match(terminal,/18733/);
+assert.match(terminal,/AES-256-GCM/);
+assert.match(terminal,/revision conflict/);
+assert.match(terminal,/pairing locked/);
+assert.match(terminal,/networkAuthority:false/);
+assert.match(terminal,/publicPublishing:false/);
+assert.match(terminal,/stosAuthority:false/);
+assert.doesNotMatch(terminal,/0\.0\.0\.0/);
+assert.doesNotMatch(terminal,/child_process[^\n]*spawn\(/);
+console.log("333 sovereign terminal denial preflight PASS");

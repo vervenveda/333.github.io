@@ -1,0 +1,22 @@
+name: 333 Sovereign Terminal Denial Preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'sovereign-terminal/**'
+      - 'tests/333-sovereign-terminal-preflight.mjs'
+      - '.github/workflows/333-sovereign-terminal-preflight.yml'
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax
+        run: node --check sovereign-terminal/333-network-terminal.mjs
+      - name: Denial preflight
+        run: node tests/333-sovereign-terminal-preflight.mjs
+      - name: Validate manifest
+        run: node -e "const m=require('./sovereign-terminal/approved-clients.json'); if(m.clients.length!==10) process.exit(1); console.log('approved client manifest PASS')"

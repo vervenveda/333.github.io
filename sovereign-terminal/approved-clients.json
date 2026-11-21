@@ -1,0 +1,57 @@
+{
+  "schema": "333-network-approved-clients-v1",
+  "version": "1.0.0",
+  "generated_for": "owner-local sovereign terminal",
+  "clients": [
+    {
+      "namespace": "gateway",
+      "path": "index.html",
+      "git_blob_sha": "60c863d2679bd95f9a3a2e317431ee149539733f"
+    },
+    {
+      "namespace": "bazaar",
+      "path": "app/Bazaar_Art_Live_index.html",
+      "git_blob_sha": "c386067bf747a3beb359f532d4eee46896161f7e"
+    },
+    {
+      "namespace": "bunya",
+      "path": "app/Bunya_digital_infrastructure_index.html",
+      "git_blob_sha": "8469b7ca3a453272c9269f1d150b127ed6ae5f46"
+    },
+    {
+      "namespace": "even",
+      "path": "app/EVen_mail_index.html",
+      "git_blob_sha": "669fe6e861ea2792944fd775e9d25a40e54ffb6d"
+    },
+    {
+      "namespace": "fleapit",
+      "path": "app/FleaPit™ _media_hub_index.html",
+      "git_blob_sha": "e51f6e4a9e6e9c1207c0e4c99b465d5299877025"
+    },
+    {
+      "namespace": "fleapit-gate",
+      "path": "app/FleaPit™_media_gate_Index.html",
+      "git_blob_sha": "d521d584b6e172780bc274f9df588ab0388934f1"
+    },
+    {
+      "namespace": "hollo",
+      "path": "app/HOLLO_333_direct_connect_index.html",
+      "git_blob_sha": "ef6e1bef75e2cfc8029dc0e3599e267adff0f699"
+    },
+    {
+      "namespace": "kansee",
+      "path": "app/KANSEE_333_meeting_rooms_index.html",
+      "git_blob_sha": "8adde7d2319007ce6143cc11100f0e867159309c"
+    },
+    {
+      "namespace": "site",
+      "path": "app/SIte_builder_index.html",
+      "git_blob_sha": "cffeb02c516d7b55493fd8ecb1c9cd7085cbc59f"
+    },
+    {
+      "namespace": "weal",
+      "path": "app/WEAL_domain_hosting_index.html",
+      "git_blob_sha": "ca9cd67a0a8ed62b0267651d85107778f594e314"
+    }
+  ]
+}
